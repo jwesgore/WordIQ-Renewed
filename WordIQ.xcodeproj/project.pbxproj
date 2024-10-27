@@ -12,6 +12,46 @@
 		4B82B9DB2CC072E2009A1502 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82B9DA2CC072E2009A1502 /* Item.swift */; };
 		4B82B9DD2CC072E4009A1502 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B82B9DC2CC072E4009A1502 /* Assets.xcassets */; };
 		4B82B9E02CC072E4009A1502 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B82B9DF2CC072E4009A1502 /* Preview Assets.xcassets */; };
+		4BF5920D2CC07BBE00C555F6 /* GameDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF5920C2CC07B9200C555F6 /* GameDataModel.swift */; };
+		4BF592102CC07C1D00C555F6 /* GameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF5920F2CC07C1500C555F6 /* GameMode.swift */; };
+		4BF592122CC07C2A00C555F6 /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF592112CC07C2200C555F6 /* GameResult.swift */; };
+		4BF592142CC07D1900C555F6 /* GameDifficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF592132CC07D1300C555F6 /* GameDifficulty.swift */; };
+		4BF592182CC07F2400C555F6 /* GameScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF592172CC07F0C00C555F6 /* GameScreenViewModel.swift */; };
+		4BF5921C2CC07FF100C555F6 /* ValidCharacters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF5921B2CC07FD600C555F6 /* ValidCharacters.swift */; };
+		4BF5921E2CC0814900C555F6 /* KeyboardFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF5921D2CC0813C00C555F6 /* KeyboardFunctions.swift */; };
+		4BF592202CC0817400C555F6 /* SFAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF5921F2CC0816E00C555F6 /* SFAssets.swift */; };
+		4BF592232CC0848A00C555F6 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF592222CC0848000C555F6 /* SplashScreenView.swift */; };
+		4BF592252CC086C200C555F6 /* RobotoSlabOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF592242CC0868200C555F6 /* RobotoSlabOptions.swift */; };
+		4BF592292CC0874C00C555F6 /* SystemNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF592282CC0873400C555F6 /* SystemNames.swift */; };
+		4BF5924D2CC088D700C555F6 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4BF592492CC088D700C555F6 /* LICENSE.txt */; };
+		4BF5924E2CC088D700C555F6 /* RobotoSlab-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BF592472CC088D700C555F6 /* RobotoSlab-Thin.ttf */; };
+		4BF5924F2CC088D700C555F6 /* RobotoSlab-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BF592402CC088D700C555F6 /* RobotoSlab-Bold.ttf */; };
+		4BF592502CC088D700C555F6 /* RobotoSlab-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BF5924B2CC088D700C555F6 /* RobotoSlab-VariableFont_wght.ttf */; };
+		4BF592512CC088D700C555F6 /* RobotoSlab-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BF592442CC088D700C555F6 /* RobotoSlab-Medium.ttf */; };
+		4BF592522CC088D700C555F6 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4BF5924A2CC088D700C555F6 /* README.txt */; };
+		4BF592532CC088D700C555F6 /* RobotoSlab-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BF5923F2CC088D700C555F6 /* RobotoSlab-Black.ttf */; };
+		4BF592542CC088D700C555F6 /* RobotoSlab-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BF592412CC088D700C555F6 /* RobotoSlab-ExtraBold.ttf */; };
+		4BF592552CC088D700C555F6 /* RobotoSlab-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BF592462CC088D700C555F6 /* RobotoSlab-SemiBold.ttf */; };
+		4BF592562CC088D700C555F6 /* RobotoSlab-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BF592422CC088D700C555F6 /* RobotoSlab-ExtraLight.ttf */; };
+		4BF592572CC088D700C555F6 /* RobotoSlab-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BF592432CC088D700C555F6 /* RobotoSlab-Light.ttf */; };
+		4BF592582CC088D700C555F6 /* RobotoSlab-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BF592452CC088D700C555F6 /* RobotoSlab-Regular.ttf */; };
+		4BF5925F2CC1E60E00C555F6 /* 3DButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF5925E2CC1E5F100C555F6 /* 3DButtonViewModel.swift */; };
+		4BF592632CC1E72200C555F6 /* 3DButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF592622CC1E71800C555F6 /* 3DButtonView.swift */; };
+		4BF592652CC2EDA800C555F6 /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF592642CC2EDA000C555F6 /* ClockView.swift */; };
+		4BF592672CC2EDB100C555F6 /* ClockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF592662CC2EDAD00C555F6 /* ClockViewModel.swift */; };
+		4BF592692CC30C1B00C555F6 /* GameModeSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF592682CC30BFE00C555F6 /* GameModeSelectionView.swift */; };
+		4BF5926B2CC30C3300C555F6 /* GameModeSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF5926A2CC30C2C00C555F6 /* GameModeSelectionViewModel.swift */; };
+		4BF5926D2CC3311D00C555F6 /* GameModeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF5926C2CC3311200C555F6 /* GameModeButton.swift */; };
+		4BF592732CC33AEB00C555F6 /* TransitionsUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF5926F2CC338E200C555F6 /* TransitionsUtility.swift */; };
+		4BF592752CC33B4100C555F6 /* SystemViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF592742CC33B3D00C555F6 /* SystemViews.swift */; };
+		4BF592772CCC0DF100C555F6 /* GameModeOptionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF592762CCC0DEB00C555F6 /* GameModeOptionsModel.swift */; };
+		4BF592792CCC0EB200C555F6 /* GameModeOptionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF592782CCC0EA800C555F6 /* GameModeOptionsViewModel.swift */; };
+		4BF5927B2CCC1A8700C555F6 /* 3DRadioButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF5927A2CCC1A7D00C555F6 /* 3DRadioButtonView.swift */; };
+		4BF5927D2CCC1B1900C555F6 /* 3DRadioButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF5927C2CCC1B1100C555F6 /* 3DRadioButtonViewModel.swift */; };
+		4BF5927F2CCD497F00C555F6 /* GameWordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF5927E2CCD496C00C555F6 /* GameWordModel.swift */; };
+		4BF592812CCD4A2A00C555F6 /* 3DRadioButtonGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF592802CCD4A1F00C555F6 /* 3DRadioButtonGroupViewModel.swift */; };
+		4BF592832CCD8DFC00C555F6 /* GameSelectionDifficultyButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF592822CCD8DE200C555F6 /* GameSelectionDifficultyButtonView.swift */; };
+		4BF592852CCD907800C555F6 /* GameSelectionTimeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF592842CCD906900C555F6 /* GameSelectionTimeButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +61,50 @@
 		4B82B9DA2CC072E2009A1502 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		4B82B9DC2CC072E4009A1502 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B82B9DF2CC072E4009A1502 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4BF5920C2CC07B9200C555F6 /* GameDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDataModel.swift; sourceTree = "<group>"; };
+		4BF5920F2CC07C1500C555F6 /* GameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMode.swift; sourceTree = "<group>"; };
+		4BF592112CC07C2200C555F6 /* GameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResult.swift; sourceTree = "<group>"; };
+		4BF592132CC07D1300C555F6 /* GameDifficulty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDifficulty.swift; sourceTree = "<group>"; };
+		4BF592172CC07F0C00C555F6 /* GameScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScreenViewModel.swift; sourceTree = "<group>"; };
+		4BF5921B2CC07FD600C555F6 /* ValidCharacters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidCharacters.swift; sourceTree = "<group>"; };
+		4BF5921D2CC0813C00C555F6 /* KeyboardFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardFunctions.swift; sourceTree = "<group>"; };
+		4BF5921F2CC0816E00C555F6 /* SFAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFAssets.swift; sourceTree = "<group>"; };
+		4BF592222CC0848000C555F6 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
+		4BF592242CC0868200C555F6 /* RobotoSlabOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotoSlabOptions.swift; sourceTree = "<group>"; };
+		4BF592282CC0873400C555F6 /* SystemNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemNames.swift; sourceTree = "<group>"; };
+		4BF5923F2CC088D700C555F6 /* RobotoSlab-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Black.ttf"; sourceTree = "<group>"; };
+		4BF592402CC088D700C555F6 /* RobotoSlab-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Bold.ttf"; sourceTree = "<group>"; };
+		4BF592412CC088D700C555F6 /* RobotoSlab-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-ExtraBold.ttf"; sourceTree = "<group>"; };
+		4BF592422CC088D700C555F6 /* RobotoSlab-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-ExtraLight.ttf"; sourceTree = "<group>"; };
+		4BF592432CC088D700C555F6 /* RobotoSlab-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Light.ttf"; sourceTree = "<group>"; };
+		4BF592442CC088D700C555F6 /* RobotoSlab-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Medium.ttf"; sourceTree = "<group>"; };
+		4BF592452CC088D700C555F6 /* RobotoSlab-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Regular.ttf"; sourceTree = "<group>"; };
+		4BF592462CC088D700C555F6 /* RobotoSlab-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-SemiBold.ttf"; sourceTree = "<group>"; };
+		4BF592472CC088D700C555F6 /* RobotoSlab-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Thin.ttf"; sourceTree = "<group>"; };
+		4BF592492CC088D700C555F6 /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		4BF5924A2CC088D700C555F6 /* README.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		4BF5924B2CC088D700C555F6 /* RobotoSlab-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		4BF5925D2CC08C8200C555F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		4BF5925E2CC1E5F100C555F6 /* 3DButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 3DButtonViewModel.swift; sourceTree = "<group>"; };
+		4BF592622CC1E71800C555F6 /* 3DButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 3DButtonView.swift; sourceTree = "<group>"; };
+		4BF592642CC2EDA000C555F6 /* ClockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
+		4BF592662CC2EDAD00C555F6 /* ClockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockViewModel.swift; sourceTree = "<group>"; };
+		4BF592682CC30BFE00C555F6 /* GameModeSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModeSelectionView.swift; sourceTree = "<group>"; };
+		4BF5926A2CC30C2C00C555F6 /* GameModeSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModeSelectionViewModel.swift; sourceTree = "<group>"; };
+		4BF5926C2CC3311200C555F6 /* GameModeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModeButton.swift; sourceTree = "<group>"; };
+		4BF5926F2CC338E200C555F6 /* TransitionsUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionsUtility.swift; sourceTree = "<group>"; };
+		4BF592702CC338E200C555F6 /* ScreenSizeUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSizeUtility.swift; sourceTree = "<group>"; };
+		4BF592712CC338E200C555F6 /* ShakeEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeEffect.swift; sourceTree = "<group>"; };
+		4BF592722CC338E200C555F6 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		4BF592742CC33B3D00C555F6 /* SystemViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemViews.swift; sourceTree = "<group>"; };
+		4BF592762CCC0DEB00C555F6 /* GameModeOptionsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModeOptionsModel.swift; sourceTree = "<group>"; };
+		4BF592782CCC0EA800C555F6 /* GameModeOptionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModeOptionsViewModel.swift; sourceTree = "<group>"; };
+		4BF5927A2CCC1A7D00C555F6 /* 3DRadioButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 3DRadioButtonView.swift; sourceTree = "<group>"; };
+		4BF5927C2CCC1B1100C555F6 /* 3DRadioButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 3DRadioButtonViewModel.swift; sourceTree = "<group>"; };
+		4BF5927E2CCD496C00C555F6 /* GameWordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWordModel.swift; sourceTree = "<group>"; };
+		4BF592802CCD4A1F00C555F6 /* 3DRadioButtonGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 3DRadioButtonGroupViewModel.swift; sourceTree = "<group>"; };
+		4BF592822CCD8DE200C555F6 /* GameSelectionDifficultyButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSelectionDifficultyButtonView.swift; sourceTree = "<group>"; };
+		4BF592842CCD906900C555F6 /* GameSelectionTimeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSelectionTimeButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +121,7 @@
 		4B82B9CA2CC072E2009A1502 = {
 			isa = PBXGroup;
 			children = (
+				4BF5924C2CC088D700C555F6 /* Roboto_Slab */,
 				4B82B9D52CC072E2009A1502 /* WordIQ */,
 				4B82B9D42CC072E2009A1502 /* Products */,
 			);
@@ -53,11 +138,17 @@
 		4B82B9D52CC072E2009A1502 /* WordIQ */ = {
 			isa = PBXGroup;
 			children = (
+				4BF5925D2CC08C8200C555F6 /* Info.plist */,
+				4BF592212CC0832400C555F6 /* Views */,
+				4BF592152CC07ED700C555F6 /* ViewModels */,
+				4BF5920E2CC07C0500C555F6 /* Enums */,
+				4BF5920B2CC07B8A00C555F6 /* Models */,
 				4B82B9D62CC072E2009A1502 /* WordIQApp.swift */,
 				4B82B9D82CC072E2009A1502 /* ContentView.swift */,
 				4B82B9DA2CC072E2009A1502 /* Item.swift */,
 				4B82B9DC2CC072E4009A1502 /* Assets.xcassets */,
 				4B82B9DE2CC072E4009A1502 /* Preview Content */,
+				4BF5926E2CC338B500C555F6 /* Ultilities */,
 			);
 			path = WordIQ;
 			sourceTree = "<group>";
@@ -68,6 +159,139 @@
 				4B82B9DF2CC072E4009A1502 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		4BF5920B2CC07B8A00C555F6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4BF5927E2CCD496C00C555F6 /* GameWordModel.swift */,
+				4BF592762CCC0DEB00C555F6 /* GameModeOptionsModel.swift */,
+				4BF5920C2CC07B9200C555F6 /* GameDataModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4BF5920E2CC07C0500C555F6 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				4BF592272CC0872500C555F6 /* App Assets */,
+				4BF592262CC0871200C555F6 /* Keyboard */,
+				4BF592192CC07FAD00C555F6 /* Game Settings */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		4BF592152CC07ED700C555F6 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				4BF592782CCC0EA800C555F6 /* GameModeOptionsViewModel.swift */,
+				4BF5926A2CC30C2C00C555F6 /* GameModeSelectionViewModel.swift */,
+				4BF592172CC07F0C00C555F6 /* GameScreenViewModel.swift */,
+				4BF592162CC07EE300C555F6 /* Components */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		4BF592162CC07EE300C555F6 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				4BF592802CCD4A1F00C555F6 /* 3DRadioButtonGroupViewModel.swift */,
+				4BF5927C2CCC1B1100C555F6 /* 3DRadioButtonViewModel.swift */,
+				4BF592662CC2EDAD00C555F6 /* ClockViewModel.swift */,
+				4BF5925E2CC1E5F100C555F6 /* 3DButtonViewModel.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		4BF592192CC07FAD00C555F6 /* Game Settings */ = {
+			isa = PBXGroup;
+			children = (
+				4BF592132CC07D1300C555F6 /* GameDifficulty.swift */,
+				4BF592112CC07C2200C555F6 /* GameResult.swift */,
+				4BF5920F2CC07C1500C555F6 /* GameMode.swift */,
+			);
+			path = "Game Settings";
+			sourceTree = "<group>";
+		};
+		4BF592212CC0832400C555F6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4BF592682CC30BFE00C555F6 /* GameModeSelectionView.swift */,
+				4BF592602CC1E70700C555F6 /* Components */,
+				4BF592222CC0848000C555F6 /* SplashScreenView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4BF592262CC0871200C555F6 /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				4BF5921D2CC0813C00C555F6 /* KeyboardFunctions.swift */,
+				4BF5921B2CC07FD600C555F6 /* ValidCharacters.swift */,
+			);
+			path = Keyboard;
+			sourceTree = "<group>";
+		};
+		4BF592272CC0872500C555F6 /* App Assets */ = {
+			isa = PBXGroup;
+			children = (
+				4BF592742CC33B3D00C555F6 /* SystemViews.swift */,
+				4BF592282CC0873400C555F6 /* SystemNames.swift */,
+				4BF592242CC0868200C555F6 /* RobotoSlabOptions.swift */,
+				4BF5921F2CC0816E00C555F6 /* SFAssets.swift */,
+			);
+			path = "App Assets";
+			sourceTree = "<group>";
+		};
+		4BF592482CC088D700C555F6 /* static */ = {
+			isa = PBXGroup;
+			children = (
+				4BF5923F2CC088D700C555F6 /* RobotoSlab-Black.ttf */,
+				4BF592402CC088D700C555F6 /* RobotoSlab-Bold.ttf */,
+				4BF592412CC088D700C555F6 /* RobotoSlab-ExtraBold.ttf */,
+				4BF592422CC088D700C555F6 /* RobotoSlab-ExtraLight.ttf */,
+				4BF592432CC088D700C555F6 /* RobotoSlab-Light.ttf */,
+				4BF592442CC088D700C555F6 /* RobotoSlab-Medium.ttf */,
+				4BF592452CC088D700C555F6 /* RobotoSlab-Regular.ttf */,
+				4BF592462CC088D700C555F6 /* RobotoSlab-SemiBold.ttf */,
+				4BF592472CC088D700C555F6 /* RobotoSlab-Thin.ttf */,
+			);
+			path = static;
+			sourceTree = "<group>";
+		};
+		4BF5924C2CC088D700C555F6 /* Roboto_Slab */ = {
+			isa = PBXGroup;
+			children = (
+				4BF592482CC088D700C555F6 /* static */,
+				4BF592492CC088D700C555F6 /* LICENSE.txt */,
+				4BF5924A2CC088D700C555F6 /* README.txt */,
+				4BF5924B2CC088D700C555F6 /* RobotoSlab-VariableFont_wght.ttf */,
+			);
+			path = Roboto_Slab;
+			sourceTree = "<group>";
+		};
+		4BF592602CC1E70700C555F6 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				4BF592842CCD906900C555F6 /* GameSelectionTimeButtonView.swift */,
+				4BF592822CCD8DE200C555F6 /* GameSelectionDifficultyButtonView.swift */,
+				4BF5927A2CCC1A7D00C555F6 /* 3DRadioButtonView.swift */,
+				4BF5926C2CC3311200C555F6 /* GameModeButton.swift */,
+				4BF592642CC2EDA000C555F6 /* ClockView.swift */,
+				4BF592622CC1E71800C555F6 /* 3DButtonView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		4BF5926E2CC338B500C555F6 /* Ultilities */ = {
+			isa = PBXGroup;
+			children = (
+				4BF5926F2CC338E200C555F6 /* TransitionsUtility.swift */,
+				4BF592702CC338E200C555F6 /* ScreenSizeUtility.swift */,
+				4BF592712CC338E200C555F6 /* ShakeEffect.swift */,
+				4BF592722CC338E200C555F6 /* UIColorExtension.swift */,
+			);
+			path = Ultilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -128,6 +352,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BF5924D2CC088D700C555F6 /* LICENSE.txt in Resources */,
+				4BF5924E2CC088D700C555F6 /* RobotoSlab-Thin.ttf in Resources */,
+				4BF5924F2CC088D700C555F6 /* RobotoSlab-Bold.ttf in Resources */,
+				4BF592502CC088D700C555F6 /* RobotoSlab-VariableFont_wght.ttf in Resources */,
+				4BF592512CC088D700C555F6 /* RobotoSlab-Medium.ttf in Resources */,
+				4BF592522CC088D700C555F6 /* README.txt in Resources */,
+				4BF592532CC088D700C555F6 /* RobotoSlab-Black.ttf in Resources */,
+				4BF592542CC088D700C555F6 /* RobotoSlab-ExtraBold.ttf in Resources */,
+				4BF592552CC088D700C555F6 /* RobotoSlab-SemiBold.ttf in Resources */,
+				4BF592562CC088D700C555F6 /* RobotoSlab-ExtraLight.ttf in Resources */,
+				4BF592572CC088D700C555F6 /* RobotoSlab-Light.ttf in Resources */,
+				4BF592582CC088D700C555F6 /* RobotoSlab-Regular.ttf in Resources */,
 				4B82B9E02CC072E4009A1502 /* Preview Assets.xcassets in Resources */,
 				4B82B9DD2CC072E4009A1502 /* Assets.xcassets in Resources */,
 			);
@@ -140,9 +376,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BF592142CC07D1900C555F6 /* GameDifficulty.swift in Sources */,
+				4BF592102CC07C1D00C555F6 /* GameMode.swift in Sources */,
+				4BF592202CC0817400C555F6 /* SFAssets.swift in Sources */,
+				4BF592852CCD907800C555F6 /* GameSelectionTimeButtonView.swift in Sources */,
+				4BF5921E2CC0814900C555F6 /* KeyboardFunctions.swift in Sources */,
+				4BF592292CC0874C00C555F6 /* SystemNames.swift in Sources */,
+				4BF592182CC07F2400C555F6 /* GameScreenViewModel.swift in Sources */,
+				4BF592252CC086C200C555F6 /* RobotoSlabOptions.swift in Sources */,
+				4BF592752CC33B4100C555F6 /* SystemViews.swift in Sources */,
+				4BF5926D2CC3311D00C555F6 /* GameModeButton.swift in Sources */,
+				4BF5927F2CCD497F00C555F6 /* GameWordModel.swift in Sources */,
+				4BF592772CCC0DF100C555F6 /* GameModeOptionsModel.swift in Sources */,
+				4BF5921C2CC07FF100C555F6 /* ValidCharacters.swift in Sources */,
+				4BF592732CC33AEB00C555F6 /* TransitionsUtility.swift in Sources */,
+				4BF5926B2CC30C3300C555F6 /* GameModeSelectionViewModel.swift in Sources */,
 				4B82B9D92CC072E2009A1502 /* ContentView.swift in Sources */,
+				4BF592692CC30C1B00C555F6 /* GameModeSelectionView.swift in Sources */,
+				4BF592122CC07C2A00C555F6 /* GameResult.swift in Sources */,
 				4B82B9DB2CC072E2009A1502 /* Item.swift in Sources */,
+				4BF592652CC2EDA800C555F6 /* ClockView.swift in Sources */,
+				4BF592632CC1E72200C555F6 /* 3DButtonView.swift in Sources */,
+				4BF592812CCD4A2A00C555F6 /* 3DRadioButtonGroupViewModel.swift in Sources */,
 				4B82B9D72CC072E2009A1502 /* WordIQApp.swift in Sources */,
+				4BF5927B2CCC1A8700C555F6 /* 3DRadioButtonView.swift in Sources */,
+				4BF5920D2CC07BBE00C555F6 /* GameDataModel.swift in Sources */,
+				4BF592232CC0848A00C555F6 /* SplashScreenView.swift in Sources */,
+				4BF5925F2CC1E60E00C555F6 /* 3DButtonViewModel.swift in Sources */,
+				4BF592672CC2EDB100C555F6 /* ClockViewModel.swift in Sources */,
+				4BF5927D2CCC1B1900C555F6 /* 3DRadioButtonViewModel.swift in Sources */,
+				4BF592832CCD8DFC00C555F6 /* GameSelectionDifficultyButtonView.swift in Sources */,
+				4BF592792CCC0EB200C555F6 /* GameModeOptionsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +543,7 @@
 				DEVELOPMENT_TEAM = WZ6NWM775D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WordIQ/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -308,6 +573,7 @@
 				DEVELOPMENT_TEAM = WZ6NWM775D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WordIQ/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

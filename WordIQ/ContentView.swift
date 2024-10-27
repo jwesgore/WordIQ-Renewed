@@ -56,6 +56,6 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    SplashScreenView()
         .modelContainer(for: Item.self, inMemory: true)
 }
