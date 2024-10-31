@@ -41,12 +41,12 @@ class GameModeSelectionViewModel: ObservableObject {
     let HalfButtonDimensions: (CGFloat, CGFloat) = (75, 200)
     let GameModeButtonDimension: (CGFloat, CGFloat) = (75, 400)
     let DifficultyButtonDimension: (CGFloat, CGFloat) = (75, 400)
-    let TimeSelectionButtonDimension: (CGFloat, CGFloat) = (75, 400)
+    let TimeSelectionButtonDimension: (CGFloat, CGFloat) = (50, 400)
     let NavigationButtonDimension: (CGFloat, CGFloat) = (75, 400)
     
     init() {
         // Step 1: Initialize Models
-        self.GameModeOptions = GameModeOptionsModel(gameMode: .standardgame, gameDifficulty: .normal)
+        self.GameModeOptions = GameModeOptionsModel(gameMode: .standardgame, gameDifficulty: .normal, timeLimit: 0)
         
         // Step 2: Initialize all buttons without action
         self.StartButton = ThreeDButtonViewModel(height: NavigationButtonDimension.0, width: NavigationButtonDimension.1)
@@ -106,6 +106,7 @@ class GameModeSelectionViewModel: ObservableObject {
         self.StandardGameModeButton.action = {
             self.TimeLimitOptions = (0,0,0)
             self.GameModeOptions.gameMode = .standardgame
+            self.GameModeOptions.timeLimit = 0
             self.goToGameModeOptions(.standardgame)
         }
         self.RushGameModeButton.action = {
@@ -121,6 +122,7 @@ class GameModeSelectionViewModel: ObservableObject {
         self.ZenGameModeButton.action = {
             self.TimeLimitOptions = (0,0,0)
             self.GameModeOptions.gameMode = .zengame
+            self.GameModeOptions.timeLimit = 0
             self.goToGameModeOptions(.zengame)
         }
         

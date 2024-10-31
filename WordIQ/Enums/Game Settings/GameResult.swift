@@ -1,4 +1,4 @@
-import SwiftUICore
+import SwiftUI
 
 /// All possible game end conditions
 enum GameOverResult: String, Codable {

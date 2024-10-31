@@ -5,6 +5,11 @@ enum ValidCharacters: Character, CaseIterable {
     case O = "O", P = "P", Q = "Q", R = "R", S = "S", T = "T", U = "U"
     case V = "V", W = "W", X = "X", Y = "Y", Z = "Z"
     
+    /// Return a String version of the enum
+    var stringValue: String {
+        return String(self.rawValue)
+    }
+    
     /// Parse a Character and return the enum value
     static func from(_ character: Character) -> ValidCharacters? {
         let characterUppercased = Character(character.uppercased())

@@ -4,8 +4,8 @@ class ClockViewModel: ObservableObject, ClockViewModelObserver {
     
     // MARK: Action Properties
     var timeLimit: Int
-    var timeRemaining: Int
-    var timeElapsed: Int
+    @Published var timeRemaining: Int
+    @Published var timeElapsed: Int
     var isClockActive: Bool
     var isClockTimer: Bool
     var timer: Timer?

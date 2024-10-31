@@ -1,10 +1,9 @@
 /// Enum representing all valid keyboard function keys
 enum KeyboardFunctions: String, CaseIterable {
-    case enter
-    case backspace
+    case enter, backspace
     
     /// Return the string representing the associated icon
-    var sfsymbol: String {
+    var symbol: String {
         switch self {
         case .enter: return SFAssets.enter
         case .backspace: return SFAssets.delete

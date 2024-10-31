@@ -34,6 +34,10 @@ struct GameModeSelectionView: View {
                 .offset(CGSize(width: gameModelSelectionVM.Offset - 2000, height: 0))
                 VStack (spacing: 10) {
                     VStack {
+                        Text("Test")
+                    }
+                    Spacer()
+                    VStack {
                         GameSelectionDifficultyButtonView(gameModelSelectionVM.EasyDifficultyButton, difficulty: .easy)
                         GameSelectionDifficultyButtonView(gameModelSelectionVM.NormalDifficultyButton, difficulty: .normal)
                         GameSelectionDifficultyButtonView(gameModelSelectionVM.HardDifficultyButton, difficulty: .hard)
@@ -45,8 +49,9 @@ struct GameModeSelectionView: View {
                             GameSelectionTimeButtonView(gameModelSelectionVM.TimeSelection3Button, timeLimit: gameModelSelectionVM.TimeLimitOptions.2)
                         }
                     }
+                    Spacer()
                     VStack {
-                        
+                        Text("Test")
                     }
                 }
                 .offset(CGSize(width: gameModelSelectionVM.Offset, height: 0))
