@@ -10,6 +10,10 @@ import SwiftData
 
 @main
 struct WordIQApp: App {
+    init() {
+        _ = DatabaseHelper.shared
+    }
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Item.self,

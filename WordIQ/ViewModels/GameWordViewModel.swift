@@ -30,10 +30,10 @@ class GameBoardWordViewModel : ObservableObject {
     }
     
     /// Returns the full word representation of the letters
-    func getWord() -> String? {
+    func getWord() -> GameWordModel? {
         guard position == 5 else { return nil }
         var word = ""
         self.letters.forEach { if let letter = $0.letter { word.append(letter.stringValue) } }
-        return word
+        return GameWordModel(word)
     }
 }
