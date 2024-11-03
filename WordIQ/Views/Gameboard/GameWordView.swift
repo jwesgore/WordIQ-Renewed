@@ -19,6 +19,7 @@ struct GameWordView : View {
             GameLetterView(wordVM.letters[3])
             GameLetterView(wordVM.letters[4])
         }
+        .modifier(ShakeEffect(animatableData: wordVM.Shake ? 1.5 : 0))
     }
 }
 

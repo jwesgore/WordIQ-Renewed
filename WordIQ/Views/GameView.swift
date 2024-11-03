@@ -8,7 +8,7 @@ struct GameView : View {
     var body : some View {
         VStack (spacing: 0) {
             HStack (spacing: 0) {
-                Text(gameViewModel.gameMode.value)
+                Text(gameViewModel.gameOptions.gameMode.value)
                     .font(.custom(RobotoSlabOptions.Weight.bold, size: CGFloat(RobotoSlabOptions.Size.title3)))
                 Spacer()
                 Button(
@@ -36,8 +36,8 @@ struct GameView : View {
         }
         .padding()
     }
-}
+} 
 
 #Preview {
-    GameView(gameViewModel: GameViewModel(gameOptions: GameModeOptionsModel(gameMode: .standardgame, gameDifficulty: .normal, timeLimit:0)))
+    GameView(gameViewModel: RushModeViewModel(gameOptions: GameModeOptionsModel(gameMode: .standardgame, gameDifficulty: .normal, timeLimit:0)))
 }

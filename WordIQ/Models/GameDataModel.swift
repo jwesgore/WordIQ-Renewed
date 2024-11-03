@@ -5,7 +5,7 @@ struct GameDataModel {
     
     // Game Settings
     var gameMode: GameMode
-    var gameResult: GameOverResult
+    var gameResult: GameResult
     var gameDifficulty: GameDifficulty
     
     var numCorrectWords: Int

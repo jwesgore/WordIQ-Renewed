@@ -38,6 +38,13 @@ class KeyboardLetterViewModel : ObservableObject, KeyboardKeyProtocol {
     func PerformAction() {
         self.action()
     }
+    
+    /// Resets the button back to default values
+    func reset() {
+        self.backgroundColor = .white
+        self.borderColor = .black
+        self.fontColor = .black
+    }
 }
 
 protocol KeyboardKeyProtocol {
