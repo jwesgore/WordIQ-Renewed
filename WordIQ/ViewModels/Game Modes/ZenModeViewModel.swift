@@ -9,6 +9,7 @@ class ZenModeViewModel : GameViewModel {
             activeWord.setBackgrounds(comparison)
             self.gameOverModel.lastGuessedWord = gameWord
             self.gameOverModel.numCorrectWords += 1
+            self.gameover()
         }
     }
     

@@ -9,7 +9,8 @@ class RushModeViewModel : GameViewModel, ClockViewModelObserver {
     
     /// Function to notify VM that the clock has reached zero
     func timerAtZero() {
-        
+        self.gameOverModel.gameResult = .lose
+        self.gameover()
     }
     
     // MARK: Word Submitted Functions
@@ -20,6 +21,7 @@ class RushModeViewModel : GameViewModel, ClockViewModelObserver {
             activeWord.setBackgrounds(comparison)
             self.gameOverModel.lastGuessedWord = gameWord
             self.gameOverModel.numCorrectWords += 1
+            self.gameover()
         }
     }
     

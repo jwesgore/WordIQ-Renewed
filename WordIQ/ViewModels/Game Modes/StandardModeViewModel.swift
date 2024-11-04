@@ -7,8 +7,10 @@ class StandardModeViewModel : GameViewModel {
             let comparison = [LetterComparison](repeating: .correct, count: 5)
             self.IsKeyboardActive = false
             activeWord.setBackgrounds(comparison)
+            self.gameOverModel.gameResult = .win
             self.gameOverModel.lastGuessedWord = gameWord
             self.gameOverModel.numCorrectWords += 1
+            self.gameover()
         }
     }
     
@@ -31,6 +33,7 @@ class StandardModeViewModel : GameViewModel {
             if self.BoardPosition == 6 {
                 self.IsKeyboardActive = false
                 self.gameOverModel.gameResult = .lose
+                self.gameover()
             } else {
                 ActiveWord = GameBoardWords[self.BoardPosition % 6]
             }

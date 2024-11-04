@@ -9,7 +9,7 @@ class FrenzyModeViewModel : GameViewModel, ClockViewModelObserver {
     
     /// Function to notify VM that the clock has reached zero
     func timerAtZero() {
-        
+        self.gameover()
     }
     
     // MARK: Word Submitted Functions
@@ -49,6 +49,7 @@ class FrenzyModeViewModel : GameViewModel, ClockViewModelObserver {
             
             if self.BoardPosition == 6 {
                 self.IsKeyboardActive = false
+                self.gameover()
             } else {
                 ActiveWord = GameBoardWords[self.BoardPosition % 6]
             }

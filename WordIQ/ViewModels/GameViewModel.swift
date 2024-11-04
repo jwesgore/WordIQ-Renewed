@@ -132,6 +132,7 @@ class GameViewModel : ObservableObject, GameViewModelSubClass {
     func wrongWordSubmitted() { fatalError("This method must be overridden") }
     func invalidWordSubmitted() { fatalError("This method must be overridden") }
     
+    /// Function to end the game
     func gameover() {
         
     }
