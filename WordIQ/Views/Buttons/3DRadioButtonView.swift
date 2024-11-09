@@ -51,7 +51,7 @@ struct ThreeDRadioButtonView<Content: View>: View {
     }
 }
 
-struct MyView_Previews: PreviewProvider {
+struct ThreeDRadioButtonView_Previews: PreviewProvider {
     static var previews: some View {
         let manager = ThreeDRadioButtonGroupViewModel()
         let button1 = ThreeDRadioButtonViewModel(groupManager: manager, height: 100, width: 200)

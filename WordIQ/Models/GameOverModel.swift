@@ -24,7 +24,7 @@ struct GameOverModel {
     var correctlyGuessedWords: [GameWordModel]?
     
     /// Initializer for start of game
-    init(gameOptions: GameModeOptionsModel, targetWord: GameWordModel) {
+    init(gameOptions: GameModeOptionsModel) {
         self.gameMode = gameOptions.gameMode
         self.gameResult = .na
         self.gameDifficulty = gameOptions.gameDifficulty
@@ -39,7 +39,7 @@ struct GameOverModel {
         self.timeElapsed = 0
         self.xp = 0
         
-        self.targetWord = targetWord
+        self.targetWord = gameOptions.targetWord
         
         if gameOptions.gameMode == .frenzygame {
             self.timeLimit = gameOptions.timeLimit

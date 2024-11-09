@@ -19,6 +19,7 @@ class RushModeViewModel : GameViewModel, ClockViewModelObserver {
             let comparison = [LetterComparison](repeating: .correct, count: 5)
             self.IsKeyboardActive = false
             activeWord.setBackgrounds(comparison)
+            self.gameOverModel.gameResult = .win
             self.gameOverModel.lastGuessedWord = gameWord
             self.gameOverModel.numCorrectWords += 1
             self.gameover()

@@ -1,7 +1,8 @@
 
-
 enum SystemView {
-    case splashScreen
+    case game
+    case gameOver
     case gameModeSelection
     case empty
+    case splashScreen
 }

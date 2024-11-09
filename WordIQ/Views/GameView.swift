@@ -5,39 +5,51 @@ struct GameView : View {
     
     @ObservedObject var gameViewModel : GameViewModel
     
+    init (_ gameViewModel: GameViewModel) {
+        self.gameViewModel = gameViewModel
+    }
+    
     var body : some View {
-        VStack (spacing: 0) {
-            HStack (spacing: 0) {
-                Text(gameViewModel.gameOptions.gameMode.value)
-                    .font(.custom(RobotoSlabOptions.Weight.bold, size: CGFloat(RobotoSlabOptions.Size.title3)))
+        switch gameViewModel.activeView {
+        case .root:
+            VStack (spacing: 0) {
+                HStack (spacing: 0) {
+                    Text(gameViewModel.gameOptions.gameMode.value)
+                        .font(.custom(RobotoSlabOptions.Weight.bold, size: CGFloat(RobotoSlabOptions.Size.title3)))
+                    Spacer()
+                    Button(
+                        action: {},
+                        label: {
+                            Image(systemName: SFAssets.pause)
+                        }
+                    )
+                }
+                
                 Spacer()
-                Button(
-                    action: {},
-                    label: {
-                        Image(systemName: SFAssets.pause)
-                    }
-                )
-            }
-            
-            Spacer()
-  
-            HStack {
-                Spacer()
-                ClockView(clockVM: gameViewModel.Clock)
-            }
+      
+                HStack {
+                    Spacer()
+                    ClockView(clockVM: gameViewModel.Clock)
+                }
 
-            GameBoardView(gameViewModel.GameBoardWords)
-            
-            Spacer()
-            
-            KeyboardView(keyboardLetters: gameViewModel.KeyboardLetterButtons,
-                         enterKey: gameViewModel.KeyboardEnterButton,
-                         deleteKey: gameViewModel.KeyboardDeleteButton)
+                GameBoardView(gameViewModel.GameBoardWords)
+                
+                Spacer()
+                
+                KeyboardView(keyboardLetters: gameViewModel.KeyboardLetterButtons,
+                             enterKey: gameViewModel.KeyboardEnterButton,
+                             deleteKey: gameViewModel.KeyboardDeleteButton)
+            }
+            .padding()
+        case .target:
+            GameOverView(gameViewModel.gameOverViewModel)
+        case .blank:
+            Color.white
         }
-        .padding()
+
     }
 } 
 
 #Preview {
-    GameView(gameViewModel: RushModeViewModel(gameOptions: GameModeOptionsModel(gameMode: .standardgame, gameDifficulty: .normal, timeLimit:0)))
+    GameView(StandardModeViewModel(gameOptions: GameModeOptionsModel(gameMode: .standardgame, gameDifficulty: .normal, timeLimit:0)))
 }

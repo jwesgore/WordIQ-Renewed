@@ -2,18 +2,17 @@ import SwiftUI
 
 /// View that appears when app is opened
 struct SplashScreenView: View {
-    @ObservedObject var transitions: Transitions
-    @State private var isActive : Bool
+    @ObservedObject var transitions: BaseViewNavigation
     
     init() {
-        self.transitions = Transitions(.splashScreen)
-        self.isActive = false
+        self.transitions = BaseViewNavigation()
     }
     
     var body: some View {
+        
         ZStack {
             switch self.transitions.activeView {
-            case .splashScreen:
+            case .root:
                 VStack {
                     Text(SystemNames.Title.title)
                         .font(.custom(RobotoSlabOptions.Weight.bold, size: CGFloat(RobotoSlabOptions.Size.title)))
@@ -21,15 +20,16 @@ struct SplashScreenView: View {
                         .font(.custom(RobotoSlabOptions.Weight.bold, size: CGFloat(RobotoSlabOptions.Size.caption)))
                         .opacity(0.7)
                 }
-            case .gameModeSelection:
-                GameModeSelectionView(gameModelSelectionVM: GameModeSelectionViewModel())
-            default:
-                EmptyView()
+                .transition(.blurReplace)
+            case .target:
+                GameModeSelectionView()
+            case .blank:
+                Color.white
             }
         }
         .onAppear {
-            transitions.fadeToWhiteDelay(targetView: .gameModeSelection, delay: 2.5)
-        }
+            transitions.fadeToWhiteDelay(delay: 2.5, animationLength: 0.5, hang: 0.5)
+        } 
     }
 }
 

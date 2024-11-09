@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// ViewModel to manage the GameModeSelectionView
-class GameModeSelectionViewModel: ObservableObject {
+class GameModeSelectionViewModel: BaseViewNavigation {
     
     @Published private var _offset : Int = 2000
     var Offset : Int {
@@ -42,9 +42,9 @@ class GameModeSelectionViewModel: ObservableObject {
     let GameModeButtonDimension: (CGFloat, CGFloat) = (75, 400)
     let DifficultyButtonDimension: (CGFloat, CGFloat) = (75, 400)
     let TimeSelectionButtonDimension: (CGFloat, CGFloat) = (50, 400)
-    let NavigationButtonDimension: (CGFloat, CGFloat) = (75, 400)
+    let NavigationButtonDimension: (CGFloat, CGFloat) = (50, 400)
     
-    init() {
+    override init() {
         // Step 1: Initialize Models
         self.GameModeOptions = GameModeOptionsModel(gameMode: .standardgame, gameDifficulty: .normal, timeLimit: 0)
         
@@ -69,7 +69,10 @@ class GameModeSelectionViewModel: ObservableObject {
         self.FrenzyGameModeButton = ThreeDButtonViewModel(height: GameModeButtonDimension.0, width: GameModeButtonDimension.1)
         self.ZenGameModeButton = ThreeDButtonViewModel(height: GameModeButtonDimension.0, width: GameModeButtonDimension.1)
         
-        // Step 3: Add actions to buttons
+        // Step 3: Init base
+        super.init()
+        
+        // Step 4: Add actions to buttons
         self.StartButton.action = {
             self.startGame()
         }
@@ -126,14 +129,14 @@ class GameModeSelectionViewModel: ObservableObject {
             self.goToGameModeOptions(.zengame)
         }
         
-        // Step 4: Add radio buttons to their managers
+        // Step 5: Add radio buttons to their managers
         self.DifficultySelectionManager.add(EasyDifficultyButton, NormalDifficultyButton, HardDifficultyButton)
         self.TimeSelectionManager.add(TimeSelection1Button, TimeSelection2Button, TimeSelection3Button)
     }
     
     /// Starts the game with the defined game options
     func startGame() {
-        
+        super.fadeToWhiteDelay(delay:0.5, hang: 0.5)
     }
     
     /// Function to transition the view from mode selection to options
@@ -144,6 +147,35 @@ class GameModeSelectionViewModel: ObservableObject {
     /// Function to transition the view from options to mode selection
     func goBackToModeSelection() {
         self.Offset = 2000
+    }
+    
+    /// Creates a game view model based on the game mode options set
+    func getGameViewModel() -> GameViewModel {
+        let gameVM : GameViewModel = {
+            switch GameModeOptions.gameMode {
+            case .standardgame:
+                return StandardModeViewModel(gameOptions: self.GameModeOptions)
+            case .rushgame:
+                return RushModeViewModel(gameOptions: self.GameModeOptions)
+            case .frenzygame:
+                return FrenzyModeViewModel(gameOptions: self.GameModeOptions)
+            case .zengame:
+                return ZenModeViewModel(gameOptions: self.GameModeOptions)
+            case .daily:
+                return StandardModeViewModel(gameOptions: self.GameModeOptions)
+            case .quickplay:
+                return StandardModeViewModel(gameOptions: self.GameModeOptions)
+            }
+        }()
+        gameVM.exitGameAction = exitFromGame
+        return gameVM
+    }
+    
+    /// Resets all values for when game is exited
+    func exitFromGame() {
+        self.goBackToModeSelection()
+        self.GameModeOptions = GameModeOptionsModel(gameMode: .standardgame, gameDifficulty: .normal, timeLimit: 0)
+        super.fadeToWhite(fromRoot: false)
     }
     
 }

@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// ViewModel to manage the playable game screen
-class GameViewModel : ObservableObject, GameViewModelSubClass {
+class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
 
     var Clock : ClockViewModel
     var KeyboardLetterButtons : [ValidCharacters : KeyboardLetterViewModel]
@@ -14,7 +14,15 @@ class GameViewModel : ObservableObject, GameViewModelSubClass {
     var ActiveWord : GameBoardWordViewModel?
     var TargetWord : GameWordModel
     var gameOverModel : GameOverModel
-
+    
+    var gameOverViewModel: GameOverViewModel {
+        let gameOverVM = GameOverViewModel(gameOverModel)
+        gameOverVM.PlayAgainButton.action = self.playAgain
+        gameOverVM.BackButton.action = self.exitGame
+        return gameOverVM
+    }
+    var exitGameAction: () -> Void = {}
+    
     let gameOptions : GameModeOptionsModel
     let letterKeyWidthMultiplier = 0.085
     let funcKeyWidthMultiplier = 0.13
@@ -36,9 +44,10 @@ class GameViewModel : ObservableObject, GameViewModelSubClass {
         self.BoardPosition = 0
         self.GameBoardWords = [GameBoardWordViewModel]()
         self.TargetWord = gameOptions.targetWord
-        self.gameOverModel = GameOverModel(gameOptions: gameOptions, targetWord: gameOptions.targetWord)
+        self.gameOverModel = GameOverModel(gameOptions: gameOptions)
         print(self.TargetWord)
 
+        super.init()
         
         // Step 3: Populate Collections
         for letter in ValidCharacters.allCases {
@@ -132,9 +141,20 @@ class GameViewModel : ObservableObject, GameViewModelSubClass {
     func wrongWordSubmitted() { fatalError("This method must be overridden") }
     func invalidWordSubmitted() { fatalError("This method must be overridden") }
     
+    // MARK: Navigation functions
     /// Function to end the game
     func gameover() {
-        
+        super.fadeToWhiteDelay(delay: 3.0)
+    }
+    
+    /// Function to play a new game again
+    func playAgain() {
+        super.fadeToWhite(fromRoot: false)
+    }
+    
+    /// Function to go back to game mode selection
+    func exitGame() {
+        self.exitGameAction()
     }
 }
 
