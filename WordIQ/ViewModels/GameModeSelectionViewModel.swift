@@ -7,8 +7,7 @@ class GameModeSelectionViewModel: BaseViewNavigation {
     var Offset : Int {
         get {
             return _offset
-        }
-        set {
+        } set {
             withAnimation (.easeInOut(duration: 0.5)) {
                 _offset = newValue
             }

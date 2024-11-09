@@ -2,12 +2,12 @@ import SwiftUI
 
 /// Enum to support comparison between incoming word and target word
 enum LetterComparison: Comparable {
-    case wrong
-    case contains
-    case correct
+    case wrong, contains, correct, notSet
+    
     
     var rank: Int {
         switch self {
+        case .notSet: 0
         case .wrong: 1
         case .contains: 2
         case .correct: 3
@@ -16,9 +16,10 @@ enum LetterComparison: Comparable {
     
     var color: Color {
         switch self {
-        case .wrong: .gray
-        case .contains: .yellow
-        case .correct: .green
+        case .notSet: .LetterComparison.notSet
+        case .wrong: .LetterComparison.wrong
+        case .contains: .LetterComparison.contains
+        case .correct: .LetterComparison.correct
         }
     }
     

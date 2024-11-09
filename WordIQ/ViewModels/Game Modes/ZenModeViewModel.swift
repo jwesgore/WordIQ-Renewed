@@ -7,6 +7,8 @@ class ZenModeViewModel : GameViewModel {
             let comparison = [LetterComparison](repeating: .correct, count: 5)
             self.IsKeyboardActive = false
             activeWord.setBackgrounds(comparison)
+            self.keyboardSetBackgrounds(gameWord.comparisonRankingMap(comparison))
+            
             self.gameOverModel.lastGuessedWord = gameWord
             self.gameOverModel.numCorrectWords += 1
             self.gameover()
@@ -24,6 +26,7 @@ class ZenModeViewModel : GameViewModel {
         if let activeWord = ActiveWord, let gameWord = activeWord.getWord() {
             let comparison = TargetWord.comparison(gameWord)
             activeWord.setBackgrounds(comparison)
+            self.keyboardSetBackgrounds(gameWord.comparisonRankingMap(comparison))
             
             self.BoardPosition += 1
             self.gameOverModel.numValidGuesses += 1

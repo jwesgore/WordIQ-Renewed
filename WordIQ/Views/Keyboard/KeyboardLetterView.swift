@@ -19,7 +19,7 @@ struct KeyboardLetterView : View {
             }
         )
         .frame(width:letterVM.width, height: letterVM.height)
-        .background(letterVM.backgroundColor)
+        .background(letterVM.backgroundColor.color)
         .overlay(
             RoundedRectangle(cornerRadius: letterVM.cornerRadius)
                 .stroke(letterVM.borderColor, lineWidth: letterVM.borderThickness)

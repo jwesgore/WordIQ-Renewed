@@ -5,8 +5,10 @@ class GameBoardLetterViewModel : ObservableObject {
     @Published var letter : ValidCharacters?
     
     @Published var opacity : CGFloat
-    @Published var backgroundColor : Color
-    @Published var borderColor : Color
+    @Published var backgroundColor : LetterComparison
+    var borderColor : Color {
+        return (letter != nil) ? Color.GameBoard.letterBorderActive : Color.GameBoard.letterBorderInactive
+    }
     var borderThickness : CGFloat
     var cornerRadius : CGFloat
     var height : CGFloat
@@ -14,8 +16,7 @@ class GameBoardLetterViewModel : ObservableObject {
     
     init(letter: ValidCharacters? = nil,
          opacity: CGFloat = 1.0,
-         backgroundColor: Color = .white,
-         borderColor: Color = .black,
+         backgroundColor: LetterComparison = .notSet,
          borderThickness: CGFloat = 2.0,
          cornerRadius : CGFloat = 8.0,
          height: CGFloat = 100,
@@ -23,7 +24,6 @@ class GameBoardLetterViewModel : ObservableObject {
         self.letter = letter
         self.opacity = opacity
         self.backgroundColor = backgroundColor
-        self.borderColor = borderColor
         self.borderThickness = borderThickness
         self.cornerRadius = cornerRadius
         self.height = height
@@ -34,7 +34,6 @@ class GameBoardLetterViewModel : ObservableObject {
     func reset() {
         self.letter = nil
         self.opacity = 1.0
-        self.backgroundColor = .white
-        self.borderColor = .black
+        self.backgroundColor = .notSet
     }
 }

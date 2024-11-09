@@ -15,7 +15,7 @@ struct GameLetterView : View {
             .font(.custom(RobotoSlabOptions.Weight.bold, size: CGFloat(RobotoSlabOptions.Size.title1)))
             .frame(maxWidth:letterVM.width, maxHeight: letterVM.height)
             .aspectRatio(1.0, contentMode: .fit)
-            .background(letterVM.backgroundColor)
+            .background(letterVM.backgroundColor.color)
             .overlay(
                 RoundedRectangle(cornerRadius: letterVM.cornerRadius)
                     .stroke(letterVM.borderColor, lineWidth: letterVM.borderThickness)

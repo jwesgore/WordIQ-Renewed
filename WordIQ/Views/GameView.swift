@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// View of the playable game area
+/// View of the playable game are
 struct GameView : View {
     
     @ObservedObject var gameViewModel : GameViewModel

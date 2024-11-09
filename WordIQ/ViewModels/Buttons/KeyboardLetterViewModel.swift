@@ -6,8 +6,8 @@ class KeyboardLetterViewModel : ObservableObject, KeyboardKeyProtocol {
     var action: () -> Void
     
     var letter : ValidCharacters
-    var backgroundColor : Color
-    var borderColor : Color
+    @Published var backgroundColor : LetterComparison
+    @Published var borderColor : Color
     var borderThickness : CGFloat
     var cornerRadius : CGFloat
     var fontColor : Color
@@ -16,7 +16,7 @@ class KeyboardLetterViewModel : ObservableObject, KeyboardKeyProtocol {
     
     init(action: @escaping () -> Void = {},
          letter: ValidCharacters,
-         backgroundColor: Color = .white,
+         backgroundColor: LetterComparison = .notSet,
          borderColor: Color = .black,
          borderThickness: CGFloat = 2.0,
          cornerRadius: CGFloat = 8.0,
@@ -41,7 +41,7 @@ class KeyboardLetterViewModel : ObservableObject, KeyboardKeyProtocol {
     
     /// Resets the button back to default values
     func reset() {
-        self.backgroundColor = .white
+        self.backgroundColor = .notSet
         self.borderColor = .black
         self.fontColor = .black
     }
@@ -49,7 +49,6 @@ class KeyboardLetterViewModel : ObservableObject, KeyboardKeyProtocol {
 
 protocol KeyboardKeyProtocol {
     var action: () -> Void { get set }
-    var backgroundColor : Color { get set }
     var borderColor : Color { get set }
     var borderThickness : CGFloat { get set }
     var cornerRadius : CGFloat { get set }

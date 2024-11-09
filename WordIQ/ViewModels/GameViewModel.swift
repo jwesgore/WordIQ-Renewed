@@ -108,6 +108,15 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
         }
     }
     
+    /// Sets the background values on the keyboard keys
+    func keyboardSetBackgrounds(_ comparisonMap: [ValidCharacters : LetterComparison]) {
+        for comparison in comparisonMap {
+            if let keyboardButton = KeyboardLetterButtons[comparison.key] {
+                keyboardButton.backgroundColor = max(keyboardButton.backgroundColor, comparison.value)
+            }
+        }
+    }
+    
     // MARK: Board functions
     /// Function to reset the board to its default state
     func boardReset(done: @escaping () -> Void = {}) {

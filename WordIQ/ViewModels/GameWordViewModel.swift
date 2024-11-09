@@ -45,7 +45,7 @@ class GameBoardWordViewModel : ObservableObject {
         for i in 0..<5 {
             DispatchQueue.main.asyncAfter(deadline: .now() + (0.125 * Double(i)), execute: {
                 withAnimation(.easeIn(duration: 0.2)) {
-                    self.letters[i].backgroundColor = comparisons[i].color
+                    self.letters[i].backgroundColor = comparisons[i]
                 }
             })
         }
