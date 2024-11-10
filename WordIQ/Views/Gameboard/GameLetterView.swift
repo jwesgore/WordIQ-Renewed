@@ -13,6 +13,7 @@ struct GameLetterView : View {
 
         Text(letterVM.letter?.stringValue ?? " ")
             .font(.custom(RobotoSlabOptions.Weight.bold, size: CGFloat(RobotoSlabOptions.Size.title1)))
+            .opacity(letterVM.opacity)
             .frame(maxWidth:letterVM.width, maxHeight: letterVM.height)
             .aspectRatio(1.0, contentMode: .fit)
             .background(letterVM.backgroundColor.color)

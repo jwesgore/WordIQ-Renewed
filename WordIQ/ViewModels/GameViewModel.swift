@@ -13,6 +13,7 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
     var GameBoardWords : [GameBoardWordViewModel]
     var ActiveWord : GameBoardWordViewModel?
     var TargetWord : GameWordModel
+    var TargetWordHints : [ValidCharacters?]
     var gameOverModel : GameOverModel
     
     var gameOverViewModel: GameOverViewModel {
@@ -44,6 +45,7 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
         self.BoardPosition = 0
         self.GameBoardWords = [GameBoardWordViewModel]()
         self.TargetWord = gameOptions.targetWord
+        self.TargetWordHints = [ValidCharacters?](repeating: nil, count: 5)
         self.gameOverModel = GameOverModel(gameOptions: gameOptions)
         print(self.TargetWord)
 
@@ -145,10 +147,57 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
         })
     }
     
-    // MARK: Section for subclass required functions
-    func correctWordSubmitted() { fatalError("This method must be overridden") }
-    func wrongWordSubmitted() { fatalError("This method must be overridden") }
-    func invalidWordSubmitted() { fatalError("This method must be overridden") }
+    // MARK: Enter Key pressed functions
+    func correctWordSubmittedOverride() { fatalError("This method must be overridden") }
+    func invalidWordSubmittedOverride() { fatalError("This method must be overridden") }
+    func wrongWordSubmittedOverride() { fatalError("This method must be overridden") }
+    
+    /// Handles what to do if the correct word is subbmitted
+    private func correctWordSubmitted() {
+        if let activeWord = ActiveWord, let gameWord = activeWord.getWord() {
+            let comparisons = [LetterComparison](repeating: .correct, count: 5)
+            self.IsKeyboardActive = false
+            activeWord.setBackgrounds(comparisons)
+            self.keyboardSetBackgrounds(gameWord.comparisonRankingMap(comparisons))
+            
+            self.gameOverModel.numCorrectWords += 1
+            
+            self.correctWordSubmittedOverride()
+        }
+    }
+    
+    // Handles what to do if an invalid word is subbmitted
+    private func invalidWordSubmitted() {
+        if let activeWord = ActiveWord {
+            activeWord.ShakeAnimation()
+        }
+        self.gameOverModel.numInvalidGuesses += 1
+        self.invalidWordSubmittedOverride()
+    }
+    
+    // Handles what to do if the wrong word is subbmitted
+    private func wrongWordSubmitted() {
+        if let activeWord = ActiveWord, let gameWord = activeWord.getWord() {
+            // Builds comparisons and updates backgrounds on board and keyboard
+            let comparisons = TargetWord.comparison(gameWord)
+            activeWord.setBackgrounds(comparisons)
+            self.keyboardSetBackgrounds(gameWord.comparisonRankingMap(comparisons))
+            
+            // Updates hints
+            for (index, (letter, comparison)) in zip(gameWord.letters, comparisons).enumerated() {
+                if comparison == .correct {
+                    self.TargetWordHints[index] = letter
+                }
+            }
+            
+            // Moves board position and updates gameOverModel
+            self.BoardPosition += 1
+            self.gameOverModel.numValidGuesses += 1
+            self.gameOverModel.lastGuessedWord = gameWord
+            
+            self.wrongWordSubmittedOverride()
+        }
+    }
     
     // MARK: Navigation functions
     /// Function to end the game
@@ -168,7 +217,7 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
 }
 
 protocol GameViewModelSubClass {
-    func correctWordSubmitted()
-    func wrongWordSubmitted()
-    func invalidWordSubmitted()
+    func correctWordSubmittedOverride()
+    func invalidWordSubmittedOverride()
+    func wrongWordSubmittedOverride()
 }

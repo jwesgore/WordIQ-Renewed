@@ -3,12 +3,9 @@ import SwiftUI
 class GameBoardLetterViewModel : ObservableObject {
     
     @Published var letter : ValidCharacters?
-    
     @Published var opacity : CGFloat
     @Published var backgroundColor : LetterComparison
-    var borderColor : Color {
-        return (letter != nil) ? Color.GameBoard.letterBorderActive : Color.GameBoard.letterBorderInactive
-    }
+    @Published var borderColor : Color
     var borderThickness : CGFloat
     var cornerRadius : CGFloat
     var height : CGFloat
@@ -24,10 +21,25 @@ class GameBoardLetterViewModel : ObservableObject {
         self.letter = letter
         self.opacity = opacity
         self.backgroundColor = backgroundColor
+        self.borderColor = Color.GameBoard.letterBorderInactive
         self.borderThickness = borderThickness
         self.cornerRadius = cornerRadius
         self.height = height
         self.width = width
+    }
+    
+    /// Sets the letter for the view model
+    func setLetter(_ letter : ValidCharacters) {
+        self.letter = letter
+        self.borderColor = Color.GameBoard.letterBorderActive
+        self.opacity = 1.0
+    }
+    
+    /// Sets the hint for the view model
+    func setHint(_ letter : ValidCharacters?) {
+        self.letter = letter
+        self.borderColor = Color.GameBoard.letterBorderInactive
+        self.opacity = 0.5
     }
     
     /// Resets the view to the default parameters

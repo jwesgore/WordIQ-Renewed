@@ -5,29 +5,32 @@ class GameBoardWordViewModel : ObservableObject {
     @Published var letters : [GameBoardLetterViewModel]
     @Published private(set) var Shake : Bool
     var position : Int
+    var hints : [ValidCharacters?]
     
     init() {
         self.position = 0
         self.Shake = false
         self.letters = [GameBoardLetterViewModel]()
+        self.hints = [ValidCharacters?]()
         
         // Populate letters
         for _ in 0..<5 {
             self.letters.append(GameBoardLetterViewModel())
+            self.hints.append(nil)
         }
     }
     
     /// Adds a letter to the current word
     func addLetter(_ letter : ValidCharacters) {
         guard position < 5 else { return }
-        self.letters[position].letter = letter
+        self.letters[position].setLetter(letter)
         self.position += 1
     }
     
     /// Removes a letter from the current word
     func removeLetter() {
         guard position > 0 else { return }
-        self.letters[position - 1].letter = nil
+        self.letters[position - 1].setHint(self.hints[position - 1])
         self.position -= 1
     }
     
@@ -40,11 +43,19 @@ class GameBoardWordViewModel : ObservableObject {
     }
     
     // MARK: Visual functions
+    /// Loads in all hints from a collection of hints
+    func loadHints(_ hints : [ValidCharacters?]) {
+        self.hints = hints
+        for (letterVM, hint) in zip(self.letters, hints) {
+            letterVM.setHint(hint)
+        }
+    }
+    
     /// Sets background colors on Active Word with the provided letter comparison
     func setBackgrounds(_ comparisons : [LetterComparison]) {
         for i in 0..<5 {
             DispatchQueue.main.asyncAfter(deadline: .now() + (0.125 * Double(i)), execute: {
-                withAnimation(.easeIn(duration: 0.2)) {
+                withAnimation(.smooth(duration: 0.2)) {
                     self.letters[i].backgroundColor = comparisons[i]
                 }
             })
