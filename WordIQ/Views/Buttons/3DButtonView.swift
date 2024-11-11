@@ -19,6 +19,11 @@ struct ThreeDButtonView<Content: View>: View {
                 threeDButtonVM.PerformAction()
             }, label: {
                 ZStack {
+                    RoundedRectangle(cornerRadius: threeDButtonVM.cornerRadius)
+                        .fill(threeDButtonVM.shadowColor)
+                        .stroke(threeDButtonVM.borderColor, lineWidth: threeDButtonVM.borderThickness)
+                        .frame(maxWidth: threeDButtonVM.width, maxHeight: threeDButtonVM.height)
+                        
                     content
                         .frame(maxWidth:threeDButtonVM.width, maxHeight: threeDButtonVM.height)
                         .background(
@@ -27,13 +32,6 @@ struct ThreeDButtonView<Content: View>: View {
                                 .stroke(threeDButtonVM.borderColor, lineWidth: threeDButtonVM.borderThickness)
                         )
                         .offset(CGSize(width: 0.0, height: self.offset))
-                        .zIndex(threeDButtonVM.zindex + 10.0)
-                    
-                    RoundedRectangle(cornerRadius: threeDButtonVM.cornerRadius)
-                        .fill(threeDButtonVM.shadowColor)
-                        .stroke(threeDButtonVM.borderColor, lineWidth: threeDButtonVM.borderThickness)
-                        .frame(maxWidth: threeDButtonVM.width, maxHeight: threeDButtonVM.height)
-                        .zIndex(threeDButtonVM.zindex)
                 }
             }
         )

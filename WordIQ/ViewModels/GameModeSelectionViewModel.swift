@@ -35,6 +35,7 @@ class GameModeSelectionViewModel: BaseViewNavigation {
     var ZenGameModeButton : ThreeDButtonViewModel
     
     var GameModeOptions : GameModeOptionsModel
+    @Published var DisplaySettings: Bool = false
     @Published var TimeLimitOptions : (Int, Int, Int) = (0, 0, 0)
     
     let HalfButtonDimensions: (CGFloat, CGFloat) = (75, 200)
@@ -106,23 +107,23 @@ class GameModeSelectionViewModel: BaseViewNavigation {
             self.goToGameModeOptions(.quickplay)
         }
         self.StandardGameModeButton.action = {
-            self.TimeLimitOptions = (0,0,0)
+            self.TimeLimitOptions = GameTimeLimit.none.values
             self.GameModeOptions.gameMode = .standardgame
             self.GameModeOptions.timeLimit = 0
             self.goToGameModeOptions(.standardgame)
         }
         self.RushGameModeButton.action = {
-            self.TimeLimitOptions = (30, 60, 90)
+            self.TimeLimitOptions = GameTimeLimit.rush.values
             self.GameModeOptions.gameMode = .rushgame
             self.goToGameModeOptions(.rushgame)
         }
         self.FrenzyGameModeButton.action = {
-            self.TimeLimitOptions = (60, 90, 150)
+            self.TimeLimitOptions = GameTimeLimit.frenzy.values
             self.GameModeOptions.gameMode = .frenzygame
             self.goToGameModeOptions(.frenzygame)
         }
         self.ZenGameModeButton.action = {
-            self.TimeLimitOptions = (0,0,0)
+            self.TimeLimitOptions = GameTimeLimit.none.values
             self.GameModeOptions.gameMode = .zengame
             self.GameModeOptions.timeLimit = 0
             self.goToGameModeOptions(.zengame)

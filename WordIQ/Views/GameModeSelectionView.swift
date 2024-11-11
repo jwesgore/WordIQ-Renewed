@@ -21,7 +21,9 @@ struct GameModeSelectionView: View {
                         Image(systemName: SFAssets.stats)
                     }
                     .padding(.horizontal, 5)
-                    Button(action:{}) {
+                    Button(action:{
+                        gameModeSelectionVM.DisplaySettings = true
+                    }) {
                         Image(systemName: SFAssets.settings)
                     }
                 }
@@ -46,6 +48,9 @@ struct GameModeSelectionView: View {
             }
             .padding()
             .transition(.blurReplace)
+            .sheet(isPresented: $gameModeSelectionVM.DisplaySettings) {
+                GameSettingsView()
+            }
         case .target:
             ZStack{
                 GameView(gameModeSelectionVM.getGameViewModel())

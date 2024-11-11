@@ -22,6 +22,19 @@ enum SystemNames {
         static let zenMode = "Zen Mode"
     }
     
+    enum GameSettings {
+        static let settings = "Settings"
+        static let colorBlindMode = "Color Blind Mode"
+        static let tapticFeedback = "Taptic Feedback"
+        static let showHints = "Show Hints"
+        static let soundEffects = "Sound Effects"
+        static let quickplaySettings = "Quickplay Settings"
+        static let gameplaySettings = "Gameplay Settings"
+        static let gameTimeLimit = "Time Limit"
+        static let gameMode = "Game Mode"
+        static let gameDifficulty = "Difficulty"
+    }
+    
     // MARK: Game Over
     static let mainMenu = "Main Menu"
     static let playAgain = "Play Again"

@@ -1,11 +1,22 @@
 /// All possible game modes
-enum GameMode: String, Codable {
+enum GameMode: String, Codable, Identifiable {
     case standardgame
     case rushgame
     case frenzygame
     case zengame
     case daily
     case quickplay
+    
+    var id: Int {
+        switch self {
+        case .standardgame: return 0
+        case .rushgame: return 1
+        case .frenzygame: return 2
+        case .zengame: return 3
+        case .daily: return 4
+        case .quickplay: return 5
+        }
+    }
     
     var value: String {
         switch self {
