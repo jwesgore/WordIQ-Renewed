@@ -38,6 +38,7 @@ struct GameModeSelectionView: View {
                         GameModeButton(gameModeSelectionVM.RushGameModeButton, gameMode: .rushgame)
                         GameModeButton(gameModeSelectionVM.FrenzyGameModeButton, gameMode: .frenzygame)
                         GameModeButton(gameModeSelectionVM.ZenGameModeButton, gameMode: .zengame)
+                        
                     }
                     .offset(CGSize(width: gameModeSelectionVM.Offset - 2000, height: 0))
                     

@@ -19,34 +19,30 @@ struct ThreeDRadioButtonView<Content: View>: View {
                 threeDButtonVM.PerformAction()
             }, label: {
                 ZStack {
-                    content
-                        .frame(maxWidth:threeDButtonVM.width, maxHeight: threeDButtonVM.height)
-                        .background(
-                            RoundedRectangle(cornerRadius: threeDButtonVM.cornerRadius)
-                                .fill(threeDButtonVM.buttonIsPressed ? threeDButtonVM.selectedBackgroundColor : threeDButtonVM.backgroundColor)
-                                .stroke(threeDButtonVM.borderColor, lineWidth: threeDButtonVM.borderThickness)
-                        )
-                        .offset(CGSize(width: 0.0, height: self.offset))
-                        .zIndex(threeDButtonVM.zindex + 1.0)
-                    
                     RoundedRectangle(cornerRadius: threeDButtonVM.cornerRadius)
                         .fill(threeDButtonVM.shadowColor)
                         .stroke(threeDButtonVM.borderColor, lineWidth: threeDButtonVM.borderThickness)
                         .frame(maxWidth: threeDButtonVM.width, maxHeight: threeDButtonVM.height)
-                        .zIndex(threeDButtonVM.zindex)
+                        .shadow(color: threeDButtonVM.buttonIsPressed ? Color.clear : Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
+                    
+                    content
+                        .frame(maxWidth:threeDButtonVM.width, maxHeight: threeDButtonVM.height)
+                        .background(
+                            RoundedRectangle(cornerRadius: threeDButtonVM.cornerRadius)
+                                .fill(threeDButtonVM.activeBackgroundColor)
+                                .stroke(threeDButtonVM.borderColor, lineWidth: threeDButtonVM.borderThickness)
+                        )
+                        .offset(CGSize(width: 0.0, height: self.offset))
+
                 }
             }
         )
         .buttonStyle(NoAnimation())
         .onAppear{
-            DispatchQueue.main.asyncAfter(deadline: .now() + threeDButtonVM.delay) {
-                self.offset = threeDButtonVM.buttonIsPressed ? 0.0 : threeDButtonVM.depth
-            }
+            self.offset = threeDButtonVM.buttonIsPressed ? 0.0 : threeDButtonVM.depth
         }
         .onChange(of: threeDButtonVM.buttonIsPressed) {
-            withAnimation(.easeInOut(duration: threeDButtonVM.speed)) {
-                self.offset = threeDButtonVM.buttonIsPressed ? 0.0 : threeDButtonVM.depth
-            }
+            self.offset = threeDButtonVM.buttonIsPressed ? 0.0 : threeDButtonVM.depth
         }
     }
 }
@@ -65,5 +61,30 @@ struct ThreeDRadioButtonView_Previews: PreviewProvider {
         .padding()
         .previewDisplayName("3D Radio Button Preview")
         .previewLayout(.sizeThatFits)
+    }
+}
+
+struct InnerShadowModifier: ViewModifier {
+    var color: Color
+    var radius: CGFloat
+    var x: CGFloat
+    var y: CGFloat
+
+    func body(content: Content) -> some View {
+        content
+            .overlay(
+                RoundedRectangle(cornerRadius: 25)
+                    .stroke(color, lineWidth: 1)
+                    .shadow(color: color, radius: radius, x: x, y: y)
+                    .mask(RoundedRectangle(cornerRadius: 25).fill(LinearGradient(gradient: Gradient(colors: [.black, .white]), startPoint: .topLeading, endPoint: .center)))
+                    .blur(radius: radius)
+                    .offset(x: x, y: y)
+            )
+    }
+}
+
+extension View {
+    func innerShadow(color: Color, radius: CGFloat, x: CGFloat, y: CGFloat) -> some View {
+        self.modifier(InnerShadowModifier(color: color, radius: radius, x: x, y: y))
     }
 }

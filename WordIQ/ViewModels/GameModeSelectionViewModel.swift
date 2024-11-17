@@ -3,16 +3,7 @@ import SwiftUI
 /// ViewModel to manage the GameModeSelectionView
 class GameModeSelectionViewModel: BaseViewNavigation {
     
-    @Published private var _offset : Int = 2000
-    var Offset : Int {
-        get {
-            return _offset
-        } set {
-            withAnimation (.easeInOut(duration: 0.5)) {
-                _offset = newValue
-            }
-        }
-    }
+    @Published var Offset : Int = 2000
     
     var StartButton : ThreeDButtonViewModel
     var BackButton : ThreeDButtonViewModel
@@ -34,13 +25,19 @@ class GameModeSelectionViewModel: BaseViewNavigation {
     var FrenzyGameModeButton : ThreeDButtonViewModel
     var ZenGameModeButton : ThreeDButtonViewModel
     
-    var GameModeOptions : GameModeOptionsModel
+    @Published var GameModeOptions : GameModeOptionsModel
     @Published var DisplaySettings: Bool = false
     @Published var TimeLimitOptions : (Int, Int, Int) = (0, 0, 0)
     
+    // Calculated Values
+    var showTimeLimitOptions: Bool {
+        return [GameMode.rushgame, GameMode.frenzygame].contains(GameModeOptions.gameMode)
+    }
+    
+    // Set Values
     let HalfButtonDimensions: (CGFloat, CGFloat) = (75, 200)
-    let GameModeButtonDimension: (CGFloat, CGFloat) = (75, 400)
-    let DifficultyButtonDimension: (CGFloat, CGFloat) = (75, 400)
+    let GameModeButtonDimension: (CGFloat, CGFloat) = (60, 400)
+    let DifficultyButtonDimension: (CGFloat, CGFloat) = (50, 400)
     let TimeSelectionButtonDimension: (CGFloat, CGFloat) = (50, 400)
     let NavigationButtonDimension: (CGFloat, CGFloat) = (50, 400)
     
@@ -64,7 +61,7 @@ class GameModeSelectionViewModel: BaseViewNavigation {
         
         self.DailyGameButton = ThreeDButtonViewModel(height: HalfButtonDimensions.0, width: HalfButtonDimensions.1)
         self.QuickplayGameButton = ThreeDButtonViewModel(height: HalfButtonDimensions.0, width: HalfButtonDimensions.1)
-        self.StandardGameModeButton = ThreeDButtonViewModel(height: GameModeButtonDimension.0, width: GameModeButtonDimension.1)
+        self.StandardGameModeButton = ThreeDButtonViewModel(height: GameModeButtonDimension.0, width: GameModeButtonDimension.1, speed: 0.02)
         self.RushGameModeButton = ThreeDButtonViewModel(height: GameModeButtonDimension.0, width: GameModeButtonDimension.1)
         self.FrenzyGameModeButton = ThreeDButtonViewModel(height: GameModeButtonDimension.0, width: GameModeButtonDimension.1)
         self.ZenGameModeButton = ThreeDButtonViewModel(height: GameModeButtonDimension.0, width: GameModeButtonDimension.1)
@@ -132,6 +129,9 @@ class GameModeSelectionViewModel: BaseViewNavigation {
         // Step 5: Add radio buttons to their managers
         self.DifficultySelectionManager.add(EasyDifficultyButton, NormalDifficultyButton, HardDifficultyButton)
         self.TimeSelectionManager.add(TimeSelection1Button, TimeSelection2Button, TimeSelection3Button)
+        
+        self.DifficultySelectionManager.communicate(self.NormalDifficultyButton.id)
+        self.TimeSelectionManager.communicate(self.TimeSelection2Button.id)
     }
     
     /// Starts the game with the defined game options
@@ -141,12 +141,19 @@ class GameModeSelectionViewModel: BaseViewNavigation {
     
     /// Function to transition the view from mode selection to options
     func goToGameModeOptions(_ gameMode: GameMode) {
-        self.Offset = 0
+        withAnimation (.easeInOut(duration: 0.5)) {
+            self.Offset = 0
+        }
     }
     
     /// Function to transition the view from options to mode selection
     func goBackToModeSelection() {
-        self.Offset = 2000
+        withAnimation (.easeInOut(duration: 0.5)) {
+            self.Offset = 2000
+        } completion: {
+            self.GameModeOptions = GameModeOptionsModel(gameMode: .standardgame, gameDifficulty: .normal, timeLimit: 0)
+            self.TimeLimitOptions = (0, 0, 0)
+        }
     }
     
     /// Creates a game view model based on the game mode options set

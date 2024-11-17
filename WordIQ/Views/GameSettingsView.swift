@@ -59,17 +59,20 @@ struct GameSettingsView : View {
                 .pickerStyle(.segmented)
                 .padding(.bottom, 8)
                 
-                if [GameMode.rushgame, GameMode.frenzygame].contains(gameSettingsVM.quickplayMode) {
-                    Text(SystemNames.GameSettings.gameTimeLimit)
-                        .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.headline)))
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    Picker("Time", selection: $gameSettingsVM.quickplayTimeLimit) {
-                        Text(formatTimeShort(gameSettingsVM.quickplayTimeLimitOptions.0)).tag(gameSettingsVM.quickplayTimeLimitOptions.0)
-                        Text(formatTimeShort(gameSettingsVM.quickplayTimeLimitOptions.1)).tag(gameSettingsVM.quickplayTimeLimitOptions.1)
-                        Text(formatTimeShort(gameSettingsVM.quickplayTimeLimitOptions.2)).tag(gameSettingsVM.quickplayTimeLimitOptions.2)
+                if gameSettingsVM.showTimeLimitOptions {
+                    VStack (spacing: 5) {
+                        Text(SystemNames.GameSettings.gameTimeLimit)
+                            .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.headline)))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Picker("Time", selection: $gameSettingsVM.quickplayTimeLimit) {
+                            Text(formatTimeShort(gameSettingsVM.quickplayTimeLimitOptions.0)).tag(gameSettingsVM.quickplayTimeLimitOptions.0)
+                            Text(formatTimeShort(gameSettingsVM.quickplayTimeLimitOptions.1)).tag(gameSettingsVM.quickplayTimeLimitOptions.1)
+                            Text(formatTimeShort(gameSettingsVM.quickplayTimeLimitOptions.2)).tag(gameSettingsVM.quickplayTimeLimitOptions.2)
+                        }
+                        .pickerStyle(.segmented)
                     }
-                    .pickerStyle(.segmented)
                 }
+                
                 Spacer()
             }
         }

@@ -14,6 +14,9 @@ class GameSettingsViewModel: ObservableObject {
     var quickplayTimeLimitOptions: (Int, Int, Int) {
         return GameTimeLimit.getTimesFromGameMode(quickplayMode)
     }
+    var showTimeLimitOptions: Bool {
+        return [GameMode.rushgame, GameMode.frenzygame].contains(quickplayMode)
+    }
     
     init() {
         self.colorBlind = false

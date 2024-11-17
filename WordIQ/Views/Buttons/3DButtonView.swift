@@ -23,6 +23,7 @@ struct ThreeDButtonView<Content: View>: View {
                         .fill(threeDButtonVM.shadowColor)
                         .stroke(threeDButtonVM.borderColor, lineWidth: threeDButtonVM.borderThickness)
                         .frame(maxWidth: threeDButtonVM.width, maxHeight: threeDButtonVM.height)
+                        .shadow(color: self.offset == 0.0 ? Color.clear : Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
                         
                     content
                         .frame(maxWidth:threeDButtonVM.width, maxHeight: threeDButtonVM.height)
@@ -38,14 +39,10 @@ struct ThreeDButtonView<Content: View>: View {
         .buttonStyle(NoAnimation())
         .simultaneousGesture(DragGesture(minimumDistance: 0)
             .onChanged { _ in
-                withAnimation(.easeInOut(duration: threeDButtonVM.speed)) {
-                    self.offset = 0.0
-                }
+                self.offset = 0.0
             }
             .onEnded { _ in
-                withAnimation(.easeInOut(duration: threeDButtonVM.speed)) {
-                    self.offset = threeDButtonVM.depth
-                }
+                self.offset = threeDButtonVM.depth
             }
         )
     }
@@ -58,8 +55,8 @@ struct NoAnimation: ButtonStyle {
     }
 }
 
-#Preview {
-    ThreeDButtonView(ThreeDButtonViewModel(height: 100, width: 200, action: {})) {
-        Text("Hello")
-    }
-}
+//#Preview {
+//    ThreeDButtonView(ThreeDButtonViewModel(height: 100, width: 200, action: {}, speed: 0.02)) {
+//        Text("Hello")
+//    }
+//}

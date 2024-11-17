@@ -7,17 +7,21 @@ class ThreeDRadioButtonViewModel : ThreeDButtonViewModel {
     @Published var buttonIsPressed : Bool
     var groupManager : ThreeDRadioButtonViewModelObserver
     var selectedBackgroundColor : Color
+    var activeBackgroundColor : Color {
+        return self.buttonIsPressed ? self.selectedBackgroundColor : self.backgroundColor
+    }
     
     init(buttonIsPressed: Bool = false,
          groupManager : ThreeDRadioButtonViewModelObserver,
          height: CGFloat,
          width: CGFloat,
-         selectedBackgroundColor: Color = Color.green) {
+         delay: Double = 0.0,
+         selectedBackgroundColor: Color = Color.white) {
         self.id = UUID()
         self.buttonIsPressed = buttonIsPressed
         self.groupManager = groupManager
         self.selectedBackgroundColor = selectedBackgroundColor
-        super.init(height: height, width: width)
+        super.init(height: height, width: width, delay: delay)
     }
     
     /// Overrides the PerformAction to communicate to the radio group before performing action

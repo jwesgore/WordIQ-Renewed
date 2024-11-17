@@ -9,9 +9,21 @@ struct GameModeOptionsView : View {
     }
     
     var body: some View {
+        let optionsHeader = gameModeSelectionVM.showTimeLimitOptions ?
+        "\(gameModeSelectionVM.GameModeOptions.gameMode.value): \(gameModeSelectionVM.GameModeOptions.gameDifficulty.asString), \(formatTimeShort(gameModeSelectionVM.GameModeOptions.timeLimit))" :
+        "\(gameModeSelectionVM.GameModeOptions.gameMode.value): \(gameModeSelectionVM.GameModeOptions.gameDifficulty.asString)"
+            
         VStack (spacing: 10) {
             VStack {
-                Text("Test")
+                Spacer().frame(height: 20)
+                
+                Text(optionsHeader)
+                    .font(.custom(RobotoSlabOptions.Weight.semiBold, size: CGFloat(RobotoSlabOptions.Size.title2)))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Text(gameModeSelectionVM.GameModeOptions.gameMode.description)
+                    .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.subheading)))
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
             Spacer()
             VStack {
@@ -19,7 +31,7 @@ struct GameModeOptionsView : View {
                 GameSelectionDifficultyButtonView(gameModeSelectionVM.NormalDifficultyButton, difficulty: .normal)
                 GameSelectionDifficultyButtonView(gameModeSelectionVM.HardDifficultyButton, difficulty: .hard)
             }
-            if gameModeSelectionVM.TimeLimitOptions != (0,0,0) {
+            if gameModeSelectionVM.showTimeLimitOptions {
                 HStack {
                     GameSelectionTimeButtonView(gameModeSelectionVM.TimeSelection1Button, timeLimit: gameModeSelectionVM.TimeLimitOptions.0)
                     GameSelectionTimeButtonView(gameModeSelectionVM.TimeSelection2Button, timeLimit: gameModeSelectionVM.TimeLimitOptions.1)
@@ -39,5 +51,11 @@ struct GameModeOptionsView : View {
                 }
             }
         }
+    }
+    
+    func formatTimeShort(_ seconds: Int) -> String {
+        let minutes = seconds / 60
+        let remainingSeconds = seconds % 60
+        return String(format: "%d:%02d", minutes, remainingSeconds)
     }
 }
