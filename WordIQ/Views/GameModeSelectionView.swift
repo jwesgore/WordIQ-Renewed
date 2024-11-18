@@ -12,6 +12,46 @@ struct GameModeSelectionView: View {
     var body: some View {
         switch gameModeSelectionVM.activeView {
         case .root:
+//            NavigationStack {
+//                VStack {
+//                    HStack {
+//                        Text(SystemNames.Title.title)
+//                            .font(.custom(RobotoSlabOptions.Weight.bold, size: CGFloat(RobotoSlabOptions.Size.title2)))
+//                        Spacer()
+//                        Button(action:{
+//                            gameModeSelectionVM.DisplaySettings = true
+//                        }) {
+//                            Image(systemName: SFAssets.settings)
+//                        }
+//                        .padding(.horizontal, 5)
+//                        .navigationDestination(isPresented: $gameModeSelectionVM.DisplaySettings) {
+//                            GameSettingsView()
+//                        }
+//                    }
+//                    Spacer()
+//                    ZStack {
+//                        VStack (spacing: 10) {
+//                            HStack {
+//                                GameModeButton(gameModeSelectionVM.DailyGameButton, gameMode: .daily)
+//                                GameModeButton(gameModeSelectionVM.QuickplayGameButton, gameMode: .quickplay)
+//                            }
+//                            GameModeButton(gameModeSelectionVM.StandardGameModeButton, gameMode: .standardgame)
+//                            GameModeButton(gameModeSelectionVM.RushGameModeButton, gameMode: .rushgame)
+//                            GameModeButton(gameModeSelectionVM.FrenzyGameModeButton, gameMode: .frenzygame)
+//                            GameModeButton(gameModeSelectionVM.ZenGameModeButton, gameMode: .zengame)
+//                            
+//                        }
+//                        .offset(CGSize(width: gameModeSelectionVM.Offset - 2000, height: 0))
+//                        
+//                        GameModeOptionsView(gameModeSelectionVM)
+//                            .offset(CGSize(width: gameModeSelectionVM.Offset, height: 0))
+//                    }
+//                    Spacer()
+//                }
+//                .padding()
+//                .transition(.blurReplace)
+//            }
+
             VStack {
                 HStack {
                     Text(SystemNames.Title.title)
@@ -49,8 +89,8 @@ struct GameModeSelectionView: View {
             }
             .padding()
             .transition(.blurReplace)
-            .sheet(isPresented: $gameModeSelectionVM.DisplaySettings) {
-                GameSettingsView()
+            .fullScreenCover(isPresented: $gameModeSelectionVM.DisplaySettings) {
+                GameSettingsView(isPresented: $gameModeSelectionVM.DisplaySettings)
             }
         case .target:
             ZStack{

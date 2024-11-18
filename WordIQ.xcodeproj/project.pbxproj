@@ -34,6 +34,7 @@
 		4B6603A92CE159A200F4F140 /* GameSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6603A82CE1599800F4F140 /* GameSettingsView.swift */; };
 		4B6603AB2CE165C600F4F140 /* GameSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6603AA2CE165C000F4F140 /* GameSettingsViewModel.swift */; };
 		4B6603AD2CE1CE2200F4F140 /* GameTimeLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6603AC2CE1CE1900F4F140 /* GameTimeLimit.swift */; };
+		4B6603AF2CEAE03800F4F140 /* GamePauseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6603AE2CEAE02400F4F140 /* GamePauseView.swift */; };
 		4B82B9D72CC072E2009A1502 /* WordIQApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82B9D62CC072E2009A1502 /* WordIQApp.swift */; };
 		4B82B9D92CC072E2009A1502 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82B9D82CC072E2009A1502 /* ContentView.swift */; };
 		4B82B9DB2CC072E2009A1502 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82B9DA2CC072E2009A1502 /* Item.swift */; };
@@ -112,6 +113,7 @@
 		4B6603A82CE1599800F4F140 /* GameSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsView.swift; sourceTree = "<group>"; };
 		4B6603AA2CE165C000F4F140 /* GameSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsViewModel.swift; sourceTree = "<group>"; };
 		4B6603AC2CE1CE1900F4F140 /* GameTimeLimit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTimeLimit.swift; sourceTree = "<group>"; };
+		4B6603AE2CEAE02400F4F140 /* GamePauseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePauseView.swift; sourceTree = "<group>"; };
 		4B82B9D32CC072E2009A1502 /* WordIQ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordIQ.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B82B9D62CC072E2009A1502 /* WordIQApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordIQApp.swift; sourceTree = "<group>"; };
 		4B82B9D82CC072E2009A1502 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 				4B6603A52CDEF90000F4F140 /* GameModeOptionsView.swift */,
 				4BF592682CC30BFE00C555F6 /* GameModeSelectionView.swift */,
 				4B091B5B2CD85BF40092600B /* GameOverView.swift */,
+				4B6603AE2CEAE02400F4F140 /* GamePauseView.swift */,
 				4B6603A82CE1599800F4F140 /* GameSettingsView.swift */,
 				4BF592902CCEF82100C555F6 /* GameView.swift */,
 				4BF592222CC0848000C555F6 /* SplashScreenView.swift */,
@@ -563,6 +566,7 @@
 				4B091B4C2CD5EAAA0092600B /* DatabaseHelper.swift in Sources */,
 				4BF5925F2CC1E60E00C555F6 /* 3DButtonViewModel.swift in Sources */,
 				4B091B572CD68FF00092600B /* LetterComparison.swift in Sources */,
+				4B6603AF2CEAE03800F4F140 /* GamePauseView.swift in Sources */,
 				4BF592672CC2EDB100C555F6 /* ClockViewModel.swift in Sources */,
 				4BF5927D2CCC1B1900C555F6 /* 3DRadioButtonViewModel.swift in Sources */,
 				4BF592912CCEF83000C555F6 /* GameView.swift in Sources */,

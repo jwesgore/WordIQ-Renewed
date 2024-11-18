@@ -51,12 +51,12 @@ class GameModeSelectionViewModel: BaseViewNavigation {
         
         self.DifficultySelectionManager = ThreeDRadioButtonGroupViewModel()
         self.EasyDifficultyButton = ThreeDRadioButtonViewModel(groupManager: DifficultySelectionManager, height: DifficultyButtonDimension.0, width: DifficultyButtonDimension.1)
-        self.NormalDifficultyButton = ThreeDRadioButtonViewModel(groupManager: DifficultySelectionManager, height: DifficultyButtonDimension.0, width: DifficultyButtonDimension.1)
+        self.NormalDifficultyButton = ThreeDRadioButtonViewModel(buttonIsPressed: true, groupManager: DifficultySelectionManager, height: DifficultyButtonDimension.0, width: DifficultyButtonDimension.1)
         self.HardDifficultyButton = ThreeDRadioButtonViewModel(groupManager: DifficultySelectionManager, height: DifficultyButtonDimension.0, width: DifficultyButtonDimension.1)
         
         self.TimeSelectionManager = ThreeDRadioButtonGroupViewModel()
         self.TimeSelection1Button = ThreeDRadioButtonViewModel(groupManager: TimeSelectionManager, height: TimeSelectionButtonDimension.0, width: TimeSelectionButtonDimension.1)
-        self.TimeSelection2Button = ThreeDRadioButtonViewModel(groupManager: TimeSelectionManager, height: TimeSelectionButtonDimension.0, width: TimeSelectionButtonDimension.1)
+        self.TimeSelection2Button = ThreeDRadioButtonViewModel(buttonIsPressed: true, groupManager: TimeSelectionManager, height: TimeSelectionButtonDimension.0, width: TimeSelectionButtonDimension.1)
         self.TimeSelection3Button = ThreeDRadioButtonViewModel(groupManager: TimeSelectionManager, height: TimeSelectionButtonDimension.0, width: TimeSelectionButtonDimension.1)
         
         self.DailyGameButton = ThreeDButtonViewModel(height: HalfButtonDimensions.0, width: HalfButtonDimensions.1)
@@ -129,9 +129,6 @@ class GameModeSelectionViewModel: BaseViewNavigation {
         // Step 5: Add radio buttons to their managers
         self.DifficultySelectionManager.add(EasyDifficultyButton, NormalDifficultyButton, HardDifficultyButton)
         self.TimeSelectionManager.add(TimeSelection1Button, TimeSelection2Button, TimeSelection3Button)
-        
-        self.DifficultySelectionManager.communicate(self.NormalDifficultyButton.id)
-        self.TimeSelectionManager.communicate(self.TimeSelection2Button.id)
     }
     
     /// Starts the game with the defined game options

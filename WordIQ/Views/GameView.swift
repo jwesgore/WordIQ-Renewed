@@ -18,7 +18,9 @@ struct GameView : View {
                         .font(.custom(RobotoSlabOptions.Weight.bold, size: CGFloat(RobotoSlabOptions.Size.title3)))
                     Spacer()
                     Button(
-                        action: {},
+                        action: {
+                            self.gameViewModel.pauseGame()
+                        },
                         label: {
                             Image(systemName: SFAssets.pause)
                         }
@@ -41,6 +43,9 @@ struct GameView : View {
                              deleteKey: gameViewModel.KeyboardDeleteButton)
             }
             .padding()
+            .fullScreenCover(isPresented: $gameViewModel.showPauseMenu) {
+                GamePauseView(gameViewModel)
+            }
         case .target:
             GameOverView(gameViewModel.gameOverViewModel)
         case .blank:

@@ -47,5 +47,6 @@ class GameBoardLetterViewModel : ObservableObject {
         self.letter = nil
         self.opacity = 1.0
         self.backgroundColor = .notSet
+        self.borderColor = Color.GameBoard.letterBorderInactive
     }
 }

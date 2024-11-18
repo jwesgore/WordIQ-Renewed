@@ -24,6 +24,8 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
     }
     var exitGameAction: () -> Void = {}
     
+    @Published var showPauseMenu: Bool
+    
     let gameOptions : GameModeOptionsModel
     let letterKeyWidthMultiplier = 0.085
     let funcKeyWidthMultiplier = 0.13
@@ -41,6 +43,7 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
                                                               height: UIScreen.main.bounds.height * keyHeightMultiplier,
                                                               width: UIScreen.main.bounds.width * funcKeyWidthMultiplier)
         self.IsKeyboardActive = true
+        self.showPauseMenu = false
         
         self.BoardPosition = 0
         self.GameBoardWords = [GameBoardWordViewModel]()
@@ -128,6 +131,9 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
             word.reset()
         }
         
+        self.BoardPosition = 0
+        self.ActiveWord = self.GameBoardWords.first
+        
         self.IsKeyboardActive = true
     }
     
@@ -200,6 +206,18 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
     }
     
     // MARK: Navigation functions
+    /// Function to pause the game
+    func pauseGame() {
+        self.showPauseMenu = true
+        self.Clock.stopClock()
+    }
+    
+    /// Function to resume the game when paused
+    func resumeGame() {
+        self.showPauseMenu = false
+        self.Clock.startClock()
+    }
+    
     /// Function to end the game
     func gameover() {
         super.fadeToWhiteDelay(delay: 3.0)
@@ -208,6 +226,14 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
     /// Function to play a new game again
     func playAgain() {
         super.fadeToWhite(fromRoot: false)
+        self.keyboardReset()
+        self.boardReset()
+        self.Clock.resetClock()
+        
+        self.gameOverModel.targetWord = DatabaseHelper.shared.fetchRandomWord(withDifficulty: gameOptions.gameDifficulty)
+        self.TargetWord = self.gameOverModel.targetWord
+        
+        print(self.TargetWord)
     }
     
     /// Function to go back to game mode selection

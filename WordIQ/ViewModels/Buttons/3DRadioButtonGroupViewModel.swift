@@ -13,6 +13,7 @@ class ThreeDRadioButtonGroupViewModel : ThreeDRadioButtonViewModelObserver {
     func add(_ buttons : ThreeDRadioButtonViewModel...) {
         for button in buttons {
             self.Buttons[button.id] = button
+            if button.buttonIsPressed { self.communicate(button.id) }
         }
     }
     

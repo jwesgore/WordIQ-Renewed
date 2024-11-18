@@ -3,29 +3,41 @@ import SwiftUI
 struct GameSettingsView : View {
     
     @ObservedObject var gameSettingsVM: GameSettingsViewModel
+    @Binding var isPresented: Bool
     
-    init() {
+    init(isPresented: Binding<Bool>) {
         self.gameSettingsVM = GameSettingsViewModel()
+        self._isPresented = isPresented
     }
     
     var body: some View {
         VStack {
-            Text(SystemNames.GameSettings.settings)
-                .font(.custom(RobotoSlabOptions.Weight.semiBold, size: CGFloat(RobotoSlabOptions.Size.title1)))
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.bottom)
+            HStack {
+                Text(SystemNames.GameSettings.settings)
+                    .font(.custom(RobotoSlabOptions.Weight.semiBold, size: CGFloat(RobotoSlabOptions.Size.title1)))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.bottom)
+                
+                Button(action: {
+                    self.isPresented.toggle()
+                }, label: {
+                    Text("Done")
+                })
+            }
             
             VStack {
                 Text(SystemNames.GameSettings.gameplaySettings)
                     .font(.custom(RobotoSlabOptions.Weight.semiBold, size: CGFloat(RobotoSlabOptions.Size.title2)))
                     .frame(maxWidth: .infinity, alignment: .leading)
-                GameSettingsToggle(SystemNames.GameSettings.colorBlindMode, isActive: gameSettingsVM.colorBlind)
-                Divider()
-                GameSettingsToggle(SystemNames.GameSettings.showHints, isActive: gameSettingsVM.showHints)
-                Divider()
-                GameSettingsToggle(SystemNames.GameSettings.soundEffects, isActive: gameSettingsVM.soundEffects)
-                Divider()
-                GameSettingsToggle(SystemNames.GameSettings.tapticFeedback, isActive: gameSettingsVM.tapticFeedback)
+                GroupBox {
+                    GameSettingsToggle(SystemNames.GameSettings.colorBlindMode, isActive: gameSettingsVM.colorBlind)
+                    Divider()
+                    GameSettingsToggle(SystemNames.GameSettings.showHints, isActive: gameSettingsVM.showHints)
+                    Divider()
+                    GameSettingsToggle(SystemNames.GameSettings.soundEffects, isActive: gameSettingsVM.soundEffects)
+                    Divider()
+                    GameSettingsToggle(SystemNames.GameSettings.tapticFeedback, isActive: gameSettingsVM.tapticFeedback)
+                }
             }
             .padding(.bottom)
             
@@ -34,45 +46,45 @@ struct GameSettingsView : View {
                     .font(.custom(RobotoSlabOptions.Weight.semiBold, size: CGFloat(RobotoSlabOptions.Size.title2)))
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.bottom, 8)
-            
-                Text(SystemNames.GameSettings.gameMode)
-                    .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.headline)))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-                Picker("Game Mode", selection: $gameSettingsVM.quickplayMode) {
-                    Text(GameMode.standardgame.value).tag(GameMode.standardgame)
-                    Text(GameMode.rushgame.value).tag(GameMode.rushgame)
-                    Text(GameMode.frenzygame.value).tag(GameMode.frenzygame)
-                    Text(GameMode.zengame.value).tag(GameMode.zengame)
-                }
-                .pickerStyle(.segmented)
-                .padding(.bottom, 8)
-                
-                Text(SystemNames.GameSettings.gameDifficulty)
-                    .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.headline)))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                Picker("Difficulty", selection: $gameSettingsVM.quickplayDifficulty) {
-                    Text(GameDifficulty.easy.asString).tag(GameDifficulty.easy)
-                    Text(GameDifficulty.normal.asString).tag(GameDifficulty.normal)
-                    Text(GameDifficulty.hard.asString).tag(GameDifficulty.hard)
-                }
-                .pickerStyle(.segmented)
-                .padding(.bottom, 8)
-                
-                if gameSettingsVM.showTimeLimitOptions {
-                    VStack (spacing: 5) {
-                        Text(SystemNames.GameSettings.gameTimeLimit)
-                            .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.headline)))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        Picker("Time", selection: $gameSettingsVM.quickplayTimeLimit) {
-                            Text(formatTimeShort(gameSettingsVM.quickplayTimeLimitOptions.0)).tag(gameSettingsVM.quickplayTimeLimitOptions.0)
-                            Text(formatTimeShort(gameSettingsVM.quickplayTimeLimitOptions.1)).tag(gameSettingsVM.quickplayTimeLimitOptions.1)
-                            Text(formatTimeShort(gameSettingsVM.quickplayTimeLimitOptions.2)).tag(gameSettingsVM.quickplayTimeLimitOptions.2)
+                GroupBox {
+                    Text(SystemNames.GameSettings.gameMode)
+                        .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.headline)))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Picker("Game Mode", selection: $gameSettingsVM.quickplayMode) {
+                        Text(GameMode.standardgame.value).tag(GameMode.standardgame)
+                        Text(GameMode.rushgame.value).tag(GameMode.rushgame)
+                        Text(GameMode.frenzygame.value).tag(GameMode.frenzygame)
+                        Text(GameMode.zengame.value).tag(GameMode.zengame)
+                    }
+                    .pickerStyle(.segmented)
+                    .padding(.bottom, 8)
+                    
+                    Text(SystemNames.GameSettings.gameDifficulty)
+                        .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.headline)))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Picker("Difficulty", selection: $gameSettingsVM.quickplayDifficulty) {
+                        Text(GameDifficulty.easy.asString).tag(GameDifficulty.easy)
+                        Text(GameDifficulty.normal.asString).tag(GameDifficulty.normal)
+                        Text(GameDifficulty.hard.asString).tag(GameDifficulty.hard)
+                    }
+                    .pickerStyle(.segmented)
+                    .padding(.bottom, 8)
+                    
+                    if gameSettingsVM.showTimeLimitOptions {
+                        VStack (spacing: 5) {
+                            Text(SystemNames.GameSettings.gameTimeLimit)
+                                .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.headline)))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            Picker("Time", selection: $gameSettingsVM.quickplayTimeLimit) {
+                                Text(formatTimeShort(gameSettingsVM.quickplayTimeLimitOptions.0)).tag(gameSettingsVM.quickplayTimeLimitOptions.0)
+                                Text(formatTimeShort(gameSettingsVM.quickplayTimeLimitOptions.1)).tag(gameSettingsVM.quickplayTimeLimitOptions.1)
+                                Text(formatTimeShort(gameSettingsVM.quickplayTimeLimitOptions.2)).tag(gameSettingsVM.quickplayTimeLimitOptions.2)
+                            }
+                            .pickerStyle(.segmented)
                         }
-                        .pickerStyle(.segmented)
                     }
                 }
-                
                 Spacer()
             }
         }
@@ -104,5 +116,5 @@ private struct GameSettingsToggle : View {
 }
 
 #Preview {
-    GameSettingsView()
+    GameSettingsView(isPresented: .constant(true))
 }
