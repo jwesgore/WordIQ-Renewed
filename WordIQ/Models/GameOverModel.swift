@@ -36,7 +36,6 @@ struct GameOverModel {
         self.date = Date.now
         
         self.timeElapsed = 0
-        self.timeElapsed = 0
         self.xp = 0
         
         self.targetWord = gameOptions.targetWord

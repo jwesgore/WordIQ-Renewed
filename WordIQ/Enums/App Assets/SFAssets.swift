@@ -14,6 +14,8 @@ enum SFAssets {
     static let star = "star"
     static let playCircle = "play.circle"
     
+    static let numberSign = "number"
+    
     // MARK: Function keys
     static let delete = "arrow.backward"
     static let enter = "arrow.turn.down.right"

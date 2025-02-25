@@ -2,8 +2,8 @@ import SQLite3
 import Foundation
 
 /// Wrapper to help interface with database file
-class DatabaseHelper {
-    static let shared = DatabaseHelper()
+class WordDatabaseHelper {
+    static let shared = WordDatabaseHelper()
     
     var db: OpaquePointer?
     

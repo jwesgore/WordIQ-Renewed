@@ -14,6 +14,15 @@ struct GameView : View {
         case .root:
             VStack (spacing: 0) {
                 HStack (spacing: 0) {
+                    Button (
+                        action: {
+                            self.gameViewModel.exitGame()
+                        },
+                        label: {
+                            Image(systemName: SFAssets.backArrow)
+                        }
+                    )
+                    Spacer()
                     Text(gameViewModel.gameOptions.gameMode.value)
                         .font(.custom(RobotoSlabOptions.Weight.bold, size: CGFloat(RobotoSlabOptions.Size.title3)))
                     Spacer()

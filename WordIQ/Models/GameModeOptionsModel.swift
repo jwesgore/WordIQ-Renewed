@@ -12,7 +12,7 @@ struct GameModeOptionsModel {
         self.gameMode = gameMode
         self.gameDifficulty = gameDifficulty
         self.timeLimit = timeLimit
-        self.targetWord = DatabaseHelper.shared.fetchRandomWord(withDifficulty: gameDifficulty)
+        self.targetWord = WordDatabaseHelper.shared.fetchRandomWord(withDifficulty: gameDifficulty)
     }
     
     /// Initializer that takes in a target word

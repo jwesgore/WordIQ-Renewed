@@ -77,9 +77,9 @@ struct GameSettingsView : View {
                                 .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.headline)))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             Picker("Time", selection: $gameSettingsVM.quickplayTimeLimit) {
-                                Text(formatTimeShort(gameSettingsVM.quickplayTimeLimitOptions.0)).tag(gameSettingsVM.quickplayTimeLimitOptions.0)
-                                Text(formatTimeShort(gameSettingsVM.quickplayTimeLimitOptions.1)).tag(gameSettingsVM.quickplayTimeLimitOptions.1)
-                                Text(formatTimeShort(gameSettingsVM.quickplayTimeLimitOptions.2)).tag(gameSettingsVM.quickplayTimeLimitOptions.2)
+                                Text(TimeUtility.formatTimeShort(gameSettingsVM.quickplayTimeLimitOptions.0)).tag(gameSettingsVM.quickplayTimeLimitOptions.0)
+                                Text(TimeUtility.formatTimeShort(gameSettingsVM.quickplayTimeLimitOptions.1)).tag(gameSettingsVM.quickplayTimeLimitOptions.1)
+                                Text(TimeUtility.formatTimeShort(gameSettingsVM.quickplayTimeLimitOptions.2)).tag(gameSettingsVM.quickplayTimeLimitOptions.2)
                             }
                             .pickerStyle(.segmented)
                         }
@@ -89,12 +89,6 @@ struct GameSettingsView : View {
             }
         }
         .padding()
-    }
-    
-    func formatTimeShort(_ seconds: Int) -> String {
-        let minutes = seconds / 60
-        let remainingSeconds = seconds % 60
-        return String(format: "%d:%02d", minutes, remainingSeconds)
     }
 }
 

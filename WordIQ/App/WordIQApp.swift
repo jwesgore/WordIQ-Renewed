@@ -6,31 +6,20 @@
 //
 
 import SwiftUI
-import SwiftData
 
 @main
 struct WordIQApp: App {
-    init() {
-        _ = DatabaseHelper.shared
-    }
     
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
+    let persistenceController = GameDatabasePersistenceController.shared
+    
+    init() {
+        _ = WordDatabaseHelper.shared
+    }
 
     var body: some Scene {
         WindowGroup {
             SplashScreenView()
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
-        .modelContainer(sharedModelContainer)
     }
 }

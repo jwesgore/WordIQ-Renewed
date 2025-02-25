@@ -6,9 +6,9 @@ struct ClockView: View {
     
     var body: some View {
         if clockVM.isClockTimer {
-            Text(clockVM.formatTimeShort(clockVM.timeRemaining))
+            Text(TimeUtility.formatTimeShort(clockVM.timeRemaining))
         } else {
-            Text(clockVM.formatTimeShort(clockVM.timeElapsed))
+            Text(TimeUtility.formatTimeShort(clockVM.timeElapsed))
         }
     }
 }

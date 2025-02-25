@@ -1,5 +1,10 @@
 /// Enum to support system wide strings that may get reused
 enum SystemNames {
+    enum Data {
+        static let gameDatabase = "WordIQCoreData"
+        static let gameResults = "GameResultsModel"
+    }
+    
     // MARK: Splash Screen
     enum Title {
         static let title = "WordIQ"
@@ -35,7 +40,19 @@ enum SystemNames {
         static let gameDifficulty = "Difficulty"
     }
     
+    enum GamePause {
+        static let title = "Paused"
+        static let resumeGame = "Resume Game"
+    }
+    
     // MARK: Game Over
+    enum GameOver {
+        static let timeElapsed = "Time Elapsed"
+        static let gamesPlayed = "Games Played"
+        static let score = "Score"
+        static let guesses = "Guesses"
+    }
+    
     static let mainMenu = "Main Menu"
     static let playAgain = "Play Again"
     

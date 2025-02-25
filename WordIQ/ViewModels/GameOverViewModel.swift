@@ -14,4 +14,6 @@ class GameOverViewModel : ObservableObject {
         self.BackButton = ThreeDButtonViewModel(height: functionButtonDimensions.0, width: functionButtonDimensions.1)
         self.PlayAgainButton = ThreeDButtonViewModel(height: functionButtonDimensions.0, width: functionButtonDimensions.1)
     }
+    
+    
 }

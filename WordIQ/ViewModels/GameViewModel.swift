@@ -22,6 +22,14 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
         gameOverVM.BackButton.action = self.exitGame
         return gameOverVM
     }
+    
+    var gamePauseViewModel: GamePauseViewModel {
+        let gamePauseVM = GamePauseViewModel()
+        gamePauseVM.ResumeGameButton.action = self.resumeGame
+        gamePauseVM.EndGameButton.action = self.exitGame
+        return gamePauseVM
+    }
+    
     var exitGameAction: () -> Void = {}
     
     @Published var showPauseMenu: Bool
@@ -90,7 +98,7 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
         if let wordSubmitted = ActiveWord?.getWord() {
             if self.TargetWord == wordSubmitted {
                 self.correctWordSubmitted()
-            } else if (DatabaseHelper.shared.doesWordExist(wordSubmitted)) {
+            } else if (WordDatabaseHelper.shared.doesWordExist(wordSubmitted)) {
                 self.wrongWordSubmitted()
             } else {
                 self.invalidWordSubmitted()
@@ -219,8 +227,13 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
     }
     
     /// Function to end the game
-    func gameover() {
-        super.fadeToWhiteDelay(delay: 3.0)
+    func gameover(speed : Double = 3.0) {
+        self.showPauseMenu = false
+        
+        self.Clock.stopClock()
+        self.gameOverModel.timeElapsed = self.Clock.timeElapsed
+        
+        super.fadeToWhiteDelay(delay: speed)
     }
     
     /// Function to play a new game again
@@ -230,7 +243,7 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
         self.boardReset()
         self.Clock.resetClock()
         
-        self.gameOverModel.targetWord = DatabaseHelper.shared.fetchRandomWord(withDifficulty: gameOptions.gameDifficulty)
+        self.gameOverModel.targetWord = WordDatabaseHelper.shared.fetchRandomWord(withDifficulty: gameOptions.gameDifficulty)
         self.TargetWord = self.gameOverModel.targetWord
         
         print(self.TargetWord)

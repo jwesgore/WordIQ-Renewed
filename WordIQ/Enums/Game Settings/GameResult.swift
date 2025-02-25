@@ -8,9 +8,17 @@ enum GameResult: String, Codable {
     
     var gameOverString: String {
         switch self {
-        case .win: return "Congradulations!"
+        case .win: return "Congratulations!"
         case .lose: return "Game Over"
         case .na: return "Game Over"
+        }
+    }
+    
+    var asInt : Int {
+        switch self {
+        case .na: return 0
+        case .lose: return 1
+        case .win: return 2
         }
     }
 }
