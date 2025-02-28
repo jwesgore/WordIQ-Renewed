@@ -4,6 +4,7 @@ enum GameDifficulty: String, Codable {
     case normal
     case hard
     
+    // Get mode as string
     var asString: String {
         switch self {
         case .easy: return "Easy"
@@ -12,11 +13,22 @@ enum GameDifficulty: String, Codable {
         }
     }
     
-    var asInt: Int {
+    // Get mode ID
+    var id: Int {
         switch self {
         case .easy: return 3
         case .normal: return 2
         case .hard: return 1
+        }
+    }
+    
+    // Get mode by ID
+    static func fromId(_ id: Int) -> GameDifficulty? {
+        switch id {
+        case 3: return .easy
+        case 2: return .normal
+        case 1: return .hard
+        default: return nil
         }
     }
 }

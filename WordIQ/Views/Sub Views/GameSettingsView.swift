@@ -12,35 +12,39 @@ struct GameSettingsView : View {
     
     var body: some View {
         VStack {
+            // MARK: Top Row Header and Done Button
             HStack {
                 Text(SystemNames.GameSettings.settings)
                     .font(.custom(RobotoSlabOptions.Weight.semiBold, size: CGFloat(RobotoSlabOptions.Size.title1)))
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.bottom)
-                
+              
                 Button(action: {
                     self.isPresented.toggle()
                 }, label: {
                     Text("Done")
+                        .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.headline)))
                 })
             }
+            .padding(.bottom)
             
+            // MARK: Gameplay Settings block
             VStack {
                 Text(SystemNames.GameSettings.gameplaySettings)
                     .font(.custom(RobotoSlabOptions.Weight.semiBold, size: CGFloat(RobotoSlabOptions.Size.title2)))
                     .frame(maxWidth: .infinity, alignment: .leading)
                 GroupBox {
-                    GameSettingsToggle(SystemNames.GameSettings.colorBlindMode, isActive: gameSettingsVM.colorBlind)
+                    GameSettingsToggle(SystemNames.GameSettings.colorBlindMode, isActive: $gameSettingsVM.colorBlind)
                     Divider()
-                    GameSettingsToggle(SystemNames.GameSettings.showHints, isActive: gameSettingsVM.showHints)
+                    GameSettingsToggle(SystemNames.GameSettings.showHints, isActive: $gameSettingsVM.showHints)
                     Divider()
-                    GameSettingsToggle(SystemNames.GameSettings.soundEffects, isActive: gameSettingsVM.soundEffects)
+                    GameSettingsToggle(SystemNames.GameSettings.soundEffects, isActive: $gameSettingsVM.soundEffects)
                     Divider()
-                    GameSettingsToggle(SystemNames.GameSettings.tapticFeedback, isActive: gameSettingsVM.tapticFeedback)
+                    GameSettingsToggle(SystemNames.GameSettings.hapticFeedback, isActive: $gameSettingsVM.tapticFeedback)
                 }
             }
             .padding(.bottom)
             
+            // MARK: Quickplay Settings block
             VStack (spacing: 5) {
                 Text(SystemNames.GameSettings.quickplaySettings)
                     .font(.custom(RobotoSlabOptions.Weight.semiBold, size: CGFloat(RobotoSlabOptions.Size.title2)))
@@ -71,6 +75,7 @@ struct GameSettingsView : View {
                     .pickerStyle(.segmented)
                     .padding(.bottom, 8)
                     
+                    // Show Quickplay time limit options only if mode had time limit
                     if gameSettingsVM.showTimeLimitOptions {
                         VStack (spacing: 5) {
                             Text(SystemNames.GameSettings.gameTimeLimit)
@@ -85,8 +90,9 @@ struct GameSettingsView : View {
                         }
                     }
                 }
-                Spacer()
             }
+            
+            Spacer()
         }
         .padding()
     }
@@ -95,11 +101,11 @@ struct GameSettingsView : View {
 private struct GameSettingsToggle : View {
     
     var label: String
-    @State var isActive: Bool
+    @Binding var isActive: Bool
     
-    init(_ label: String, isActive: Bool) {
+    init(_ label: String, isActive: Binding<Bool>) {
         self.label = label
-        self.isActive = isActive
+        self._isActive = isActive
     }
     
     var body: some View {

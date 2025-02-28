@@ -3,6 +3,10 @@ import SwiftUI
 /// ViewModel to manage the playable game screen
 class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
 
+    // MARK: Fields
+    var _targetWordHints : [ValidCharacters?]
+    
+    // MARK: Properties
     var Clock : ClockViewModel
     var KeyboardLetterButtons : [ValidCharacters : KeyboardLetterViewModel]
     var KeyboardEnterButton : KeyboardFunctionViewModel
@@ -13,7 +17,18 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
     var GameBoardWords : [GameBoardWordViewModel]
     var ActiveWord : GameBoardWordViewModel?
     var TargetWord : GameWordModel
-    var TargetWordHints : [ValidCharacters?]
+    var TargetWordHints : [ValidCharacters?] {
+        get {
+            if (UserDefaultsHelper.shared.setting_showHints || BoardPosition % 6 == 0) {
+                return _targetWordHints
+            } else {
+                return [ValidCharacters?](repeating: nil, count: 5)
+            }
+        }
+        set {
+            _targetWordHints = newValue
+        }
+    }
     var gameOverModel : GameOverModel
     
     var gameOverViewModel: GameOverViewModel {
@@ -56,7 +71,7 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
         self.BoardPosition = 0
         self.GameBoardWords = [GameBoardWordViewModel]()
         self.TargetWord = gameOptions.targetWord
-        self.TargetWordHints = [ValidCharacters?](repeating: nil, count: 5)
+        self._targetWordHints = [ValidCharacters?](repeating: nil, count: 5)
         self.gameOverModel = GameOverModel(gameOptions: gameOptions)
         print(self.TargetWord)
 

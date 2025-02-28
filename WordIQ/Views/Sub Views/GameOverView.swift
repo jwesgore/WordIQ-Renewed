@@ -87,20 +87,24 @@ struct GameOverView : View {
         }
         .padding()
         .onAppear {
+            // Initialize helper
+            self.databaseHelper = GameDatabaseHelper(context: viewContext)
+
+            // Save game
             self.databaseHelper?.saveGame(gameOverData: gameoverVM.gameOverModel)
             
-            self.databaseHelper = GameDatabaseHelper(context: viewContext)
+            // Parse values for end screen based on game mode
             switch gameoverVM.gameOverModel.gameMode {
             case .frenzygame:
                 thirdRowValue = gameoverVM.gameOverModel.numCorrectWords.description
                 fourthRowValue = ValueConverter.DoubleToPercent(
-                    databaseHelper?.getWinPercentage(mode: gameoverVM.gameOverModel.gameMode) ?? 0)
+                    databaseHelper?.getGameModeWinPercentage(mode: gameoverVM.gameOverModel.gameMode) ?? 0)
             case .zengame:
                 thirdRowValue = databaseHelper?.getGameModeCount(mode: gameoverVM.gameOverModel.gameMode).description ?? "1"
             default:
                 thirdRowValue = "0"
                 fourthRowValue = ValueConverter.DoubleToPercent(
-                    databaseHelper?.getWinPercentage(mode: gameoverVM.gameOverModel.gameMode) ?? 0)
+                    databaseHelper?.getGameModeWinPercentage(mode: gameoverVM.gameOverModel.gameMode) ?? 0)
             }
         }
     }

@@ -14,6 +14,8 @@ struct WordIQApp: App {
     
     init() {
         _ = WordDatabaseHelper.shared
+        _ = UserDefaultsHelper.shared
+        _ = Haptics.shared
     }
 
     var body: some Scene {

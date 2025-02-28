@@ -11,7 +11,6 @@ enum SystemNames {
         static let caption = "Fun. Lightweight. Offline."
     }
     
-    // MARK: Game Modes
     enum GameModes {
         static let standard = "Standard"
         static let rush = "Rush"
@@ -30,7 +29,7 @@ enum SystemNames {
     enum GameSettings {
         static let settings = "Settings"
         static let colorBlindMode = "Color Blind Mode"
-        static let tapticFeedback = "Taptic Feedback"
+        static let hapticFeedback = "Haptic Feedback"
         static let showHints = "Show Hints"
         static let soundEffects = "Sound Effects"
         static let quickplaySettings = "Quickplay Settings"
@@ -40,12 +39,21 @@ enum SystemNames {
         static let gameDifficulty = "Difficulty"
     }
     
+    enum GameStats {
+        static let title = "Statistics"
+        static let generalStats = "General Stats"
+        static let dailyModeStats = "Daily Mode Stats"
+        static let standardModeStats = "Standard Mode Stats"
+        static let rushModeStats = "Rush Mode Stats"
+        static let frenzyModeStats = "Frenzy Mode Stats"
+        static let zenModeStats = "Zen Mode Stats"
+    }
+    
     enum GamePause {
         static let title = "Paused"
         static let resumeGame = "Resume Game"
     }
     
-    // MARK: Game Over
     enum GameOver {
         static let bestStreak = "Best Streak"
         static let currentStreak = "Current Streak"

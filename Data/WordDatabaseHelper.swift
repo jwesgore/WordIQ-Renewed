@@ -24,7 +24,7 @@ class WordDatabaseHelper {
         var randomWord: String?
 
         if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
-            sqlite3_bind_int(queryStatement, 1, Int32(level.asInt))
+            sqlite3_bind_int(queryStatement, 1, Int32(level.id))
             
             if sqlite3_step(queryStatement) == SQLITE_ROW {
                 if let queryResultCol1 = sqlite3_column_text(queryStatement, 0) {

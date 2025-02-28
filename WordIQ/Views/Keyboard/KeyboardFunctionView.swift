@@ -11,7 +11,7 @@ struct KeyboardFunctionView : View {
     var body: some View {
         Button(
             action: {
-                Haptics.shared.impact(.light)
+                Haptics.shared.impact(.medium)
                 functionVM.PerformAction()
             },
             label: {

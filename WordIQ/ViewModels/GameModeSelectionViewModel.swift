@@ -27,6 +27,7 @@ class GameModeSelectionViewModel: BaseViewNavigation {
     
     @Published var GameModeOptions : GameModeOptionsModel
     @Published var DisplaySettings: Bool = false
+    @Published var DisplayStats: Bool = false
     @Published var TimeLimitOptions : (Int, Int, Int) = (0, 0, 0)
     
     // Calculated Values

@@ -7,6 +7,7 @@ enum GameMode: String, Codable, Identifiable {
     case daily
     case quickplay
     
+    // Get GameMode Id
     var id: Int {
         switch self {
         case .standardgame: return 0
@@ -18,6 +19,7 @@ enum GameMode: String, Codable, Identifiable {
         }
     }
     
+    // Get GameMode as string
     var value: String {
         switch self {
         case .standardgame: return "Standard"
@@ -29,6 +31,7 @@ enum GameMode: String, Codable, Identifiable {
         }
     }
     
+    // Get text description for GameMode
     var description: String {
         switch self {
         case .standardgame: return "The classic game you know and love. Six guesses to get the word."
@@ -39,6 +42,7 @@ enum GameMode: String, Codable, Identifiable {
         }
     }
     
+    // Get text caption for GameMode
     var caption: String {
         switch self {
         case .standardgame: return "Guess the word"
@@ -46,6 +50,19 @@ enum GameMode: String, Codable, Identifiable {
         case .frenzygame: return "Test your endurance"
         case .zengame: return "Take it easy"
         default: return ""
+        }
+    }
+    
+    // Get GameMode from id
+    static func fromId(_ id: Int) -> GameMode? {
+        switch id {
+        case 0: return .standardgame
+        case 1: return .rushgame
+        case 2: return .frenzygame
+        case 3: return .zengame
+        case 4: return .daily
+        case 5: return .quickplay
+        default: return nil
         }
     }
 }
