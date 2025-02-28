@@ -147,16 +147,19 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
     
     /// Function to reset the board to its default state with an animation
     func boardResetWithAnimation(loadHints:Bool = false, animationLength: Double = 0.25, speed: Double = 4.0, delay: Double = 0.0, done: @escaping () -> Void = {}) {
-        
+        // disable the keyboard
         self.IsKeyboardActive = false
         
+        // clear the board
         for i in stride(from: 5, through: 0, by: -1) {
             DispatchQueue.main.asyncAfter(deadline: .now() + ((animationLength / 2.5 ) * Double(6 - i)) + delay, execute: {
                 self.GameBoardWords[i].resetWithAnimation(animationLength: animationLength, speed: speed)
             })
         }
         
+        // renable the keyboard and perform any actions passed in
         DispatchQueue.main.asyncAfter(deadline: .now() + ((animationLength / 2.5) * (5.0 + speed)) + delay, execute: {
+            done()
             self.IsKeyboardActive = true
         })
     }
@@ -174,6 +177,7 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
             activeWord.setBackgrounds(comparisons)
             self.keyboardSetBackgrounds(gameWord.comparisonRankingMap(comparisons))
             
+            self.gameOverModel.numValidGuesses += 1
             self.gameOverModel.numCorrectWords += 1
             
             self.correctWordSubmittedOverride()
@@ -243,8 +247,11 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
         self.boardReset()
         self.Clock.resetClock()
         
-        self.gameOverModel.targetWord = WordDatabaseHelper.shared.fetchRandomWord(withDifficulty: gameOptions.gameDifficulty)
+        self.gameOptions.resetTargetWord()
+        self.gameOverModel = GameOverModel(gameOptions: self.gameOptions)
+
         self.TargetWord = self.gameOverModel.targetWord
+        self.TargetWordHints = [ValidCharacters?](repeating: nil, count: 5)
         
         print(self.TargetWord)
     }

@@ -47,10 +47,15 @@ enum SystemNames {
     
     // MARK: Game Over
     enum GameOver {
-        static let timeElapsed = "Time Elapsed"
+        static let bestStreak = "Best Streak"
+        static let currentStreak = "Current Streak"
         static let gamesPlayed = "Games Played"
-        static let score = "Score"
         static let guesses = "Guesses"
+        static let score = "Score"
+        static let timeElapsed = "Time Elapsed"
+        static let timePerWord = "Time Per Word"
+        static let timeRemaining = "Time Remaining"
+        static let winPercent = "Win %"
     }
     
     static let mainMenu = "Main Menu"

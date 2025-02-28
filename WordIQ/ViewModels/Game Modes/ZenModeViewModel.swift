@@ -14,10 +14,17 @@ class ZenModeViewModel : GameViewModel {
     }
     
     override func wrongWordSubmittedOverride() {
+        // If the position has reached the end of the board, reset it
         if self.BoardPosition % 6 == 0 {
-            self.boardResetWithAnimation(delay: 1.0)
+            self.boardResetWithAnimation(delay: 1.0) {
+                self.ActiveWord = self.GameBoardWords[self.BoardPosition % 6]
+                self.ActiveWord?.loadHints(self.TargetWordHints)
+            }
         }
-        
-        ActiveWord = GameBoardWords[self.BoardPosition % 6]
+        // Else set the active row down and load in the hints
+        else {
+            ActiveWord = GameBoardWords[self.BoardPosition % 6]
+            ActiveWord?.loadHints(TargetWordHints)
+        }
     }
 }

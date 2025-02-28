@@ -35,6 +35,8 @@
 		4B4929C92D6D8BF600CEBBF2 /* GameDatabasePersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4929C82D6D8BEA00CEBBF2 /* GameDatabasePersistenceController.swift */; };
 		4B4929CC2D6D90F700CEBBF2 /* GameResultsModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4929CA2D6D90F700CEBBF2 /* GameResultsModel+CoreDataClass.swift */; };
 		4B4929CD2D6D90F700CEBBF2 /* GameResultsModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4929CB2D6D90F700CEBBF2 /* GameResultsModel+CoreDataProperties.swift */; };
+		4B4929CF2D6EB94200CEBBF2 /* ValueConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4929CE2D6EB92300CEBBF2 /* ValueConverter.swift */; };
+		4B4929D42D703D1100CEBBF2 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4929D32D703D0B00CEBBF2 /* Haptics.swift */; };
 		4B6603A62CDEF90B00F4F140 /* GameModeOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6603A52CDEF90000F4F140 /* GameModeOptionsView.swift */; };
 		4B6603A92CE159A200F4F140 /* GameSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6603A82CE1599800F4F140 /* GameSettingsView.swift */; };
 		4B6603AB2CE165C600F4F140 /* GameSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6603AA2CE165C000F4F140 /* GameSettingsViewModel.swift */; };
@@ -120,6 +122,8 @@
 		4B4929C82D6D8BEA00CEBBF2 /* GameDatabasePersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDatabasePersistenceController.swift; sourceTree = "<group>"; };
 		4B4929CA2D6D90F700CEBBF2 /* GameResultsModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameResultsModel+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4B4929CB2D6D90F700CEBBF2 /* GameResultsModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameResultsModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4B4929CE2D6EB92300CEBBF2 /* ValueConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueConverter.swift; sourceTree = "<group>"; };
+		4B4929D32D703D0B00CEBBF2 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		4B6603A52CDEF90000F4F140 /* GameModeOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModeOptionsView.swift; sourceTree = "<group>"; };
 		4B6603A82CE1599800F4F140 /* GameSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsView.swift; sourceTree = "<group>"; };
 		4B6603AA2CE165C000F4F140 /* GameSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsViewModel.swift; sourceTree = "<group>"; };
@@ -230,6 +234,7 @@
 		4B091B4F2CD6846C0092600B /* Game Modes */ = {
 			isa = PBXGroup;
 			children = (
+				4BF592172CC07F0C00C555F6 /* GameViewModel.swift */,
 				4B091B542CD6848B0092600B /* FrenzyModeViewModel.swift */,
 				4B091B522CD684830092600B /* RushModeViewModel.swift */,
 				4B091B502CD684780092600B /* StandardModeViewModel.swift */,
@@ -245,6 +250,14 @@
 				4B4929CB2D6D90F700CEBBF2 /* GameResultsModel+CoreDataProperties.swift */,
 			);
 			path = "Data Models";
+			sourceTree = "<group>";
+		};
+		4B4929D22D6EE5BC00CEBBF2 /* Game Over */ = {
+			isa = PBXGroup;
+			children = (
+				4B091B5B2CD85BF40092600B /* GameOverView.swift */,
+			);
+			path = "Game Over";
 			sourceTree = "<group>";
 		};
 		4B6603A72CE156FE00F4F140 /* App */ = {
@@ -312,6 +325,16 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		4BD0CF832D714DF40077640A /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				4BF5928C2CCED9B400C555F6 /* GameWordViewModel.swift */,
+				4BF5928E2CCEDA2600C555F6 /* GameBoardLetterViewModel.swift */,
+				4BF592662CC2EDAD00C555F6 /* ClockViewModel.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		4BF5920B2CC07B8A00C555F6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -337,15 +360,12 @@
 			isa = PBXGroup;
 			children = (
 				4BF592162CC07EE300C555F6 /* Buttons */,
+				4BD0CF832D714DF40077640A /* Components */,
 				4B091B4F2CD6846C0092600B /* Game Modes */,
-				4BF592662CC2EDAD00C555F6 /* ClockViewModel.swift */,
-				4BF592172CC07F0C00C555F6 /* GameViewModel.swift */,
-				4B4929AD2D6BE8FC00CEBBF2 /* GamePauseViewModel.swift */,
-				4B6603AA2CE165C000F4F140 /* GameSettingsViewModel.swift */,
-				4BF5928E2CCEDA2600C555F6 /* GameBoardLetterViewModel.swift */,
 				4BF5926A2CC30C2C00C555F6 /* GameModeSelectionViewModel.swift */,
 				4B091B5D2CD85CC40092600B /* GameOverViewModel.swift */,
-				4BF5928C2CCED9B400C555F6 /* GameWordViewModel.swift */,
+				4B4929AD2D6BE8FC00CEBBF2 /* GamePauseViewModel.swift */,
+				4B6603AA2CE165C000F4F140 /* GameSettingsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -376,17 +396,17 @@
 		4BF592212CC0832400C555F6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4BF592602CC1E70700C555F6 /* Buttons */,
-				4B091B372CD344220092600B /* Gameboard */,
-				4B091B342CD33DD20092600B /* Keyboard */,
 				4BF592642CC2EDA000C555F6 /* ClockView.swift */,
 				4B6603A52CDEF90000F4F140 /* GameModeOptionsView.swift */,
 				4BF592682CC30BFE00C555F6 /* GameModeSelectionView.swift */,
-				4B091B5B2CD85BF40092600B /* GameOverView.swift */,
 				4B6603AE2CEAE02400F4F140 /* GamePauseView.swift */,
 				4B6603A82CE1599800F4F140 /* GameSettingsView.swift */,
 				4BF592902CCEF82100C555F6 /* GameView.swift */,
 				4BF592222CC0848000C555F6 /* SplashScreenView.swift */,
+				4BF592602CC1E70700C555F6 /* Buttons */,
+				4B4929D22D6EE5BC00CEBBF2 /* Game Over */,
+				4B091B372CD344220092600B /* Gameboard */,
+				4B091B342CD33DD20092600B /* Keyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -453,11 +473,13 @@
 		4BF5926E2CC338B500C555F6 /* Ultilities */ = {
 			isa = PBXGroup;
 			children = (
-				4B6603B02CEC3B4A00F4F140 /* TimeUtility.swift */,
 				4BF5926F2CC338E200C555F6 /* BaseViewNavigation.swift */,
+				4B4929D32D703D0B00CEBBF2 /* Haptics.swift */,
 				4BF592702CC338E200C555F6 /* ScreenSizeUtility.swift */,
 				4BF592712CC338E200C555F6 /* ShakeEffect.swift */,
+				4B6603B02CEC3B4A00F4F140 /* TimeUtility.swift */,
 				4BF592722CC338E200C555F6 /* UIColorExtension.swift */,
+				4B4929CE2D6EB92300CEBBF2 /* ValueConverter.swift */,
 			);
 			path = Ultilities;
 			sourceTree = "<group>";
@@ -557,6 +579,7 @@
 				4B091B582CD6F77A0092600B /* ShakeEffect.swift in Sources */,
 				4BF592852CCD907800C555F6 /* GameSelectionTimeButtonView.swift in Sources */,
 				4BF5921E2CC0814900C555F6 /* KeyboardFunctions.swift in Sources */,
+				4B4929D42D703D1100CEBBF2 /* Haptics.swift in Sources */,
 				4B6603B12CEC3B5F00F4F140 /* TimeUtility.swift in Sources */,
 				4B091B392CD344430092600B /* GameBoardView.swift in Sources */,
 				4B6603A62CDEF90B00F4F140 /* GameModeOptionsView.swift in Sources */,
@@ -586,6 +609,7 @@
 				4BF592122CC07C2A00C555F6 /* GameResult.swift in Sources */,
 				4B82B9DB2CC072E2009A1502 /* Item.swift in Sources */,
 				4BF592652CC2EDA800C555F6 /* ClockView.swift in Sources */,
+				4B4929CF2D6EB94200CEBBF2 /* ValueConverter.swift in Sources */,
 				4B4929CC2D6D90F700CEBBF2 /* GameResultsModel+CoreDataClass.swift in Sources */,
 				4B4929CD2D6D90F700CEBBF2 /* GameResultsModel+CoreDataProperties.swift in Sources */,
 				4B4929C92D6D8BF600CEBBF2 /* GameDatabasePersistenceController.swift in Sources */,

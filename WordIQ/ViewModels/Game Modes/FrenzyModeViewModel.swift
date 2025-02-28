@@ -36,6 +36,7 @@ class FrenzyModeViewModel : GameViewModel, ClockViewModelObserver {
             self.gameover()
         } else {
             ActiveWord = GameBoardWords[self.BoardPosition % 6]
+            ActiveWord?.loadHints(TargetWordHints)
         }
     }
 

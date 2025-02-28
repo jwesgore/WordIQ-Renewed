@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Model used to package up game mode options
-struct GameModeOptionsModel {
+class GameModeOptionsModel {
     var gameMode: GameMode
     var gameDifficulty: GameDifficulty
     var timeLimit: Int
@@ -21,5 +21,9 @@ struct GameModeOptionsModel {
         self.gameDifficulty = gameDifficulty
         self.timeLimit = timeLimit
         self.targetWord = targetWord
+    }
+    
+    func resetTargetWord() {
+        self.targetWord = WordDatabaseHelper.shared.fetchRandomWord(withDifficulty: gameDifficulty);
     }
 }

@@ -10,7 +10,10 @@ struct KeyboardFunctionView : View {
     
     var body: some View {
         Button(
-            action: { functionVM.PerformAction() },
+            action: {
+                Haptics.shared.impact(.light)
+                functionVM.PerformAction()
+            },
             label: {
                 Image(systemName: functionVM.keyboardFunction.symbol)
                     .foregroundStyle(functionVM.fontColor)
@@ -24,6 +27,5 @@ struct KeyboardFunctionView : View {
                 .stroke(functionVM.borderColor, lineWidth: functionVM.borderThickness)
         )
         .clipShape(RoundedRectangle(cornerRadius: functionVM.cornerRadius))
-
     }
 }

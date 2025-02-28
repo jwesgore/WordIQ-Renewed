@@ -5,11 +5,37 @@ struct GameOverView : View {
     
     @Environment(\.managedObjectContext) private var viewContext
     @State private var databaseHelper: GameDatabaseHelper?
-    @State private var gameCount: String?
+    
+    private var thirdRowSymbol : String = ""
+    private var thirdRowLabel : String = ""
+    @State private var thirdRowValue : String = ""
+    
+    private var fourthRowVisible : Bool = true
+    private var fourthRowSymbol : String = ""
+    private var fourthRowLabel : String = ""
+    @State private var fourthRowValue : String = ""
+    
     @ObservedObject var gameoverVM : GameOverViewModel
     
     init(_ gameoverVM: GameOverViewModel) {
         self.gameoverVM = gameoverVM
+        
+        switch gameoverVM.gameOverModel.gameMode {
+        case .frenzygame:
+            thirdRowSymbol = SFAssets.star
+            thirdRowLabel = SystemNames.GameOver.score
+            fourthRowSymbol = SFAssets.timer
+            fourthRowLabel = SystemNames.GameOver.timePerWord
+        case .zengame:
+            thirdRowSymbol = SFAssets.stats
+            thirdRowLabel = SystemNames.GameOver.gamesPlayed
+            fourthRowVisible = false
+        default:
+            thirdRowSymbol = SFAssets.stats
+            thirdRowLabel = SystemNames.GameOver.currentStreak
+            fourthRowSymbol = SFAssets.stats
+            fourthRowLabel = SystemNames.GameOver.winPercent
+        }
     }
     
     var body: some View {
@@ -29,13 +55,23 @@ struct GameOverView : View {
             }
             
             GroupBox {
-                GameOverGroupBoxItem(image: SFAssets.gameController, label: SystemNames.GameOver.gamesPlayed, value: self.gameCount ?? "0")
+                GameOverGroupBoxItem(image: SFAssets.timer,
+                                     label: SystemNames.GameOver.timeElapsed,
+                                     value: TimeUtility.formatTimeShort(gameoverVM.gameOverModel.timeElapsed))
                 Divider()
-                GameOverGroupBoxItem(image: SFAssets.numberSign, label: SystemNames.GameOver.guesses, value: self.gameoverVM.gameOverModel.numValidGuesses.description)
+                GameOverGroupBoxItem(image: SFAssets.numberSign,
+                                     label: SystemNames.GameOver.guesses,
+                                     value: self.gameoverVM.gameOverModel.numValidGuesses.description)
                 Divider()
-                GameOverGroupBoxItem(image: SFAssets.timer, label: SystemNames.GameOver.timeElapsed, value: TimeUtility.formatTimeShort(gameoverVM.gameOverModel.timeElapsed))
-                Divider()
-                GameOverGroupBoxItem(image: "", label: "Test", value: "Test")
+                GameOverGroupBoxItem(image: thirdRowSymbol,
+                                     label: thirdRowLabel,
+                                     value: thirdRowValue)
+                if fourthRowVisible {
+                    Divider()
+                    GameOverGroupBoxItem(image: fourthRowSymbol,
+                                         label: fourthRowLabel,
+                                         value: fourthRowValue)
+                }
             }
             
             Spacer()
@@ -51,9 +87,21 @@ struct GameOverView : View {
         }
         .padding()
         .onAppear {
-            self.databaseHelper = GameDatabaseHelper(context: viewContext)
             self.databaseHelper?.saveGame(gameOverData: gameoverVM.gameOverModel)
-            self.gameCount = self.databaseHelper?.getGameCount().description
+            
+            self.databaseHelper = GameDatabaseHelper(context: viewContext)
+            switch gameoverVM.gameOverModel.gameMode {
+            case .frenzygame:
+                thirdRowValue = gameoverVM.gameOverModel.numCorrectWords.description
+                fourthRowValue = ValueConverter.DoubleToPercent(
+                    databaseHelper?.getWinPercentage(mode: gameoverVM.gameOverModel.gameMode) ?? 0)
+            case .zengame:
+                thirdRowValue = databaseHelper?.getGameModeCount(mode: gameoverVM.gameOverModel.gameMode).description ?? "1"
+            default:
+                thirdRowValue = "0"
+                fourthRowValue = ValueConverter.DoubleToPercent(
+                    databaseHelper?.getWinPercentage(mode: gameoverVM.gameOverModel.gameMode) ?? 0)
+            }
         }
     }
 }

@@ -10,7 +10,10 @@ struct KeyboardLetterView : View {
     
     var body: some View {
         Button(
-            action: { letterVM.PerformAction() },
+            action: {
+                Haptics.shared.impact(.light)
+                letterVM.PerformAction()
+            },
             label: {
                 Text(letterVM.letter.stringValue)
                     .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.title2)))
@@ -25,6 +28,7 @@ struct KeyboardLetterView : View {
                 .stroke(letterVM.borderColor, lineWidth: letterVM.borderThickness)
         )
         .clipShape(RoundedRectangle(cornerRadius: letterVM.cornerRadius))
+        .sensoryFeedback(.impact(weight: .light), trigger: true)
 
     }
 }
