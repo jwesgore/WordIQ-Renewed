@@ -40,6 +40,7 @@ enum SystemNames {
     }
     
     enum GameStats {
+        // MARK: Titles
         static let title = "Statistics"
         static let generalStats = "General Stats"
         static let dailyModeStats = "Daily Mode Stats"
@@ -47,6 +48,14 @@ enum SystemNames {
         static let rushModeStats = "Rush Mode Stats"
         static let frenzyModeStats = "Frenzy Mode Stats"
         static let zenModeStats = "Zen Mode Stats"
+        
+        // MARK: Stats
+        static let avgTime = "Average Time"
+        static let bestStreak = "Best Streak"
+        static let currentStreak = "Current Streak"
+        static let gamesPlayed = "Games Played"
+        static let timePlayed = "Time Played"
+        static let winPercentage = "Win %"
     }
     
     enum GamePause {

@@ -5,9 +5,16 @@ class TimeUtility {
     // MARK: Format Time Functions
     /// Returns a string representation of the time in minutes
     static func formatTimeShort(_ seconds: Int) -> String {
+        let hours = seconds / 3600
         let minutes = seconds / 60
         let remainingSeconds = seconds % 60
-        return String(format: "%d:%02d", minutes, remainingSeconds)
+        
+        if hours == 0 {
+            return String(format: "%d:%02d", minutes, remainingSeconds)
+        }
+        else {
+            return String(format: "%d:%02d:%02d", hours, minutes, remainingSeconds)
+        }
     }
     
     /// Returns a string representation of the time in minutes

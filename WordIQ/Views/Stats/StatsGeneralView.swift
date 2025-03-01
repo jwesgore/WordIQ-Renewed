@@ -14,23 +14,35 @@ struct StatsGeneralView : View {
         StatsTotalTimePlayedView(totalTimePlayed: totalTimePlayed, totalGamesPlayed: totalGamesPlayed)
         
         // Mode Distribution
-        GroupBox {
-            HStack {
-                if let favoriteMode = distribution.max(by: { $0.value < $1.value })?.key {
+        if let favoriteMode = distribution.max(by: { $0.value < $1.value })?.key {
+            let donutChartView = StatsGameModeDistributionDonutChartView(distribution: distribution)
+            GroupBox {
+                VStack {
                     HStack {
-                        Text("You play ") +
-                        Text(favoriteMode.value)
-                            .fontWeight(.semibold) +
-                        Text(" \(ValueConverter.IntsToPercent(top: distribution[favoriteMode], bottom: totalGamesPlayed)) of the time making it your most played game mode!")
-                        Spacer()
+                        // Favorite mode text
+                        HStack {
+                            Text("You play ") +
+                            Text(favoriteMode.value)
+                                .fontWeight(.semibold) +
+                            Text(" \(ValueConverter.IntsToPercent(top: distribution[favoriteMode], bottom: totalGamesPlayed)) of the time making it your most played game mode!")
+                            Spacer()
+                        }
+                        .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.headline)))
+
+                        // Displays chart without legens
+                        donutChartView
+                            .frame(maxHeight: 150)
+                            .chartLegend(.hidden)
                     }
-                    .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.headline)))
+                    
+                    // Spreads the legend across the bottom
+                    donutChartView
+                        .frame(maxHeight: 0)
+                        .chartLegend(alignment: .center)
+                        .padding(.bottom)
                 }
-                
-                StatsGameModeDistributionDonutChartView(distribution: distribution)
-                    .frame(maxHeight: 150)
             }
+            .frame(maxWidth: .infinity)
         }
-        .frame(maxWidth: .infinity)
     }
 }

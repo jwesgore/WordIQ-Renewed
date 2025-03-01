@@ -27,11 +27,11 @@ struct GameOverView : View {
             fourthRowSymbol = SFAssets.timer
             fourthRowLabel = SystemNames.GameOver.timePerWord
         case .zengame:
-            thirdRowSymbol = SFAssets.stats
+            thirdRowSymbol = SFAssets.numberSign
             thirdRowLabel = SystemNames.GameOver.gamesPlayed
             fourthRowVisible = false
         default:
-            thirdRowSymbol = SFAssets.stats
+            thirdRowSymbol = SFAssets.star
             thirdRowLabel = SystemNames.GameOver.currentStreak
             fourthRowSymbol = SFAssets.stats
             fourthRowLabel = SystemNames.GameOver.winPercent
@@ -55,22 +55,22 @@ struct GameOverView : View {
             }
             
             GroupBox {
-                GameOverGroupBoxItem(image: SFAssets.timer,
-                                     label: SystemNames.GameOver.timeElapsed,
-                                     value: TimeUtility.formatTimeShort(gameoverVM.gameOverModel.timeElapsed))
+                InfoItemView(image: SFAssets.timer,
+                             label: SystemNames.GameOver.timeElapsed,
+                             value: TimeUtility.formatTimeShort(gameoverVM.gameOverModel.timeElapsed))
                 Divider()
-                GameOverGroupBoxItem(image: SFAssets.numberSign,
-                                     label: SystemNames.GameOver.guesses,
-                                     value: self.gameoverVM.gameOverModel.numValidGuesses.description)
+                InfoItemView(image: SFAssets.numberSign,
+                             label: SystemNames.GameOver.guesses,
+                             value: self.gameoverVM.gameOverModel.numValidGuesses.description)
                 Divider()
-                GameOverGroupBoxItem(image: thirdRowSymbol,
-                                     label: thirdRowLabel,
-                                     value: thirdRowValue)
+                InfoItemView(image: thirdRowSymbol,
+                             label: thirdRowLabel,
+                             value: thirdRowValue)
                 if fourthRowVisible {
                     Divider()
-                    GameOverGroupBoxItem(image: fourthRowSymbol,
-                                         label: fourthRowLabel,
-                                         value: fourthRowValue)
+                    InfoItemView(image: fourthRowSymbol,
+                                 label: fourthRowLabel,
+                                 value: fourthRowValue)
                 }
             }
             
@@ -110,28 +110,6 @@ struct GameOverView : View {
     }
 }
 
-private struct GameOverGroupBoxItem : View {
-    
-    var image: String
-    var label: String
-    var value: String
-    
-    var body: some View {
-        HStack {
-            Image(systemName: image)
-                .font(.custom(RobotoSlabOptions.Weight.semiBold, size: CGFloat(RobotoSlabOptions.Size.headline)))
-                .frame(width: 25)
-
-            Text(label)
-                .font(.custom(RobotoSlabOptions.Weight.semiBold, size: CGFloat(RobotoSlabOptions.Size.headline)))
-            Spacer()
-            Text(value)
-                .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.headline)))
-        }
-        
-    }
-}
-
 struct GameOverView_Preview: PreviewProvider {
     static var previews: some View {
         let gameModeOptions = GameModeOptionsModel(gameMode: .standardgame, gameDifficulty: .normal, timeLimit: 0)
@@ -144,5 +122,6 @@ struct GameOverView_Preview: PreviewProvider {
         .padding()
         .previewDisplayName("Game Over Preview")
         .previewLayout(.sizeThatFits)
+        .environment(\.managedObjectContext, GameDatabasePersistenceController.preview.container.viewContext)
     }
 }

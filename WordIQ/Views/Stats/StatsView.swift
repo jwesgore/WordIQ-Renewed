@@ -31,12 +31,14 @@ struct StatsView : View {
             .padding(.bottom)
             
             if let databaseHelper = databaseHelper {
-                StatsGeneralView(databaseHelper: databaseHelper)
-                StatsDailyModeView(databaseHelper: databaseHelper)
-                StatsStandardModeView(databaseHelper: databaseHelper)
-                StatsRushModeView(databaseHelper: databaseHelper)
-                StatsFrenzyModeView(databaseHelper: databaseHelper)
-                StatsZenModeView(databaseHelper: databaseHelper)
+                ScrollView {
+                    StatsGeneralView(databaseHelper: databaseHelper)
+                    StatsDailyModeView(databaseHelper: databaseHelper)
+                    StatsStandardModeView(databaseHelper: databaseHelper)
+                    StatsRushModeView(databaseHelper: databaseHelper)
+                    StatsFrenzyModeView(databaseHelper: databaseHelper)
+                    StatsZenModeView(databaseHelper: databaseHelper)
+                }
             } else {
                 Text("Loading data...")
                     .font(.custom(RobotoSlabOptions.Weight.semiBold, size: CGFloat(RobotoSlabOptions.Size.title2)))
@@ -49,6 +51,7 @@ struct StatsView : View {
             
         }
         .padding()
+        .ignoresSafeArea(edges: .bottom)
     }
 }
 

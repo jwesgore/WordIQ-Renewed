@@ -58,6 +58,7 @@
 		4BD0CF9E2D7277870077640A /* StatsFrenzyModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD0CF9D2D72777E0077640A /* StatsFrenzyModeView.swift */; };
 		4BD0CFA02D72778F0077640A /* StatsZenModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD0CF9F2D72778A0077640A /* StatsZenModeView.swift */; };
 		4BD0CFA22D7277980077640A /* StatsDailyModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD0CFA12D7277910077640A /* StatsDailyModeView.swift */; };
+		4BD9D6C12D727C4400EB9800 /* ItemInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD9D6C02D727C2D00EB9800 /* ItemInfoView.swift */; };
 		4BF592102CC07C1D00C555F6 /* GameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF5920F2CC07C1500C555F6 /* GameMode.swift */; };
 		4BF592122CC07C2A00C555F6 /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF592112CC07C2200C555F6 /* GameResult.swift */; };
 		4BF592142CC07D1900C555F6 /* GameDifficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF592132CC07D1300C555F6 /* GameDifficulty.swift */; };
@@ -155,6 +156,7 @@
 		4BD0CF9D2D72777E0077640A /* StatsFrenzyModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsFrenzyModeView.swift; sourceTree = "<group>"; };
 		4BD0CF9F2D72778A0077640A /* StatsZenModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsZenModeView.swift; sourceTree = "<group>"; };
 		4BD0CFA12D7277910077640A /* StatsDailyModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsDailyModeView.swift; sourceTree = "<group>"; };
+		4BD9D6C02D727C2D00EB9800 /* ItemInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemInfoView.swift; sourceTree = "<group>"; };
 		4BF5920F2CC07C1500C555F6 /* GameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMode.swift; sourceTree = "<group>"; };
 		4BF592112CC07C2200C555F6 /* GameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResult.swift; sourceTree = "<group>"; };
 		4BF592132CC07D1300C555F6 /* GameDifficulty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDifficulty.swift; sourceTree = "<group>"; };
@@ -379,6 +381,15 @@
 			path = "Sub Components";
 			sourceTree = "<group>";
 		};
+		4BD9D6BF2D727C2500EB9800 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				4BD9D6C02D727C2D00EB9800 /* ItemInfoView.swift */,
+				4BF592642CC2EDA000C555F6 /* ClockView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		4BF5920B2CC07B8A00C555F6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -441,8 +452,8 @@
 		4BF592212CC0832400C555F6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4BD9D6BF2D727C2500EB9800 /* Components */,
 				4BD0CF8A2D7183D90077640A /* Stats */,
-				4BF592642CC2EDA000C555F6 /* ClockView.swift */,
 				4B6603A52CDEF90000F4F140 /* GameModeOptionsView.swift */,
 				4BF592682CC30BFE00C555F6 /* GameModeSelectionView.swift */,
 				4BF592902CCEF82100C555F6 /* GameView.swift */,
@@ -647,6 +658,7 @@
 				4B6603AD2CE1CE2200F4F140 /* GameTimeLimit.swift in Sources */,
 				4B091B4E2CD6812D0092600B /* ZenModeViewModel.swift in Sources */,
 				4BF5921C2CC07FF100C555F6 /* ValidCharacters.swift in Sources */,
+				4BD9D6C12D727C4400EB9800 /* ItemInfoView.swift in Sources */,
 				4B091B552CD684900092600B /* FrenzyModeViewModel.swift in Sources */,
 				4BD0CF962D719DAA0077640A /* StatsGameModeDistributionDonutChartView.swift in Sources */,
 				4BF592732CC33AEB00C555F6 /* BaseViewNavigation.swift in Sources */,

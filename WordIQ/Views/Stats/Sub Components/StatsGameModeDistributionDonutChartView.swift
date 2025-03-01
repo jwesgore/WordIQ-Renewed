@@ -21,6 +21,5 @@ struct StatsGameModeDistributionDonutChartView : View {
             SectorMark(angle: .value(GameMode.daily.value, distribution[GameMode.daily] ?? 0), innerRadius: .ratio(0.6))
                 .foregroundStyle(by: .value("Name", GameMode.daily.value))
         }
-        .chartLegend(.visible)
     }
 }

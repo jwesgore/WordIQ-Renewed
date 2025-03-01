@@ -66,9 +66,19 @@ class GameDatabaseHelper {
         saveContext()
     }
     
+    // Get the average amount of time spent playing a game
+    func getGameModeAvgTime(mode : GameMode) -> Int {
+        let timePlayed = getGameModeTimePlayed(mode: mode)
+        let gamesPlayed = getGameModeCount(mode: mode)
+        
+        guard gamesPlayed > 0 else { return 0 }
+        
+        return Int( timePlayed / gamesPlayed )
+    }
+    
     // Get the total amount of games played in a single game mode
     func getGameModeCount(mode : GameMode) -> Int {
-        return allGameResults.filter({ $0.gameMode == mode.id }).count
+        return getGamesByMode(mode).count
     }
     
     func getGameModeDistribution() -> [GameMode : Int] {
@@ -85,7 +95,7 @@ class GameDatabaseHelper {
     
     // Get the time played in a single game mode
     func getGameModeTimePlayed(mode : GameMode) -> Int {
-        return allGameResults.reduce(0){ $0 + Int($1.timeElapsed)}
+        return getGamesByMode(mode).reduce(0){ $0 + Int($1.timeElapsed)}
     }
     
     // Get the win percentage of a single game mode
