@@ -25,9 +25,9 @@ class ThreeDButtonViewModel : ObservableObject {
          zindex: CGFloat = 0.0,
          borderThickness: CGFloat = 1.0,
          cornerRadius: CGFloat = 25.0,
-         backgroundColor: Color = Color.white,
-         borderColor: Color = Color.black,
-         shadowColor: Color = Color.black,
+         backgroundColor: Color = .Buttons.buttonBackground,
+         borderColor: Color = .Buttons.buttonBorder,
+         shadowColor: Color = .Buttons.buttonShadow,
          
          action: @escaping () -> Void = {},
          speed: Double = 0.1,

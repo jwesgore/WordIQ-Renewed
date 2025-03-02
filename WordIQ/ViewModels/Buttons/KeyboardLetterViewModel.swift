@@ -17,10 +17,10 @@ class KeyboardLetterViewModel : ObservableObject, KeyboardKeyProtocol {
     init(action: @escaping () -> Void = {},
          letter: ValidCharacters,
          backgroundColor: LetterComparison = .notSet,
-         borderColor: Color = .black,
+         borderColor: Color = .Buttons.buttonBorder,
          borderThickness: CGFloat = 2.0,
          cornerRadius: CGFloat = 8.0,
-         fontColor: Color = .black,
+         fontColor: Color = .Buttons.buttonFont,
          height: CGFloat = 100,
          width: CGFloat = 100) {
         self.action = action
@@ -42,8 +42,8 @@ class KeyboardLetterViewModel : ObservableObject, KeyboardKeyProtocol {
     /// Resets the button back to default values
     func reset() {
         self.backgroundColor = .notSet
-        self.borderColor = .black
-        self.fontColor = .black
+        self.borderColor = .Buttons.buttonBorder
+        self.fontColor = .Buttons.buttonFont
     }
 }
 

@@ -16,11 +16,11 @@ class KeyboardFunctionViewModel : ObservableObject, KeyboardKeyProtocol {
     
     init(action: @escaping () -> Void = {},
          keyboardFunction: KeyboardFunctions,
-         backgroundColor: Color = .white,
-         borderColor: Color = .black,
+         backgroundColor: Color = .Buttons.buttonBackground,
+         borderColor: Color = .Buttons.buttonBorder,
          borderThickness: CGFloat = 2.0,
          cornerRadius: CGFloat = 8.0,
-         fontColor: Color = .black,
+         fontColor: Color = .Buttons.buttonFont,
          height: CGFloat = 100,
          width: CGFloat = 100) {
         self.action = action

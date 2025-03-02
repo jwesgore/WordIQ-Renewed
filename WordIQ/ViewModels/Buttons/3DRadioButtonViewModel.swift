@@ -16,7 +16,7 @@ class ThreeDRadioButtonViewModel : ThreeDButtonViewModel {
          height: CGFloat,
          width: CGFloat,
          delay: Double = 0.0,
-         selectedBackgroundColor: Color = Color.white) {
+         selectedBackgroundColor: Color = .Buttons.buttonSelected) {
         self.id = UUID()
         self.buttonIsPressed = buttonIsPressed
         self.groupManager = groupManager
