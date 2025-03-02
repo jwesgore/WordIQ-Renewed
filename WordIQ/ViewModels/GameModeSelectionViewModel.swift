@@ -99,7 +99,12 @@ class GameModeSelectionViewModel: BaseViewNavigation {
         }
         
         self.DailyGameButton.action = {
-            self.goToGameModeOptions(.daily)
+            self.GameModeOptions.gameMode = .daily
+            self.GameModeOptions.timeLimit = 0
+            self.GameModeOptions.gameDifficulty = .daily
+            
+            // self.GameModeOptions.targetWord = WordDatabaseHelper.shared.getDailyWord()
+            // self.startGame()
         }
         self.QuickplayGameButton.action = {
             self.GameModeOptions.gameMode = UserDefaultsHelper.shared.quickplaySetting_mode

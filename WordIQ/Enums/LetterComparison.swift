@@ -4,7 +4,6 @@ import SwiftUI
 enum LetterComparison: Comparable {
     case wrong, contains, correct, notSet
     
-    
     var rank: Int {
         switch self {
         case .notSet: 0
@@ -19,7 +18,9 @@ enum LetterComparison: Comparable {
         case .notSet: .LetterComparison.notSet
         case .wrong: .LetterComparison.wrong
         case .contains: .LetterComparison.contains
-        case .correct: .LetterComparison.correct
+        case .correct:
+            UserDefaultsHelper.shared.setting_colorBlindMode ?
+                .LetterComparison.correctColorBlind : .LetterComparison.correct
         }
     }
     

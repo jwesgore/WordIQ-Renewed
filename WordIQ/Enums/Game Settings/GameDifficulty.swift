@@ -3,6 +3,7 @@ enum GameDifficulty: String, Codable {
     case easy
     case normal
     case hard
+    case daily
     
     // Get mode as string
     var asString: String {
@@ -10,6 +11,7 @@ enum GameDifficulty: String, Codable {
         case .easy: return "Easy"
         case .normal: return "Normal"
         case .hard: return "Hard"
+        case .daily: return "Daily"
         }
     }
     
@@ -19,6 +21,7 @@ enum GameDifficulty: String, Codable {
         case .easy: return 3
         case .normal: return 2
         case .hard: return 1
+        case .daily: return 0
         }
     }
     
@@ -28,6 +31,7 @@ enum GameDifficulty: String, Codable {
         case 3: return .easy
         case 2: return .normal
         case 1: return .hard
+        case 0: return .daily
         default: return nil
         }
     }
