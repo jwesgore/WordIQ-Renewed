@@ -12,6 +12,19 @@ class GameDatabaseHelper {
         return allGameResults.count
     }
     
+    var totalGuessesAll : (Int, Int, Int) {
+        return allGameResults.reduce((0, 0, 0)) { partialResult, gameResult in
+            (
+                // Total guesses
+                partialResult.0 + Int(gameResult.numValidGuesses) + Int(gameResult.numInvalidGuesses),
+                // Total valid guesses
+                partialResult.1 + Int(gameResult.numValidGuesses),
+                // Total invalid guesses
+                partialResult.2 + Int(gameResult.numInvalidGuesses)
+            )
+        }
+    }
+    
     var totalGuesses : Int {
         return allGameResults.reduce(0) { $0 + Int($1.numValidGuesses) + Int($1.numInvalidGuesses) }
     }
@@ -34,7 +47,7 @@ class GameDatabaseHelper {
         self.allGameResults = refreshData()
     }
     
-    // MARK: Public Functions
+    // MARK: Public Database Functions
     func refreshData() -> [GameResultsModel] {
         let fetchRequest: NSFetchRequest<GameResultsModel> = GameResultsModel.fetchRequest()
         do {
@@ -66,8 +79,9 @@ class GameDatabaseHelper {
         saveContext()
     }
     
+    // MARK: Data Calculation Methods
     // Get the average amount of time spent playing a game
-    func getGameModeAvgTime(mode : GameMode) -> Int {
+    func getGameModeAvgTimePerGame(mode : GameMode) -> Int {
         let timePlayed = getGameModeTimePlayed(mode: mode)
         let gamesPlayed = getGameModeCount(mode: mode)
         
@@ -76,11 +90,46 @@ class GameDatabaseHelper {
         return Int( timePlayed / gamesPlayed )
     }
     
+    // Get the average amount of time spent on each word
+    func getGameModeAvgTimePerWord(mode: GameMode) -> Int {
+        let gameResults = getGamesByMode(mode)
+        let totalScore = gameResults.reduce(0) { $0 + $1.numCorrectWords }
+        let totalTimePlayed = gameResults.reduce(0) { $0 + $1.timeElapsed }
+        
+        guard totalScore > 0 else { return 0 }
+        
+        return Int(totalTimePlayed) / Int(totalScore)
+    }
+    
+    // Get the average number of valid guesses per game
+    func getGameModeAvgNumGuessesPerGame(mode: GameMode) -> Int {
+        let gameResults = getGamesByMode(mode)
+        let totalGuesses = gameResults.reduce(0) { $0 + $1.numValidGuesses }
+        let totalGamesPlayed = gameResults.count
+        
+        guard totalGamesPlayed > 0 else { return 0 }
+        
+        return Int(totalGuesses) / Int(totalGamesPlayed)
+    }
+    
+    // Get the score for a single game mode
+    func getGameModeAvgScore(mode: GameMode) -> Double {
+        let gameResults = getGamesByMode(mode)
+        
+        guard gameResults.count > 0 else { return 0 }
+        
+        let top = gameResults.reduce(0) { $0 + Int($1.numCorrectWords) }
+        let bottom = Double(gameResults.count)
+        
+        return Double(top) / bottom
+    }
+   
     // Get the total amount of games played in a single game mode
     func getGameModeCount(mode : GameMode) -> Int {
         return getGamesByMode(mode).count
     }
     
+    // Get the distribution of games and games played
     func getGameModeDistribution() -> [GameMode : Int] {
         var data : [GameMode : Int] = [:]
         
@@ -93,6 +142,11 @@ class GameDatabaseHelper {
         return data
     }
     
+    // Get the number of guesses made for a game mode
+    func getGameModeNumGuesses(mode : GameMode) -> Int {
+        return getGamesByMode(mode).reduce(0){ $0 + Int($1.numValidGuesses + $1.numInvalidGuesses)}
+    }
+    
     // Get the time played in a single game mode
     func getGameModeTimePlayed(mode : GameMode) -> Int {
         return getGamesByMode(mode).reduce(0){ $0 + Int($1.timeElapsed)}
@@ -100,8 +154,12 @@ class GameDatabaseHelper {
     
     // Get the win percentage of a single game mode
     func getGameModeWinPercentage(mode : GameMode) -> Double {
-        let totalGames = Double(allGameResults.count)
-        let totalWins = Double(allGameResults.filter({ $0.gameResult == GameResult.win.asInt }).count)
+        let gameResults = getGamesByMode(mode)
+        let totalGames = Double(gameResults.count)
+        let totalWins = Double(gameResults.filter({ $0.gameResult == GameResult.win.asInt }).count)
+        
+        guard totalGames > 0 else { return 0.0 }
+        
         return totalWins / totalGames
     }
     

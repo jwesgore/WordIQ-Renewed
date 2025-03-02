@@ -50,10 +50,14 @@ enum SystemNames {
         static let zenModeStats = "Zen Mode Stats"
         
         // MARK: Stats
-        static let avgTime = "Average Time"
+        static let avgScore = "Avg. Score"
+        static let avgTime = "Avg. Time"
+        static let avgTimePerWord = "Avg. Time Per Word"
         static let bestStreak = "Best Streak"
+        static let bestScore = "Best Score"
         static let currentStreak = "Current Streak"
         static let gamesPlayed = "Games Played"
+        static let guessesMade = "Guesses Made"
         static let timePlayed = "Time Played"
         static let winPercentage = "Win %"
     }

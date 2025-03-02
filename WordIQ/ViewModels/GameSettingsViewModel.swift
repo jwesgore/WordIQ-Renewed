@@ -57,6 +57,6 @@ class GameSettingsViewModel: ObservableObject {
         self.tapticFeedback = UserDefaultsHelper.shared.setting_hapticFeedback
         self.quickplayMode = UserDefaultsHelper.shared.quickplaySetting_mode
         self.quickplayDifficulty = UserDefaultsHelper.shared.quickplaySetting_difficulty
-        self.quickplayTimeLimit = UserDefaultsHelper.shared.quickplaySetting_timeLimit ?? 0
+        self.quickplayTimeLimit = UserDefaultsHelper.shared.quickplaySetting_timeLimit
     }
 }

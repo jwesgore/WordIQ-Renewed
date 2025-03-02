@@ -4,11 +4,15 @@ import SwiftUI
 struct StatsFrenzyModeView: View {
     
     var databaseHelper: GameDatabaseHelper
+    let mode = GameMode.frenzygame
     
     var body: some View {
-        let avgTimePerGame = TimeUtility.formatTimeShort(databaseHelper.getGameModeAvgTime(mode: .frenzygame))
-        let timeInMode = TimeUtility.formatTimeShort(databaseHelper.getGameModeTimePlayed(mode: .frenzygame))
-        let totalGamesPlayed = databaseHelper.getGameModeCount(mode: .frenzygame).description
+        let avgTimePerWord = TimeUtility.formatTimeShort(databaseHelper.getGameModeAvgTimePerWord(mode: mode))
+        let avgScore = databaseHelper.getGameModeAvgScore(mode: mode).description
+        let bestScore = UserDefaultsHelper.shared.maxScore_frenzy.description
+        let guessesMade = databaseHelper.getGameModeNumGuesses(mode: mode).description
+        let timeInMode = TimeUtility.formatTimeShort(databaseHelper.getGameModeTimePlayed(mode: mode))
+        let totalGamesPlayed = databaseHelper.getGameModeCount(mode: mode).description
         
         // Header
         Text(SystemNames.GameStats.frenzyModeStats)
@@ -21,13 +25,25 @@ struct StatsFrenzyModeView: View {
                          label: SystemNames.GameStats.gamesPlayed,
                          value: totalGamesPlayed)
             Divider()
+            InfoItemView(image: SFAssets.numberSign,
+                         label: SystemNames.GameStats.guessesMade,
+                         value: guessesMade)
+            Divider()
             InfoItemView(image: SFAssets.timer,
                          label: SystemNames.GameStats.timePlayed,
                          value: timeInMode)
             Divider()
             InfoItemView(image: SFAssets.timer,
-                         label: SystemNames.GameStats.avgTime,
-                         value: avgTimePerGame)
+                         label: SystemNames.GameStats.avgTimePerWord,
+                         value: avgTimePerWord)
+            Divider()
+            InfoItemView(image: SFAssets.star,
+                         label: SystemNames.GameStats.avgScore,
+                         value: avgScore)
+            Divider()
+            InfoItemView(image: SFAssets.star,
+                         label: SystemNames.GameStats.bestScore,
+                         value: bestScore)
         }
     }
 }

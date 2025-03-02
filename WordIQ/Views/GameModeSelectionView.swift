@@ -13,6 +13,7 @@ struct GameModeSelectionView: View {
         switch gameModeSelectionVM.activeView {
         case .root:
             VStack {
+                // MARK: Header
                 HStack {
                     Text(SystemNames.Title.title)
                         .font(.custom(RobotoSlabOptions.Weight.bold, size: CGFloat(RobotoSlabOptions.Size.title2)))
@@ -30,6 +31,8 @@ struct GameModeSelectionView: View {
                     }
                 }
                 Spacer()
+                
+                // MARK: Buttons
                 ZStack {
                     VStack (spacing: 10) {
                         HStack {

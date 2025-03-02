@@ -35,7 +35,7 @@ class UserDefaultsHelper {
             hapticFeedbackKey: true,
             quickplayModeKey: GameMode.standardgame.id,
             quickplayDifficultyKey: GameDifficulty.normal.id,
-            quickplayTimeLimitKey: 60,
+            quickplayTimeLimitKey: 0,
             currentStreakDailyKey: 0,
             currentStreakStandardKey: 0,
             currentStreakRushKey: 0,
@@ -90,6 +90,11 @@ class UserDefaultsHelper {
             return GameMode.fromId(modeId) ?? .standardgame
         }
         set {
+            switch newValue {
+            case .rushgame: quickplaySetting_timeLimit = 60
+            case .frenzygame: quickplaySetting_timeLimit = 90
+            default: quickplaySetting_timeLimit = 0
+            }
             UserDefaults.standard.set(newValue.id, forKey: quickplayModeKey)
         }
     }
@@ -104,16 +109,12 @@ class UserDefaultsHelper {
         }
     }
     
-    var quickplaySetting_timeLimit: Int? {
+    var quickplaySetting_timeLimit: Int {
         get {
             return UserDefaults.standard.integer(forKey: quickplayTimeLimitKey)
         }
         set {
-            if let timeLimit = newValue {
-                UserDefaults.standard.set(timeLimit, forKey: quickplayTimeLimitKey)
-            } else {
-                UserDefaults.standard.removeObject(forKey: quickplayTimeLimitKey)
-            }
+            UserDefaults.standard.set(newValue, forKey: quickplayTimeLimitKey)
         }
     }
     

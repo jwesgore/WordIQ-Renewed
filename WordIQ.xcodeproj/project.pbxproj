@@ -33,8 +33,6 @@
 		4B4929AE2D6BE90700CEBBF2 /* GamePauseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4929AD2D6BE8FC00CEBBF2 /* GamePauseViewModel.swift */; };
 		4B4929B22D6C3F1900CEBBF2 /* GameDatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4929B12D6C3F1100CEBBF2 /* GameDatabaseHelper.swift */; };
 		4B4929C92D6D8BF600CEBBF2 /* GameDatabasePersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4929C82D6D8BEA00CEBBF2 /* GameDatabasePersistenceController.swift */; };
-		4B4929CC2D6D90F700CEBBF2 /* GameResultsModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4929CA2D6D90F700CEBBF2 /* GameResultsModel+CoreDataClass.swift */; };
-		4B4929CD2D6D90F700CEBBF2 /* GameResultsModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4929CB2D6D90F700CEBBF2 /* GameResultsModel+CoreDataProperties.swift */; };
 		4B4929CF2D6EB94200CEBBF2 /* ValueConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4929CE2D6EB92300CEBBF2 /* ValueConverter.swift */; };
 		4B4929D42D703D1100CEBBF2 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4929D32D703D0B00CEBBF2 /* Haptics.swift */; };
 		4B6603A62CDEF90B00F4F140 /* GameModeOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6603A52CDEF90000F4F140 /* GameModeOptionsView.swift */; };
@@ -59,6 +57,9 @@
 		4BD0CFA02D72778F0077640A /* StatsZenModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD0CF9F2D72778A0077640A /* StatsZenModeView.swift */; };
 		4BD0CFA22D7277980077640A /* StatsDailyModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD0CFA12D7277910077640A /* StatsDailyModeView.swift */; };
 		4BD9D6C12D727C4400EB9800 /* ItemInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD9D6C02D727C2D00EB9800 /* ItemInfoView.swift */; };
+		4BD9D6C52D73B0BC00EB9800 /* StatsTotalGuessesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD9D6C42D73B0B100EB9800 /* StatsTotalGuessesView.swift */; };
+		4BD9D6C82D73E04600EB9800 /* GameResultsModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD9D6C62D73E04600EB9800 /* GameResultsModel+CoreDataClass.swift */; };
+		4BD9D6C92D73E04600EB9800 /* GameResultsModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD9D6C72D73E04600EB9800 /* GameResultsModel+CoreDataProperties.swift */; };
 		4BF592102CC07C1D00C555F6 /* GameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF5920F2CC07C1500C555F6 /* GameMode.swift */; };
 		4BF592122CC07C2A00C555F6 /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF592112CC07C2200C555F6 /* GameResult.swift */; };
 		4BF592142CC07D1900C555F6 /* GameDifficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF592132CC07D1300C555F6 /* GameDifficulty.swift */; };
@@ -130,8 +131,6 @@
 		4B4929AD2D6BE8FC00CEBBF2 /* GamePauseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePauseViewModel.swift; sourceTree = "<group>"; };
 		4B4929B12D6C3F1100CEBBF2 /* GameDatabaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDatabaseHelper.swift; sourceTree = "<group>"; };
 		4B4929C82D6D8BEA00CEBBF2 /* GameDatabasePersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDatabasePersistenceController.swift; sourceTree = "<group>"; };
-		4B4929CA2D6D90F700CEBBF2 /* GameResultsModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameResultsModel+CoreDataClass.swift"; sourceTree = "<group>"; };
-		4B4929CB2D6D90F700CEBBF2 /* GameResultsModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameResultsModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4B4929CE2D6EB92300CEBBF2 /* ValueConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueConverter.swift; sourceTree = "<group>"; };
 		4B4929D32D703D0B00CEBBF2 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		4B6603A52CDEF90000F4F140 /* GameModeOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModeOptionsView.swift; sourceTree = "<group>"; };
@@ -157,6 +156,9 @@
 		4BD0CF9F2D72778A0077640A /* StatsZenModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsZenModeView.swift; sourceTree = "<group>"; };
 		4BD0CFA12D7277910077640A /* StatsDailyModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsDailyModeView.swift; sourceTree = "<group>"; };
 		4BD9D6C02D727C2D00EB9800 /* ItemInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemInfoView.swift; sourceTree = "<group>"; };
+		4BD9D6C42D73B0B100EB9800 /* StatsTotalGuessesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsTotalGuessesView.swift; sourceTree = "<group>"; };
+		4BD9D6C62D73E04600EB9800 /* GameResultsModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameResultsModel+CoreDataClass.swift"; sourceTree = "<group>"; };
+		4BD9D6C72D73E04600EB9800 /* GameResultsModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameResultsModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4BF5920F2CC07C1500C555F6 /* GameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMode.swift; sourceTree = "<group>"; };
 		4BF592112CC07C2200C555F6 /* GameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResult.swift; sourceTree = "<group>"; };
 		4BF592132CC07D1300C555F6 /* GameDifficulty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDifficulty.swift; sourceTree = "<group>"; };
@@ -268,8 +270,8 @@
 		4B4929BD2D6C4B5500CEBBF2 /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
-				4B4929CA2D6D90F700CEBBF2 /* GameResultsModel+CoreDataClass.swift */,
-				4B4929CB2D6D90F700CEBBF2 /* GameResultsModel+CoreDataProperties.swift */,
+				4BD9D6C62D73E04600EB9800 /* GameResultsModel+CoreDataClass.swift */,
+				4BD9D6C72D73E04600EB9800 /* GameResultsModel+CoreDataProperties.swift */,
 			);
 			path = "Data Models";
 			sourceTree = "<group>";
@@ -375,6 +377,7 @@
 		4BD0CFA42D72780B0077640A /* Sub Components */ = {
 			isa = PBXGroup;
 			children = (
+				4BD9D6C42D73B0B100EB9800 /* StatsTotalGuessesView.swift */,
 				4BD0CF952D719DAA0077640A /* StatsGameModeDistributionDonutChartView.swift */,
 				4BD0CF972D719DDB0077640A /* StatsTotalTimePlayedView.swift */,
 			);
@@ -650,6 +653,8 @@
 				4B6603AB2CE165C600F4F140 /* GameSettingsViewModel.swift in Sources */,
 				4BD0CF9C2D72777A0077640A /* StatsRushModeView.swift in Sources */,
 				4B091B5A2CD830690092600B /* GameOverModel.swift in Sources */,
+				4BD9D6C82D73E04600EB9800 /* GameResultsModel+CoreDataClass.swift in Sources */,
+				4BD9D6C92D73E04600EB9800 /* GameResultsModel+CoreDataProperties.swift in Sources */,
 				4B091B462CD588A00092600B /* WordListUtility.swift in Sources */,
 				4BF5926D2CC3311D00C555F6 /* GameModeButton.swift in Sources */,
 				4BF5927F2CCD497F00C555F6 /* GameWordModel.swift in Sources */,
@@ -667,9 +672,8 @@
 				4BF592692CC30C1B00C555F6 /* GameModeSelectionView.swift in Sources */,
 				4BF592122CC07C2A00C555F6 /* GameResult.swift in Sources */,
 				4BF592652CC2EDA800C555F6 /* ClockView.swift in Sources */,
+				4BD9D6C52D73B0BC00EB9800 /* StatsTotalGuessesView.swift in Sources */,
 				4B4929CF2D6EB94200CEBBF2 /* ValueConverter.swift in Sources */,
-				4B4929CC2D6D90F700CEBBF2 /* GameResultsModel+CoreDataClass.swift in Sources */,
-				4B4929CD2D6D90F700CEBBF2 /* GameResultsModel+CoreDataProperties.swift in Sources */,
 				4BD0CFA22D7277980077640A /* StatsDailyModeView.swift in Sources */,
 				4B4929C92D6D8BF600CEBBF2 /* GameDatabasePersistenceController.swift in Sources */,
 				4BF592632CC1E72200C555F6 /* 3DButtonView.swift in Sources */,

@@ -4,15 +4,16 @@ import SwiftUI
 struct StatsRushModeView: View {
     
     var databaseHelper: GameDatabaseHelper
+    let mode = GameMode.rushgame
     
     var body: some View {
-        let avgTimePerGame = TimeUtility.formatTimeShort(databaseHelper.getGameModeAvgTime(mode: .rushgame))
+        let avgTimePerGame = TimeUtility.formatTimeShort(databaseHelper.getGameModeAvgTimePerGame(mode: mode))
         let bestStreak = UserDefaultsHelper.shared.maxStreak_rush.description
         let currentSteak = UserDefaultsHelper.shared.currentStreak_rush.description
-        
-        let timeInMode = TimeUtility.formatTimeShort(databaseHelper.getGameModeTimePlayed(mode: .rushgame))
-        let totalGamesPlayed = databaseHelper.getGameModeCount(mode: .rushgame).description
-        let winPercentage = ValueConverter.DoubleToPercent(databaseHelper.getGameModeWinPercentage(mode: .rushgame))
+        let guessesMade = databaseHelper.getGameModeNumGuesses(mode: mode).description
+        let timeInMode = TimeUtility.formatTimeShort(databaseHelper.getGameModeTimePlayed(mode: mode))
+        let totalGamesPlayed = databaseHelper.getGameModeCount(mode: mode).description
+        let winPercentage = ValueConverter.DoubleToPercent(databaseHelper.getGameModeWinPercentage(mode: mode))
         
         // Header
         Text(SystemNames.GameStats.rushModeStats)
@@ -24,6 +25,10 @@ struct StatsRushModeView: View {
             InfoItemView(image: SFAssets.numberSign,
                          label: SystemNames.GameStats.gamesPlayed,
                          value: totalGamesPlayed)
+            Divider()
+            InfoItemView(image: SFAssets.numberSign,
+                         label: SystemNames.GameStats.guessesMade,
+                         value: guessesMade)
             Divider()
             InfoItemView(image: SFAssets.stats,
                          label: SystemNames.GameStats.winPercentage,

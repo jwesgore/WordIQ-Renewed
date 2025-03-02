@@ -76,7 +76,17 @@ class WordDatabaseHelper {
         sqlite3_finalize(queryStatement)
         return exists
     }
-
+    
+    /// Try to close the database
+    func closeDatabase() {
+        if sqlite3_close(db) == SQLITE_OK {
+            print("Database closed successfully.")
+        } else {
+            print("Failed to close the database: \(String(cString: sqlite3_errmsg(db)))")
+        }
+    }
+    
+    /// Fallback for closing the database
     deinit {
         sqlite3_close(db)
     }

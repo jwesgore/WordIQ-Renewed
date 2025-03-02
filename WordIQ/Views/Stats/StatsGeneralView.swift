@@ -9,6 +9,7 @@ struct StatsGeneralView : View {
         let totalGamesPlayed = databaseHelper.gameCount
         let totalTimePlayed = databaseHelper.totalTimePlayed
         let distribution = databaseHelper.getGameModeDistribution()
+        let (totalGuesses, totalValidGuesses, totalInvalidGuesses) = databaseHelper.totalGuessesAll
         
         // Total Time Played
         StatsTotalTimePlayedView(totalTimePlayed: totalTimePlayed, totalGamesPlayed: totalGamesPlayed)
@@ -28,7 +29,7 @@ struct StatsGeneralView : View {
                             Spacer()
                         }
                         .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.headline)))
-
+                        
                         // Displays chart without legens
                         donutChartView
                             .frame(maxHeight: 150)
@@ -43,6 +44,11 @@ struct StatsGeneralView : View {
                 }
             }
             .frame(maxWidth: .infinity)
+        }
+        
+        // Guesses
+        if (totalGuesses != 0) {
+            StatsTotalGuessesView(totalGuesses: totalGuesses, totalValidGuesses: totalValidGuesses, totalInvalidGuesses: totalInvalidGuesses)
         }
     }
 }

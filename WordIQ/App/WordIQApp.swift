@@ -24,4 +24,8 @@ struct WordIQApp: App {
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        WordDatabaseHelper.shared.closeDatabase()
+    }
 }

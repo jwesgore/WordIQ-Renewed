@@ -102,7 +102,10 @@ class GameModeSelectionViewModel: BaseViewNavigation {
             self.goToGameModeOptions(.daily)
         }
         self.QuickplayGameButton.action = {
-            self.goToGameModeOptions(.quickplay)
+            self.GameModeOptions.gameMode = UserDefaultsHelper.shared.quickplaySetting_mode
+            self.GameModeOptions.timeLimit = UserDefaultsHelper.shared.quickplaySetting_timeLimit
+            self.GameModeOptions.gameDifficulty = UserDefaultsHelper.shared.quickplaySetting_difficulty
+            self.startGame()
         }
         self.StandardGameModeButton.action = {
             self.TimeLimitOptions = GameTimeLimit.none.values

@@ -4,11 +4,13 @@ import SwiftUI
 struct StatsZenModeView: View {
     
     var databaseHelper: GameDatabaseHelper
+    let mode = GameMode.zengame
     
     var body: some View {
-        let avgTimePerGame = TimeUtility.formatTimeShort(databaseHelper.getGameModeAvgTime(mode: .zengame))
-        let timeInMode = TimeUtility.formatTimeShort(databaseHelper.getGameModeTimePlayed(mode: .zengame))
-        let totalGamesPlayed = databaseHelper.getGameModeCount(mode: .zengame).description
+        let avgTimePerGame = TimeUtility.formatTimeShort(databaseHelper.getGameModeAvgTimePerGame(mode: mode))
+        let guessesMade = databaseHelper.getGameModeNumGuesses(mode: mode).description
+        let timeInMode = TimeUtility.formatTimeShort(databaseHelper.getGameModeTimePlayed(mode: mode))
+        let totalGamesPlayed = databaseHelper.getGameModeCount(mode: mode).description
         
         // Header
         Text(SystemNames.GameStats.zenModeStats)
@@ -20,6 +22,10 @@ struct StatsZenModeView: View {
             InfoItemView(image: SFAssets.numberSign,
                          label: SystemNames.GameStats.gamesPlayed,
                          value: totalGamesPlayed)
+            Divider()
+            InfoItemView(image: SFAssets.numberSign,
+                         label: SystemNames.GameStats.guessesMade,
+                         value: guessesMade)
             Divider()
             InfoItemView(image: SFAssets.timer,
                          label: SystemNames.GameStats.timePlayed,

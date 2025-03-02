@@ -4,15 +4,16 @@ import SwiftUI
 struct StatsDailyModeView: View {
     
     var databaseHelper: GameDatabaseHelper
+    let mode = GameMode.daily
     
     var body: some View {
-        let avgTimePerGame = TimeUtility.formatTimeShort(databaseHelper.getGameModeAvgTime(mode: .daily))
+        let avgTimePerGame = TimeUtility.formatTimeShort(databaseHelper.getGameModeAvgTimePerGame(mode: mode))
         let bestStreak = UserDefaultsHelper.shared.maxStreak_daily.description
         let currentSteak = UserDefaultsHelper.shared.currentStreak_daily.description
-        
-        let timeInMode = TimeUtility.formatTimeShort(databaseHelper.getGameModeTimePlayed(mode: .daily))
-        let totalGamesPlayed = databaseHelper.getGameModeCount(mode: .daily).description
-        let winPercentage = ValueConverter.DoubleToPercent(databaseHelper.getGameModeWinPercentage(mode: .daily))
+        let guessesMade = databaseHelper.getGameModeNumGuesses(mode: mode).description
+        let timeInMode = TimeUtility.formatTimeShort(databaseHelper.getGameModeTimePlayed(mode: mode))
+        let totalGamesPlayed = databaseHelper.getGameModeCount(mode: mode).description
+        let winPercentage = ValueConverter.DoubleToPercent(databaseHelper.getGameModeWinPercentage(mode: mode))
         
         // Header
         Text(SystemNames.GameStats.dailyModeStats)
@@ -24,6 +25,10 @@ struct StatsDailyModeView: View {
             InfoItemView(image: SFAssets.numberSign,
                          label: SystemNames.GameStats.gamesPlayed,
                          value: totalGamesPlayed)
+            Divider()
+            InfoItemView(image: SFAssets.numberSign,
+                         label: SystemNames.GameStats.guessesMade,
+                         value: guessesMade)
             Divider()
             InfoItemView(image: SFAssets.stats,
                          label: SystemNames.GameStats.winPercentage,
