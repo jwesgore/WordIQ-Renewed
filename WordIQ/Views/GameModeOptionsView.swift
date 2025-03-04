@@ -10,7 +10,7 @@ struct GameModeOptionsView : View {
     
     var body: some View {
         let optionsHeader = gameModeSelectionVM.showTimeLimitOptions ?
-        "\(gameModeSelectionVM.GameModeOptions.gameMode.value): \(gameModeSelectionVM.GameModeOptions.gameDifficulty.asString), \(formatTimeShort(gameModeSelectionVM.GameModeOptions.timeLimit))" :
+        "\(gameModeSelectionVM.GameModeOptions.gameMode.value): \(gameModeSelectionVM.GameModeOptions.gameDifficulty.asString), \(TimeUtility.formatTimeShort(gameModeSelectionVM.GameModeOptions.timeLimit))" :
         "\(gameModeSelectionVM.GameModeOptions.gameMode.value): \(gameModeSelectionVM.GameModeOptions.gameDifficulty.asString)"
             
         VStack (spacing: 10) {
@@ -51,11 +51,10 @@ struct GameModeOptionsView : View {
                 }
             }
         }
+        .background(Color.appBackground)
     }
-    
-    func formatTimeShort(_ seconds: Int) -> String {
-        let minutes = seconds / 60
-        let remainingSeconds = seconds % 60
-        return String(format: "%d:%02d", minutes, remainingSeconds)
-    }
+}
+
+#Preview {
+    GameModeOptionsView(GameModeSelectionViewModel())
 }

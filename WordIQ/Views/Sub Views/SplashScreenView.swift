@@ -20,11 +20,13 @@ struct SplashScreenView: View {
                         .font(.custom(RobotoSlabOptions.Weight.bold, size: CGFloat(RobotoSlabOptions.Size.caption)))
                         .opacity(0.7)
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color.appBackground)
                 .transition(.blurReplace)
             case .target:
                 GameModeSelectionView()
             case .blank:
-                Color.white
+                Color.appBackground
             }
         }
         .onAppear {

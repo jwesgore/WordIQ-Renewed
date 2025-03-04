@@ -50,5 +50,6 @@ struct StatsStandardModeView: View {
                          label: SystemNames.GameStats.bestStreak,
                          value: bestStreak)
         }
+        .backgroundStyle(Color.appGroupBox)
     }
 }

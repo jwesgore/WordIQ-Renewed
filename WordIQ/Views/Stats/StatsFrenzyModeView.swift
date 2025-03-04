@@ -18,7 +18,6 @@ struct StatsFrenzyModeView: View {
         Text(SystemNames.GameStats.frenzyModeStats)
             .font(.custom(RobotoSlabOptions.Weight.semiBold, size: CGFloat(RobotoSlabOptions.Size.title2)))
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.bottom)
         
         GroupBox {
             InfoItemView(image: SFAssets.numberSign,
@@ -45,5 +44,6 @@ struct StatsFrenzyModeView: View {
                          label: SystemNames.GameStats.bestScore,
                          value: bestScore)
         }
+        .backgroundStyle(Color.appGroupBox)
     }
 }

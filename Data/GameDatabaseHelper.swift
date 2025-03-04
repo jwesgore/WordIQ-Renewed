@@ -48,6 +48,23 @@ class GameDatabaseHelper {
     }
     
     // MARK: Public Database Functions
+    // Delete all data from database
+    func deleteAllData() {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = GameResultsModel.fetchRequest()
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        
+        do {
+            // Execute the batch delete request
+            try context.execute(batchDeleteRequest)
+            // Clear the local snapshot after deletion
+            allGameResults = []
+            print("All data deleted successfully.")
+        } catch {
+            print("Failed to delete all data: \(error)")
+        }
+    }
+    
+    // Refreshes allGameResults snapshot
     func refreshData() -> [GameResultsModel] {
         let fetchRequest: NSFetchRequest<GameResultsModel> = GameResultsModel.fetchRequest()
         do {
@@ -58,6 +75,7 @@ class GameDatabaseHelper {
         }
     }
     
+    // Update database
     func saveGame(gameOverData : GameOverModel) {
         let newGameResult = GameResultsModel(context: context)
         

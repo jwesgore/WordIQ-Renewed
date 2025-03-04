@@ -73,6 +73,7 @@ struct GameOverView : View {
                                  value: fourthRowValue)
                 }
             }
+            .backgroundStyle(Color.appGroupBox)
             
             Spacer()
             ThreeDButtonView(gameoverVM.PlayAgainButton) {

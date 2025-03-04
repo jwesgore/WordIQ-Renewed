@@ -1,9 +1,13 @@
 import SwiftUI
 
 struct GameSettingsView : View {
+
+    @Environment(\.managedObjectContext) private var viewContext
+    @State private var databaseHelper: GameDatabaseHelper?
     
     @ObservedObject var gameSettingsVM: GameSettingsViewModel
     @Binding var isPresented: Bool
+    @State var clearDataAlertIsPresented: Bool = false
     
     init(isPresented: Binding<Bool>) {
         self.gameSettingsVM = GameSettingsViewModel()
@@ -25,76 +29,102 @@ struct GameSettingsView : View {
                         .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.headline)))
                 })
             }
-            .padding(.bottom)
-            
-            // MARK: Gameplay Settings block
+        
             VStack {
-                Text(SystemNames.GameSettings.gameplaySettings)
-                    .font(.custom(RobotoSlabOptions.Weight.semiBold, size: CGFloat(RobotoSlabOptions.Size.title2)))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                GroupBox {
-                    GameSettingsToggle(SystemNames.GameSettings.colorBlindMode, isActive: $gameSettingsVM.colorBlind)
-                    Divider()
-                    GameSettingsToggle(SystemNames.GameSettings.showHints, isActive: $gameSettingsVM.showHints)
-                    Divider()
-                    GameSettingsToggle(SystemNames.GameSettings.soundEffects, isActive: $gameSettingsVM.soundEffects)
-                    Divider()
-                    GameSettingsToggle(SystemNames.GameSettings.hapticFeedback, isActive: $gameSettingsVM.tapticFeedback)
+                // MARK: Gameplay Settings block
+                VStack {
+                    GroupBox {
+                        GameSettingsToggle(SystemNames.GameSettings.colorBlindMode, isActive: $gameSettingsVM.colorBlind)
+                        Divider()
+                        GameSettingsToggle(SystemNames.GameSettings.showHints, isActive: $gameSettingsVM.showHints)
+                        Divider()
+                        GameSettingsToggle(SystemNames.GameSettings.soundEffects, isActive: $gameSettingsVM.soundEffects)
+                        Divider()
+                        GameSettingsToggle(SystemNames.GameSettings.hapticFeedback, isActive: $gameSettingsVM.tapticFeedback)
+                    }
+                    .backgroundStyle(Color.appGroupBox)
                 }
-            }
-            .padding(.bottom)
-            
-            // MARK: Quickplay Settings block
-            VStack (spacing: 5) {
-                Text(SystemNames.GameSettings.quickplaySettings)
-                    .font(.custom(RobotoSlabOptions.Weight.semiBold, size: CGFloat(RobotoSlabOptions.Size.title2)))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.bottom, 8)
-                GroupBox {
-                    Text(SystemNames.GameSettings.gameMode)
-                        .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.headline)))
+                .padding(.bottom, 5)
+                
+                // MARK: Quickplay Settings block
+                VStack (spacing: 5) {
+                    Text(SystemNames.GameSettings.quickplaySettings)
+                        .font(.custom(RobotoSlabOptions.Weight.semiBold, size: CGFloat(RobotoSlabOptions.Size.title2)))
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    Picker("Game Mode", selection: $gameSettingsVM.quickplayMode) {
-                        Text(GameMode.standardgame.value).tag(GameMode.standardgame)
-                        Text(GameMode.rushgame.value).tag(GameMode.rushgame)
-                        Text(GameMode.frenzygame.value).tag(GameMode.frenzygame)
-                        Text(GameMode.zengame.value).tag(GameMode.zengame)
-                    }
-                    .pickerStyle(.segmented)
-                    .padding(.bottom, 8)
-                    
-                    Text(SystemNames.GameSettings.gameDifficulty)
-                        .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.headline)))
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    Picker("Difficulty", selection: $gameSettingsVM.quickplayDifficulty) {
-                        Text(GameDifficulty.easy.asString).tag(GameDifficulty.easy)
-                        Text(GameDifficulty.normal.asString).tag(GameDifficulty.normal)
-                        Text(GameDifficulty.hard.asString).tag(GameDifficulty.hard)
-                    }
-                    .pickerStyle(.segmented)
-                    .padding(.bottom, 8)
-                    
-                    // Show Quickplay time limit options only if mode had time limit
-                    if gameSettingsVM.showTimeLimitOptions {
-                        VStack (spacing: 5) {
-                            Text(SystemNames.GameSettings.gameTimeLimit)
-                                .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.headline)))
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            Picker("Time", selection: $gameSettingsVM.quickplayTimeLimit) {
-                                Text(TimeUtility.formatTimeShort(gameSettingsVM.quickplayTimeLimitOptions.0)).tag(gameSettingsVM.quickplayTimeLimitOptions.0)
-                                Text(TimeUtility.formatTimeShort(gameSettingsVM.quickplayTimeLimitOptions.1)).tag(gameSettingsVM.quickplayTimeLimitOptions.1)
-                                Text(TimeUtility.formatTimeShort(gameSettingsVM.quickplayTimeLimitOptions.2)).tag(gameSettingsVM.quickplayTimeLimitOptions.2)
+                        .padding(.bottom, 8)
+                    GroupBox {
+                        Text(SystemNames.GameSettings.gameMode)
+                            .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.headline)))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        Picker("Game Mode", selection: $gameSettingsVM.quickplayMode) {
+                            Text(GameMode.standardgame.value).tag(GameMode.standardgame)
+                            Text(GameMode.rushgame.value).tag(GameMode.rushgame)
+                            Text(GameMode.frenzygame.value).tag(GameMode.frenzygame)
+                            Text(GameMode.zengame.value).tag(GameMode.zengame)
+                        }
+                        .pickerStyle(.segmented)
+                        .padding(.bottom, 8)
+                        
+                        Text(SystemNames.GameSettings.gameDifficulty)
+                            .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.headline)))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Picker("Difficulty", selection: $gameSettingsVM.quickplayDifficulty) {
+                            Text(GameDifficulty.easy.asString).tag(GameDifficulty.easy)
+                            Text(GameDifficulty.normal.asString).tag(GameDifficulty.normal)
+                            Text(GameDifficulty.hard.asString).tag(GameDifficulty.hard)
+                        }
+                        .pickerStyle(.segmented)
+                        .padding(.bottom, 8)
+                        
+                        // Show Quickplay time limit options only if mode had time limit
+                        if gameSettingsVM.showTimeLimitOptions {
+                            VStack (spacing: 5) {
+                                Text(SystemNames.GameSettings.gameTimeLimit)
+                                    .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.headline)))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                Picker("Time", selection: $gameSettingsVM.quickplayTimeLimit) {
+                                    Text(TimeUtility.formatTimeShort(gameSettingsVM.quickplayTimeLimitOptions.0)).tag(gameSettingsVM.quickplayTimeLimitOptions.0)
+                                    Text(TimeUtility.formatTimeShort(gameSettingsVM.quickplayTimeLimitOptions.1)).tag(gameSettingsVM.quickplayTimeLimitOptions.1)
+                                    Text(TimeUtility.formatTimeShort(gameSettingsVM.quickplayTimeLimitOptions.2)).tag(gameSettingsVM.quickplayTimeLimitOptions.2)
+                                }
+                                .pickerStyle(.segmented)
                             }
-                            .pickerStyle(.segmented)
                         }
                     }
+                    .backgroundStyle(Color.appGroupBox)
                 }
+                
+                // MARK: Clear Data Button
+                Spacer()
+                Button(
+                    action: {
+                        clearDataAlertIsPresented = true
+                    },
+                    label: {
+                        Text("Erase All Data")
+                            .foregroundStyle(.red)
+                            .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.title3)))
+                    }
+                )
             }
-            
-            Spacer()
         }
         .padding()
+        .background(Color.appBackground)
+        .onChange(of: gameSettingsVM.quickplayMode){
+            gameSettingsVM.quickplayTimeLimit = gameSettingsVM.quickplayTimeLimitOptions.1
+        }
+        .alert(isPresented: $clearDataAlertIsPresented) {
+            Alert(
+                title: Text("Confirm Game Data Deletion"),
+                message: Text("Are you sure you want to erase all game data? This action cannot be undone."),
+                primaryButton: .destructive(Text("Erase")) {
+                    databaseHelper = GameDatabaseHelper(context: viewContext)
+                    databaseHelper?.deleteAllData()
+                },
+                secondaryButton: .cancel()
+            )
+        }
     }
 }
 

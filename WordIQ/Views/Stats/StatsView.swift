@@ -28,16 +28,19 @@ struct StatsView : View {
                         .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.headline)))
                 })
             }
-            .padding(.bottom)
+            .padding([.horizontal, .top])
             
             if let databaseHelper = databaseHelper {
                 ScrollView {
-                    StatsGeneralView(databaseHelper: databaseHelper)
-                    StatsDailyModeView(databaseHelper: databaseHelper)
-                    StatsStandardModeView(databaseHelper: databaseHelper)
-                    StatsRushModeView(databaseHelper: databaseHelper)
-                    StatsFrenzyModeView(databaseHelper: databaseHelper)
-                    StatsZenModeView(databaseHelper: databaseHelper)
+                    VStack {
+                        StatsGeneralView(databaseHelper: databaseHelper)
+                        StatsDailyModeView(databaseHelper: databaseHelper)
+                        StatsStandardModeView(databaseHelper: databaseHelper)
+                        StatsRushModeView(databaseHelper: databaseHelper)
+                        StatsFrenzyModeView(databaseHelper: databaseHelper)
+                        StatsZenModeView(databaseHelper: databaseHelper)
+                    }
+                    .padding([.horizontal, .bottom])
                 }
             } else {
                 Text("Loading data...")
@@ -46,11 +49,8 @@ struct StatsView : View {
                         self.databaseHelper = GameDatabaseHelper(context: viewContext)
                     }
             }
-            
-            Spacer()
-            
         }
-        .padding()
+        .background(Color.appBackground)
         .ignoresSafeArea(edges: .bottom)
     }
 }

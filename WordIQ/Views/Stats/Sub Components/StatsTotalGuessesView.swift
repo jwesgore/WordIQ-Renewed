@@ -32,5 +32,6 @@ struct StatsTotalGuessesView: View {
             }
         }
         .frame(maxWidth: .infinity)
+        .backgroundStyle(Color.appGroupBox)
     }
 }

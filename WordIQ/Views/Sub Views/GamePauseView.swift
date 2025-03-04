@@ -42,6 +42,7 @@ struct GamePauseView : View {
             
         }
         .padding()
+        .background(Color.appBackground)
     }
 }
 

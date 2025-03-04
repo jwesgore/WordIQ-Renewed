@@ -20,5 +20,6 @@ struct StatsTotalTimePlayedView : View {
             .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.subheading)))
         }
         .frame(maxWidth: .infinity)
+        .backgroundStyle(Color.appGroupBox)
     }
 }

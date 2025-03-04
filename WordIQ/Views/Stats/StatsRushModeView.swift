@@ -19,7 +19,6 @@ struct StatsRushModeView: View {
         Text(SystemNames.GameStats.rushModeStats)
             .font(.custom(RobotoSlabOptions.Weight.semiBold, size: CGFloat(RobotoSlabOptions.Size.title2)))
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.bottom)
         
         GroupBox {
             InfoItemView(image: SFAssets.numberSign,
@@ -50,5 +49,6 @@ struct StatsRushModeView: View {
                          label: SystemNames.GameStats.bestStreak,
                          value: bestStreak)
         }
+        .backgroundStyle(Color.appGroupBox)
     }
 }

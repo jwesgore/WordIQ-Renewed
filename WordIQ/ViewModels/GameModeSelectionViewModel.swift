@@ -36,7 +36,7 @@ class GameModeSelectionViewModel: BaseViewNavigation {
     }
     
     // Set Values
-    let HalfButtonDimensions: (CGFloat, CGFloat) = (75, 200)
+    let HalfButtonDimensions: (CGFloat, CGFloat) = (60, 200)
     let GameModeButtonDimension: (CGFloat, CGFloat) = (60, 400)
     let DifficultyButtonDimension: (CGFloat, CGFloat) = (50, 400)
     let TimeSelectionButtonDimension: (CGFloat, CGFloat) = (50, 400)

@@ -1,5 +1,5 @@
 /// All possible game modes
-enum GameMode: String, Codable, Identifiable {
+enum GameMode: String, Codable, Identifiable, Equatable {
     case standardgame
     case rushgame
     case frenzygame

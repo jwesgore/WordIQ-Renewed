@@ -16,7 +16,6 @@ struct StatsZenModeView: View {
         Text(SystemNames.GameStats.zenModeStats)
             .font(.custom(RobotoSlabOptions.Weight.semiBold, size: CGFloat(RobotoSlabOptions.Size.title2)))
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.bottom)
         
         GroupBox {
             InfoItemView(image: SFAssets.numberSign,
@@ -35,5 +34,6 @@ struct StatsZenModeView: View {
                          label: SystemNames.GameStats.avgTime,
                          value: avgTimePerGame)
         }
+        .backgroundStyle(Color.appGroupBox)
     }
 }
