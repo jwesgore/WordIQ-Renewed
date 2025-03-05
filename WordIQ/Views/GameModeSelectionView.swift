@@ -54,6 +54,7 @@ struct GameModeSelectionView: View {
                     Spacer()
                 }
                 .padding()
+                .transition(.blurReplace)
                 .fullScreenCover(isPresented: $gameModeSelectionVM.DisplaySettings) {
                     GameSettingsView(isPresented: $gameModeSelectionVM.DisplaySettings)
                 }
@@ -62,12 +63,13 @@ struct GameModeSelectionView: View {
                 }
             case .target:
                 GameView(gameModeSelectionVM.getGameViewModel())
+                    .transition(.blurReplace)
             case .blank:
                 Color.appBackground
             }
         }
         .background(Color.appBackground.ignoresSafeArea())
-        .transition(.blurReplace)
+        
     }
 }
  

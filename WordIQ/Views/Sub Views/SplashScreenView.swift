@@ -25,9 +25,9 @@ struct SplashScreenView: View {
                 .transition(.blurReplace)
             case .target:
                 GameModeSelectionView()
+                    .transition(.blurReplace)
             case .blank:
                 Color.appBackground
-                    .transition(.blurReplace)
             }
         }
         .background(Color.appBackground.ignoresSafeArea())

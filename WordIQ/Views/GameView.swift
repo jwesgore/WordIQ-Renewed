@@ -53,11 +53,13 @@ struct GameView : View {
                                  deleteKey: gameViewModel.KeyboardDeleteButton)
                 }
                 .padding()
+                .transition(.blurReplace)
                 .fullScreenCover(isPresented: $gameViewModel.showPauseMenu) {
                     GamePauseView(gameViewModel)
                 }
             case .target:
                 GameOverView(gameViewModel.gameOverViewModel)
+                    .transition(.blurReplace)
             case .blank:
                 Color.appBackground
             }

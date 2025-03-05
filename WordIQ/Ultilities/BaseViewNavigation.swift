@@ -22,7 +22,7 @@ class BaseViewNavigation: ObservableObject {
     /// Fades the current activeView out and replaces it with a targetView having an empty view as a buffer in between
     func fadeToBlank(fromRoot:Bool = true, animationLength: Double = 0.5, hang: Double = 0.0) {
         
-        withAnimation(.easeInOut(duration: animationLength)) {
+        withAnimation(.linear(duration: animationLength)) {
             activeView = .blank
         }
         
