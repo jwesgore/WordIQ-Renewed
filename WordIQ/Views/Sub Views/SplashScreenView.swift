@@ -27,10 +27,12 @@ struct SplashScreenView: View {
                 GameModeSelectionView()
             case .blank:
                 Color.appBackground
+                    .transition(.blurReplace)
             }
         }
+        .background(Color.appBackground.ignoresSafeArea())
         .onAppear {
-            transitions.fadeToWhiteDelay(delay: 2.5, animationLength: 0.5, hang: 0.5)
+            transitions.fadeToBlankDelay(delay: 2.5, animationLength: 0.5, hang: 0.5)
         } 
     }
 }

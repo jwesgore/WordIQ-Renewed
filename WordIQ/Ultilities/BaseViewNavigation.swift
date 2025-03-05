@@ -13,16 +13,16 @@ class BaseViewNavigation: ObservableObject {
         self.activeView = .target
     }
     
-    func fadeToWhiteDelay(fromRoot:Bool = true, delay: Double, animationLength: Double = 0.5, hang: Double = 0.0) {
+    func fadeToBlankDelay(fromRoot:Bool = true, delay: Double, animationLength: Double = 0.5, hang: Double = 0.0) {
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-            self.fadeToWhite(fromRoot: fromRoot, animationLength: animationLength, hang: hang)
+            self.fadeToBlank(fromRoot: fromRoot, animationLength: animationLength, hang: hang)
         }
     }
     
     /// Fades the current activeView out and replaces it with a targetView having an empty view as a buffer in between
-    func fadeToWhite(fromRoot:Bool = true, animationLength: Double = 0.5, hang: Double = 0.0) {
+    func fadeToBlank(fromRoot:Bool = true, animationLength: Double = 0.5, hang: Double = 0.0) {
         
-        withAnimation(.linear(duration: animationLength)) {
+        withAnimation(.easeInOut(duration: animationLength)) {
             activeView = .blank
         }
         

@@ -203,7 +203,7 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
         }
     }
     
-    // Handles what to do if an invalid word is subbmitted
+    /// Handles what to do if an invalid word is subbmitted
     private func invalidWordSubmitted() {
         if let activeWord = ActiveWord {
             activeWord.ShakeAnimation()
@@ -212,7 +212,7 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
         self.invalidWordSubmittedOverride()
     }
     
-    // Handles what to do if the wrong word is subbmitted
+    /// Handles what to do if the wrong word is subbmitted
     private func wrongWordSubmitted() {
         if let activeWord = ActiveWord, let gameWord = activeWord.getWord() {
             // Builds comparisons and updates backgrounds on board and keyboard
@@ -250,19 +250,19 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
     }
     
     /// Function to end the game
-    func gameover(speed : Double = 3.0) {
+    func gameover(speed : Double = 1.5) {
         self.IsKeyboardActive = false
         self.showPauseMenu = false
         
         self.Clock.stopClock()
         self.gameOverModel.timeElapsed = self.Clock.timeElapsed
         
-        super.fadeToWhiteDelay(delay: speed)
+        super.fadeToBlankDelay(delay: speed)
     }
     
     /// Function to play a new game again
     func playAgain() {
-        super.fadeToWhite(fromRoot: false)
+        super.fadeToBlank(fromRoot: false)
         self.keyboardReset()
         self.boardReset()
         self.Clock.resetClock()

@@ -44,7 +44,7 @@ class GameModeSelectionViewModel: BaseViewNavigation {
     
     override init() {
         // Step 1: Initialize Models
-        self.GameModeOptions = GameModeOptionsModel(gameMode: .standardgame, gameDifficulty: .normal, timeLimit: 0)
+        self.GameModeOptions = GameModeOptionsModel()
         
         // Step 2: Initialize all buttons without action
         self.StartButton = ThreeDButtonViewModel(height: NavigationButtonDimension.0, width: NavigationButtonDimension.1)
@@ -144,9 +144,11 @@ class GameModeSelectionViewModel: BaseViewNavigation {
         self.TimeSelectionManager.add(TimeSelection1Button, TimeSelection2Button, TimeSelection3Button)
     }
     
+    // MARK: Navigation Functions
     /// Starts the game with the defined game options
     func startGame() {
-        super.fadeToWhiteDelay(delay:0.5, hang: 0.5)
+        self.GameModeOptions.resetTargetWord()
+        super.fadeToBlankDelay(delay:0.25, hang: 0.25)
     }
     
     /// Function to transition the view from mode selection to options
@@ -158,12 +160,20 @@ class GameModeSelectionViewModel: BaseViewNavigation {
     
     /// Function to transition the view from options to mode selection
     func goBackToModeSelection() {
-        withAnimation (.easeInOut(duration: 0.5)) {
-            self.Offset = 2000
-        } completion: {
-            self.GameModeOptions = GameModeOptionsModel(gameMode: .standardgame, gameDifficulty: .normal, timeLimit: 0)
-            self.TimeLimitOptions = (0, 0, 0)
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            withAnimation (.easeInOut(duration: 0.5)) {
+                self.Offset = 2000
+            } completion: {
+                self.GameModeOptions.resetToDefaults()
+                self.TimeLimitOptions = (0, 0, 0)
+            }
         }
+    }
+
+    /// Resets all values for when game is exited
+    func exitFromGame() {
+        self.goBackToModeSelection()
+        super.fadeToBlank(fromRoot: false)
     }
     
     /// Creates a game view model based on the game mode options set
@@ -186,13 +196,6 @@ class GameModeSelectionViewModel: BaseViewNavigation {
         }()
         gameVM.exitGameAction = exitFromGame
         return gameVM
-    }
-    
-    /// Resets all values for when game is exited
-    func exitFromGame() {
-        self.goBackToModeSelection()
-        self.GameModeOptions = GameModeOptionsModel(gameMode: .standardgame, gameDifficulty: .normal, timeLimit: 0)
-        super.fadeToWhite(fromRoot: false)
     }
     
 }

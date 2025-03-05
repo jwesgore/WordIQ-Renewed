@@ -10,61 +10,61 @@ struct GameView : View {
     }
     
     var body : some View {
-        switch gameViewModel.activeView {
-        case .root:
-            VStack (spacing: 0) {
-                HStack (spacing: 0) {
-                    Button (
-                        action: {
-                            self.gameViewModel.exitGame()
-                        },
-                        label: {
-                            Image(systemName: SFAssets.backArrow)
-                        }
-                    )
+        ZStack {
+            switch gameViewModel.activeView {
+            case .root:
+                VStack (spacing: 0) {
+                    HStack (spacing: 0) {
+                        Button (
+                            action: {
+                                self.gameViewModel.exitGame()
+                            },
+                            label: {
+                                Image(systemName: SFAssets.backArrow)
+                            }
+                        )
+                        Spacer()
+                        Text(gameViewModel.gameOptions.gameMode.value)
+                            .font(.custom(RobotoSlabOptions.Weight.bold, size: CGFloat(RobotoSlabOptions.Size.title3)))
+                        Spacer()
+                        Button(
+                            action: {
+                                self.gameViewModel.pauseGame()
+                            },
+                            label: {
+                                Image(systemName: SFAssets.pause)
+                            }
+                        )
+                    }
+                    
                     Spacer()
-                    Text(gameViewModel.gameOptions.gameMode.value)
-                        .font(.custom(RobotoSlabOptions.Weight.bold, size: CGFloat(RobotoSlabOptions.Size.title3)))
+                    
+                    HStack {
+                        Spacer()
+                        ClockView(clockVM: gameViewModel.Clock)
+                    }
+                    
+                    GameBoardView(gameViewModel.GameBoardWords)
+                    
                     Spacer()
-                    Button(
-                        action: {
-                            self.gameViewModel.pauseGame()
-                        },
-                        label: {
-                            Image(systemName: SFAssets.pause)
-                        }
-                    )
+                    
+                    KeyboardView(keyboardLetters: gameViewModel.KeyboardLetterButtons,
+                                 enterKey: gameViewModel.KeyboardEnterButton,
+                                 deleteKey: gameViewModel.KeyboardDeleteButton)
                 }
-                
-                Spacer()
-      
-                HStack {
-                    Spacer()
-                    ClockView(clockVM: gameViewModel.Clock)
+                .padding()
+                .fullScreenCover(isPresented: $gameViewModel.showPauseMenu) {
+                    GamePauseView(gameViewModel)
                 }
-
-                GameBoardView(gameViewModel.GameBoardWords)
-                
-                Spacer()
-                
-                KeyboardView(keyboardLetters: gameViewModel.KeyboardLetterButtons,
-                             enterKey: gameViewModel.KeyboardEnterButton,
-                             deleteKey: gameViewModel.KeyboardDeleteButton)
+            case .target:
+                GameOverView(gameViewModel.gameOverViewModel)
+            case .blank:
+                Color.appBackground
             }
-            .padding()
-            .background(Color.appBackground)
-            .fullScreenCover(isPresented: $gameViewModel.showPauseMenu) {
-                GamePauseView(gameViewModel)
-            }
-        case .target:
-            GameOverView(gameViewModel.gameOverViewModel)
-                .background(Color.appBackground)
-        case .blank:
-            Color.appBackground
         }
-
+        .background(Color.appBackground.ignoresSafeArea())
     }
-} 
+}
 
 #Preview {
     GameView(StandardModeViewModel(gameOptions: GameModeOptionsModel(gameMode: .standardgame, gameDifficulty: .normal, timeLimit:0)))
