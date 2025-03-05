@@ -62,10 +62,8 @@ struct GameModeSelectionView: View {
                 StatsView(isPresented: $gameModeSelectionVM.DisplayStats)
             }
         case .target:
-            ZStack{
-                GameView(gameModeSelectionVM.getGameViewModel())
-            }
-            .transition(.blurReplace)
+            GameView(gameModeSelectionVM.getGameViewModel())
+                .transition(.blurReplace)
         case .blank:
             Color.appBackground
         }

@@ -55,7 +55,7 @@ class UserDefaultsHelper {
             UserDefaults.standard.set(newValue, forKey: colorBlindModeKey)
         }
     }
-
+    
     var setting_showHints: Bool {
         get {
             return UserDefaults.standard.bool(forKey: showHintsKey)
@@ -125,6 +125,7 @@ class UserDefaultsHelper {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: currentStreakDailyKey)
+            if newValue > maxStreak_daily { maxStreak_daily = newValue }
         }
     }
     
@@ -134,6 +135,7 @@ class UserDefaultsHelper {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: currentStreakStandardKey)
+            if newValue > maxStreak_daily { maxStreak_standard = newValue }
         }
     }
     
@@ -143,6 +145,7 @@ class UserDefaultsHelper {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: currentStreakRushKey)
+            if newValue > maxStreak_daily { maxStreak_rush = newValue }
         }
     }
     
@@ -179,6 +182,25 @@ class UserDefaultsHelper {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: maxScoreFrenzyKey)
+        }
+    }
+    
+    // MARK: Functions
+    // Update values based on game over results
+    func update(_ gameOverResults : GameOverModel) {
+        switch gameOverResults.gameMode {
+        case .daily:
+            currentStreak_daily = gameOverResults.gameResult == .win ? currentStreak_daily + 1 : 0
+        case .standardgame:
+            currentStreak_standard = gameOverResults.gameResult == .win ? currentStreak_standard + 1 : 0
+        case .rushgame:
+            currentStreak_rush = gameOverResults.gameResult == .win ? currentStreak_rush + 1 : 0
+        case .frenzygame:
+            if gameOverResults.numCorrectWords > maxScore_frenzy {
+                maxScore_frenzy = gameOverResults.numCorrectWords
+            }
+        default:
+            break
         }
     }
 }

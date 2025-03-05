@@ -121,11 +121,15 @@ class GameModeSelectionViewModel: BaseViewNavigation {
         self.RushGameModeButton.action = {
             self.TimeLimitOptions = GameTimeLimit.rush.values
             self.GameModeOptions.gameMode = .rushgame
+            self.GameModeOptions.timeLimit = GameTimeLimit.rush.values.1
+            self.TimeSelectionManager.communicate(self.TimeSelection2Button.id)
             self.goToGameModeOptions(.rushgame)
         }
         self.FrenzyGameModeButton.action = {
             self.TimeLimitOptions = GameTimeLimit.frenzy.values
             self.GameModeOptions.gameMode = .frenzygame
+            self.GameModeOptions.timeLimit = GameTimeLimit.frenzy.values.1
+            self.TimeSelectionManager.communicate(self.TimeSelection2Button.id)
             self.goToGameModeOptions(.frenzygame)
         }
         self.ZenGameModeButton.action = {

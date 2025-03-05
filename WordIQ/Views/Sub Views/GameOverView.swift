@@ -93,9 +93,22 @@ struct GameOverView : View {
 
             // Save game
             self.databaseHelper?.saveGame(gameOverData: gameoverVM.gameOverModel)
+            UserDefaultsHelper.shared.update(gameoverVM.gameOverModel)
             
             // Parse values for end screen based on game mode
             switch gameoverVM.gameOverModel.gameMode {
+            case .daily:
+                thirdRowValue = UserDefaultsHelper.shared.currentStreak_daily.description
+                fourthRowValue = ValueConverter.DoubleToPercent(
+                    databaseHelper?.getGameModeWinPercentage(mode: gameoverVM.gameOverModel.gameMode) ?? 0)
+            case .standardgame:
+                thirdRowValue = UserDefaultsHelper.shared.currentStreak_standard.description
+                fourthRowValue = ValueConverter.DoubleToPercent(
+                    databaseHelper?.getGameModeWinPercentage(mode: gameoverVM.gameOverModel.gameMode) ?? 0)
+            case .rushgame:
+                thirdRowValue = UserDefaultsHelper.shared.currentStreak_rush.description
+                fourthRowValue = ValueConverter.DoubleToPercent(
+                    databaseHelper?.getGameModeWinPercentage(mode: gameoverVM.gameOverModel.gameMode) ?? 0)
             case .frenzygame:
                 thirdRowValue = gameoverVM.gameOverModel.numCorrectWords.description
                 fourthRowValue = ValueConverter.DoubleToPercent(
@@ -103,9 +116,7 @@ struct GameOverView : View {
             case .zengame:
                 thirdRowValue = databaseHelper?.getGameModeCount(mode: gameoverVM.gameOverModel.gameMode).description ?? "1"
             default:
-                thirdRowValue = "0"
-                fourthRowValue = ValueConverter.DoubleToPercent(
-                    databaseHelper?.getGameModeWinPercentage(mode: gameoverVM.gameOverModel.gameMode) ?? 0)
+                break
             }
         }
     }
