@@ -22,7 +22,10 @@ class FrenzyModeViewModel : GameViewModel, ClockViewModelObserver {
             
             self.gameOverModel.lastGuessedWord = nil
             
-            self.boardResetWithAnimation(delay: 1.0)
+            self.boardResetWithAnimation(delay: 0.5) {
+                self.TargetWordHints = [ValidCharacters?](repeating: nil, count: 5)
+                self.keyboardReset()
+            }
         }
     }
     

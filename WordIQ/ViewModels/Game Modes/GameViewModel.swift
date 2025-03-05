@@ -156,6 +156,7 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
         
         self.BoardPosition = 0
         self.ActiveWord = self.GameBoardWords.first
+        self.TargetWordHints = [ValidCharacters?](repeating: nil, count: 5)
         
         self.IsKeyboardActive = true
     }
@@ -171,6 +172,9 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
                 self.GameBoardWords[i].resetWithAnimation(animationLength: animationLength, speed: speed)
             })
         }
+        
+        self.BoardPosition = 0
+        self.ActiveWord = self.GameBoardWords.first
         
         // renable the keyboard and perform any actions passed in
         DispatchQueue.main.asyncAfter(deadline: .now() + ((animationLength / 2.5) * (5.0 + speed)) + delay, execute: {
@@ -266,7 +270,6 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
         self.gameOverModel = GameOverModel(gameOptions: self.gameOptions)
 
         self.TargetWord = self.gameOverModel.targetWord
-        self.TargetWordHints = [ValidCharacters?](repeating: nil, count: 5)
         
         print(self.TargetWord)
     }

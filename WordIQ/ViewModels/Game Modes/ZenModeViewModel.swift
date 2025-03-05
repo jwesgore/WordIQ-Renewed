@@ -17,7 +17,6 @@ class ZenModeViewModel : GameViewModel {
         // If the position has reached the end of the board, reset it
         if self.BoardPosition % 6 == 0 {
             self.boardResetWithAnimation(delay: 1.0) {
-                self.ActiveWord = self.GameBoardWords[self.BoardPosition % 6]
                 self.ActiveWord?.loadHints(self.TargetWordHints)
             }
         }
