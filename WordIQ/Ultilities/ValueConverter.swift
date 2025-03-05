@@ -1,8 +1,12 @@
 
 class ValueConverter {
     
-    static func DoubleToPercent( _ value : Double) -> String {
+    static func DoubleToPercent(_ value : Double) -> String {
         return String(format: "%.2f%%", value * 100);
+    }
+    
+    static func DoubleToTwoPlaces(_ value : Double) -> String {
+        return String(format: "%.2f", value);
     }
     
     static func IntsToPercent(top : Int?, bottom: Int?) -> String {

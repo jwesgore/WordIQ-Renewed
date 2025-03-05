@@ -8,7 +8,7 @@ struct StatsFrenzyModeView: View {
     
     var body: some View {
         let avgTimePerWord = TimeUtility.formatTimeShort(databaseHelper.getGameModeAvgTimePerWord(mode: mode))
-        let avgScore = databaseHelper.getGameModeAvgScore(mode: mode).description
+        let avgScore = ValueConverter.DoubleToTwoPlaces(databaseHelper.getGameModeAvgScore(mode: mode))
         let bestScore = UserDefaultsHelper.shared.maxScore_frenzy.description
         let guessesMade = databaseHelper.getGameModeNumGuesses(mode: mode).description
         let timeInMode = TimeUtility.formatTimeShort(databaseHelper.getGameModeTimePlayed(mode: mode))
