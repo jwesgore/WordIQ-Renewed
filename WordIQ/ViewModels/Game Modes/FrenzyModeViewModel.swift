@@ -15,6 +15,7 @@ class FrenzyModeViewModel : GameViewModel, ClockViewModelObserver {
     // MARK: Word Submitted Functions
     override func correctWordSubmittedOverride() {
         if let activeWord = ActiveWord, let gameWord = activeWord.getWord() {
+            
             self.gameOverModel.correctlyGuessedWords?.append(gameWord)
             
             self.gameOverModel.targetWord = WordDatabaseHelper.shared.fetchRandomWord(withDifficulty: gameOptions.gameDifficulty)
@@ -35,7 +36,6 @@ class FrenzyModeViewModel : GameViewModel, ClockViewModelObserver {
     
     override func wrongWordSubmittedOverride() {
         if self.BoardPosition == 6 {
-            self.IsKeyboardActive = false
             self.gameover()
         } else {
             ActiveWord = GameBoardWords[self.BoardPosition % 6]

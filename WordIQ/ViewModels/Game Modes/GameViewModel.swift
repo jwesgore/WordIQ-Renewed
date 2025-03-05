@@ -251,6 +251,7 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
     
     /// Function to end the game
     func gameover(speed : Double = 3.0) {
+        self.IsKeyboardActive = false
         self.showPauseMenu = false
         
         self.Clock.stopClock()

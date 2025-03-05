@@ -45,14 +45,11 @@ struct GameOverView : View {
             Text(gameoverVM.gameOverModel.gameResult.gameOverString)
                 .font(.custom(RobotoSlabOptions.Weight.bold, size: CGFloat(RobotoSlabOptions.Size.title)))
             
-            if gameoverVM.gameOverModel.gameMode == .frenzygame {
-                
-            } else {
-                Text("The word was ")
-                    .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.title3))) +
-                Text(gameoverVM.gameOverModel.targetWord.word.uppercased())
-                    .font(.custom(RobotoSlabOptions.Weight.semiBold, size: CGFloat(RobotoSlabOptions.Size.title3)))
-            }
+            Text("The word was ")
+                .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.title3))) +
+            Text(gameoverVM.gameOverModel.targetWord.word.uppercased())
+                .font(.custom(RobotoSlabOptions.Weight.semiBold, size: CGFloat(RobotoSlabOptions.Size.title3)))
+            
             
             GroupBox {
                 InfoItemView(image: SFAssets.timer,
@@ -111,8 +108,12 @@ struct GameOverView : View {
                     databaseHelper?.getGameModeWinPercentage(mode: gameoverVM.gameOverModel.gameMode) ?? 0)
             case .frenzygame:
                 thirdRowValue = gameoverVM.gameOverModel.numCorrectWords.description
-                fourthRowValue = ValueConverter.DoubleToPercent(
-                    databaseHelper?.getGameModeWinPercentage(mode: gameoverVM.gameOverModel.gameMode) ?? 0)
+                if gameoverVM.gameOverModel.numCorrectWords > 0 {
+                    fourthRowValue = TimeUtility.formatTimeShort(gameoverVM.gameOverModel.timeElapsed / gameoverVM.gameOverModel.numCorrectWords)
+                }
+                else {
+                    fourthRowValue = TimeUtility.formatTimeShort(gameoverVM.gameOverModel.timeElapsed)
+                }
             case .zengame:
                 thirdRowValue = databaseHelper?.getGameModeCount(mode: gameoverVM.gameOverModel.gameMode).description ?? "1"
             default:
