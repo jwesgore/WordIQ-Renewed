@@ -2,6 +2,10 @@
 /// ViewModel to handle the specific rules of Standard Mode
 class StandardModeViewModel : GameViewModel {
     
+    override func gameStartedOverride() {
+        
+    }
+    
     override func correctWordSubmittedOverride() {
         if let activeWord = ActiveWord, let gameWord = activeWord.getWord() {
             self.gameOverModel.gameResult = .win

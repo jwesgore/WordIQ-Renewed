@@ -7,6 +7,10 @@ class RushModeViewModel : GameViewModel, ClockViewModelObserver {
         self.Clock.addObserver(self)
     }
     
+    override func gameStartedOverride() {
+        
+    }
+    
     /// Function to notify VM that the clock has reached zero
     func timerAtZero() {
         self.gameOverModel.gameResult = .lose

@@ -121,6 +121,8 @@ struct GameSettingsView : View {
                 primaryButton: .destructive(Text("Erase")) {
                     databaseHelper = GameDatabaseHelper(context: viewContext)
                     databaseHelper?.deleteAllData()
+                    
+                    UserDefaultsHelper.shared.resetData()
                 },
                 secondaryButton: .cancel()
             )

@@ -25,7 +25,7 @@ class UserDefaultsHelper {
     
     private let maxScoreFrenzyKey = "maxScore_frenzy"
     
-    private let lastDailyPlayedKey = "lastDailyPlayed"
+    private let dailyModelKey = "dailyModelKey"
     
     // initializer
     private init() {
@@ -44,8 +44,7 @@ class UserDefaultsHelper {
             maxStreakDailyKey: 0,
             maxStreakStandardKey: 0,
             maxStreakRushKey: 0,
-            maxScoreFrenzyKey: 0,
-            lastDailyPlayedKey: 0
+            maxScoreFrenzyKey: 0
         ])
     }
     
@@ -152,6 +151,22 @@ class UserDefaultsHelper {
         }
     }
     
+    var dailyGameOverModel : GameSaveStateModel? {
+        get {
+            if let data = UserDefaults.standard.data(forKey: dailyModelKey) {
+                let decoder = JSONDecoder()
+                return try? decoder.decode(GameSaveStateModel.self, from: data)
+            }
+            return nil
+        }
+        set {
+            let encoder = JSONEncoder()
+            if let encoded = try? encoder.encode(newValue) {
+                UserDefaults.standard.set(encoded, forKey: dailyModelKey)
+            }
+        }
+    }
+    
     var maxStreak_daily: Int {
         get {
             return UserDefaults.standard.integer(forKey: maxStreakDailyKey)
@@ -205,5 +220,19 @@ class UserDefaultsHelper {
         default:
             break
         }
+    }
+    
+    /// Resets all stored data to defaults
+    func resetData() {
+        currentStreak_daily = 0
+        currentStreak_rush = 0
+        currentStreak_standard = 0
+        
+        dailyGameOverModel = nil
+        
+        maxStreak_daily = 0
+        maxStreak_rush = 0
+        maxStreak_standard = 0
+        maxScore_frenzy = 0
     }
 }

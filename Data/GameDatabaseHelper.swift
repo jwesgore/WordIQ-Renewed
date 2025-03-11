@@ -84,7 +84,7 @@ class GameDatabaseHelper {
         
         newGameResult.gameDifficulty = Int64(gameOverData.gameDifficulty.id)
         newGameResult.gameMode = Int64(gameOverData.gameMode.id)
-        newGameResult.gameResult = Int64(gameOverData.gameResult.asInt)
+        newGameResult.gameResult = Int64(gameOverData.gameResult.id)
         
         newGameResult.numCorrectWords = Int64(gameOverData.numCorrectWords)
         newGameResult.numValidGuesses = Int64(gameOverData.numValidGuesses)
@@ -188,11 +188,38 @@ class GameDatabaseHelper {
     func getGameModeWinPercentage(mode : GameMode) -> Double {
         let gameResults = getGamesByMode(mode)
         let totalGames = Double(gameResults.count)
-        let totalWins = Double(gameResults.filter({ $0.gameResult == GameResult.win.asInt }).count)
+        let totalWins = Double(gameResults.filter({ $0.gameResult == GameResult.win.id }).count)
         
         guard totalGames > 0 else { return 0.0 }
         
         return totalWins / totalGames
+    }
+    
+    /// Try and get game over model by id
+    func getGameResultsById(id: UUID) -> GameOverModel? {
+        let fetchRequest: NSFetchRequest<GameResultsModel> = GameResultsModel.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", id as CVarArg)
+        
+        do {
+            let results = try context.fetch(fetchRequest)
+            if let gameResults = results.first {
+                return GameOverModel(
+                    gameMode: GameMode.fromId(Int(gameResults.gameMode))!,
+                    gameResult: GameResult.fromId(Int(gameResults.gameResult)),
+                    gameDifficulty: GameDifficulty.fromId(Int(gameResults.gameDifficulty))!,
+                    numCorrectWords: Int(gameResults.numCorrectWords),
+                    numValidGuesses: Int(gameResults.numValidGuesses),
+                    numInvalidGuesses: Int(gameResults.numInvalidGuesses),
+                    date: gameResults.date!,
+                    timeLimit: Int(gameResults.timeLimit),
+                    timeElapsed: Int(gameResults.timeElapsed),
+                    targetWord: GameWordModel(gameResults.targetWord!))
+            }
+            
+        } catch {
+            print("Error fetching game results by ID: \(error)")
+        }
+        return nil
     }
     
     // MARK: Private Functions

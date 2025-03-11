@@ -14,11 +14,20 @@ enum GameResult: String, Codable {
         }
     }
     
-    var asInt : Int {
+    var id : Int {
         switch self {
         case .na: return 0
         case .lose: return 1
         case .win: return 2
+        }
+    }
+    
+    static func fromId(_ id : Int) -> GameResult {
+        switch id {
+        case 0: return .na
+        case 1: return .lose
+        case 2: return .win
+        default: return .na
         }
     }
 }

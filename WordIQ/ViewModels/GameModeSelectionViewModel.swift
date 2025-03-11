@@ -193,7 +193,7 @@ class GameModeSelectionViewModel: BaseViewNavigation {
             case .zengame:
                 return ZenModeViewModel(gameOptions: self.GameModeOptions)
             case .daily:
-                return StandardModeViewModel(gameOptions: self.GameModeOptions)
+                return DailyModeViewModel(gameOptions: self.GameModeOptions)
             case .quickplay:
                 return StandardModeViewModel(gameOptions: self.GameModeOptions)
             }

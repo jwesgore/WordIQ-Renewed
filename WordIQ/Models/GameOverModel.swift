@@ -47,4 +47,38 @@ struct GameOverModel {
             self.timeLimit = gameOptions.timeLimit
         }
     }
+    
+    /// Explicit initializer
+    init(
+        gameMode: GameMode,
+        gameResult: GameResult = .na,
+        gameDifficulty: GameDifficulty,
+        numCorrectWords: Int = 0,
+        numValidGuesses: Int = 0,
+        numInvalidGuesses: Int = 0,
+        date: Date = Date(),
+        timeLimit: Int? = nil,
+        timeElapsed: Int = 0,
+        timeRemaining: Int? = nil,
+        xp: Int = 0,
+        targetWord: GameWordModel,
+        lastGuessedWord: GameWordModel? = nil,
+        correctlyGuessedWords: [GameWordModel]? = nil
+    ) {
+        self.gameMode = gameMode
+        self.gameResult = gameResult
+        self.gameDifficulty = gameDifficulty
+        self.numCorrectWords = numCorrectWords
+        self.numValidGuesses = numValidGuesses
+        self.numInvalidGuesses = numInvalidGuesses
+        self.date = date
+        self.timeLimit = timeLimit
+        self.timeElapsed = timeElapsed
+        self.timeRemaining = timeRemaining
+        self.xp = xp
+        self.targetWord = targetWord
+        self.lastGuessedWord = lastGuessedWord
+        self.correctlyGuessedWords = correctlyGuessedWords
+    }
+
 }

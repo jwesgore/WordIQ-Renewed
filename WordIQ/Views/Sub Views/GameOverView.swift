@@ -73,9 +73,11 @@ struct GameOverView : View {
             .backgroundStyle(Color.appGroupBox)
             
             Spacer()
-            ThreeDButtonView(gameoverVM.PlayAgainButton) {
-                Text(SystemNames.playAgain)
-                    .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.title3)))
+            if !(gameoverVM.gameOverModel.gameMode == .daily) {
+                ThreeDButtonView(gameoverVM.PlayAgainButton) {
+                    Text(SystemNames.playAgain)
+                        .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.title3)))
+                }
             }
             
             ThreeDButtonView(gameoverVM.BackButton) {
@@ -89,8 +91,11 @@ struct GameOverView : View {
             self.databaseHelper = GameDatabaseHelper(context: viewContext)
 
             // Save game
-            self.databaseHelper?.saveGame(gameOverData: gameoverVM.gameOverModel)
-            UserDefaultsHelper.shared.update(gameoverVM.gameOverModel)
+            if !(gameoverVM.gameOverModel.gameMode == .daily && UserDefaultsHelper.shared.dailyGameOverModel != nil) {
+                self.databaseHelper?.saveGame(gameOverData: gameoverVM.gameOverModel)
+                UserDefaultsHelper.shared.update(gameoverVM.gameOverModel)
+                UserDefaultsHelper.shared.dailyGameOverModel = GameSaveStateModel(gameOverModel: gameoverVM.gameOverModel)
+            }
             
             // Parse values for end screen based on game mode
             switch gameoverVM.gameOverModel.gameMode {

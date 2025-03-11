@@ -30,7 +30,7 @@ class GameDatabasePersistenceController {
             newItem.date = Date.now
             newItem.gameMode = Int64(GameMode.standardgame.id)
             newItem.gameDifficulty = Int64(GameDifficulty.normal.id)
-            newItem.gameResult = Int64(GameResult.win.asInt)
+            newItem.gameResult = Int64(GameResult.win.id)
             
             newItem.numCorrectWords = 1
             newItem.numValidGuesses = 10
@@ -49,7 +49,7 @@ class GameDatabasePersistenceController {
             newItem.date = Date.now
             newItem.gameMode = Int64(GameMode.rushgame.id)
             newItem.gameDifficulty = Int64(GameDifficulty.normal.id)
-            newItem.gameResult = Int64(GameResult.win.asInt)
+            newItem.gameResult = Int64(GameResult.win.id)
             
             newItem.numCorrectWords = 1
             newItem.numValidGuesses = 5
@@ -68,7 +68,7 @@ class GameDatabasePersistenceController {
             newItem.date = Date.now
             newItem.gameMode = Int64(GameMode.zengame.id)
             newItem.gameDifficulty = Int64(GameDifficulty.normal.id)
-            newItem.gameResult = Int64(GameResult.win.asInt)
+            newItem.gameResult = Int64(GameResult.win.id)
             
             newItem.numCorrectWords = 1
             newItem.numValidGuesses = 15
