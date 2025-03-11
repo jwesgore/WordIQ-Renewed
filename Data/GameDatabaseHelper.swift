@@ -98,6 +98,20 @@ class GameDatabaseHelper {
     }
     
     // MARK: Data Calculation Methods
+    /// Checks if daily entry already exists
+    func doesDailyEntryExist(word: GameWordModel) -> Bool {
+        let fetchRequest: NSFetchRequest<GameResultsModel> = GameResultsModel.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "gameMode == %d AND targetWord == %@", GameMode.daily.id, word.word)
+        
+        do {
+            let results = try context.fetch(fetchRequest)
+            return !results.isEmpty
+        } catch {
+            print("Error fetching daily entry: \(error)")
+            return false
+        }
+    }
+    
     // Get the average amount of time spent playing a game
     func getGameModeAvgTimePerGame(mode : GameMode) -> Int {
         let timePlayed = getGameModeTimePlayed(mode: mode)

@@ -10,12 +10,7 @@
 		4B091B332CD339840092600B /* KeyboardFunctionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B091B322CD3397D0092600B /* KeyboardFunctionViewModel.swift */; };
 		4B091B362CD33DFA0092600B /* KeyboardFunctionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B091B352CD33DF20092600B /* KeyboardFunctionView.swift */; };
 		4B091B392CD344430092600B /* GameBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B091B382CD3443B0092600B /* GameBoardView.swift */; };
-		4B091B412CD587850092600B /* five_letter_words_easy.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4B091B3E2CD587850092600B /* five_letter_words_easy.txt */; };
-		4B091B422CD587850092600B /* five_letter_words_normal.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4B091B402CD587850092600B /* five_letter_words_normal.txt */; };
-		4B091B432CD587850092600B /* five_letter_words.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4B091B3D2CD587850092600B /* five_letter_words.txt */; };
-		4B091B442CD587850092600B /* five_letter_words_hard.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4B091B3F2CD587850092600B /* five_letter_words_hard.txt */; };
 		4B091B462CD588A00092600B /* WordListUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B091B452CD588990092600B /* WordListUtility.swift */; };
-		4B091B482CD597E40092600B /* five_letter_words.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B091B472CD597E40092600B /* five_letter_words.json */; };
 		4B091B4A2CD5EA170092600B /* WordIQDatabase.db in Resources */ = {isa = PBXBuildFile; fileRef = 4B091B492CD5EA170092600B /* WordIQDatabase.db */; };
 		4B091B4C2CD5EAAA0092600B /* WordDatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B091B4B2CD5EAA00092600B /* WordDatabaseHelper.swift */; };
 		4B091B4E2CD6812D0092600B /* ZenModeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B091B4D2CD681130092600B /* ZenModeViewModel.swift */; };
@@ -109,12 +104,7 @@
 		4B091B322CD3397D0092600B /* KeyboardFunctionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardFunctionViewModel.swift; sourceTree = "<group>"; };
 		4B091B352CD33DF20092600B /* KeyboardFunctionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardFunctionView.swift; sourceTree = "<group>"; };
 		4B091B382CD3443B0092600B /* GameBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoardView.swift; sourceTree = "<group>"; };
-		4B091B3D2CD587850092600B /* five_letter_words.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = five_letter_words.txt; sourceTree = "<group>"; };
-		4B091B3E2CD587850092600B /* five_letter_words_easy.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = five_letter_words_easy.txt; sourceTree = "<group>"; };
-		4B091B3F2CD587850092600B /* five_letter_words_hard.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = five_letter_words_hard.txt; sourceTree = "<group>"; };
-		4B091B402CD587850092600B /* five_letter_words_normal.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = five_letter_words_normal.txt; sourceTree = "<group>"; };
 		4B091B452CD588990092600B /* WordListUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListUtility.swift; sourceTree = "<group>"; };
-		4B091B472CD597E40092600B /* five_letter_words.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = five_letter_words.json; sourceTree = "<group>"; };
 		4B091B492CD5EA170092600B /* WordIQDatabase.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = WordIQDatabase.db; sourceTree = "<group>"; };
 		4B091B4B2CD5EAA00092600B /* WordDatabaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordDatabaseHelper.swift; sourceTree = "<group>"; };
 		4B091B4D2CD681130092600B /* ZenModeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZenModeViewModel.swift; sourceTree = "<group>"; };
@@ -248,7 +238,6 @@
 				4B091B4B2CD5EAA00092600B /* WordDatabaseHelper.swift */,
 				4B091B452CD588990092600B /* WordListUtility.swift */,
 				4B4929BD2D6C4B5500CEBBF2 /* Data Models */,
-				4B6603B22CF69E4C00F4F140 /* Word Lists */,
 				4B6603B32CF69EBA00F4F140 /* WordIQCoreData.xcdatamodeld */,
 				4B091B492CD5EA170092600B /* WordIQDatabase.db */,
 			);
@@ -294,18 +283,6 @@
 				4B82B9DC2CC072E4009A1502 /* Assets.xcassets */,
 			);
 			path = App;
-			sourceTree = "<group>";
-		};
-		4B6603B22CF69E4C00F4F140 /* Word Lists */ = {
-			isa = PBXGroup;
-			children = (
-				4B091B472CD597E40092600B /* five_letter_words.json */,
-				4B091B3D2CD587850092600B /* five_letter_words.txt */,
-				4B091B3E2CD587850092600B /* five_letter_words_easy.txt */,
-				4B091B3F2CD587850092600B /* five_letter_words_hard.txt */,
-				4B091B402CD587850092600B /* five_letter_words_normal.txt */,
-			);
-			path = "Word Lists";
 			sourceTree = "<group>";
 		};
 		4B82B9CA2CC072E2009A1502 = {
@@ -600,12 +577,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4BF5924D2CC088D700C555F6 /* LICENSE.txt in Resources */,
-				4B091B482CD597E40092600B /* five_letter_words.json in Resources */,
-				4B091B412CD587850092600B /* five_letter_words_easy.txt in Resources */,
-				4B091B422CD587850092600B /* five_letter_words_normal.txt in Resources */,
 				4B091B4A2CD5EA170092600B /* WordIQDatabase.db in Resources */,
-				4B091B432CD587850092600B /* five_letter_words.txt in Resources */,
-				4B091B442CD587850092600B /* five_letter_words_hard.txt in Resources */,
 				4BF5924E2CC088D700C555F6 /* RobotoSlab-Thin.ttf in Resources */,
 				4BF5924F2CC088D700C555F6 /* RobotoSlab-Bold.ttf in Resources */,
 				4BF592502CC088D700C555F6 /* RobotoSlab-VariableFont_wght.ttf in Resources */,
@@ -837,7 +809,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"WordIQ/Preview Content\"";
 				DEVELOPMENT_TEAM = WZ6NWM775D;
 				ENABLE_PREVIEWS = YES;
@@ -869,7 +841,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"WordIQ/Preview Content\"";
 				DEVELOPMENT_TEAM = WZ6NWM775D;
 				ENABLE_PREVIEWS = YES;

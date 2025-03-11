@@ -25,6 +25,8 @@ class UserDefaultsHelper {
     
     private let maxScoreFrenzyKey = "maxScore_frenzy"
     
+    private let lastDailyPlayedKey = "lastDailyPlayed"
+    
     // initializer
     private init() {
         // Register default values
@@ -42,7 +44,8 @@ class UserDefaultsHelper {
             maxStreakDailyKey: 0,
             maxStreakStandardKey: 0,
             maxStreakRushKey: 0,
-            maxScoreFrenzyKey: 0
+            maxScoreFrenzyKey: 0,
+            lastDailyPlayedKey: 0
         ])
     }
     

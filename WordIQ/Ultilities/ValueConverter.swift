@@ -1,5 +1,13 @@
+import Foundation
 
 class ValueConverter {
+    
+    static func daysSince(_ date: Date) -> Int? {
+        let calendar = Calendar.current
+        let currentDate = Date()
+        let dateComponents = calendar.dateComponents([.day], from: date, to: currentDate)
+        return dateComponents.day
+    }
     
     static func DoubleToPercent(_ value : Double) -> String {
         return String(format: "%.2f%%", value * 100);

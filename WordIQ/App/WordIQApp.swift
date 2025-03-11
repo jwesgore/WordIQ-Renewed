@@ -16,6 +16,12 @@ struct WordIQApp: App {
         _ = WordDatabaseHelper.shared
         _ = UserDefaultsHelper.shared
         _ = Haptics.shared
+        
+        if let daysSinceEpoch = ValueConverter.daysSince(WordDatabaseHelper.shared.dailyEpoch) {
+            if WordDatabaseHelper.shared.fetchDailyWord(dailyId: daysSinceEpoch - 1) == nil {
+                UserDefaultsHelper.shared.currentStreak_daily = 0
+            }
+        }
     }
 
     var body: some Scene {

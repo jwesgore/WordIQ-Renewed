@@ -99,12 +99,7 @@ class GameModeSelectionViewModel: BaseViewNavigation {
         }
         
         self.DailyGameButton.action = {
-            self.GameModeOptions.gameMode = .daily
-            self.GameModeOptions.timeLimit = 0
-            self.GameModeOptions.gameDifficulty = .daily
-            
-            // self.GameModeOptions.targetWord = WordDatabaseHelper.shared.getDailyWord()
-            // self.startGame()
+            self.startDaily()
         }
         self.QuickplayGameButton.action = {
             self.GameModeOptions.gameMode = UserDefaultsHelper.shared.quickplaySetting_mode
@@ -145,6 +140,15 @@ class GameModeSelectionViewModel: BaseViewNavigation {
     }
     
     // MARK: Navigation Functions
+    /// Starts the game in daily mode
+    func startDaily() {
+        self.GameModeOptions.gameMode = .daily
+        self.GameModeOptions.timeLimit = 0
+        self.GameModeOptions.gameDifficulty = .daily
+        self.GameModeOptions.targetWord = WordDatabaseHelper.shared.fetchDailyWord()
+        super.fadeToBlankDelay(delay:0.25, hang: 0.25)
+    }
+    
     /// Starts the game with the defined game options
     func startGame() {
         self.GameModeOptions.resetTargetWord()
