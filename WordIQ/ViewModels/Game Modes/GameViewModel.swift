@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// ViewModel to manage the playable game screen
-class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
+class GameViewModel : BaseViewNavigation {
 
     // MARK: Fields
     var _targetWordHints : [ValidCharacters?]
@@ -94,9 +94,6 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
         self.KeyboardEnterButton.action = { self.keyboardEnter() }
         self.KeyboardDeleteButton.action = { self.keyboardDelete() }
         self.ActiveWord = self.GameBoardWords.first
-        
-        // Step 5: Call Override
-        self.gameStartedOverride()
     }
     
     // MARK: Keyboard functions
@@ -188,7 +185,7 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
         
     // MARK: Enter Key pressed functions
     /// Handles what to do if the correct word is subbmitted
-    private func correctWordSubmitted() {
+    func correctWordSubmitted() {
         if let activeWord = ActiveWord, let gameWord = activeWord.getWord() {
             let comparisons = [LetterComparison](repeating: .correct, count: 5)
             self.IsKeyboardActive = false
@@ -197,22 +194,19 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
             
             self.gameOverModel.numValidGuesses += 1
             self.gameOverModel.numCorrectWords += 1
-            
-            self.correctWordSubmittedOverride()
         }
     }
     
     /// Handles what to do if an invalid word is subbmitted
-    private func invalidWordSubmitted() {
+    func invalidWordSubmitted() {
         if let activeWord = ActiveWord {
             activeWord.ShakeAnimation()
         }
         self.gameOverModel.numInvalidGuesses += 1
-        self.invalidWordSubmittedOverride()
     }
     
     /// Handles what to do if the wrong word is subbmitted
-    private func wrongWordSubmitted() {
+    func wrongWordSubmitted() {
         if let activeWord = ActiveWord, let gameWord = activeWord.getWord() {
             // Builds comparisons and updates backgrounds on board and keyboard
             let comparisons = TargetWord.comparison(gameWord)
@@ -230,8 +224,6 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
             self.BoardPosition += 1
             self.gameOverModel.numValidGuesses += 1
             self.gameOverModel.lastGuessedWord = gameWord
-            
-            self.wrongWordSubmittedOverride()
         }
     }
     
@@ -278,17 +270,4 @@ class GameViewModel : BaseViewNavigation, GameViewModelSubClass {
     func exitGame() {
         self.exitGameAction()
     }
-    
-    // MARK: Override Methods
-    func correctWordSubmittedOverride() { fatalError("This method must be overridden") }
-    func gameStartedOverride() { fatalError("This method must be overridden") }
-    func invalidWordSubmittedOverride() { fatalError("This method must be overridden") }
-    func wrongWordSubmittedOverride() { fatalError("This method must be overridden") }
-}
-
-protocol GameViewModelSubClass {
-    func correctWordSubmittedOverride()
-    func gameStartedOverride()
-    func invalidWordSubmittedOverride()
-    func wrongWordSubmittedOverride()
 }

@@ -6,18 +6,17 @@ class FrenzyModeViewModel : GameViewModel, ClockViewModelObserver {
         super.init(gameOptions: gameOptions)
         self.Clock.addObserver(self)
     }
-    
-    override func gameStartedOverride() {
-        
-    }
-    
+
     /// Function to notify VM that the clock has reached zero
     func timerAtZero() {
         self.gameover()
     }
     
     // MARK: Word Submitted Functions
-    override func correctWordSubmittedOverride() {
+    override func correctWordSubmitted() {
+        // Call Base Logic
+        super.correctWordSubmitted()
+        
         if let activeWord = ActiveWord, let gameWord = activeWord.getWord() {
             
             self.gameOverModel.correctlyGuessedWords?.append(gameWord)
@@ -34,11 +33,10 @@ class FrenzyModeViewModel : GameViewModel, ClockViewModelObserver {
         }
     }
     
-    override func invalidWordSubmittedOverride() {
-
-    }
-    
-    override func wrongWordSubmittedOverride() {
+    override func wrongWordSubmitted() {
+        // Call Base Logic
+        super.wrongWordSubmitted()
+        
         if self.BoardPosition == 6 {
             self.gameover()
         } else {

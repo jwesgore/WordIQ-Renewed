@@ -2,11 +2,11 @@
 /// ViewModel to handle the specific rules of Standard Mode
 class StandardModeViewModel : GameViewModel {
     
-    override func gameStartedOverride() {
+    override func correctWordSubmitted() {
+        // Call Base Logic
+        super.correctWordSubmitted()
         
-    }
-    
-    override func correctWordSubmittedOverride() {
+        // Apply Extra Logic
         if let activeWord = ActiveWord, let gameWord = activeWord.getWord() {
             self.gameOverModel.gameResult = .win
             self.gameOverModel.lastGuessedWord = gameWord
@@ -14,11 +14,11 @@ class StandardModeViewModel : GameViewModel {
         }
     }
     
-    override func invalidWordSubmittedOverride() {
-
-    }
-    
-    override func wrongWordSubmittedOverride() {
+    override func wrongWordSubmitted() {
+        // Call Base Logic
+        super.wrongWordSubmitted()
+        
+        // Apply Extra Logic
         if self.BoardPosition == 6 {
             self.IsKeyboardActive = false
             self.gameOverModel.gameResult = .lose
@@ -28,5 +28,4 @@ class StandardModeViewModel : GameViewModel {
             ActiveWord?.loadHints(TargetWordHints)
         }
     }
-    
 }

@@ -7,10 +7,6 @@ class RushModeViewModel : GameViewModel, ClockViewModelObserver {
         self.Clock.addObserver(self)
     }
     
-    override func gameStartedOverride() {
-        
-    }
-    
     /// Function to notify VM that the clock has reached zero
     func timerAtZero() {
         self.gameOverModel.gameResult = .lose
@@ -18,7 +14,10 @@ class RushModeViewModel : GameViewModel, ClockViewModelObserver {
     }
     
     // MARK: Word Submitted Functions
-    override func correctWordSubmittedOverride() {
+    override func correctWordSubmitted() {
+        // Call Base Logic
+        super.correctWordSubmitted()
+        
         if let activeWord = ActiveWord, let gameWord = activeWord.getWord() {
             self.gameOverModel.gameResult = .win
             self.gameOverModel.lastGuessedWord = gameWord
@@ -26,11 +25,10 @@ class RushModeViewModel : GameViewModel, ClockViewModelObserver {
         }
     }
     
-    override func invalidWordSubmittedOverride() {
-
-    }
-    
-    override func wrongWordSubmittedOverride() {
+    override func wrongWordSubmitted() {
+        // Call Base Logic
+        super.wrongWordSubmitted()
+        
         // If the position has reached the end of the board, reset it
         if self.BoardPosition % 6 == 0 {
             self.boardResetWithAnimation(delay: 1.0) {

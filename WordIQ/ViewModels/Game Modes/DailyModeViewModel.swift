@@ -2,7 +2,10 @@
 /// ViewModel to handle the specific rules of Daily Mode
 class DailyModeViewModel : StandardModeViewModel {
     
-    override func gameStartedOverride() {
+    override init(gameOptions: GameModeOptionsModel) {
+        // Call Base Logic
+        super.init(gameOptions: gameOptions)
+        
         if let saveStateModel = UserDefaultsHelper.shared.dailyGameOverModel {
             if saveStateModel.targetWord == super.TargetWord.word {
                 super.gameOverModel = saveStateModel.getGameOverModel()
@@ -11,11 +14,9 @@ class DailyModeViewModel : StandardModeViewModel {
                 self.showPauseMenu = false
                 self.Clock.stopClock()
                 super.goToTarget()
-                
             } else {
                 UserDefaultsHelper.shared.dailyGameOverModel = nil
             }
         }
     }
-    
 }

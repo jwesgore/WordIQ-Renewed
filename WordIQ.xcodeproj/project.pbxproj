@@ -253,9 +253,9 @@
 			children = (
 				4BF592172CC07F0C00C555F6 /* GameViewModel.swift */,
 				4B1CC1122D7FDC2300A56316 /* DailyModeViewModel.swift */,
-				4B091B542CD6848B0092600B /* FrenzyModeViewModel.swift */,
-				4B091B522CD684830092600B /* RushModeViewModel.swift */,
 				4B091B502CD684780092600B /* StandardModeViewModel.swift */,
+				4B091B522CD684830092600B /* RushModeViewModel.swift */,
+				4B091B542CD6848B0092600B /* FrenzyModeViewModel.swift */,
 				4B091B4D2CD681130092600B /* ZenModeViewModel.swift */,
 			);
 			path = "Game Modes";

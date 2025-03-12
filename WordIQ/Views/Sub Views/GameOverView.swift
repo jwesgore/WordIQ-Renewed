@@ -73,6 +73,7 @@ struct GameOverView : View {
             .backgroundStyle(Color.appGroupBox)
             
             Spacer()
+            
             if !(gameoverVM.gameOverModel.gameMode == .daily) {
                 ThreeDButtonView(gameoverVM.PlayAgainButton) {
                     Text(SystemNames.playAgain)
