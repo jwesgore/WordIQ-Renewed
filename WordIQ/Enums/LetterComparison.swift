@@ -13,6 +13,15 @@ enum LetterComparison: Comparable {
         }
     }
     
+    /// Implementation of comparable
+    static func < (lhs: LetterComparison, rhs: LetterComparison) -> Bool {
+        return lhs.rank < rhs.rank
+    }
+}
+
+extension LetterComparison {
+    
+    /// Get Color of enum
     var color: Color {
         switch self {
         case .notSet: .LetterComparison.notSet
@@ -22,10 +31,5 @@ enum LetterComparison: Comparable {
             UserDefaultsHelper.shared.setting_colorBlindMode ?
                 .LetterComparison.correctColorBlind : .LetterComparison.correct
         }
-    }
-    
-    /// Implementation of comparable
-    static func < (lhs: LetterComparison, rhs: LetterComparison) -> Bool {
-        return lhs.rank < rhs.rank
     }
 }

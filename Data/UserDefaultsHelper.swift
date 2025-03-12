@@ -205,7 +205,7 @@ class UserDefaultsHelper {
     
     // MARK: Functions
     // Update values based on game over results
-    func update(_ gameOverResults : GameOverModel) {
+    func update(_ gameOverResults : GameOverDataModel) {
         switch gameOverResults.gameMode {
         case .daily:
             currentStreak_daily = gameOverResults.gameResult == .win ? currentStreak_daily + 1 : 0

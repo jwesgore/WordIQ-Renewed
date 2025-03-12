@@ -18,19 +18,19 @@ struct StatsZenModeView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
         
         GroupBox {
-            InfoItemView(image: SFAssets.numberSign,
+            InfoItemView(icon: SFAssets.numberSign,
                          label: SystemNames.GameStats.gamesPlayed,
                          value: totalGamesPlayed)
             Divider()
-            InfoItemView(image: SFAssets.numberSign,
+            InfoItemView(icon: SFAssets.numberSign,
                          label: SystemNames.GameStats.guessesMade,
                          value: guessesMade)
             Divider()
-            InfoItemView(image: SFAssets.timer,
+            InfoItemView(icon: SFAssets.timer,
                          label: SystemNames.GameStats.timePlayed,
                          value: timeInMode)
             Divider()
-            InfoItemView(image: SFAssets.timer,
+            InfoItemView(icon: SFAssets.timer,
                          label: SystemNames.GameStats.avgTime,
                          value: avgTimePerGame)
         }

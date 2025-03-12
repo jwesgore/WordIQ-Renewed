@@ -1,21 +1,30 @@
 import SwiftUI
 
+/// Info Item View
 struct InfoItemView : View {
     
-    var image: String
-    var label: String
-    var value: String
+    @ObservedObject var infoItemModel : InfoItemModel
+    
+    init(_ infoItemModel: InfoItemModel) {
+        self.infoItemModel = infoItemModel
+    }
     
     var body: some View {
         HStack {
-            Image(systemName: image)
+            Image(systemName: infoItemModel.icon)
                 .fontWeight(.semibold)
                 .frame(width: 25)
-            Text(label)
+            Text(infoItemModel.label)
                 .fontWeight(.semibold)
             Spacer()
-            Text(value)
+            Text(infoItemModel.value)
         }
         .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.headline)))
+    }
+}
+
+extension InfoItemView {
+    init (icon: String, label: String, value: String) {
+        self.init(InfoItemModel(icon: icon, label: label, value: value))
     }
 }

@@ -29,7 +29,7 @@ class GameViewModel : BaseViewNavigation {
             _targetWordHints = newValue
         }
     }
-    var gameOverModel : GameOverModel
+    var gameOverModel : GameOverDataModel
     
     var gameOverViewModel: GameOverViewModel {
         let gameOverVM = GameOverViewModel(gameOverModel)
@@ -72,7 +72,7 @@ class GameViewModel : BaseViewNavigation {
         self.GameBoardWords = [GameBoardWordViewModel]()
         self.TargetWord = gameOptions.targetWord
         self._targetWordHints = [ValidCharacters?](repeating: nil, count: 5)
-        self.gameOverModel = GameOverModel(gameOptions: gameOptions)
+        self.gameOverModel = GameOverDataModel(gameOptions: gameOptions)
         print(self.TargetWord)
 
         super.init()
@@ -259,7 +259,7 @@ class GameViewModel : BaseViewNavigation {
         self.Clock.resetClock()
         
         self.gameOptions.resetTargetWord()
-        self.gameOverModel = GameOverModel(gameOptions: self.gameOptions)
+        self.gameOverModel = GameOverDataModel(gameOptions: self.gameOptions)
 
         self.TargetWord = self.gameOverModel.targetWord
         

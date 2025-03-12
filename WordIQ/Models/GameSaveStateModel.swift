@@ -23,7 +23,7 @@ class GameSaveStateModel : Codable {
     // Frenzy mode specific
     var correctlyGuessedWords: [String]?
     
-    init(gameOverModel : GameOverModel) {
+    init(gameOverModel : GameOverDataModel) {
         self.gameMode = gameOverModel.gameMode.id
         self.gameResult = gameOverModel.gameResult.id
         self.gameDifficulty = gameOverModel.gameDifficulty.id
@@ -48,8 +48,8 @@ class GameSaveStateModel : Codable {
         }
     }
     
-    func getGameOverModel() -> GameOverModel  {
-        return GameOverModel(
+    func getGameOverModel() -> GameOverDataModel  {
+        return GameOverDataModel(
             gameMode: GameMode.fromId(gameMode)!,
             gameResult: GameResult.fromId(gameResult),
             gameDifficulty: GameDifficulty.fromId(gameDifficulty)!,

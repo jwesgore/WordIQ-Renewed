@@ -42,9 +42,9 @@ class GameDatabaseHelper {
     }
     
     // MARK: Constructor
-    init(context: NSManagedObjectContext) {
+    init(context: NSManagedObjectContext = GameDatabasePersistenceController.shared.container.viewContext) {
         self.context = context
-        self.allGameResults = refreshData()
+        self.allGameResults = resfreshDataInternal()
     }
     
     // MARK: Public Database Functions
@@ -64,8 +64,13 @@ class GameDatabaseHelper {
         }
     }
     
-    // Refreshes allGameResults snapshot
-    func refreshData() -> [GameResultsModel] {
+    /// Refreshes allGameResults snapshot
+    func refreshData()  {
+        self.allGameResults = self.resfreshDataInternal()
+    }
+    
+    /// Refreshes allGameResults snapshot
+    func resfreshDataInternal() -> [GameResultsModel] {
         let fetchRequest: NSFetchRequest<GameResultsModel> = GameResultsModel.fetchRequest()
         do {
             return try context.fetch(fetchRequest)
@@ -76,7 +81,7 @@ class GameDatabaseHelper {
     }
     
     // Update database
-    func saveGame(gameOverData : GameOverModel) {
+    func saveGame(_ gameOverData : GameOverDataModel) {
         let newGameResult = GameResultsModel(context: context)
         
         newGameResult.id = UUID()
@@ -196,14 +201,14 @@ class GameDatabaseHelper {
     }
     
     /// Try and get game over model by id
-    func getGameResultsById(id: UUID) -> GameOverModel? {
+    func getGameResultsById(id: UUID) -> GameOverDataModel? {
         let fetchRequest: NSFetchRequest<GameResultsModel> = GameResultsModel.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id == %@", id as CVarArg)
         
         do {
             let results = try context.fetch(fetchRequest)
             if let gameResults = results.first {
-                return GameOverModel(
+                return GameOverDataModel(
                     gameMode: GameMode.fromId(Int(gameResults.gameMode))!,
                     gameResult: GameResult.fromId(Int(gameResults.gameResult)),
                     gameDifficulty: GameDifficulty.fromId(Int(gameResults.gameDifficulty))!,
@@ -213,6 +218,7 @@ class GameDatabaseHelper {
                     date: gameResults.date!,
                     timeLimit: Int(gameResults.timeLimit),
                     timeElapsed: Int(gameResults.timeElapsed),
+                    xp: Int(gameResults.xp),
                     targetWord: GameWordModel(gameResults.targetWord!))
             }
             
@@ -231,7 +237,7 @@ class GameDatabaseHelper {
         if context.hasChanges {
             do {
                 try context.save()
-                allGameResults = refreshData()
+                allGameResults = resfreshDataInternal()
             } catch {
                 print("Error saving context: \(error)")
             }
