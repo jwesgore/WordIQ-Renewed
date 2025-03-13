@@ -16,7 +16,7 @@ class GameViewModel : BaseViewNavigation {
     var BoardPosition : Int
     var GameBoardWords : [GameBoardWordViewModel]
     var ActiveWord : GameBoardWordViewModel?
-    var TargetWord : GameWordModel
+    var TargetWord : DatabaseWordModel
     var TargetWordHints : [ValidCharacters?] {
         get {
             if (UserDefaultsHelper.shared.setting_showHints || BoardPosition % 6 == 0) {
@@ -72,7 +72,7 @@ class GameViewModel : BaseViewNavigation {
         self.GameBoardWords = [GameBoardWordViewModel]()
         self.TargetWord = gameOptions.targetWord
         self._targetWordHints = [ValidCharacters?](repeating: nil, count: 5)
-        self.gameOverModel = GameOverDataModel(gameOptions: gameOptions)
+        self.gameOverModel = GameOverDataModel(gameOptions)
         print(self.TargetWord)
 
         super.init()
@@ -209,7 +209,7 @@ class GameViewModel : BaseViewNavigation {
     func wrongWordSubmitted() {
         if let activeWord = ActiveWord, let gameWord = activeWord.getWord() {
             // Builds comparisons and updates backgrounds on board and keyboard
-            let comparisons = TargetWord.comparison(gameWord)
+            let comparisons = gameWord.comparison(TargetWord)
             activeWord.setBackgrounds(comparisons)
             self.keyboardSetBackgrounds(gameWord.comparisonRankingMap(comparisons))
             
@@ -259,7 +259,7 @@ class GameViewModel : BaseViewNavigation {
         self.Clock.resetClock()
         
         self.gameOptions.resetTargetWord()
-        self.gameOverModel = GameOverDataModel(gameOptions: self.gameOptions)
+        self.gameOverModel = GameOverDataModel(self.gameOptions)
 
         self.TargetWord = self.gameOverModel.targetWord
         

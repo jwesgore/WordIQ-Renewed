@@ -5,7 +5,7 @@ class UserDefaultsHelper {
     
     static let shared = UserDefaultsHelper()
     
-    // Keys
+    // MARK: - Keys
     private let colorBlindModeKey = "setting_colorBlindMode"
     private let showHintsKey = "setting_showHints"
     private let soundEffectsKey = "setting_soundEffects"
@@ -25,9 +25,10 @@ class UserDefaultsHelper {
     
     private let maxScoreFrenzyKey = "maxScore_frenzy"
     
-    private let dailyModelKey = "dailyModelKey"
+    private let lastDailyPlayedKey = "lastDailyPlayed"
+    private let dailyModelKey = "dailyModel"
     
-    // initializer
+    /// Initializer
     private init() {
         // Register default values
         UserDefaults.standard.register(defaults: [
@@ -44,11 +45,13 @@ class UserDefaultsHelper {
             maxStreakDailyKey: 0,
             maxStreakStandardKey: 0,
             maxStreakRushKey: 0,
-            maxScoreFrenzyKey: 0
+            maxScoreFrenzyKey: 0,
+            lastDailyPlayedKey : 0
         ])
     }
     
     // MARK: - Settings
+    /// Stores the color blind mode setting
     var setting_colorBlindMode: Bool {
         get {
             return UserDefaults.standard.bool(forKey: colorBlindModeKey)
@@ -58,6 +61,7 @@ class UserDefaultsHelper {
         }
     }
     
+    /// Stores the hints setting
     var setting_showHints: Bool {
         get {
             return UserDefaults.standard.bool(forKey: showHintsKey)
@@ -67,6 +71,7 @@ class UserDefaultsHelper {
         }
     }
     
+    /// Stores the sound setting
     var setting_soundEffects: Bool {
         get {
             return UserDefaults.standard.bool(forKey: soundEffectsKey)
@@ -76,6 +81,7 @@ class UserDefaultsHelper {
         }
     }
     
+    /// Stores the haptic feedback setting
     var setting_hapticFeedback: Bool {
         get {
             return UserDefaults.standard.bool(forKey: hapticFeedbackKey)
@@ -86,6 +92,7 @@ class UserDefaultsHelper {
     }
     
     // MARK: - Quickplay Settings
+    /// Stores the value for quickplay mode
     var quickplaySetting_mode: GameMode {
         get {
             let modeId = UserDefaults.standard.integer(forKey: quickplayModeKey)
@@ -101,6 +108,7 @@ class UserDefaultsHelper {
         }
     }
     
+    /// Stores the value for quickplay difficulty
     var quickplaySetting_difficulty: GameDifficulty {
         get {
             let difficultyId = UserDefaults.standard.integer(forKey: quickplayDifficultyKey)
@@ -111,6 +119,7 @@ class UserDefaultsHelper {
         }
     }
     
+    /// Stores the value for quickplay time limit
     var quickplaySetting_timeLimit: Int {
         get {
             return UserDefaults.standard.integer(forKey: quickplayTimeLimitKey)
@@ -121,6 +130,7 @@ class UserDefaultsHelper {
     }
     
     // MARK: - Game Data Values
+    /// Stores the value for the curremt daily mode streak
     var currentStreak_daily: Int {
         get {
             return UserDefaults.standard.integer(forKey: currentStreakDailyKey)
@@ -131,6 +141,7 @@ class UserDefaultsHelper {
         }
     }
     
+    /// Stores the value for the curremt standard mode streak
     var currentStreak_standard: Int {
         get {
             return UserDefaults.standard.integer(forKey: currentStreakStandardKey)
@@ -141,6 +152,7 @@ class UserDefaultsHelper {
         }
     }
     
+    /// Stores the value for the curremt rush mode streak
     var currentStreak_rush: Int {
         get {
             return UserDefaults.standard.integer(forKey: currentStreakRushKey)
@@ -151,11 +163,11 @@ class UserDefaultsHelper {
         }
     }
     
-    var dailyGameOverModel : GameSaveStateModel? {
+    var dailyGameOverModel : GameOverDataModel? {
         get {
             if let data = UserDefaults.standard.data(forKey: dailyModelKey) {
                 let decoder = JSONDecoder()
-                return try? decoder.decode(GameSaveStateModel.self, from: data)
+                return try? decoder.decode(GameOverDataModel.self, from: data)
             }
             return nil
         }
@@ -167,6 +179,17 @@ class UserDefaultsHelper {
         }
     }
     
+    /// Stores the value for the last daily mode played
+    var lastDailyPlayed : Int {
+        get {
+            return UserDefaults.standard.integer(forKey: lastDailyPlayedKey)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: lastDailyPlayedKey)
+        }
+    }
+    
+    /// Stores the value for the largest daily mode streak
     var maxStreak_daily: Int {
         get {
             return UserDefaults.standard.integer(forKey: maxStreakDailyKey)
@@ -176,6 +199,7 @@ class UserDefaultsHelper {
         }
     }
     
+    /// Stores the value for the largest standard mode streak
     var maxStreak_standard: Int {
         get {
             return UserDefaults.standard.integer(forKey: maxStreakStandardKey)
@@ -185,6 +209,7 @@ class UserDefaultsHelper {
         }
     }
     
+    /// Stores the value for the largest rush mode streak
     var maxStreak_rush: Int {
         get {
             return UserDefaults.standard.integer(forKey: maxStreakRushKey)
@@ -194,6 +219,7 @@ class UserDefaultsHelper {
         }
     }
     
+    /// Stores the value for the largest frenzy mode score
     var maxScore_frenzy: Int {
         get {
             return UserDefaults.standard.integer(forKey: maxScoreFrenzyKey)
@@ -209,6 +235,7 @@ class UserDefaultsHelper {
         switch gameOverResults.gameMode {
         case .daily:
             currentStreak_daily = gameOverResults.gameResult == .win ? currentStreak_daily + 1 : 0
+     
         case .standardgame:
             currentStreak_standard = gameOverResults.gameResult == .win ? currentStreak_standard + 1 : 0
         case .rushgame:
@@ -229,6 +256,7 @@ class UserDefaultsHelper {
         currentStreak_standard = 0
         
         dailyGameOverModel = nil
+        lastDailyPlayed = 0
         
         maxStreak_daily = 0
         maxStreak_rush = 0

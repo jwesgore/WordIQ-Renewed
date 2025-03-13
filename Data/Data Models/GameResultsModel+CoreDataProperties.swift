@@ -2,7 +2,7 @@
 //  GameResultsModel+CoreDataProperties.swift
 //  WordIQ
 //
-//  Created by Wesley Gore on 3/1/25.
+//  Created by Wesley Gore on 3/12/25.
 //
 //
 
@@ -28,6 +28,7 @@ extension GameResultsModel {
     @NSManaged public var timeElapsed: Int64
     @NSManaged public var timeLimit: Int64
     @NSManaged public var xp: Int64
+    @NSManaged public var targetWordDaily: Int64
 
 }
 

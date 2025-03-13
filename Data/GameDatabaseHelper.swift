@@ -117,7 +117,7 @@ class GameDatabaseHelper {
         }
     }
     
-    // Get the average amount of time spent playing a game
+    /// Get the average amount of time spent playing a game
     func getGameModeAvgTimePerGame(mode : GameMode) -> Int {
         let timePlayed = getGameModeTimePlayed(mode: mode)
         let gamesPlayed = getGameModeCount(mode: mode)
@@ -127,7 +127,7 @@ class GameDatabaseHelper {
         return Int( timePlayed / gamesPlayed )
     }
     
-    // Get the average amount of time spent on each word
+    /// Get the average amount of time spent on each word
     func getGameModeAvgTimePerWord(mode: GameMode) -> Int {
         let gameResults = getGamesByMode(mode)
         let totalScore = gameResults.reduce(0) { $0 + $1.numCorrectWords }
@@ -138,7 +138,7 @@ class GameDatabaseHelper {
         return Int(totalTimePlayed) / Int(totalScore)
     }
     
-    // Get the average number of valid guesses per game
+    /// Get the average number of valid guesses per game
     func getGameModeAvgNumGuessesPerGame(mode: GameMode) -> Int {
         let gameResults = getGamesByMode(mode)
         let totalGuesses = gameResults.reduce(0) { $0 + $1.numValidGuesses }
@@ -149,7 +149,7 @@ class GameDatabaseHelper {
         return Int(totalGuesses) / Int(totalGamesPlayed)
     }
     
-    // Get the score for a single game mode
+    /// Get the score for a single game mode
     func getGameModeAvgScore(mode: GameMode) -> Double {
         let gameResults = getGamesByMode(mode)
         
@@ -161,12 +161,12 @@ class GameDatabaseHelper {
         return Double(top) / bottom
     }
    
-    // Get the total amount of games played in a single game mode
+    /// Get the total amount of games played in a single game mode
     func getGameModeCount(mode : GameMode) -> Int {
         return getGamesByMode(mode).count
     }
     
-    // Get the distribution of games and games played
+    /// Get the distribution of games and games played
     func getGameModeDistribution() -> [GameMode : Int] {
         var data : [GameMode : Int] = [:]
         
@@ -179,17 +179,17 @@ class GameDatabaseHelper {
         return data
     }
     
-    // Get the number of guesses made for a game mode
+    /// Get the number of guesses made for a game mode
     func getGameModeNumGuesses(mode : GameMode) -> Int {
         return getGamesByMode(mode).reduce(0){ $0 + Int($1.numValidGuesses + $1.numInvalidGuesses)}
     }
     
-    // Get the time played in a single game mode
+    /// Get the time played in a single game mode
     func getGameModeTimePlayed(mode : GameMode) -> Int {
         return getGamesByMode(mode).reduce(0){ $0 + Int($1.timeElapsed)}
     }
     
-    // Get the win percentage of a single game mode
+    /// Get the win percentage of a single game mode
     func getGameModeWinPercentage(mode : GameMode) -> Double {
         let gameResults = getGamesByMode(mode)
         let totalGames = Double(gameResults.count)
@@ -208,20 +208,8 @@ class GameDatabaseHelper {
         do {
             let results = try context.fetch(fetchRequest)
             if let gameResults = results.first {
-                return GameOverDataModel(
-                    gameMode: GameMode.fromId(Int(gameResults.gameMode))!,
-                    gameResult: GameResult.fromId(Int(gameResults.gameResult)),
-                    gameDifficulty: GameDifficulty.fromId(Int(gameResults.gameDifficulty))!,
-                    numCorrectWords: Int(gameResults.numCorrectWords),
-                    numValidGuesses: Int(gameResults.numValidGuesses),
-                    numInvalidGuesses: Int(gameResults.numInvalidGuesses),
-                    date: gameResults.date!,
-                    timeLimit: Int(gameResults.timeLimit),
-                    timeElapsed: Int(gameResults.timeElapsed),
-                    xp: Int(gameResults.xp),
-                    targetWord: GameWordModel(gameResults.targetWord!))
+                return GameOverDataModel(gameResults)
             }
-            
         } catch {
             print("Error fetching game results by ID: \(error)")
         }

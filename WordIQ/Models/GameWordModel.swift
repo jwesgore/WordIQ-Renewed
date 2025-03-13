@@ -1,18 +1,42 @@
 /// Struct to hold functionality for basic game words
-struct GameWordModel : Equatable {
+struct GameWordModel : Equatable, Codable, Hashable {
     var word : String
     var letters : [ValidCharacters]
     
+    /// Equatable Conformance
+    static func == (lhs: GameWordModel, rhs: GameWordModel) -> Bool {
+        return lhs.letters == rhs.letters
+    }
+    
+    static func == (lhs: GameWordModel, rhs: DatabaseWordModel) -> Bool {
+        return lhs == GameWordModel(rhs)
+    }
+    
+    static func == (lhs: DatabaseWordModel, rhs: GameWordModel) -> Bool {
+        return rhs == lhs
+    }
+    
+    /// Hashable Conformance
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(word)
+    }
+}
+
+/// Extra initializers
+extension GameWordModel {
     init(_ word: String) {
         self.word = word
         self.letters = word.compactMap { ValidCharacters.from($0) }
     }
     
-    /// Function to compare if two game words are equal
-    static func == (lhs: GameWordModel, rhs: GameWordModel) -> Bool {
-        return lhs.letters == rhs.letters
+    init(_ databaseWordModel: DatabaseWordModel) {
+        self.word = databaseWordModel.word
+        self.letters = databaseWordModel.word.compactMap { ValidCharacters.from($0) }
     }
-    
+}
+
+/// Comparison Functions
+extension GameWordModel {
     /// Function to retrieve a comparison between two words
     func comparison(_ incoming: GameWordModel) -> [LetterComparison] {
         
@@ -45,6 +69,12 @@ struct GameWordModel : Equatable {
         }
 
         return comparison
+    }
+    
+    /// Function to retrieve a comparison between two words
+    func comparison(_ targetWord: DatabaseWordModel) -> [LetterComparison] {
+        let targetCast = GameWordModel(targetWord)
+        return targetCast.comparison(self)
     }
     
     /// Creates a map where each letter only shows up once, and its highest rank is associated with its key (primarily for keyboard)

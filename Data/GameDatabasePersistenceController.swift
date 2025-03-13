@@ -6,6 +6,7 @@ class GameDatabasePersistenceController {
     
     let container : NSPersistentContainer
     
+    /// initializer
     init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: SystemNames.Data.gameDatabase)
         if inMemory {
@@ -18,6 +19,7 @@ class GameDatabasePersistenceController {
         }
     }
     
+    /// Preview Assist
     static var preview: GameDatabasePersistenceController = {
         let controller = GameDatabasePersistenceController(inMemory: true)
         // Create some sample data for the preview

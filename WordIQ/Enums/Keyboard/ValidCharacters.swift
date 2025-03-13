@@ -1,5 +1,5 @@
 /// Enum to support which characters are considered valid
-enum ValidCharacters: Character, CaseIterable {
+enum ValidCharacters: Character, CaseIterable, Codable {
     case A = "A", B = "B", C = "C", D = "D", E = "E", F = "F", G = "G"
     case H = "H", I = "I", J = "J", K = "K", L = "L", M = "M", N = "N"
     case O = "O", P = "P", Q = "Q", R = "R", S = "S", T = "T", U = "U"

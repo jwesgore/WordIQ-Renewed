@@ -7,8 +7,8 @@ class DailyModeViewModel : StandardModeViewModel {
         super.init(gameOptions: gameOptions)
         
         if let saveStateModel = UserDefaultsHelper.shared.dailyGameOverModel {
-            if saveStateModel.targetWord == super.TargetWord.word {
-                super.gameOverModel = saveStateModel.getGameOverModel()
+            if saveStateModel.targetWord == super.TargetWord {
+                super.gameOverModel = saveStateModel
                 
                 self.IsKeyboardActive = false
                 self.showPauseMenu = false

@@ -5,22 +5,20 @@ class GameModeOptionsModel {
     var gameMode: GameMode
     var gameDifficulty: GameDifficulty
     var timeLimit: Int
-    var targetWord: GameWordModel
-    
-    /// Initializer that presets the target word
-    init(gameMode: GameMode = .standardgame, gameDifficulty: GameDifficulty = .normal, timeLimit: Int = 0) {
-        self.gameMode = gameMode
-        self.gameDifficulty = gameDifficulty
-        self.timeLimit = timeLimit
-        self.targetWord = WordDatabaseHelper.shared.fetchRandomWord(withDifficulty: gameDifficulty)
-    }
-    
+    var targetWord: DatabaseWordModel
+        
     /// Initializer that takes in a target word
-    init(gameMode: GameMode, gameDifficulty: GameDifficulty, timeLimit: Int, targetWord: GameWordModel) {
+    init(gameMode: GameMode, gameDifficulty: GameDifficulty, timeLimit: Int, targetWord: DatabaseWordModel) {
         self.gameMode = gameMode
         self.gameDifficulty = gameDifficulty
         self.timeLimit = timeLimit
         self.targetWord = targetWord
+    }
+    
+    /// Initializer that presets the target word
+    convenience init(gameMode: GameMode = .standardgame, gameDifficulty: GameDifficulty = .normal, timeLimit: Int = 0) {
+        let targetWord = WordDatabaseHelper.shared.fetchRandomWord(withDifficulty: gameDifficulty)
+        self.init(gameMode: gameMode, gameDifficulty: gameDifficulty, timeLimit: timeLimit, targetWord: targetWord)
     }
     
     /// Resets the target word so the model can be persisted
@@ -35,3 +33,4 @@ class GameModeOptionsModel {
         self.timeLimit = 0
     }
 }
+

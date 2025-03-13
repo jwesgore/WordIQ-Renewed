@@ -3,7 +3,6 @@ import SwiftUI
 /// View that manages the end of a game
 struct GameOverView : View {
     
-    @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var gameoverVM : GameOverViewModel
     @State var gameMode : GameMode
     
@@ -54,14 +53,8 @@ struct GameOverView : View {
         }
         .padding()
         .onAppear {
-            let databaseHelper = GameDatabaseHelper(context: viewContext)
-            
-            if gameMode != .daily {
-                databaseHelper.saveGame(gameoverVM.gameOverData)
-                UserDefaultsHelper.shared.update(gameoverVM.gameOverData)
-            }
-            
-            self.gameoverVM.setRowValues(gameMode, gameDatabaseHelper: databaseHelper)
+            self.gameoverVM.saveData()
+            self.gameoverVM.setRowValues(gameMode)
         }
     }
 }
@@ -69,7 +62,7 @@ struct GameOverView : View {
 struct GameOverView_Preview: PreviewProvider {
     static var previews: some View {
         let gameModeOptions = GameModeOptionsModel(gameMode: .standardgame, gameDifficulty: .normal, timeLimit: 0)
-        var gameoverModel = GameOverDataModel(gameOptions: gameModeOptions)
+        var gameoverModel = GameOverDataModel(gameModeOptions)
         gameoverModel.gameResult = .win
         let gameoverVM = GameOverViewModel(gameoverModel)
         return VStack {

@@ -29,14 +29,16 @@ class WordDatabaseHelper {
     
     /// Initializer
     private init() {
-        // Open Databse
-        if let dbPath = Bundle.main.path(forResource: WordLists.database.filename, ofType: "db") {
-            if sqlite3_open(dbPath, &db) == SQLITE_OK {
-                print("Database opened successfully")
-            } else {
-                print("Uh oh spaghettios")
-            }
+        // Open Database
+        guard let dbPath = Bundle.main.path(forResource: WordLists.database.filename, ofType: "db") else {
+            fatalError("Database file not found")
         }
+        
+        guard sqlite3_open(dbPath, &db) == SQLITE_OK else {
+            fatalError("Failed to open database")
+        }
+        
+        print("Database opened successfully")
         
         // Setup daily epoch
         var dateComponents = DateComponents()
@@ -45,24 +47,28 @@ class WordDatabaseHelper {
         dateComponents.day = 9
 
         let calendar = Calendar.current
-        if let epoch = calendar.date(from: dateComponents) {
-            dailyEpoch = epoch
-        } else {
-            // Fallback to the current date if date creation fails
-            dailyEpoch = Date()
+        guard let epochDate = calendar.date(from: dateComponents) else {
+            fatalError("Could not create epoch date")
         }
+        
+        self.dailyEpoch = epochDate
     }
     
     // MARK: Database fetch functions
     /// Get daily word automatically
-    func fetchDailyWord() -> GameWordModel {
-        let daysSinceEpoch = ValueConverter.daysSince(dailyEpoch)!
-        return fetchDailyWord(dailyId: daysSinceEpoch)!
+    func fetchDailyWord() -> DatabaseWordModel {
+        guard let daysSinceEpoch = ValueConverter.daysSince(dailyEpoch), daysSinceEpoch > 0 else {
+            fatalError("Unable to fetch days since epoch")
+        }
+        guard let dailyWord = fetchDailyWord(dailyId: daysSinceEpoch) else {
+            fatalError("Unable to fetch daily word")
+        }
+        return dailyWord
     }
     
     /// Perform a query to retrieve the daily word
-    func fetchDailyWord(dailyId : Int) -> GameWordModel? {
-        let queryStatementString = "SELECT word FROM \(tableName) WHERE daily = ?;"
+    func fetchDailyWord(dailyId: Int) -> DatabaseWordModel? {
+        let queryStatementString = "SELECT daily, difficulty, word FROM \(tableName) WHERE daily = ?;"
         var queryStatement: OpaquePointer?
         
         let adjustedDailyId = dailyId % rowCount
@@ -71,38 +77,52 @@ class WordDatabaseHelper {
             sqlite3_bind_int(queryStatement, 1, Int32(adjustedDailyId))
 
             if sqlite3_step(queryStatement) == SQLITE_ROW {
-                if let queryResultCol1 = sqlite3_column_text(queryStatement, 0) {
-                    let dailyWord = String(cString: queryResultCol1)
+                let daily = Int(sqlite3_column_int(queryStatement, 0))
+                let difficulty = Int(sqlite3_column_int(queryStatement, 1))
+                
+                if let queryResultCol3 = sqlite3_column_text(queryStatement, 2) {
+                    let word = String(cString: queryResultCol3)
                     sqlite3_finalize(queryStatement)
-                    return GameWordModel(dailyWord)
+                    
+                    let databaseWord = DatabaseWordModel(daily: daily, difficulty: difficulty, word: word)
+                    return databaseWord
                 }
             }
+            sqlite3_finalize(queryStatement)
         }
         
         return nil
     }
-    
-    /// Performs a query to retrieve a word at random
-    func fetchRandomWord(withDifficulty level: GameDifficulty) -> GameWordModel {
-        let queryStatementString = "SELECT word FROM \(tableName) WHERE difficulty >= ? ORDER BY RANDOM() LIMIT 1;"
-        var queryStatement: OpaquePointer?
-        var randomWord: String?
 
-        if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
-            sqlite3_bind_int(queryStatement, 1, Int32(level.id))
-            
-            if sqlite3_step(queryStatement) == SQLITE_ROW {
-                if let queryResultCol1 = sqlite3_column_text(queryStatement, 0) {
-                    randomWord = String(cString: queryResultCol1)
-                }
-            }
-        } else {
-            print("SELECT statement could not be prepared")
+    /// Fetches a random word from the database based on the difficulty level
+    func fetchRandomWord(withDifficulty level: GameDifficulty) -> DatabaseWordModel {
+        let queryStatementString = "SELECT daily, difficulty, word FROM \(tableName) WHERE difficulty >= ? ORDER BY RANDOM() LIMIT 1;"
+        var queryStatement: OpaquePointer?
+
+        guard sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK else {
+            fatalError("SELECT statement could not be prepared")
         }
+        
+        sqlite3_bind_int(queryStatement, 1, Int32(level.id))
+        
+        guard sqlite3_step(queryStatement) == SQLITE_ROW else {
+            fatalError("No word found for the given difficulty")
+        }
+        
+        let daily = Int(sqlite3_column_int(queryStatement, 0))
+        let difficulty = Int(sqlite3_column_int(queryStatement, 1))
+        
+        guard let queryResultCol3 = sqlite3_column_text(queryStatement, 2) else {
+            fatalError("Failed to retrieve word from the database")
+        }
+        
+        let word = String(cString: queryResultCol3)
         sqlite3_finalize(queryStatement)
-        return GameWordModel(randomWord ?? "fault")
+
+        let databaseWord = DatabaseWordModel(daily: daily, difficulty: difficulty, word: word)
+        return databaseWord
     }
-    
+
     // MARK: Database helper functions
     /// Performs a query on the database to see if a word is valid
     func doesWordExist(_ word: GameWordModel) -> Bool {

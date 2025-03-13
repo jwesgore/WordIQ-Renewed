@@ -10,6 +10,7 @@
         <attribute name="numInvalidGuesses" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="numValidGuesses" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="targetWord" attributeType="String"/>
+        <attribute name="targetWordDaily" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="timeElapsed" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="timeLimit" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="xp" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>

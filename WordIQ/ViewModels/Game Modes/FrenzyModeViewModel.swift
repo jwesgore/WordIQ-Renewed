@@ -17,6 +17,7 @@ class FrenzyModeViewModel : GameViewModel, ClockViewModelObserver {
         // Call Base Logic
         super.correctWordSubmitted()
         
+        // Update GameOverDataModel
         if let activeWord = ActiveWord, let gameWord = activeWord.getWord() {
             
             self.gameOverModel.correctlyGuessedWords?.append(gameWord)

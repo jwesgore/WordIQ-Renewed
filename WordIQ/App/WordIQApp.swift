@@ -18,7 +18,7 @@ struct WordIQApp: App {
         _ = Haptics.shared
         
         if let daysSinceEpoch = ValueConverter.daysSince(WordDatabaseHelper.shared.dailyEpoch) {
-            if WordDatabaseHelper.shared.fetchDailyWord(dailyId: daysSinceEpoch - 1) == nil {
+            if daysSinceEpoch > UserDefaultsHelper.shared.lastDailyPlayed + 1 {
                 UserDefaultsHelper.shared.currentStreak_daily = 0
             }
         }
