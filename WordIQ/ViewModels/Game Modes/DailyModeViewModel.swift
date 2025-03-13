@@ -6,17 +6,14 @@ class DailyModeViewModel : StandardModeViewModel {
         // Call Base Logic
         super.init(gameOptions: gameOptions)
         
-        if let saveStateModel = UserDefaultsHelper.shared.dailyGameOverModel {
-            if saveStateModel.targetWord == super.TargetWord {
-                super.gameOverModel = saveStateModel
-                
-                self.IsKeyboardActive = false
-                self.showPauseMenu = false
-                self.Clock.stopClock()
-                super.goToTarget()
-            } else {
-                UserDefaultsHelper.shared.dailyGameOverModel = nil
-            }
+        // Check if user has already played the daily
+        if UserDefaultsHelper.shared.lastDailyPlayed == gameOptions.targetWord.daily {
+            self.IsKeyboardActive = false
+            self.showPauseMenu = false
+            self.Clock.stopClock()
+            
+            super.gameOverModel = UserDefaultsHelper.shared.dailyGameOverModel!
+            super.goToTarget()
         }
     }
 }

@@ -234,8 +234,13 @@ class UserDefaultsHelper {
     func update(_ gameOverResults : GameOverDataModel) {
         switch gameOverResults.gameMode {
         case .daily:
-            currentStreak_daily = gameOverResults.gameResult == .win ? currentStreak_daily + 1 : 0
-     
+            if gameOverResults.gameResult == .win {
+                currentStreak_daily = lastDailyPlayed + 1 >= gameOverResults.targetWord.daily ? currentStreak_daily + 1 : 1
+            } else {
+                currentStreak_daily = 0
+            }
+            lastDailyPlayed = gameOverResults.targetWord.daily
+            dailyGameOverModel = gameOverResults
         case .standardgame:
             currentStreak_standard = gameOverResults.gameResult == .win ? currentStreak_standard + 1 : 0
         case .rushgame:
