@@ -100,7 +100,7 @@ class GameOverViewModel : ObservableObject {
     // MARK: General Functions
     /// Save game over data
     func saveData() {
-        guard gameOverData.gameMode == .daily && UserDefaultsHelper.shared.lastDailyPlayed != gameOverData.targetWord.daily else {
+        guard !(gameOverData.gameMode == .daily && UserDefaultsHelper.shared.lastDailyPlayed == gameOverData.targetWord.daily) else {
             print("Daily already played")
             return
         }
