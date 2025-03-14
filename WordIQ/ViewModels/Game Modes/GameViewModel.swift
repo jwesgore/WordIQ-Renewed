@@ -139,9 +139,11 @@ class GameViewModel : BaseViewNavigation {
         }
         
         // Step 3: Finish initialization
-        self.activeWord = self.gameBoardWords[gameSaveState.boardPosition]
         self.keyboardEnterButton.action = { self.keyboardEnter() }
         self.keyboardDeleteButton.action = { self.keyboardDelete() }
+        
+        self.activeWord = self.gameBoardWords[gameSaveState.boardPosition]
+        self.activeWord?.loadHints(targetWordHints)
     }
     
     // MARK: Keyboard functions
