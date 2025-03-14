@@ -21,7 +21,7 @@ struct GamePauseView : View {
             HStack {
                 Spacer()
                 
-                GamePauseInfoView(title: "Time", value: TimeUtility.formatTimeShort(gameViewModel.Clock.timeElapsed))
+                GamePauseInfoView(title: "Time", value: TimeUtility.formatTimeShort(gameViewModel.clock.timeElapsed))
                 
                 Spacer()
                 

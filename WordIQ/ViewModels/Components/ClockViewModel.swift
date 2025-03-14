@@ -2,23 +2,36 @@ import SwiftUI
 
 class ClockViewModel: ObservableObject, ClockViewModelObserver {
     
-    // MARK: Action Properties
+    // MARK: Properties
+    var isClockActive = false
+    var isClockTimer: Bool
+
+    var observers = [ClockViewModelObserver]()
+    
+    @Published var timeElapsed: Int
     var timeLimit: Int
     @Published var timeRemaining: Int
-    @Published var timeElapsed: Int
-    var isClockActive: Bool
-    var isClockTimer: Bool
     var timer: Timer?
-    var observers: [ClockViewModelObserver]
     
-    init(timeLimit: Int, isClockTimer: Bool = true) {
+    // MARK: Initializers
+    /// Base initializer
+    init (timeLimit: Int, isClockTimer: Bool = true) {
         self.timeElapsed = 0
         self.isClockActive = false
-        self.observers = [ClockViewModelObserver]()
         
         self.timeLimit = timeLimit
         self.timeRemaining = timeLimit
         self.isClockTimer = isClockTimer
+    }
+    
+    /// Save state initializer
+    init (_ clockState : ClockSaveStateModel) {
+        self.isClockActive = false
+        self.isClockTimer = clockState.isClockTimer
+        
+        self.timeElapsed = clockState.timeElapsed
+        self.timeLimit = clockState.timeLimit
+        self.timeRemaining = clockState.timeRemaining
     }
     
     // MARK: Adjust Time Functions
@@ -81,6 +94,17 @@ class ClockViewModel: ObservableObject, ClockViewModelObserver {
     /// Send signal to observers that time remaining has hit 0
     func timerAtZero() {
         self.observers.forEach { $0.timerAtZero() }
+    }
+    
+    // MARK: Data Functions
+    /// Get Clock Save State
+    func getClockSaveState() -> ClockSaveStateModel {
+        return ClockSaveStateModel(
+            isClockTimer: self.isClockTimer,
+            timeElapsed: self.timeElapsed,
+            timeLimit: self.timeLimit,
+            timeRemaining: self.timeRemaining
+        )
     }
 }
 

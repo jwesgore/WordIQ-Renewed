@@ -7,10 +7,10 @@ class StandardModeViewModel : GameViewModel {
         super.correctWordSubmitted()
         
         // Apply Extra Logic
-        if let activeWord = ActiveWord, let gameWord = activeWord.getWord() {
+        if let activeWord = activeWord, let gameWord = activeWord.getWord() {
             self.gameOverModel.gameResult = .win
             self.gameOverModel.lastGuessedWord = gameWord
-            self.gameover()
+            self.gameOver()
         }
     }
     
@@ -19,13 +19,13 @@ class StandardModeViewModel : GameViewModel {
         super.wrongWordSubmitted()
         
         // Apply Extra Logic
-        if self.BoardPosition == 6 {
-            self.IsKeyboardActive = false
+        if self.boardPosition == 6 {
+            self.isKeyboardActive = false
             self.gameOverModel.gameResult = .lose
-            self.gameover()
+            self.gameOver()
         } else {
-            ActiveWord = GameBoardWords[self.BoardPosition % 6]
-            ActiveWord?.loadHints(TargetWordHints)
+            activeWord = gameBoardWords[self.boardPosition % 6]
+            activeWord?.loadHints(targetWordHints)
         }
     }
 }

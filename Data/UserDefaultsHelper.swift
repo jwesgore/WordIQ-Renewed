@@ -27,6 +27,7 @@ class UserDefaultsHelper {
     
     private let lastDailyPlayedKey = "lastDailyPlayed"
     private let dailyModelKey = "dailyModel"
+    private let dailySaveStateKey = "dailySaveState"
     
     /// Initializer
     private init() {
@@ -130,7 +131,7 @@ class UserDefaultsHelper {
     }
     
     // MARK: - Game Data Values
-    /// Stores the value for the curremt daily mode streak
+    /// Stores the value for the current daily mode streak
     var currentStreak_daily: Int {
         get {
             return UserDefaults.standard.integer(forKey: currentStreakDailyKey)
@@ -141,7 +142,7 @@ class UserDefaultsHelper {
         }
     }
     
-    /// Stores the value for the curremt standard mode streak
+    /// Stores the value for the current standard mode streak
     var currentStreak_standard: Int {
         get {
             return UserDefaults.standard.integer(forKey: currentStreakStandardKey)
@@ -152,7 +153,7 @@ class UserDefaultsHelper {
         }
     }
     
-    /// Stores the value for the curremt rush mode streak
+    /// Stores the value for the current rush mode streak
     var currentStreak_rush: Int {
         get {
             return UserDefaults.standard.integer(forKey: currentStreakRushKey)
@@ -163,6 +164,7 @@ class UserDefaultsHelper {
         }
     }
     
+    /// Final save state of daily mode
     var dailyGameOverModel : GameOverDataModel? {
         get {
             if let data = UserDefaults.standard.data(forKey: dailyModelKey) {
@@ -175,6 +177,23 @@ class UserDefaultsHelper {
             let encoder = JSONEncoder()
             if let encoded = try? encoder.encode(newValue) {
                 UserDefaults.standard.set(encoded, forKey: dailyModelKey)
+            }
+        }
+    }
+    
+    /// Game in progress save state
+    var dailySaveStateModel : GameSaveStateModel? {
+        get {
+            if let data = UserDefaults.standard.data(forKey: dailySaveStateKey) {
+                let decoder = JSONDecoder()
+                return try? decoder.decode(GameSaveStateModel.self, from: data)
+            }
+            return nil
+        }
+        set {
+            let encoder = JSONEncoder()
+            if let encoded = try? encoder.encode(newValue) {
+                UserDefaults.standard.set(encoded, forKey: dailySaveStateKey)
             }
         }
     }
@@ -261,6 +280,7 @@ class UserDefaultsHelper {
         currentStreak_standard = 0
         
         dailyGameOverModel = nil
+        dailySaveStateModel = nil
         lastDailyPlayed = 0
         
         maxStreak_daily = 0

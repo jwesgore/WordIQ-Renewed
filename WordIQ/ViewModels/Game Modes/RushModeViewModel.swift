@@ -4,13 +4,13 @@ class RushModeViewModel : GameViewModel, ClockViewModelObserver {
     
     override init(gameOptions: GameModeOptionsModel) {
         super.init(gameOptions: gameOptions)
-        self.Clock.addObserver(self)
+        self.clock.addObserver(self)
     }
     
     /// Function to notify VM that the clock has reached zero
     func timerAtZero() {
         self.gameOverModel.gameResult = .lose
-        self.gameover()
+        self.gameOver()
     }
     
     // MARK: Word Submitted Functions
@@ -18,10 +18,10 @@ class RushModeViewModel : GameViewModel, ClockViewModelObserver {
         // Call Base Logic
         super.correctWordSubmitted()
         
-        if let activeWord = ActiveWord, let gameWord = activeWord.getWord() {
+        if let activeWord = activeWord, let gameWord = activeWord.getWord() {
             self.gameOverModel.gameResult = .win
             self.gameOverModel.lastGuessedWord = gameWord
-            self.gameover()
+            self.gameOver()
         }
     }
     
@@ -30,16 +30,16 @@ class RushModeViewModel : GameViewModel, ClockViewModelObserver {
         super.wrongWordSubmitted()
         
         // If the position has reached the end of the board, reset it
-        if self.BoardPosition % 6 == 0 {
+        if self.boardPosition % 6 == 0 {
             self.boardResetWithAnimation(delay: 1.0) {
-                self.ActiveWord = self.GameBoardWords[self.BoardPosition % 6]
-                self.ActiveWord?.loadHints(self.TargetWordHints)
+                self.activeWord = self.gameBoardWords[self.boardPosition % 6]
+                self.activeWord?.loadHints(self.targetWordHints)
             }
         }
         // Else set the active row down and load in the hints
         else {
-            ActiveWord = GameBoardWords[self.BoardPosition % 6]
-            ActiveWord?.loadHints(TargetWordHints)
+            activeWord = gameBoardWords[self.boardPosition % 6]
+            activeWord?.loadHints(targetWordHints)
         }
     }
 

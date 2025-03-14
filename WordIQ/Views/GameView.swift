@@ -41,16 +41,16 @@ struct GameView : View {
                     
                     HStack {
                         Spacer()
-                        ClockView(clockVM: gameViewModel.Clock)
+                        ClockView(clockVM: gameViewModel.clock)
                     }
                     
-                    GameBoardView(gameViewModel.GameBoardWords)
+                    GameBoardView(gameViewModel.gameBoardWords)
                     
                     Spacer()
                     
-                    KeyboardView(keyboardLetters: gameViewModel.KeyboardLetterButtons,
-                                 enterKey: gameViewModel.KeyboardEnterButton,
-                                 deleteKey: gameViewModel.KeyboardDeleteButton)
+                    KeyboardView(keyboardLetters: gameViewModel.keyboardLetterButtons,
+                                 enterKey: gameViewModel.keyboardEnterButton,
+                                 deleteKey: gameViewModel.keyboardDeleteButton)
                 }
                 .padding()
                 .transition(.blurReplace)

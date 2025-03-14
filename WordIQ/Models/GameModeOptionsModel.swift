@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Model used to package up game mode options
-class GameModeOptionsModel {
+class GameModeOptionsModel : Codable {
     var gameMode: GameMode
     var gameDifficulty: GameDifficulty
     var timeLimit: Int

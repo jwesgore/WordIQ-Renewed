@@ -3,17 +3,18 @@ import SwiftUI
 /// View Model to support a single keyboard letter button
 class KeyboardLetterViewModel : ObservableObject, KeyboardKeyProtocol {
     
-    var action: () -> Void
-    
-    var letter : ValidCharacters
     @Published var backgroundColor : LetterComparison
     @Published var borderColor : Color
+    
+    var action: () -> Void
     var borderThickness : CGFloat
     var cornerRadius : CGFloat
     var fontColor : Color
     var height : CGFloat
+    var letter : ValidCharacters
     var width : CGFloat
     
+    /// Base Initializer
     init(action: @escaping () -> Void = {},
          letter: ValidCharacters,
          backgroundColor: LetterComparison = .notSet,

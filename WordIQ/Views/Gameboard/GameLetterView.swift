@@ -16,7 +16,7 @@ struct GameLetterView : View {
             .opacity(letterVM.opacity)
             .frame(maxWidth:letterVM.width, maxHeight: letterVM.height)
             .aspectRatio(1.0, contentMode: .fit)
-            .background(letterVM.backgroundColor.color)
+            .background(letterVM.showBackgroundColor ? letterVM.backgroundColor.color : .LetterComparison.notSet)
             .overlay(
                 RoundedRectangle(cornerRadius: letterVM.cornerRadius)
                     .stroke(letterVM.borderColor, lineWidth: letterVM.borderThickness)

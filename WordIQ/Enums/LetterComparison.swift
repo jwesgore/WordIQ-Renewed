@@ -1,9 +1,19 @@
 import SwiftUI
 
 /// Enum to support comparison between incoming word and target word
-enum LetterComparison: Comparable {
+enum LetterComparison: Comparable, Codable {
     case wrong, contains, correct, notSet
+        
+    /// Implementation of comparable
+    static func < (lhs: LetterComparison, rhs: LetterComparison) -> Bool {
+        return lhs.rank < rhs.rank
+    }
+}
+
+/// Helper properties
+extension LetterComparison {
     
+    /// Get rank of comparison
     var rank: Int {
         switch self {
         case .notSet: 0
@@ -12,14 +22,6 @@ enum LetterComparison: Comparable {
         case .correct: 3
         }
     }
-    
-    /// Implementation of comparable
-    static func < (lhs: LetterComparison, rhs: LetterComparison) -> Bool {
-        return lhs.rank < rhs.rank
-    }
-}
-
-extension LetterComparison {
     
     /// Get Color of enum
     var color: Color {

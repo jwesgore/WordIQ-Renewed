@@ -4,12 +4,12 @@ class FrenzyModeViewModel : GameViewModel, ClockViewModelObserver {
 
     override init(gameOptions: GameModeOptionsModel) {
         super.init(gameOptions: gameOptions)
-        self.Clock.addObserver(self)
+        self.clock.addObserver(self)
     }
 
     /// Function to notify VM that the clock has reached zero
     func timerAtZero() {
-        self.gameover()
+        self.gameOver()
     }
     
     // MARK: Word Submitted Functions
@@ -18,17 +18,17 @@ class FrenzyModeViewModel : GameViewModel, ClockViewModelObserver {
         super.correctWordSubmitted()
         
         // Update GameOverDataModel
-        if let activeWord = ActiveWord, let gameWord = activeWord.getWord() {
+        if let activeWord = activeWord, let gameWord = activeWord.getWord() {
             
             self.gameOverModel.correctlyGuessedWords?.append(gameWord)
             
             self.gameOverModel.targetWord = WordDatabaseHelper.shared.fetchRandomWord(withDifficulty: gameOptions.gameDifficulty)
-            self.TargetWord = self.gameOverModel.targetWord
+            self.targetWord = self.gameOverModel.targetWord
             
             self.gameOverModel.lastGuessedWord = nil
             
             self.boardResetWithAnimation(delay: 0.5) {
-                self.TargetWordHints = [ValidCharacters?](repeating: nil, count: 5)
+                self.targetWordHints = [ValidCharacters?](repeating: nil, count: 5)
                 self.keyboardReset()
             }
         }
@@ -38,11 +38,11 @@ class FrenzyModeViewModel : GameViewModel, ClockViewModelObserver {
         // Call Base Logic
         super.wrongWordSubmitted()
         
-        if self.BoardPosition == 6 {
-            self.gameover()
+        if self.boardPosition == 6 {
+            self.gameOver()
         } else {
-            ActiveWord = GameBoardWords[self.BoardPosition % 6]
-            ActiveWord?.loadHints(TargetWordHints)
+            activeWord = gameBoardWords[self.boardPosition % 6]
+            activeWord?.loadHints(targetWordHints)
         }
     }
 
