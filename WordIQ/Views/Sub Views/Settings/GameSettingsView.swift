@@ -34,24 +34,23 @@ struct GameSettingsView : View {
                     
                     // MARK: Notification Settings block
                     GameSettingsNotificationsView(viewModel: gameSettingsVM)
+                        .padding(.bottom, 5)
                     
                     // MARK: Quickplay Settings block
                     GameSettingsQuickplayView(viewModel: gameSettingsVM)
-                    
-                    Spacer()
-                        .frame(height: 25)
+                        .padding(.bottom, 5)
                     
                     // MARK: Clear Data Button
-                    Button(
-                        action: {
-                            clearDataAlertIsPresented = true
-                        },
-                        label: {
-                            Text("Erase All Data")
-                                .foregroundStyle(.red)
-                                .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.title3)))
-                        }
-                    )
+                    Button {
+                        clearDataAlertIsPresented = true
+                    } label: {
+                        Text("Erase All Data")
+                            .foregroundStyle(.red)
+                            .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.title3)))
+                    }
+                    .padding(.vertical, 20)
+                    
+                    
                 }
                 .padding([.horizontal, .bottom])
             }
