@@ -7,7 +7,7 @@ class GameDatabasePersistenceController {
     let container : NSPersistentContainer
     
     /// initializer
-    init(inMemory: Bool = false) {
+    private init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: SystemNames.Data.gameDatabase)
         if inMemory {
             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")

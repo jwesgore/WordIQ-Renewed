@@ -5,16 +5,24 @@ class UserDefaultsHelper {
     
     static let shared = UserDefaultsHelper()
     
-    // MARK: - Keys
+    // MARK: - Settings Keys
     private let colorBlindModeKey = "setting_colorBlindMode"
     private let showHintsKey = "setting_showHints"
     private let soundEffectsKey = "setting_soundEffects"
     private let hapticFeedbackKey = "setting_hapticFeedback"
     
+    private let notificationsOnKey = "setting_notificationsOn"
+    private let notificationsDaily1Key = "setting_notificationsDaily1"
+    private let notificationsDaily1TimeKey = "setting_notificationsDaily1Time"
+    
+    private let notificationsDaily2Key = "setting_notificationsDaily2"
+    private let notificationsDaily2TimeKey = "setting_notificationsDaily2Time"
+    
     private let quickplayModeKey = "quickplaySetting_mode"
     private let quickplayDifficultyKey = "quickplaySetting_difficulty"
     private let quickplayTimeLimitKey = "quickplaySetting_timeLimit"
     
+    // MARK: - Game Data Keys
     private let currentStreakDailyKey = "currentStreak_daily"
     private let currentStreakStandardKey = "currentStreak_standard"
     private let currentStreakRushKey = "currentStreak_rush"
@@ -25,6 +33,7 @@ class UserDefaultsHelper {
     
     private let maxScoreFrenzyKey = "maxScore_frenzy"
     
+    private let lastDayAppOpenedKey = "lastDayAppOpened"
     private let lastDailyPlayedKey = "lastDailyPlayed"
     private let dailyModelKey = "dailyModel"
     private let dailySaveStateKey = "dailySaveState"
@@ -37,6 +46,9 @@ class UserDefaultsHelper {
             showHintsKey: true,
             soundEffectsKey: true,
             hapticFeedbackKey: true,
+            notificationsOnKey: true,
+            notificationsDaily1Key: true,
+            notificationsDaily2Key: true,
             quickplayModeKey: GameMode.standardgame.id,
             quickplayDifficultyKey: GameDifficulty.normal.id,
             quickplayTimeLimitKey: 0,
@@ -47,7 +59,8 @@ class UserDefaultsHelper {
             maxStreakStandardKey: 0,
             maxStreakRushKey: 0,
             maxScoreFrenzyKey: 0,
-            lastDailyPlayedKey : 0
+            lastDailyPlayedKey : 0,
+            lastDayAppOpenedKey : 0
         ])
     }
     
@@ -89,6 +102,74 @@ class UserDefaultsHelper {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: hapticFeedbackKey)
+        }
+    }
+    
+    // MARK: Notification Settings
+    /// Stores the local setting for if notifications should be on or off
+    var setting_notificationsOn: Bool {
+        get {
+            UserDefaults.standard.bool(forKey: notificationsOnKey)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: notificationsOnKey)
+        }
+    }
+    
+    /// Stores the setting for sending first daily notification
+    var setting_notificationsDaily1: Bool {
+        get {
+            UserDefaults.standard.bool(forKey: notificationsDaily1Key)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: notificationsDaily1Key)
+        }
+    }
+    
+    /// Stores the setting for time to send the first daily notification
+    var setting_notificationsDaily1Time: Date? {
+        get {
+            
+            if let date = UserDefaults.standard.object(forKey: notificationsDaily1TimeKey) as? Date {
+                return date
+            }
+            
+            // Return 9:00 AM if no value is stored
+            var components = DateComponents()
+            components.hour = 9
+            components.minute = 0
+            return Calendar.current.date(from: components)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: notificationsDaily1TimeKey)
+        }
+    }
+    
+    /// Stores the setting for sending second daily notification
+    var setting_notificationsDaily2: Bool {
+        get {
+            UserDefaults.standard.bool(forKey: notificationsDaily2Key)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: notificationsDaily2Key)
+        }
+    }
+    
+    /// Stores the setting for time to send the second daily notification
+    var setting_notificationsDaily2Time: Date? {
+        get {
+            if let date = UserDefaults.standard.object(forKey: notificationsDaily2TimeKey) as? Date {
+                return date
+            }
+            
+            // Return 9:00 AM if no value is stored
+            var components = DateComponents()
+            components.hour = 21
+            components.minute = 0
+            return Calendar.current.date(from: components)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: notificationsDaily2TimeKey)
         }
     }
     

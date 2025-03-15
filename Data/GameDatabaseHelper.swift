@@ -44,7 +44,7 @@ class GameDatabaseHelper {
     // MARK: Constructor
     init(context: NSManagedObjectContext = GameDatabasePersistenceController.shared.container.viewContext) {
         self.context = context
-        self.allGameResults = resfreshDataInternal()
+        self.allGameResults = refreshDataInternal()
     }
     
     // MARK: Public Database Functions
@@ -66,11 +66,11 @@ class GameDatabaseHelper {
     
     /// Refreshes allGameResults snapshot
     func refreshData()  {
-        self.allGameResults = self.resfreshDataInternal()
+        self.allGameResults = self.refreshDataInternal()
     }
     
     /// Refreshes allGameResults snapshot
-    func resfreshDataInternal() -> [GameResultsModel] {
+    func refreshDataInternal() -> [GameResultsModel] {
         let fetchRequest: NSFetchRequest<GameResultsModel> = GameResultsModel.fetchRequest()
         do {
             return try context.fetch(fetchRequest)
@@ -225,7 +225,7 @@ class GameDatabaseHelper {
         if context.hasChanges {
             do {
                 try context.save()
-                allGameResults = resfreshDataInternal()
+                allGameResults = refreshDataInternal()
             } catch {
                 print("Error saving context: \(error)")
             }

@@ -28,6 +28,8 @@ enum SystemNames {
     
     enum GameSettings {
         static let settings = "Settings"
+        
+        static let generalSettings = "General Settings"
         static let colorBlindMode = "Color Blind Mode"
         static let hapticFeedback = "Haptic Feedback"
         static let showHints = "Show Hints"
@@ -37,6 +39,10 @@ enum SystemNames {
         static let gameTimeLimit = "Time Limit"
         static let gameMode = "Game Mode"
         static let gameDifficulty = "Difficulty"
+        static let notificationSettings = "Notification Settings"
+        static let notifications = "Notifications"
+        static let dailyNotification1 = "Daily Reminder 1"
+        static let dailyNotification2 = "Daily Reminder 2"
     }
     
     enum GameStats {
