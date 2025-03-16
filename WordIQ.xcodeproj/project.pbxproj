@@ -61,6 +61,8 @@
 		4B884CCC2D8676B300C0A808 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CCB2D8676A800C0A808 /* NavigationController.swift */; };
 		4B884CCE2D867F3F00C0A808 /* AppStartingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CCD2D867F3B00C0A808 /* AppStartingView.swift */; };
 		4B884CD12D86840000C0A808 /* NotificationPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CD02D8683F500C0A808 /* NotificationPermissionView.swift */; };
+		4B884CD32D87526E00C0A808 /* HeaderWithDoneButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CD22D87525300C0A808 /* HeaderWithDoneButtonView.swift */; };
+		4B884CD52D87547400C0A808 /* ExpandAndCollapseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CD42D87546A00C0A808 /* ExpandAndCollapseHeaderView.swift */; };
 		4BD0CF862D7154B90077640A /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD0CF852D7154B10077640A /* UserDefaultsHelper.swift */; };
 		4BD0CF892D7175C90077640A /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD0CF882D7175BB0077640A /* StatsView.swift */; };
 		4BD0CF922D7195A00077640A /* StatsGeneralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD0CF912D7195940077640A /* StatsGeneralView.swift */; };
@@ -173,6 +175,8 @@
 		4B884CCB2D8676A800C0A808 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		4B884CCD2D867F3B00C0A808 /* AppStartingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStartingView.swift; sourceTree = "<group>"; };
 		4B884CD02D8683F500C0A808 /* NotificationPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermissionView.swift; sourceTree = "<group>"; };
+		4B884CD22D87525300C0A808 /* HeaderWithDoneButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderWithDoneButtonView.swift; sourceTree = "<group>"; };
+		4B884CD42D87546A00C0A808 /* ExpandAndCollapseHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandAndCollapseHeaderView.swift; sourceTree = "<group>"; };
 		4BD0CF852D7154B10077640A /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
 		4BD0CF882D7175BB0077640A /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		4BD0CF912D7195940077640A /* StatsGeneralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsGeneralView.swift; sourceTree = "<group>"; };
@@ -377,6 +381,8 @@
 		4B884CBD2D85388000C0A808 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				4B1CC12E2D850C2200A56316 /* GameSettingsToggleView.swift */,
+				4B1CC1312D850D1000A56316 /* GameSettingsToggleWithDatePickerView.swift */,
 				4B884CBE2D85388C00C0A808 /* GameSettingsGameplayView.swift */,
 				4B884CC02D8538B700C0A808 /* GameSettingsHeaderView.swift */,
 				4B884CC42D853AA500C0A808 /* GameSettingsNotificationsView.swift */,
@@ -442,9 +448,9 @@
 		4BD9D6BF2D727C2500EB9800 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4B884CD42D87546A00C0A808 /* ExpandAndCollapseHeaderView.swift */,
+				4B884CD22D87525300C0A808 /* HeaderWithDoneButtonView.swift */,
 				4BF592642CC2EDA000C555F6 /* ClockView.swift */,
-				4B1CC12E2D850C2200A56316 /* GameSettingsToggleView.swift */,
-				4B1CC1312D850D1000A56316 /* GameSettingsToggleWithDatePickerView.swift */,
 				4BD9D6C02D727C2D00EB9800 /* ItemInfoView.swift */,
 			);
 			path = Components;
@@ -737,6 +743,7 @@
 				4BF592732CC33AEB00C555F6 /* BaseViewNavigation.swift in Sources */,
 				4BF5928B2CCED44600C555F6 /* KeyboardLetterViewModel.swift in Sources */,
 				4B1CC1132D7FDC2A00A56316 /* DailyModeViewModel.swift in Sources */,
+				4B884CD52D87547400C0A808 /* ExpandAndCollapseHeaderView.swift in Sources */,
 				4BF5926B2CC30C3300C555F6 /* GameModeSelectionViewModel.swift in Sources */,
 				4B1CC12C2D84EAD800A56316 /* NotificationHelper.swift in Sources */,
 				4B884CCE2D867F3F00C0A808 /* AppStartingView.swift in Sources */,
@@ -771,6 +778,7 @@
 				4B884CC12D8538BE00C0A808 /* GameSettingsHeaderView.swift in Sources */,
 				4B6603AF2CEAE03800F4F140 /* GamePauseView.swift in Sources */,
 				4BD0CF9A2D72776D0077640A /* StatsStandardModeView.swift in Sources */,
+				4B884CD32D87526E00C0A808 /* HeaderWithDoneButtonView.swift in Sources */,
 				4B1CC1192D82661B00A56316 /* DatabaseWordModel.swift in Sources */,
 				4BF592672CC2EDB100C555F6 /* ClockViewModel.swift in Sources */,
 				4BD0CF922D7195A00077640A /* StatsGeneralView.swift in Sources */,
@@ -929,7 +937,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.6.2;
+				MARKETING_VERSION = 0.6.3;
 				PRODUCT_BUNDLE_IDENTIFIER = capygames.WordIQ;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -961,7 +969,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.6.2;
+				MARKETING_VERSION = 0.6.3;
 				PRODUCT_BUNDLE_IDENTIFIER = capygames.WordIQ;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

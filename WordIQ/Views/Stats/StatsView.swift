@@ -9,30 +9,16 @@ struct StatsView : View {
     
     @Binding var isPresented: Bool
     
-    init(isPresented: Binding<Bool>) {
-        self._isPresented = isPresented
-    }
-    
     var body: some View {
-        VStack {
-            // Header
-            HStack {
-                Text(SystemNames.GameStats.title)
-                    .font(.custom(RobotoSlabOptions.Weight.semiBold, size: CGFloat(RobotoSlabOptions.Size.title1)))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                Button(action: {
-                    self.isPresented.toggle()
-                }, label: {
-                    Text("Done")
-                        .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.headline)))
-                })
-            }
-            .padding([.horizontal, .top])
+        VStack (spacing: 0) {
+
+            HeaderWithDoneButtonView(title: SystemNames.GameStats.title, isPresented: $isPresented)
+                .padding(.horizontal)
+                .padding(.vertical, 5)
             
             if let databaseHelper = databaseHelper {
                 ScrollView {
-                    VStack {
+                    VStack (spacing: 10) {
                         StatsGeneralView(databaseHelper: databaseHelper)
                         StatsDailyModeView(databaseHelper: databaseHelper)
                         StatsStandardModeView(databaseHelper: databaseHelper)
@@ -51,8 +37,15 @@ struct StatsView : View {
             }
         }
         .background(Color.appBackground)
+        .padding(.bottom)
         .ignoresSafeArea(edges: .bottom)
     }
+}
+
+struct StatsViewHelper {
+    static let baseHeaderPadding = 2.0
+    static let additionalHeaderPadding = 8.0
+    static let vStackSpacing = 0.0
 }
 
 #Preview {

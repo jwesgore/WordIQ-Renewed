@@ -42,8 +42,8 @@ class GameSettingsViewModel: ObservableObject {
     }
     @Published var notificationsDaily1: Bool {
         didSet {
-            checkEnableDailyNotifications1()
             UserDefaultsHelper.shared.setting_notificationsDaily1 = notificationsDaily1
+            checkEnableDailyNotifications1()
         }
     }
     @Published var notificationsDaily1Time: Date {
@@ -57,8 +57,8 @@ class GameSettingsViewModel: ObservableObject {
     }
     @Published var notificationsDaily2: Bool {
         didSet {
-            checkEnableDailyNotifications2()
             UserDefaultsHelper.shared.setting_notificationsDaily2 = notificationsDaily2
+            checkEnableDailyNotifications2()
         }
     }
     @Published var notificationsDaily2Time: Date {

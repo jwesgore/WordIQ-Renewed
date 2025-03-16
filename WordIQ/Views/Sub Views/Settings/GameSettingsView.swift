@@ -13,19 +13,8 @@ struct GameSettingsView : View {
     var body: some View {
         VStack {
             // MARK: Top Row Header and Done Button
-            HStack {
-                Text(SystemNames.GameSettings.settings)
-                    .font(.custom(RobotoSlabOptions.Weight.semiBold, size: CGFloat(RobotoSlabOptions.Size.title1)))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-              
-                Button(action: {
-                    self.isPresented.toggle()
-                }, label: {
-                    Text("Done")
-                        .font(.custom(RobotoSlabOptions.Weight.semiBold, size: CGFloat(RobotoSlabOptions.Size.title2)))
-                })
-            }
-            .padding(.horizontal)
+            HeaderWithDoneButtonView(title: SystemNames.GameSettings.settings, isPresented: $isPresented)
+                .padding(.horizontal)
         
             ScrollView {
                 VStack {

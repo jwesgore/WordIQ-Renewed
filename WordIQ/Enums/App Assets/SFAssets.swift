@@ -1,7 +1,6 @@
 /// Enums defining many of the SF symbols used in this app
 enum SFAssets {
-
-    static let backArrow = "chevron.backward"
+    
     static let friends = "person.fill"
     static let gameController = "gamecontroller"
     static let home = "house.fill"
@@ -13,6 +12,11 @@ enum SFAssets {
     static let star = "star"
     static let stats = "chart.line.uptrend.xyaxis"
     static let timer = "timer"
+    
+    // MARK: Arrows
+    static let backArrow = "chevron.backward"
+    static let downArrow = "chevron.down"
+    static let upArrow = "chevron.up"
     
     // MARK: Function keys
     static let delete = "arrow.backward"
