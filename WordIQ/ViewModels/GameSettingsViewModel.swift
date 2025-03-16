@@ -4,6 +4,8 @@ import Combine
 /// View Model to facilitate setting game settings
 class GameSettingsViewModel: ObservableObject {
     
+    let notificationHelper = NotificationHelper()
+    
     // MARK: Gameplay Settings
     @Published var colorBlind: Bool {
         didSet {
@@ -29,29 +31,43 @@ class GameSettingsViewModel: ObservableObject {
     // MARK: Notification Settings
     @Published var notificationsOn: Bool {
         didSet {
+            if notificationsOn {
+                checkEnableDailyNotifications1()
+                checkEnableDailyNotifications2()
+            } else {
+                notificationHelper.dailyNotificationsDisable()
+            }
             UserDefaultsHelper.shared.setting_notificationsOn = notificationsOn
         }
     }
     @Published var notificationsDaily1: Bool {
         didSet {
+            checkEnableDailyNotifications1()
             UserDefaultsHelper.shared.setting_notificationsDaily1 = notificationsDaily1
         }
     }
     @Published var notificationsDaily1Time: Date {
         didSet {
-            var components = ValueConverter.dateToDateComponents(notificationsDaily1Time, components: [.hour, .minute])
+            let components = ValueConverter.dateToDateComponents(notificationsDaily1Time, components: [.hour, .minute])
             UserDefaultsHelper.shared.setting_notificationsDaily1Time = components
+            
+            notificationHelper.removeNotificationRequest(NotificationIdentifiers.dailyNotification1.id)
+            notificationHelper.dailyNotificationsEnable1()
         }
     }
     @Published var notificationsDaily2: Bool {
         didSet {
+            checkEnableDailyNotifications2()
             UserDefaultsHelper.shared.setting_notificationsDaily2 = notificationsDaily2
         }
     }
     @Published var notificationsDaily2Time: Date {
         didSet {
-            var components = ValueConverter.dateToDateComponents(notificationsDaily2Time, components: [.hour, .minute])
+            let components = ValueConverter.dateToDateComponents(notificationsDaily2Time, components: [.hour, .minute])
             UserDefaultsHelper.shared.setting_notificationsDaily2Time = components
+            
+            notificationHelper.removeNotificationRequest(NotificationIdentifiers.dailyNotification2.id)
+            notificationHelper.dailyNotificationsEnable2()
         }
     }
     
@@ -95,7 +111,7 @@ class GameSettingsViewModel: ObservableObject {
         }
         
         self.notificationsDaily2 = UserDefaultsHelper.shared.setting_notificationsDaily2
-        let dateComponents2 = UserDefaultsHelper.shared.setting_notificationsDaily1Time
+        let dateComponents2 = UserDefaultsHelper.shared.setting_notificationsDaily2Time
         if let dateTime2 = ValueConverter.dateComponentsToDate(dateComponents2) {
             self.notificationsDaily2Time = dateTime2
         } else {
@@ -105,5 +121,21 @@ class GameSettingsViewModel: ObservableObject {
         self.quickplayMode = UserDefaultsHelper.shared.quickplaySetting_mode
         self.quickplayDifficulty = UserDefaultsHelper.shared.quickplaySetting_difficulty
         self.quickplayTimeLimit = UserDefaultsHelper.shared.quickplaySetting_timeLimit
+    }
+    
+    private func checkEnableDailyNotifications1() {
+        if notificationsDaily1 {
+            notificationHelper.dailyNotificationsEnable1()
+        } else {
+            notificationHelper.removeNotificationRequest(NotificationIdentifiers.dailyNotification1.id)
+        }
+    }
+    
+    private func checkEnableDailyNotifications2() {
+        if notificationsDaily2 {
+            notificationHelper.dailyNotificationsEnable2()
+        } else {
+            notificationHelper.removeNotificationRequest(NotificationIdentifiers.dailyNotification2.id)
+        }
     }
 }
