@@ -4,11 +4,11 @@ import SwiftUI
 struct StatsFrenzyModeView: View {
     
     var databaseHelper: GameDatabaseHelper
-    let mode = GameMode.frenzygame
+    let mode = GameMode.frenzyMode
     
     var body: some View {
         let avgTimePerWord = TimeUtility.formatTimeShort(databaseHelper.getGameModeAvgTimePerWord(mode: mode))
-        let avgScore = ValueConverter.DoubleToTwoPlaces(databaseHelper.getGameModeAvgScore(mode: mode))
+        let avgScore = ValueConverter.doubleToTwoPlaces(databaseHelper.getGameModeAvgScore(mode: mode))
         let bestScore = UserDefaultsHelper.shared.maxScore_frenzy.description
         let guessesMade = databaseHelper.getGameModeNumGuesses(mode: mode).description
         let timeInMode = TimeUtility.formatTimeShort(databaseHelper.getGameModeTimePlayed(mode: mode))

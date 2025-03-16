@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// View for the quickplay settings
 struct GameSettingsQuickplayView : View {
     
     @ObservedObject var viewModel : GameSettingsViewModel
@@ -13,10 +14,10 @@ struct GameSettingsQuickplayView : View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Picker("Game Mode", selection: $viewModel.quickplayMode) {
-                    Text(GameMode.standardgame.value).tag(GameMode.standardgame)
-                    Text(GameMode.rushgame.value).tag(GameMode.rushgame)
-                    Text(GameMode.frenzygame.value).tag(GameMode.frenzygame)
-                    Text(GameMode.zengame.value).tag(GameMode.zengame)
+                    Text(GameMode.standardMode.asStringShort).tag(GameMode.standardMode)
+                    Text(GameMode.rushMode.asStringShort).tag(GameMode.rushMode)
+                    Text(GameMode.frenzyMode.asStringShort).tag(GameMode.frenzyMode)
+                    Text(GameMode.zenMode.asStringShort).tag(GameMode.zenMode)
                 }
                 .pickerStyle(.segmented)
                 .padding(.bottom, 8)

@@ -1,68 +1,82 @@
 /// All possible game modes
 enum GameMode: String, Codable, Identifiable, Equatable {
-    case standardgame
-    case rushgame
-    case frenzygame
-    case zengame
-    case daily
+    
+    case standardMode
+    case rushMode
+    case frenzyMode
+    case zenMode
+    case dailyGame
     case quickplay
     
-    // Get GameMode Id
+    /// Implementation of Identifiable
     var id: Int {
         switch self {
-        case .standardgame: return 0
-        case .rushgame: return 1
-        case .frenzygame: return 2
-        case .zengame: return 3
-        case .daily: return 4
+        case .standardMode: return 0
+        case .rushMode: return 1
+        case .frenzyMode: return 2
+        case .zenMode: return 3
+        case .dailyGame: return 4
         case .quickplay: return 5
         }
     }
     
-    // Get GameMode as string
-    var value: String {
+    /// Get GameMode from id
+    static func fromId(_ id: Int) -> GameMode? {
+        switch id {
+        case 0: return .standardMode
+        case 1: return .rushMode
+        case 2: return .frenzyMode
+        case 3: return .zenMode
+        case 4: return .dailyGame
+        case 5: return .quickplay
+        default: return nil
+        }
+    }
+}
+
+/// String values for enum
+extension GameMode {
+    /// Get GameMode as string
+    var asStringShort: String {
         switch self {
-        case .standardgame: return "Standard"
-        case .rushgame: return "Rush"
-        case .frenzygame: return "Frenzy"
-        case .zengame: return "Zen"
-        case .daily: return "Daily"
+        case .standardMode: return "Standard"
+        case .rushMode: return "Rush"
+        case .frenzyMode: return "Frenzy"
+        case .zenMode: return "Zen"
+        case .dailyGame: return "Daily"
         case .quickplay: return "Quickplay"
         }
     }
     
-    // Get text description for GameMode
-    var description: String {
+    var asStringLong: String {
         switch self {
-        case .standardgame: return "The classic game you know and love. Six guesses to get the word."
-        case .rushgame: return "Make as many guesses as you want, but you only have so much time."
-        case .frenzygame: return "Only six guesses and a time limit. How many words can you get?"
-        case .zengame: return "No time limit, no guess limit. Just play to have fun."
+        case .standardMode: return "Standard Mode"
+        case .rushMode: return "Rush Mode"
+        case .frenzyMode: return "Frenzy Mode"
+        case .zenMode: return "Zen Mode"
         default: return ""
         }
     }
     
-    // Get text caption for GameMode
+    /// Get text caption for GameMode
     var caption: String {
         switch self {
-        case .standardgame: return "Guess the word"
-        case .rushgame: return "Test your speed"
-        case .frenzygame: return "Test your endurance"
-        case .zengame: return "Take it easy"
+        case .standardMode: return "Guess the word"
+        case .rushMode: return "Test your speed"
+        case .frenzyMode: return "Test your endurance"
+        case .zenMode: return "Take it easy"
         default: return ""
         }
     }
     
-    // Get GameMode from id
-    static func fromId(_ id: Int) -> GameMode? {
-        switch id {
-        case 0: return .standardgame
-        case 1: return .rushgame
-        case 2: return .frenzygame
-        case 3: return .zengame
-        case 4: return .daily
-        case 5: return .quickplay
-        default: return nil
+    /// Get text description for GameMode
+    var description: String {
+        switch self {
+        case .standardMode: return "The classic game you know and love. Six guesses to get the word."
+        case .rushMode: return "Make as many guesses as you want, but you only have so much time."
+        case .frenzyMode: return "Only six guesses and a time limit. How many words can you get?"
+        case .zenMode: return "No time limit, no guess limit. Just play to have fun."
+        default: return ""
         }
     }
 }

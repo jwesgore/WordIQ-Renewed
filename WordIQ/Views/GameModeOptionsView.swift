@@ -10,8 +10,8 @@ struct GameModeOptionsView : View {
     
     var body: some View {
         let optionsHeader = gameModeSelectionVM.showTimeLimitOptions ?
-        "\(gameModeSelectionVM.GameModeOptions.gameMode.value): \(gameModeSelectionVM.GameModeOptions.gameDifficulty.asString), \(TimeUtility.formatTimeShort(gameModeSelectionVM.GameModeOptions.timeLimit))" :
-        "\(gameModeSelectionVM.GameModeOptions.gameMode.value): \(gameModeSelectionVM.GameModeOptions.gameDifficulty.asString)"
+        "\(gameModeSelectionVM.GameModeOptions.gameMode.asStringShort): \(gameModeSelectionVM.GameModeOptions.gameDifficulty.asString), \(TimeUtility.formatTimeShort(gameModeSelectionVM.GameModeOptions.timeLimit))" :
+        "\(gameModeSelectionVM.GameModeOptions.gameMode.asStringShort): \(gameModeSelectionVM.GameModeOptions.gameDifficulty.asString)"
             
         VStack (spacing: 10) {
             VStack {
@@ -41,12 +41,12 @@ struct GameModeOptionsView : View {
             Spacer()
             VStack (spacing: 10) {
                 ThreeDButtonView(gameModeSelectionVM.StartButton) {
-                    Text(SystemNames.startGame)
+                    Text(SystemNames.Navigation.startGame)
                         .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.title3)))
                 }
                 
                 ThreeDButtonView(gameModeSelectionVM.BackButton) {
-                    Text(SystemNames.back)
+                    Text(SystemNames.Navigation.back)
                         .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.title3)))
                 }
             }

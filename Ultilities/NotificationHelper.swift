@@ -1,17 +1,18 @@
 import UserNotifications
 
+/// Class to assist with more easily handling notifications
 class NotificationHelper {
-    static let shared = NotificationHelper()
-    
-    private init() {
-        
-    }
     
     /// Gets the current notification setting status
     func checkNotificationPermission(completion: @escaping (UNAuthorizationStatus) -> Void) {
         UNUserNotificationCenter.current().getNotificationSettings { settings in
             completion(settings.authorizationStatus)
         }
+    }
+    
+    /// Removes notification matching the given identifier
+    func removeNotificationRequest(_ notification: String) {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notification])
     }
     
     /// Function to request notification permission
@@ -27,18 +28,18 @@ class NotificationHelper {
         }
     }
     
-    func scheduleNotification() {
+    /// Function to request notification
+    func scheduleNotificationDateMatching(_ notificationModel: NotificationModel, dateComponent: DateComponents) {
         let content = UNMutableNotificationContent()
-        content.title = "Reminder!"
-        content.body = "This is your notification."
-        content.sound = .default
-        content.badge = NSNumber(value: 1) // Optional: Show a badge on the app icon
-
-        // Trigger the notification in 5 seconds
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15, repeats: false)
-
+        content.title = notificationModel.title
+        content.body = notificationModel.body
+        content.sound = notificationModel.sound
+        content.badge = notificationModel.badge
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponent, repeats: notificationModel.repeats)
+        
         // Create a request with a unique identifier
-        let request = UNNotificationRequest(identifier: "TestNotification", content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: notificationModel.id, content: content, trigger: trigger)
 
         // Add the request to the notification center
         UNUserNotificationCenter.current().add(request) { error in
@@ -48,5 +49,14 @@ class NotificationHelper {
                 print("Notification scheduled!")
             }
         }
+    }
+    
+    /// Removes the old notification and re adds it with new values
+    func updateScheduledNotificationDateMatching(_ notificationModel: NotificationModel, dateComponent: DateComponents) {
+        // Remove the old notification
+        self.removeNotificationRequest(notificationModel.id)
+        
+        // Add updated notification
+        self.scheduleNotificationDateMatching(notificationModel, dateComponent: dateComponent)
     }
 }

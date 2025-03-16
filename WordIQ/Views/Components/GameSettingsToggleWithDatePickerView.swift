@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// View of a game settings toggle with a date picker, used for setting the notification times
 struct GameSettingsToggleWithDatePickerView : View {
     var label: String
     @Binding var isActive: Bool

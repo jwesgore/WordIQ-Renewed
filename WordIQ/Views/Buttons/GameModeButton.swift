@@ -13,7 +13,7 @@ struct GameModeButton: View {
     var body: some View {
         ThreeDButtonView(threeDButtonVM) {
             VStack {
-                Text(gameMode.value)
+                Text(gameMode.asStringShort)
                     .font(.custom(RobotoSlabOptions.Weight.bold, size: CGFloat(RobotoSlabOptions.Size.title2)))
                 Text(gameMode.caption)
                     .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.caption)))

@@ -4,7 +4,7 @@ import SwiftUI
 struct StatsZenModeView: View {
     
     var databaseHelper: GameDatabaseHelper
-    let mode = GameMode.zengame
+    let mode = GameMode.zenMode
     
     var body: some View {
         let avgTimePerGame = TimeUtility.formatTimeShort(databaseHelper.getGameModeAvgTimePerGame(mode: mode))

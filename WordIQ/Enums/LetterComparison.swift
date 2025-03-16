@@ -4,7 +4,7 @@ import SwiftUI
 enum LetterComparison: Comparable, Codable {
     case wrong, contains, correct, notSet
         
-    /// Implementation of comparable
+    /// Implementation of Comparable
     static func < (lhs: LetterComparison, rhs: LetterComparison) -> Bool {
         return lhs.rank < rhs.rank
     }

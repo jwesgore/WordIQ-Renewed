@@ -2,6 +2,16 @@ import Foundation
 
 class ValueConverter {
     
+    static func dateToDateComponents(_ date: Date, components: Set<Calendar.Component>) -> DateComponents {
+        let calendar = Calendar.current
+        return calendar.dateComponents(components, from: date)
+    }
+    
+    static func dateComponentsToDate(_ dateComponents: DateComponents) -> Date? {
+        let calendar = Calendar.current
+        return calendar.date(from: dateComponents)
+    }
+    
     static func daysSince(_ date: Date) -> Int? {
         let calendar = Calendar.current
         let currentDate = Date()
@@ -9,18 +19,18 @@ class ValueConverter {
         return dateComponents.day
     }
     
-    static func DoubleToPercent(_ value : Double) -> String {
+    static func doubleToPercent(_ value : Double) -> String {
         return String(format: "%.2f%%", value * 100);
     }
     
-    static func DoubleToTwoPlaces(_ value : Double) -> String {
+    static func doubleToTwoPlaces(_ value : Double) -> String {
         return String(format: "%.2f", value);
     }
     
-    static func IntsToPercent(top : Int?, bottom: Int?) -> String {
+    static func intsToPercent(top : Int?, bottom: Int?) -> String {
         if let top = top, let bottom = bottom {
             let value : Double = Double(top) / Double(bottom);
-            return DoubleToPercent(value);
+            return doubleToPercent(value);
         }
         return "0.00%";
     }

@@ -17,7 +17,6 @@ struct WordIQApp: App {
         _ = WordDatabaseHelper.shared
         _ = UserDefaultsHelper.shared
         _ = Haptics.shared
-        _ = NotificationHelper.shared
         
         // Clear current streak if last daily played is over a day ago
         if let daysSinceEpoch = ValueConverter.daysSince(WordDatabaseHelper.shared.dailyEpoch) {
@@ -25,19 +24,7 @@ struct WordIQApp: App {
                 UserDefaultsHelper.shared.currentStreak_daily = 0
             }
         }
-        
-        DispatchQueue.global(qos: .background).async {
-            NotificationHelper.shared.checkNotificationPermission { status in
-                switch status {
-                case .authorized:
-                    NotificationHelper.shared.scheduleNotification()
-                case .notDetermined:
-                    NotificationHelper.shared.requestNotificationPermission()
-                default:
-                    break
-                }
-            }
-        }
+
     }
 
     var body: some Scene {

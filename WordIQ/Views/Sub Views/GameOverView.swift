@@ -30,7 +30,7 @@ struct GameOverView : View {
                 InfoItemView(gameoverVM.secondRowStat)
                 Divider()
                 InfoItemView(gameoverVM.thirdRowStat)
-                if gameMode != .zengame {
+                if gameMode != .zenMode {
                     Divider()
                     InfoItemView(gameoverVM.fourthRowStat)
                 }
@@ -39,15 +39,15 @@ struct GameOverView : View {
             
             Spacer()
             
-            if gameMode != .daily {
+            if gameMode != .dailyGame {
                 ThreeDButtonView(gameoverVM.PlayAgainButton) {
-                    Text(SystemNames.playAgain)
+                    Text(SystemNames.Navigation.playAgain)
                         .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.title3)))
                 }
             }
             
             ThreeDButtonView(gameoverVM.BackButton) {
-                Text(SystemNames.mainMenu)
+                Text(SystemNames.Navigation.mainMenu)
                     .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.title3)))
             }
         }
@@ -61,7 +61,7 @@ struct GameOverView : View {
 
 struct GameOverView_Preview: PreviewProvider {
     static var previews: some View {
-        let gameModeOptions = GameModeOptionsModel(gameMode: .standardgame, gameDifficulty: .normal, timeLimit: 0)
+        let gameModeOptions = GameModeOptionsModel(gameMode: .standardMode, gameDifficulty: .normal, timeLimit: 0)
         var gameoverModel = GameOverDataModel(gameModeOptions)
         gameoverModel.gameResult = .win
         let gameoverVM = GameOverViewModel(gameoverModel)

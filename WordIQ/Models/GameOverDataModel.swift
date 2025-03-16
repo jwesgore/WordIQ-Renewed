@@ -42,10 +42,10 @@ extension GameOverDataModel {
         
         self.targetWord = gameOptions.targetWord
         
-        if gameOptions.gameMode == .frenzygame {
+        if gameOptions.gameMode == .frenzyMode {
             self.timeLimit = gameOptions.timeLimit
             self.correctlyGuessedWords = [GameWordModel]()
-        } else if gameOptions.gameMode == .rushgame {
+        } else if gameOptions.gameMode == .rushMode {
             self.timeLimit = gameOptions.timeLimit
         }
     }

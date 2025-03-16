@@ -14,8 +14,8 @@ enum GameTimeLimit {
     /// Parses the given game mode and returns the correct time for it
     static func getTimesFromGameMode(_ gamemode : GameMode) -> (Int, Int, Int) {
         switch gamemode {
-        case .rushgame: return GameTimeLimit.rush.values
-        case .frenzygame: return GameTimeLimit.frenzy.values
+        case .rushMode: return GameTimeLimit.rush.values
+        case .frenzyMode: return GameTimeLimit.frenzy.values
         default: return GameTimeLimit.none.values
         }
     }

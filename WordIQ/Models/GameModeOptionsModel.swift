@@ -16,7 +16,7 @@ class GameModeOptionsModel : Codable {
     }
     
     /// Initializer that presets the target word
-    convenience init(gameMode: GameMode = .standardgame, gameDifficulty: GameDifficulty = .normal, timeLimit: Int = 0) {
+    convenience init(gameMode: GameMode = .standardMode, gameDifficulty: GameDifficulty = .normal, timeLimit: Int = 0) {
         let targetWord = WordDatabaseHelper.shared.fetchRandomWord(withDifficulty: gameDifficulty)
         self.init(gameMode: gameMode, gameDifficulty: gameDifficulty, timeLimit: timeLimit, targetWord: targetWord)
     }
@@ -28,7 +28,7 @@ class GameModeOptionsModel : Codable {
     
     /// Resets all values back to default so the model can be persisted
     func resetToDefaults() {
-        self.gameMode = .standardgame
+        self.gameMode = .standardMode
         self.gameDifficulty = .normal
         self.timeLimit = 0
     }

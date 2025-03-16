@@ -43,7 +43,7 @@ class GameOverViewModel : ObservableObject {
         secondRowStat.label = SystemNames.GameOver.guesses
         
         switch gameMode {
-        case .frenzygame:
+        case .frenzyMode:
             // Set Third Row Defaults
             thirdRowStat.icon = SFAssets.star
             thirdRowStat.label = SystemNames.GameOver.score
@@ -51,7 +51,7 @@ class GameOverViewModel : ObservableObject {
             // Set Fourth Row Defaults
             fourthRowStat.icon = SFAssets.timer
             fourthRowStat.label = SystemNames.GameOver.timePerWord
-        case .zengame:
+        case .zenMode:
             // Set Third Row Defaults
             thirdRowStat.icon = SFAssets.timer
             thirdRowStat.label = SystemNames.GameOver.gamesPlayed
@@ -73,16 +73,16 @@ class GameOverViewModel : ObservableObject {
         secondRowStat.value = gameOverData.numValidGuesses.description
         
         switch gameMode {
-        case .daily:
+        case .dailyGame:
             thirdRowStat.value = UserDefaultsHelper.shared.currentStreak_daily.description
-            fourthRowStat.value = ValueConverter.DoubleToPercent(databaseHelper.getGameModeWinPercentage(mode: gameMode))
-        case .standardgame:
+            fourthRowStat.value = ValueConverter.doubleToPercent(databaseHelper.getGameModeWinPercentage(mode: gameMode))
+        case .standardMode:
             thirdRowStat.value = UserDefaultsHelper.shared.currentStreak_standard.description
-            fourthRowStat.value = ValueConverter.DoubleToPercent(databaseHelper.getGameModeWinPercentage(mode: gameMode))
-        case .rushgame:
+            fourthRowStat.value = ValueConverter.doubleToPercent(databaseHelper.getGameModeWinPercentage(mode: gameMode))
+        case .rushMode:
             thirdRowStat.value = UserDefaultsHelper.shared.currentStreak_rush.description
-            fourthRowStat.value = ValueConverter.DoubleToPercent(databaseHelper.getGameModeWinPercentage(mode: gameMode))
-        case .frenzygame:
+            fourthRowStat.value = ValueConverter.doubleToPercent(databaseHelper.getGameModeWinPercentage(mode: gameMode))
+        case .frenzyMode:
             thirdRowStat.value = gameOverData.numCorrectWords.description
             if gameOverData.numCorrectWords > 0 {
                 fourthRowStat.value = TimeUtility.formatTimeShort(gameOverData.timeElapsed / gameOverData.numCorrectWords)
@@ -90,7 +90,7 @@ class GameOverViewModel : ObservableObject {
             else {
                 fourthRowStat.value = TimeUtility.formatTimeShort(gameOverData.timeElapsed)
             }
-        case .zengame:
+        case .zenMode:
             thirdRowStat.value = databaseHelper.getGameModeCount(mode: gameMode).description
         default:
             break
@@ -100,7 +100,7 @@ class GameOverViewModel : ObservableObject {
     // MARK: General Functions
     /// Save game over data
     func saveData() {
-        guard !(gameOverData.gameMode == .daily && UserDefaultsHelper.shared.lastDailyPlayed == gameOverData.targetWord.daily) else {
+        guard !(gameOverData.gameMode == .dailyGame && UserDefaultsHelper.shared.lastDailyPlayed == gameOverData.targetWord.daily) else {
             print("Daily already played")
             return
         }

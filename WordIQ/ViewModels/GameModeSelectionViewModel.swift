@@ -32,7 +32,7 @@ class GameModeSelectionViewModel: BaseViewNavigation {
     
     // Calculated Values
     var showTimeLimitOptions: Bool {
-        return [GameMode.rushgame, GameMode.frenzygame].contains(GameModeOptions.gameMode)
+        return [GameMode.rushMode, GameMode.frenzyMode].contains(GameModeOptions.gameMode)
     }
     
     // Set Values
@@ -109,29 +109,29 @@ class GameModeSelectionViewModel: BaseViewNavigation {
         }
         self.StandardGameModeButton.action = {
             self.TimeLimitOptions = GameTimeLimit.none.values
-            self.GameModeOptions.gameMode = .standardgame
+            self.GameModeOptions.gameMode = .standardMode
             self.GameModeOptions.timeLimit = 0
-            self.goToGameModeOptions(.standardgame)
+            self.goToGameModeOptions(.standardMode)
         }
         self.RushGameModeButton.action = {
             self.TimeLimitOptions = GameTimeLimit.rush.values
-            self.GameModeOptions.gameMode = .rushgame
+            self.GameModeOptions.gameMode = .rushMode
             self.GameModeOptions.timeLimit = GameTimeLimit.rush.values.1
             self.TimeSelectionManager.communicate(self.TimeSelection2Button.id)
-            self.goToGameModeOptions(.rushgame)
+            self.goToGameModeOptions(.rushMode)
         }
         self.FrenzyGameModeButton.action = {
             self.TimeLimitOptions = GameTimeLimit.frenzy.values
-            self.GameModeOptions.gameMode = .frenzygame
+            self.GameModeOptions.gameMode = .frenzyMode
             self.GameModeOptions.timeLimit = GameTimeLimit.frenzy.values.1
             self.TimeSelectionManager.communicate(self.TimeSelection2Button.id)
-            self.goToGameModeOptions(.frenzygame)
+            self.goToGameModeOptions(.frenzyMode)
         }
         self.ZenGameModeButton.action = {
             self.TimeLimitOptions = GameTimeLimit.none.values
-            self.GameModeOptions.gameMode = .zengame
+            self.GameModeOptions.gameMode = .zenMode
             self.GameModeOptions.timeLimit = 0
-            self.goToGameModeOptions(.zengame)
+            self.goToGameModeOptions(.zenMode)
         }
         
         // Step 5: Add radio buttons to their managers
@@ -142,7 +142,7 @@ class GameModeSelectionViewModel: BaseViewNavigation {
     // MARK: Navigation Functions
     /// Starts the game in daily mode
     func startDaily() {
-        self.GameModeOptions.gameMode = .daily
+        self.GameModeOptions.gameMode = .dailyGame
         self.GameModeOptions.timeLimit = 0
         self.GameModeOptions.gameDifficulty = .daily
         self.GameModeOptions.targetWord = WordDatabaseHelper.shared.fetchDailyWord()
@@ -184,15 +184,15 @@ class GameModeSelectionViewModel: BaseViewNavigation {
     func getGameViewModel() -> GameViewModel {
         let gameVM : GameViewModel = {
             switch GameModeOptions.gameMode {
-            case .standardgame:
+            case .standardMode:
                 return StandardModeViewModel(gameOptions: self.GameModeOptions)
-            case .rushgame:
+            case .rushMode:
                 return RushModeViewModel(gameOptions: self.GameModeOptions)
-            case .frenzygame:
+            case .frenzyMode:
                 return FrenzyModeViewModel(gameOptions: self.GameModeOptions)
-            case .zengame:
+            case .zenMode:
                 return ZenModeViewModel(gameOptions: self.GameModeOptions)
-            case .daily:
+            case .dailyGame:
                 return DailyModeViewModel(gameOptions: self.GameModeOptions)
             case .quickplay:
                 return StandardModeViewModel(gameOptions: self.GameModeOptions)

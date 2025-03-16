@@ -24,7 +24,7 @@ struct GameView : View {
                             }
                         )
                         Spacer()
-                        Text(gameViewModel.gameOptions.gameMode.value)
+                        Text(gameViewModel.gameOptions.gameMode.asStringShort)
                             .font(.custom(RobotoSlabOptions.Weight.bold, size: CGFloat(RobotoSlabOptions.Size.title3)))
                         Spacer()
                         Button(
@@ -69,5 +69,5 @@ struct GameView : View {
 }
 
 #Preview {
-    GameView(StandardModeViewModel(gameOptions: GameModeOptionsModel(gameMode: .standardgame, gameDifficulty: .normal, timeLimit:0)))
+    GameView(StandardModeViewModel(gameOptions: GameModeOptionsModel(gameMode: .standardMode, gameDifficulty: .normal, timeLimit:0)))
 }

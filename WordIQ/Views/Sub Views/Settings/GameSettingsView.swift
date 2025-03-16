@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// View for the Game Settings
 struct GameSettingsView : View {
 
     @Environment(\.managedObjectContext) private var viewContext
@@ -49,7 +50,6 @@ struct GameSettingsView : View {
                             .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.title3)))
                     }
                     .padding(.vertical, 20)
-                    
                     
                 }
                 .padding([.horizontal, .bottom])

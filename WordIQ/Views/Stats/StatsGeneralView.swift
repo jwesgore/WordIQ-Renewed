@@ -24,9 +24,9 @@ struct StatsGeneralView : View {
                             // Favorite mode text
                             HStack {
                                 Text("You play ") +
-                                Text(favoriteMode.value)
+                                Text(favoriteMode.asStringShort)
                                     .fontWeight(.semibold) +
-                                Text(" \(ValueConverter.IntsToPercent(top: distribution[favoriteMode], bottom: totalGamesPlayed)) of the time making it your most played game mode!")
+                                Text(" \(ValueConverter.intsToPercent(top: distribution[favoriteMode], bottom: totalGamesPlayed)) of the time making it your most played game mode!")
                                 Spacer()
                             }
                             .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.headline)))

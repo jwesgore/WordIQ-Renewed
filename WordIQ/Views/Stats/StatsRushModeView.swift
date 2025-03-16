@@ -4,7 +4,7 @@ import SwiftUI
 struct StatsRushModeView: View {
     
     var databaseHelper: GameDatabaseHelper
-    let mode = GameMode.rushgame
+    let mode = GameMode.rushMode
     
     var body: some View {
         let avgTimePerGame = TimeUtility.formatTimeShort(databaseHelper.getGameModeAvgTimePerGame(mode: mode))
@@ -13,7 +13,7 @@ struct StatsRushModeView: View {
         let guessesMade = databaseHelper.getGameModeNumGuesses(mode: mode).description
         let timeInMode = TimeUtility.formatTimeShort(databaseHelper.getGameModeTimePlayed(mode: mode))
         let totalGamesPlayed = databaseHelper.getGameModeCount(mode: mode).description
-        let winPercentage = ValueConverter.DoubleToPercent(databaseHelper.getGameModeWinPercentage(mode: mode))
+        let winPercentage = ValueConverter.doubleToPercent(databaseHelper.getGameModeWinPercentage(mode: mode))
         
         // Header
         Text(SystemNames.GameStats.rushModeStats)

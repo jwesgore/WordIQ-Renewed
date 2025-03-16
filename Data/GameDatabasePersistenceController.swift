@@ -30,7 +30,7 @@ class GameDatabasePersistenceController {
             newItem.id = UUID()
             
             newItem.date = Date.now
-            newItem.gameMode = Int64(GameMode.standardgame.id)
+            newItem.gameMode = Int64(GameMode.standardMode.id)
             newItem.gameDifficulty = Int64(GameDifficulty.normal.id)
             newItem.gameResult = Int64(GameResult.win.id)
             
@@ -49,7 +49,7 @@ class GameDatabasePersistenceController {
             newItem.id = UUID()
             
             newItem.date = Date.now
-            newItem.gameMode = Int64(GameMode.rushgame.id)
+            newItem.gameMode = Int64(GameMode.rushMode.id)
             newItem.gameDifficulty = Int64(GameDifficulty.normal.id)
             newItem.gameResult = Int64(GameResult.win.id)
             
@@ -68,7 +68,7 @@ class GameDatabasePersistenceController {
             newItem.id = UUID()
             
             newItem.date = Date.now
-            newItem.gameMode = Int64(GameMode.zengame.id)
+            newItem.gameMode = Int64(GameMode.zenMode.id)
             newItem.gameDifficulty = Int64(GameDifficulty.normal.id)
             newItem.gameResult = Int64(GameResult.win.id)
             

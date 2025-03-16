@@ -49,7 +49,7 @@ class UserDefaultsHelper {
             notificationsOnKey: true,
             notificationsDaily1Key: true,
             notificationsDaily2Key: true,
-            quickplayModeKey: GameMode.standardgame.id,
+            quickplayModeKey: GameMode.standardMode.id,
             quickplayDifficultyKey: GameDifficulty.normal.id,
             quickplayTimeLimitKey: 0,
             currentStreakDailyKey: 0,
@@ -127,10 +127,9 @@ class UserDefaultsHelper {
     }
     
     /// Stores the setting for time to send the first daily notification
-    var setting_notificationsDaily1Time: Date? {
+    var setting_notificationsDaily1Time: DateComponents {
         get {
-            
-            if let date = UserDefaults.standard.object(forKey: notificationsDaily1TimeKey) as? Date {
+            if let date = UserDefaults.standard.object(forKey: notificationsDaily1TimeKey) as? DateComponents {
                 return date
             }
             
@@ -138,7 +137,7 @@ class UserDefaultsHelper {
             var components = DateComponents()
             components.hour = 9
             components.minute = 0
-            return Calendar.current.date(from: components)
+            return components
         }
         set {
             UserDefaults.standard.set(newValue, forKey: notificationsDaily1TimeKey)
@@ -156,9 +155,9 @@ class UserDefaultsHelper {
     }
     
     /// Stores the setting for time to send the second daily notification
-    var setting_notificationsDaily2Time: Date? {
+    var setting_notificationsDaily2Time: DateComponents {
         get {
-            if let date = UserDefaults.standard.object(forKey: notificationsDaily2TimeKey) as? Date {
+            if let date = UserDefaults.standard.object(forKey: notificationsDaily2TimeKey) as? DateComponents {
                 return date
             }
             
@@ -166,7 +165,7 @@ class UserDefaultsHelper {
             var components = DateComponents()
             components.hour = 21
             components.minute = 0
-            return Calendar.current.date(from: components)
+            return components
         }
         set {
             UserDefaults.standard.set(newValue, forKey: notificationsDaily2TimeKey)
@@ -178,12 +177,12 @@ class UserDefaultsHelper {
     var quickplaySetting_mode: GameMode {
         get {
             let modeId = UserDefaults.standard.integer(forKey: quickplayModeKey)
-            return GameMode.fromId(modeId) ?? .standardgame
+            return GameMode.fromId(modeId) ?? .standardMode
         }
         set {
             switch newValue {
-            case .rushgame: quickplaySetting_timeLimit = 60
-            case .frenzygame: quickplaySetting_timeLimit = 90
+            case .rushMode: quickplaySetting_timeLimit = 60
+            case .frenzyMode: quickplaySetting_timeLimit = 90
             default: quickplaySetting_timeLimit = 0
             }
             UserDefaults.standard.set(newValue.id, forKey: quickplayModeKey)
@@ -333,7 +332,7 @@ class UserDefaultsHelper {
     // Update values based on game over results
     func update(_ gameOverResults : GameOverDataModel) {
         switch gameOverResults.gameMode {
-        case .daily:
+        case .dailyGame:
             if gameOverResults.gameResult == .win {
                 currentStreak_daily = lastDailyPlayed + 1 >= gameOverResults.targetWord.daily ? currentStreak_daily + 1 : 1
             } else {
@@ -341,11 +340,11 @@ class UserDefaultsHelper {
             }
             lastDailyPlayed = gameOverResults.targetWord.daily
             dailyGameOverModel = gameOverResults
-        case .standardgame:
+        case .standardMode:
             currentStreak_standard = gameOverResults.gameResult == .win ? currentStreak_standard + 1 : 0
-        case .rushgame:
+        case .rushMode:
             currentStreak_rush = gameOverResults.gameResult == .win ? currentStreak_rush + 1 : 0
-        case .frenzygame:
+        case .frenzyMode:
             if gameOverResults.numCorrectWords > maxScore_frenzy {
                 maxScore_frenzy = gameOverResults.numCorrectWords
             }

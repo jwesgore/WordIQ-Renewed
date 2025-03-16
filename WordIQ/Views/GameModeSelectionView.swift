@@ -37,13 +37,13 @@ struct GameModeSelectionView: View {
                     ZStack {
                         VStack (spacing: 10) {
                             HStack {
-                                GameModeButton(gameModeSelectionVM.DailyGameButton, gameMode: .daily)
+                                GameModeButton(gameModeSelectionVM.DailyGameButton, gameMode: .dailyGame)
                                 GameModeButton(gameModeSelectionVM.QuickplayGameButton, gameMode: .quickplay)
                             }
-                            GameModeButton(gameModeSelectionVM.StandardGameModeButton, gameMode: .standardgame)
-                            GameModeButton(gameModeSelectionVM.RushGameModeButton, gameMode: .rushgame)
-                            GameModeButton(gameModeSelectionVM.FrenzyGameModeButton, gameMode: .frenzygame)
-                            GameModeButton(gameModeSelectionVM.ZenGameModeButton, gameMode: .zengame)
+                            GameModeButton(gameModeSelectionVM.StandardGameModeButton, gameMode: .standardMode)
+                            GameModeButton(gameModeSelectionVM.RushGameModeButton, gameMode: .rushMode)
+                            GameModeButton(gameModeSelectionVM.FrenzyGameModeButton, gameMode: .frenzyMode)
+                            GameModeButton(gameModeSelectionVM.ZenGameModeButton, gameMode: .zenMode)
                             
                         }
                         .offset(CGSize(width: gameModeSelectionVM.Offset - 2000, height: 0))

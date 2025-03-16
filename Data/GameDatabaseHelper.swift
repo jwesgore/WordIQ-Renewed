@@ -106,7 +106,7 @@ class GameDatabaseHelper {
     /// Checks if daily entry already exists
     func doesDailyEntryExist(word: GameWordModel) -> Bool {
         let fetchRequest: NSFetchRequest<GameResultsModel> = GameResultsModel.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "gameMode == %d AND targetWord == %@", GameMode.daily.id, word.word)
+        fetchRequest.predicate = NSPredicate(format: "gameMode == %d AND targetWord == %@", GameMode.dailyGame.id, word.word)
         
         do {
             let results = try context.fetch(fetchRequest)
@@ -170,11 +170,11 @@ class GameDatabaseHelper {
     func getGameModeDistribution() -> [GameMode : Int] {
         var data : [GameMode : Int] = [:]
         
-        data[GameMode.standardgame] = getGameModeCount(mode: .standardgame)
-        data[GameMode.rushgame] = getGameModeCount(mode: .rushgame)
-        data[GameMode.frenzygame] = getGameModeCount(mode: .frenzygame)
-        data[GameMode.zengame] = getGameModeCount(mode: .zengame)
-        data[GameMode.daily] = getGameModeCount(mode: .daily)
+        data[GameMode.standardMode] = getGameModeCount(mode: .standardMode)
+        data[GameMode.rushMode] = getGameModeCount(mode: .rushMode)
+        data[GameMode.frenzyMode] = getGameModeCount(mode: .frenzyMode)
+        data[GameMode.zenMode] = getGameModeCount(mode: .zenMode)
+        data[GameMode.dailyGame] = getGameModeCount(mode: .dailyGame)
 
         return data
     }
