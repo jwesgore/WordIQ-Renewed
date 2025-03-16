@@ -15,6 +15,7 @@ struct GameSettingsView : View {
             // MARK: Top Row Header and Done Button
             HeaderWithDoneButtonView(title: SystemNames.GameSettings.settings, isPresented: $isPresented)
                 .padding(.horizontal)
+                .padding(.vertical, 5)
         
             ScrollView {
                 VStack {

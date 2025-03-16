@@ -53,7 +53,6 @@
 		4B82B9DD2CC072E4009A1502 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B82B9DC2CC072E4009A1502 /* Assets.xcassets */; };
 		4B82B9E02CC072E4009A1502 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B82B9DF2CC072E4009A1502 /* Preview Assets.xcassets */; };
 		4B884CBF2D85389E00C0A808 /* GameSettingsGameplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CBE2D85388C00C0A808 /* GameSettingsGameplayView.swift */; };
-		4B884CC12D8538BE00C0A808 /* GameSettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CC02D8538B700C0A808 /* GameSettingsHeaderView.swift */; };
 		4B884CC32D8539F100C0A808 /* GameSettingsQuickplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CC22D8539E600C0A808 /* GameSettingsQuickplayView.swift */; };
 		4B884CC52D853AB200C0A808 /* GameSettingsNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CC42D853AA500C0A808 /* GameSettingsNotificationsView.swift */; };
 		4B884CC72D853EF600C0A808 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CC62D853EEF00C0A808 /* NotificationModel.swift */; };
@@ -167,7 +166,6 @@
 		4B82B9DC2CC072E4009A1502 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B82B9DF2CC072E4009A1502 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4B884CBE2D85388C00C0A808 /* GameSettingsGameplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsGameplayView.swift; sourceTree = "<group>"; };
-		4B884CC02D8538B700C0A808 /* GameSettingsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsHeaderView.swift; sourceTree = "<group>"; };
 		4B884CC22D8539E600C0A808 /* GameSettingsQuickplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsQuickplayView.swift; sourceTree = "<group>"; };
 		4B884CC42D853AA500C0A808 /* GameSettingsNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsNotificationsView.swift; sourceTree = "<group>"; };
 		4B884CC62D853EEF00C0A808 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
@@ -320,7 +318,6 @@
 		4B4929D22D6EE5BC00CEBBF2 /* Sub Views */ = {
 			isa = PBXGroup;
 			children = (
-				4B884CBD2D85388000C0A808 /* Settings */,
 				4B091B5B2CD85BF40092600B /* GameOverView.swift */,
 				4B6603AE2CEAE02400F4F140 /* GamePauseView.swift */,
 			);
@@ -384,7 +381,6 @@
 				4B1CC12E2D850C2200A56316 /* GameSettingsToggleView.swift */,
 				4B1CC1312D850D1000A56316 /* GameSettingsToggleWithDatePickerView.swift */,
 				4B884CBE2D85388C00C0A808 /* GameSettingsGameplayView.swift */,
-				4B884CC02D8538B700C0A808 /* GameSettingsHeaderView.swift */,
 				4B884CC42D853AA500C0A808 /* GameSettingsNotificationsView.swift */,
 				4B884CC22D8539E600C0A808 /* GameSettingsQuickplayView.swift */,
 				4B6603A82CE1599800F4F140 /* GameSettingsView.swift */,
@@ -531,6 +527,7 @@
 				4B091B372CD344220092600B /* Gameboard */,
 				4B091B342CD33DD20092600B /* Keyboard */,
 				4BD0CF8A2D7183D90077640A /* Stats */,
+				4B884CBD2D85388000C0A808 /* Settings */,
 				4B4929D22D6EE5BC00CEBBF2 /* Sub Views */,
 			);
 			path = Views;
@@ -775,7 +772,6 @@
 				4BF5925F2CC1E60E00C555F6 /* 3DButtonViewModel.swift in Sources */,
 				4B091B572CD68FF00092600B /* LetterComparison.swift in Sources */,
 				4B4929AE2D6BE90700CEBBF2 /* GamePauseViewModel.swift in Sources */,
-				4B884CC12D8538BE00C0A808 /* GameSettingsHeaderView.swift in Sources */,
 				4B6603AF2CEAE03800F4F140 /* GamePauseView.swift in Sources */,
 				4BD0CF9A2D72776D0077640A /* StatsStandardModeView.swift in Sources */,
 				4B884CD32D87526E00C0A808 /* HeaderWithDoneButtonView.swift in Sources */,

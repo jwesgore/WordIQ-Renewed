@@ -18,7 +18,7 @@ struct StatsView : View {
             
             if let databaseHelper = databaseHelper {
                 ScrollView {
-                    VStack (spacing: 10) {
+                    VStack {
                         StatsGeneralView(databaseHelper: databaseHelper)
                         StatsDailyModeView(databaseHelper: databaseHelper)
                         StatsStandardModeView(databaseHelper: databaseHelper)
@@ -26,7 +26,7 @@ struct StatsView : View {
                         StatsFrenzyModeView(databaseHelper: databaseHelper)
                         StatsZenModeView(databaseHelper: databaseHelper)
                     }
-                    .padding([.horizontal, .bottom])
+                    .padding(.horizontal)
                 }
             } else {
                 Text("Loading data...")
@@ -37,7 +37,7 @@ struct StatsView : View {
             }
         }
         .background(Color.appBackground)
-        .padding(.bottom)
+        .padding(.bottom, 32)
         .ignoresSafeArea(edges: .bottom)
     }
 }

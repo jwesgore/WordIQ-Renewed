@@ -19,3 +19,10 @@ struct ExpandAndCollapseHeaderView: View {
         .buttonStyle(NoAnimation())
     }
 }
+
+extension ExpandAndCollapseHeaderView {
+    init (_ title: String, isExpanded: Binding<Bool>) {
+        self.title = title
+        self._isExpanded = isExpanded
+    }
+}
