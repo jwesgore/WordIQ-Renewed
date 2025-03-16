@@ -38,3 +38,7 @@ class NavigationController: ObservableObject {
     }
     
 }
+
+protocol NavigationControllerView {
+    
+}

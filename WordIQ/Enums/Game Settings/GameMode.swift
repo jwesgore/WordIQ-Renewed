@@ -65,6 +65,7 @@ extension GameMode {
         case .rushMode: return "Test your speed"
         case .frenzyMode: return "Test your endurance"
         case .zenMode: return "Take it easy"
+        case .dailyGame: return "New Daily Available!"
         default: return ""
         }
     }

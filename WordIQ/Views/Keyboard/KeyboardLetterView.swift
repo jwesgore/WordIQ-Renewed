@@ -9,18 +9,15 @@ struct KeyboardLetterView : View {
     }
     
     var body: some View {
-        Button(
-            action: {
-                Haptics.shared.impact(.medium)
-                letterVM.PerformAction()
-            },
-            label: {
-                Text(letterVM.letter.stringValue)
-                    .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.title2)))
-                    .foregroundStyle(letterVM.fontColor)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
-        )
+        Button {
+            Haptics.shared.impact(.medium)
+            letterVM.PerformAction()
+        } label: {
+            Text(letterVM.letter.stringValue)
+                .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.title2)))
+                .foregroundStyle(letterVM.fontColor)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
         .frame(width:letterVM.width, height: letterVM.height)
         .background(letterVM.backgroundColor.color)
         .overlay(

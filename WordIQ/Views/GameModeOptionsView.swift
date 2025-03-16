@@ -18,11 +18,11 @@ struct GameModeOptionsView : View {
                 Spacer().frame(height: 20)
                 
                 Text(optionsHeader)
-                    .font(.custom(RobotoSlabOptions.Weight.semiBold, size: CGFloat(RobotoSlabOptions.Size.title2)))
+                    .font(.custom(RobotoSlabOptions.Weight.semiBold, fixedSize: CGFloat(RobotoSlabOptions.Size.title2)))
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Text(gameModeSelectionVM.GameModeOptions.gameMode.description)
-                    .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.subheading)))
+                    .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.subheading)))
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             Spacer()
@@ -42,12 +42,12 @@ struct GameModeOptionsView : View {
             VStack (spacing: 10) {
                 ThreeDButtonView(gameModeSelectionVM.StartButton) {
                     Text(SystemNames.Navigation.startGame)
-                        .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.title3)))
+                        .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.title3)))
                 }
                 
                 ThreeDButtonView(gameModeSelectionVM.BackButton) {
                     Text(SystemNames.Navigation.back)
-                        .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.title3)))
+                        .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.title3)))
                 }
             }
         }
@@ -56,5 +56,5 @@ struct GameModeOptionsView : View {
 }
 
 #Preview {
-    GameModeOptionsView(GameModeSelectionViewModel())
+    GameModeOptionsView(GameModeSelectionViewModel(NavigationController()))
 }

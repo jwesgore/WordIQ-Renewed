@@ -9,17 +9,16 @@ struct KeyboardFunctionView : View {
     }
     
     var body: some View {
-        Button(
-            action: {
-                Haptics.shared.impact(.medium)
-                functionVM.PerformAction()
-            },
-            label: {
-                Image(systemName: functionVM.keyboardFunction.symbol)
-                    .foregroundStyle(functionVM.fontColor)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
-        )
+        Button {
+            Haptics.shared.impact(.medium)
+            functionVM.PerformAction()
+        } label: {
+            Image(systemName: functionVM.keyboardFunction.symbol)
+                .resizable()
+                .scaledToFit()
+                .frame(maxWidth: CGFloat(RobotoSlabOptions.Size.title2), maxHeight: CGFloat(RobotoSlabOptions.Size.title2))
+                .foregroundStyle(functionVM.fontColor)
+        }
         .frame(width:functionVM.width, height: functionVM.height)
         .background(functionVM.backgroundColor)
         .overlay(

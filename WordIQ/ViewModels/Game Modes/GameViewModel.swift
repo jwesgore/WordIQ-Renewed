@@ -3,10 +3,6 @@ import SwiftUI
 /// ViewModel to manage the playable game screen
 class GameViewModel : BaseViewNavigation {
     
-    // MARK: Concurrency
-    let group = DispatchGroup()
-    let queue = DispatchQueue(label: "GameViewModelQueue")
-    
     // MARK: Fields
     let funcKeyWidthMultiplier = 0.13
     let keyHeightMultiplier = 0.06

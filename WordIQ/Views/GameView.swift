@@ -15,26 +15,29 @@ struct GameView : View {
             case .root:
                 VStack (spacing: 0) {
                     HStack (spacing: 0) {
-                        Button (
-                            action: {
-                                self.gameViewModel.exitGame()
-                            },
-                            label: {
-                                Image(systemName: SFAssets.backArrow)
-                            }
-                        )
+                        Button {
+                            self.gameViewModel.exitGame()
+                        } label: {
+                            Image(systemName: SFAssets.backArrow)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(maxWidth: CGFloat(RobotoSlabOptions.Size.title2), maxHeight: CGFloat(RobotoSlabOptions.Size.title2))
+                        }
+                        
                         Spacer()
                         Text(gameViewModel.gameOptions.gameMode.asStringShort)
-                            .font(.custom(RobotoSlabOptions.Weight.bold, size: CGFloat(RobotoSlabOptions.Size.title3)))
+                            .font(.custom(RobotoSlabOptions.Weight.bold, fixedSize: CGFloat(RobotoSlabOptions.Size.title3)))
                         Spacer()
-                        Button(
-                            action: {
-                                self.gameViewModel.pauseGame()
-                            },
-                            label: {
-                                Image(systemName: SFAssets.pause)
-                            }
-                        )
+                        
+                        Button {
+                            self.gameViewModel.pauseGame()
+                        } label: {
+                            Image(systemName: SFAssets.pause)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(maxWidth: CGFloat(RobotoSlabOptions.Size.title2), maxHeight: CGFloat(RobotoSlabOptions.Size.title2))
+                        }
+                        
                     }
                     
                     Spacer()
@@ -42,6 +45,7 @@ struct GameView : View {
                     HStack {
                         Spacer()
                         ClockView(clockVM: gameViewModel.clock)
+                            .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.title2)))
                     }
                     
                     GameBoardView(gameViewModel.gameBoardWords)

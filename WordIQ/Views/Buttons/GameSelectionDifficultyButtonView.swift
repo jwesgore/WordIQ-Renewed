@@ -14,7 +14,7 @@ struct GameSelectionDifficultyButtonView : View {
     var body : some View {
         ThreeDRadioButtonView(button) {
             Text(difficulty.asString)
-                .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.title2)))
+                .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.title2)))
         }
     }
 }

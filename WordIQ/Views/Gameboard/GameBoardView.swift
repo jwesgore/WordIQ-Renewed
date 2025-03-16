@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// View of a gameboard with six game words
+/// View of a game board with six game words
 struct GameBoardView : View {
     
     var gameBoardWords : [GameBoardWordViewModel]

@@ -1,9 +1,10 @@
 import SwiftUI
 
 /// ViewModel to manage the GameModeSelectionView
-class GameModeSelectionViewModel: BaseViewNavigation {
+class GameModeSelectionViewModel : ObservableObject {
     
     @Published var Offset : Int = 2000
+    let navigationController: NavigationController
     
     var StartButton : ThreeDButtonViewModel
     var BackButton : ThreeDButtonViewModel
@@ -36,14 +37,16 @@ class GameModeSelectionViewModel: BaseViewNavigation {
     }
     
     // Set Values
-    let HalfButtonDimensions: (CGFloat, CGFloat) = (60, 200)
-    let GameModeButtonDimension: (CGFloat, CGFloat) = (60, 400)
+    let HalfButtonDimensions: (CGFloat, CGFloat) = (70, 200)
+    let GameModeButtonDimension: (CGFloat, CGFloat) = (70, 400)
     let DifficultyButtonDimension: (CGFloat, CGFloat) = (50, 400)
     let TimeSelectionButtonDimension: (CGFloat, CGFloat) = (50, 400)
     let NavigationButtonDimension: (CGFloat, CGFloat) = (50, 400)
     
-    override init() {
+    init(_ navigationController: NavigationController) {
+        
         // Step 1: Initialize Models
+        self.navigationController = navigationController
         self.GameModeOptions = GameModeOptionsModel()
         
         // Step 2: Initialize all buttons without action
@@ -66,9 +69,6 @@ class GameModeSelectionViewModel: BaseViewNavigation {
         self.RushGameModeButton = ThreeDButtonViewModel(height: GameModeButtonDimension.0, width: GameModeButtonDimension.1)
         self.FrenzyGameModeButton = ThreeDButtonViewModel(height: GameModeButtonDimension.0, width: GameModeButtonDimension.1)
         self.ZenGameModeButton = ThreeDButtonViewModel(height: GameModeButtonDimension.0, width: GameModeButtonDimension.1)
-        
-        // Step 3: Init base
-        super.init()
         
         // Step 4: Add actions to buttons
         self.StartButton.action = {
@@ -146,13 +146,13 @@ class GameModeSelectionViewModel: BaseViewNavigation {
         self.GameModeOptions.timeLimit = 0
         self.GameModeOptions.gameDifficulty = .daily
         self.GameModeOptions.targetWord = WordDatabaseHelper.shared.fetchDailyWord()
-        super.fadeToBlankDelay(delay:0.25, hang: 0.25)
+        self.navigationController.goToViewWithAnimation(.game, delay:0.25, pauseLength: 0.25)
     }
     
     /// Starts the game with the defined game options
     func startGame() {
         self.GameModeOptions.resetTargetWord()
-        super.fadeToBlankDelay(delay:0.25, hang: 0.25)
+        self.navigationController.goToViewWithAnimation(.game, delay:0.25, pauseLength: 0.25)
     }
     
     /// Function to transition the view from mode selection to options
@@ -177,7 +177,7 @@ class GameModeSelectionViewModel: BaseViewNavigation {
     /// Resets all values for when game is exited
     func exitFromGame() {
         self.goBackToModeSelection()
-        super.fadeToBlank(fromRoot: false)
+        self.navigationController.goToViewWithAnimation(.gameModeSelection)
     }
     
     /// Creates a game view model based on the game mode options set

@@ -4,75 +4,71 @@ import SwiftUI
 struct GameModeSelectionView: View {
     
     @ObservedObject var gameModeSelectionVM: GameModeSelectionViewModel
-    
-    init() {
-        self.gameModeSelectionVM = GameModeSelectionViewModel()
-    }
 
     var body: some View {
-        ZStack {
-            switch gameModeSelectionVM.activeView {
-            case .root:
-                VStack {
-                    // MARK: Header
-                    HStack {
-                        Text(SystemNames.Title.title)
-                            .font(.custom(RobotoSlabOptions.Weight.bold, size: CGFloat(RobotoSlabOptions.Size.title2)))
-                        Spacer()
-                        Button(action:{
-                            gameModeSelectionVM.DisplayStats = true
-                        }) {
-                            Image(systemName: SFAssets.stats)
-                        }
-                        .padding(.horizontal, 5)
-                        Button(action:{
-                            gameModeSelectionVM.DisplaySettings = true
-                        }) {
-                            Image(systemName: SFAssets.settings)
-                        }
-                    }
-                    Spacer()
-                    
-                    // MARK: Buttons
-                    ZStack {
-                        VStack (spacing: 10) {
-                            HStack {
-                                GameModeButton(gameModeSelectionVM.DailyGameButton, gameMode: .dailyGame)
-                                GameModeButton(gameModeSelectionVM.QuickplayGameButton, gameMode: .quickplay)
-                            }
-                            GameModeButton(gameModeSelectionVM.StandardGameModeButton, gameMode: .standardMode)
-                            GameModeButton(gameModeSelectionVM.RushGameModeButton, gameMode: .rushMode)
-                            GameModeButton(gameModeSelectionVM.FrenzyGameModeButton, gameMode: .frenzyMode)
-                            GameModeButton(gameModeSelectionVM.ZenGameModeButton, gameMode: .zenMode)
-                            
-                        }
-                        .offset(CGSize(width: gameModeSelectionVM.Offset - 2000, height: 0))
-                        
-                        GameModeOptionsView(gameModeSelectionVM)
-                            .offset(CGSize(width: gameModeSelectionVM.Offset, height: 0))
-                    }
-                    Spacer()
+        VStack {
+            // MARK: Header
+            HStack {
+                Text(SystemNames.Title.title)
+                    .font(.custom(RobotoSlabOptions.Weight.bold, fixedSize: CGFloat(RobotoSlabOptions.Size.title2)))
+                Spacer()
+                Button{
+                    gameModeSelectionVM.DisplayStats = true
+                } label: {
+                    Image(systemName: SFAssets.stats)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: CGFloat(RobotoSlabOptions.Size.title2))
                 }
-                .padding()
-                .transition(.blurReplace)
-                .fullScreenCover(isPresented: $gameModeSelectionVM.DisplaySettings) {
-                    GameSettingsView(isPresented: $gameModeSelectionVM.DisplaySettings)
+                .padding(.horizontal, 5)
+                Button {
+                    gameModeSelectionVM.DisplaySettings = true
+                } label: {
+                    Image(systemName: SFAssets.settings)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: CGFloat(RobotoSlabOptions.Size.title2))
                 }
-                .fullScreenCover(isPresented: $gameModeSelectionVM.DisplayStats) {
-                    StatsView(isPresented: $gameModeSelectionVM.DisplayStats)
-                }
-            case .target:
-                GameView(gameModeSelectionVM.getGameViewModel())
-                    .transition(.blurReplace)
-            case .blank:
-                Color.appBackground
             }
+            Spacer()
+            
+            // MARK: Buttons
+            ZStack {
+                VStack (spacing: 10) {
+                    HStack {
+                        GameModeButton(gameModeSelectionVM.DailyGameButton, gameMode: .dailyGame)
+                        GameModeButton(gameModeSelectionVM.QuickplayGameButton, gameMode: .quickplay)
+                    }
+                    GameModeButton(gameModeSelectionVM.StandardGameModeButton, gameMode: .standardMode)
+                    GameModeButton(gameModeSelectionVM.RushGameModeButton, gameMode: .rushMode)
+                    GameModeButton(gameModeSelectionVM.FrenzyGameModeButton, gameMode: .frenzyMode)
+                    GameModeButton(gameModeSelectionVM.ZenGameModeButton, gameMode: .zenMode)
+                    
+                }
+                .offset(CGSize(width: gameModeSelectionVM.Offset - 2000, height: 0))
+                
+                GameModeOptionsView(gameModeSelectionVM)
+                    .offset(CGSize(width: gameModeSelectionVM.Offset, height: 0))
+            }
+            Spacer()
         }
-        .background(Color.appBackground.ignoresSafeArea())
-        
+        .padding()
+        .transition(.blurReplace)
+        .fullScreenCover(isPresented: $gameModeSelectionVM.DisplaySettings) {
+            GameSettingsView(isPresented: $gameModeSelectionVM.DisplaySettings)
+        }
+        .fullScreenCover(isPresented: $gameModeSelectionVM.DisplayStats) {
+            StatsView(isPresented: $gameModeSelectionVM.DisplayStats)
+        }
+    }
+}
+
+extension GameModeSelectionView {
+    init(_ gameModeSelectionVM: GameModeSelectionViewModel) {
+        self.gameModeSelectionVM = gameModeSelectionVM
     }
 }
  
 #Preview {
-    GameModeSelectionView()
+    GameModeSelectionView(GameModeSelectionViewModel(NavigationController()))
 }

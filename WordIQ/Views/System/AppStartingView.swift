@@ -2,7 +2,14 @@ import SwiftUI
 
 struct AppStartingView: View {
     
-    @ObservedObject var navigationController = NavigationController()
+    @ObservedObject var navigationController : NavigationController
+    @ObservedObject var gameModeSelectionVM : GameModeSelectionViewModel
+    
+    init() {
+        let navigationControllerLocal = NavigationController()
+        self.navigationController = navigationControllerLocal
+        self.gameModeSelectionVM = GameModeSelectionViewModel(navigationControllerLocal)
+    }
     
     var body: some View {
         ZStack {
@@ -18,7 +25,10 @@ struct AppStartingView: View {
                         }
                     }
             case .gameModeSelection:
-                GameModeSelectionView()
+                GameModeSelectionView(gameModeSelectionVM)
+                    .transition(.blurReplace)
+            case .game:
+                GameView(gameModeSelectionVM.getGameViewModel())
                     .transition(.blurReplace)
             default:
                 Color.appBackground
