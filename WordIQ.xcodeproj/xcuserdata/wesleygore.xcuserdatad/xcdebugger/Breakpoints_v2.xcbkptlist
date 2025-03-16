@@ -78,8 +78,8 @@
             filePath = "WordIQ/ViewModels/GameSettingsViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "10"
-            endingLineNumber = "10"
+            startingLineNumber = "12"
+            endingLineNumber = "12"
             landmarkName = "colorBlind"
             landmarkType = "24">
          </BreakpointContent>
@@ -94,8 +94,8 @@
             filePath = "WordIQ/ViewModels/GameSettingsViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "9"
-            endingLineNumber = "9"
+            startingLineNumber = "11"
+            endingLineNumber = "11"
             landmarkName = "colorBlind"
             landmarkType = "24">
          </BreakpointContent>

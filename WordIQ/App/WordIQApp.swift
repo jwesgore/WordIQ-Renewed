@@ -29,9 +29,11 @@ struct WordIQApp: App {
 
     var body: some Scene {
         WindowGroup {
-            SplashScreenView()
+            AppStartingView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
+        
+        
 //        .onChange(of: scenePhase) {
 //            if scenePhase == .inactive {
 //                WordDatabaseHelper.shared.closeDatabase()

@@ -5,4 +5,5 @@ enum SystemView {
     case gameModeSelection
     case empty
     case splashScreen
+    case notificationPermissionRequest
 }

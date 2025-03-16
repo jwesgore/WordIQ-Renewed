@@ -129,21 +129,30 @@ class UserDefaultsHelper {
     /// Stores the setting for time to send the first daily notification
     var setting_notificationsDaily1Time: DateComponents {
         get {
-            if let date = UserDefaults.standard.object(forKey: notificationsDaily1TimeKey) as? DateComponents {
-                return date
+            // Retrieve the dictionary from UserDefaults
+            if let savedDict = UserDefaults.standard.dictionary(forKey: notificationsDaily1TimeKey) as? [String: Int] {
+                var components = DateComponents()
+                components.hour = savedDict["hour"]
+                components.minute = savedDict["minute"]
+                return components
             }
-            
-            // Return 9:00 AM if no value is stored
-            var components = DateComponents()
-            components.hour = 9
-            components.minute = 0
-            return components
+
+            // Return default value of 9:00 AM if no value is stored
+            var defaultComponents = DateComponents()
+            defaultComponents.hour = 9
+            defaultComponents.minute = 0
+            return defaultComponents
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: notificationsDaily1TimeKey)
+            // Convert DateComponents to a dictionary before saving
+            let dateComponentsDict: [String: Int] = [
+                "hour": newValue.hour ?? 0,
+                "minute": newValue.minute ?? 0
+            ]
+            UserDefaults.standard.set(dateComponentsDict, forKey: notificationsDaily1TimeKey)
         }
     }
-    
+
     /// Stores the setting for sending second daily notification
     var setting_notificationsDaily2: Bool {
         get {
@@ -157,18 +166,27 @@ class UserDefaultsHelper {
     /// Stores the setting for time to send the second daily notification
     var setting_notificationsDaily2Time: DateComponents {
         get {
-            if let date = UserDefaults.standard.object(forKey: notificationsDaily2TimeKey) as? DateComponents {
-                return date
+            // Retrieve the dictionary from UserDefaults
+            if let savedDict = UserDefaults.standard.dictionary(forKey: notificationsDaily2TimeKey) as? [String: Int] {
+                var components = DateComponents()
+                components.hour = savedDict["hour"]
+                components.minute = savedDict["minute"]
+                return components
             }
-            
-            // Return 9:00 AM if no value is stored
-            var components = DateComponents()
-            components.hour = 21
-            components.minute = 0
-            return components
+
+            // Return default value of 9:00 PM if no value is stored
+            var defaultComponents = DateComponents()
+            defaultComponents.hour = 21
+            defaultComponents.minute = 0
+            return defaultComponents
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: notificationsDaily2TimeKey)
+            // Convert DateComponents to a dictionary before saving
+            let dateComponentsDict: [String: Int] = [
+                "hour": newValue.hour ?? 0,
+                "minute": newValue.minute ?? 0
+            ]
+            UserDefaults.standard.set(dateComponentsDict, forKey: notificationsDaily2TimeKey)
         }
     }
     
