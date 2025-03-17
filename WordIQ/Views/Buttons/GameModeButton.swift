@@ -46,6 +46,12 @@ extension GameModeButton {
                     self.caption = "Error! Time traveler detected!"
                 }
             }
+        case .quickplay:
+            self.caption = "\(UserDefaultsHelper.shared.quickplaySetting_mode.asStringShort), \(UserDefaultsHelper.shared.quickplaySetting_difficulty.asString)"
+            
+            if UserDefaultsHelper.shared.quickplaySetting_mode == .rushMode || UserDefaultsHelper.shared.quickplaySetting_mode == .frenzyMode {
+                self.caption += ", \(TimeUtility.formatTimeShort(UserDefaultsHelper.shared.quickplaySetting_timeLimit))"
+            }
         default:
             self.caption = gameMode.caption
         }
