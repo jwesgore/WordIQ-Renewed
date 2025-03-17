@@ -16,12 +16,12 @@ struct GameOverView : View {
             Spacer()
             
             Text(gameoverVM.gameOverData.gameResult.gameOverString)
-                .font(.custom(RobotoSlabOptions.Weight.bold, size: CGFloat(RobotoSlabOptions.Size.title)))
+                .font(.custom(RobotoSlabOptions.Weight.bold, fixedSize: CGFloat(RobotoSlabOptions.Size.title)))
             
             Text("The word was ")
-                .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.title3))) +
+                .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.title3))) +
             Text(gameoverVM.gameOverData.targetWord.word.uppercased())
-                .font(.custom(RobotoSlabOptions.Weight.semiBold, size: CGFloat(RobotoSlabOptions.Size.title3)))
+                .font(.custom(RobotoSlabOptions.Weight.semiBold, fixedSize: CGFloat(RobotoSlabOptions.Size.title3)))
             
             
             GroupBox {
@@ -42,13 +42,13 @@ struct GameOverView : View {
             if gameMode != .dailyGame {
                 ThreeDButtonView(gameoverVM.PlayAgainButton) {
                     Text(SystemNames.Navigation.playAgain)
-                        .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.title3)))
+                        .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.title3)))
                 }
             }
             
             ThreeDButtonView(gameoverVM.BackButton) {
                 Text(SystemNames.Navigation.mainMenu)
-                    .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.title3)))
+                    .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.title3)))
             }
         }
         .padding()

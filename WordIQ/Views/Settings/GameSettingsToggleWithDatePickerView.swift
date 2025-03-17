@@ -10,14 +10,14 @@ struct GameSettingsToggleWithDatePickerView : View {
         VStack {
             Toggle(label, isOn: $isActive)
                 .tint(.gray)
-            
             if isActive {
                 DatePicker("Time", selection: $time, displayedComponents: .hourAndMinute)
                     .datePickerStyle(.compact)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .padding(.top, 3)
             }
         }
-        .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.title3)))
+        .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.title3)))
     }
 }
 

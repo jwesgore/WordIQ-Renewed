@@ -27,7 +27,7 @@ struct StatsTotalGuessesView: View {
         GroupBox {
             HStack {
                 Text("You have made a total of \(totalGuesses) guesses, of which \(totalValidGuesses) were considered valid and \(totalInvalidGuesses) were considered invalid.\(ratioText)")
-                    .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.subheading)))
+                    .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.subheading)))
                 Spacer()
             }
         }

@@ -1,4 +1,5 @@
 import SwiftUI
+import Charts
 
 /// View container for general statistics
 struct StatsGeneralView : View {
@@ -26,35 +27,7 @@ struct StatsGeneralView : View {
                     // Mode Distribution
                     if totalGamesPlayed > 0 {
                         if let favoriteMode = distribution.max(by: { $0.value < $1.value })?.key {
-                            let donutChartView = StatsGameModeDistributionDonutChartView(distribution: distribution)
-                            GroupBox {
-                                VStack {
-                                    HStack {
-                                        // Favorite mode text
-                                        HStack {
-                                            Text("You play ") +
-                                            Text(favoriteMode.asStringShort)
-                                                .fontWeight(.semibold) +
-                                            Text(" \(ValueConverter.intsToPercent(top: distribution[favoriteMode], bottom: totalGamesPlayed)) of the time making it your most played game mode!")
-                                            Spacer()
-                                        }
-                                        .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.headline)))
-                                        
-                                        // Displays chart without legens
-                                        donutChartView
-                                            .frame(maxHeight: 150)
-                                            .chartLegend(.hidden)
-                                    }
-                                    
-                                    // Spreads the legend across the bottom
-                                    donutChartView
-                                        .frame(maxHeight: 0)
-                                        .chartLegend(alignment: .center)
-                                        .padding(.bottom)
-                                }
-                            }
-                            .frame(maxWidth: .infinity)
-                            .backgroundStyle(Color.appGroupBox)
+                            StatsGameModeDistribution(distribution: distribution, favoriteMode: favoriteMode, totalGamesPlayed: totalGamesPlayed)
                         }
                     }
                     

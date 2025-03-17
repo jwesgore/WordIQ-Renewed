@@ -17,7 +17,7 @@ struct StatsTotalTimePlayedView : View {
                     .fontWeight(.semibold)
                 Spacer()
             }
-            .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.subheading)))
+            .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.subheading)))
         }
         .frame(maxWidth: .infinity)
         .backgroundStyle(Color.appGroupBox)

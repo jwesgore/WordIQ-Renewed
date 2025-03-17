@@ -1,3 +1,5 @@
+import SwiftUI
+
 /// All possible game modes
 enum GameMode: String, Codable, Identifiable, Equatable {
     
@@ -30,6 +32,19 @@ enum GameMode: String, Codable, Identifiable, Equatable {
         case 4: return .dailyGame
         case 5: return .quickplay
         default: return nil
+        }
+    }
+}
+
+extension GameMode {
+    var chartColor: Color {
+        switch self {
+        case .standardMode: return .blue
+        case .rushMode: return .green
+        case .frenzyMode: return .orange
+        case .zenMode: return .purple
+        case .dailyGame: return .red
+        default: return .yellow
         }
     }
 }

@@ -12,14 +12,19 @@ struct InfoItemView : View {
     var body: some View {
         HStack {
             Image(systemName: infoItemModel.icon)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 21, height: 21)
                 .fontWeight(.semibold)
-                .frame(width: 25)
+            
             Text(infoItemModel.label)
                 .fontWeight(.semibold)
+            
             Spacer()
+            
             Text(infoItemModel.value)
         }
-        .font(.custom(RobotoSlabOptions.Weight.regular, size: CGFloat(RobotoSlabOptions.Size.headline)))
+        .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.headline)))
     }
 }
 
