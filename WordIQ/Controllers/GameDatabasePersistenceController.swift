@@ -40,7 +40,7 @@ class GameDatabasePersistenceController {
             
             newItem.timeElapsed = 30
             newItem.timeLimit = 0
-            newItem.targetWord = WordDatabaseHelper.shared.fetchRandomWord(withDifficulty: .normal).word
+            newItem.targetWord = WordDatabaseHelper.shared.fetchRandomFiveLetterWord(withDifficulty: .normal).word
             newItem.xp = 0
         }
         for _ in 0..<5 {
@@ -59,7 +59,7 @@ class GameDatabasePersistenceController {
             
             newItem.timeElapsed = 30
             newItem.timeLimit = 60
-            newItem.targetWord = WordDatabaseHelper.shared.fetchRandomWord(withDifficulty: .normal).word
+            newItem.targetWord = WordDatabaseHelper.shared.fetchRandomFiveLetterWord(withDifficulty: .normal).word
             newItem.xp = 0
         }
         for _ in 0..<5 {
@@ -78,7 +78,7 @@ class GameDatabasePersistenceController {
             
             newItem.timeElapsed = 30
             newItem.timeLimit = 0
-            newItem.targetWord = WordDatabaseHelper.shared.fetchRandomWord(withDifficulty: .normal).word
+            newItem.targetWord = WordDatabaseHelper.shared.fetchRandomFiveLetterWord(withDifficulty: .normal).word
             newItem.xp = 0
         }
         do {

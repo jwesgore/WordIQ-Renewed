@@ -51,6 +51,7 @@
 		4B82B9D72CC072E2009A1502 /* WordIQApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82B9D62CC072E2009A1502 /* WordIQApp.swift */; };
 		4B82B9DD2CC072E4009A1502 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B82B9DC2CC072E4009A1502 /* Assets.xcassets */; };
 		4B82B9E02CC072E4009A1502 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B82B9DF2CC072E4009A1502 /* Preview Assets.xcassets */; };
+		4B85B2CA2D8BACAD003127E0 /* WordDatabaseEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B85B2C92D8BACA2003127E0 /* WordDatabaseEnum.swift */; };
 		4B884CBF2D85389E00C0A808 /* GameSettingsGameplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CBE2D85388C00C0A808 /* GameSettingsGameplayView.swift */; };
 		4B884CC32D8539F100C0A808 /* GameSettingsQuickplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CC22D8539E600C0A808 /* GameSettingsQuickplayView.swift */; };
 		4B884CC52D853AB200C0A808 /* GameSettingsNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CC42D853AA500C0A808 /* GameSettingsNotificationsView.swift */; };
@@ -181,6 +182,7 @@
 		4B82B9D62CC072E2009A1502 /* WordIQApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordIQApp.swift; sourceTree = "<group>"; };
 		4B82B9DC2CC072E4009A1502 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B82B9DF2CC072E4009A1502 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4B85B2C92D8BACA2003127E0 /* WordDatabaseEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordDatabaseEnum.swift; sourceTree = "<group>"; };
 		4B884CBE2D85388C00C0A808 /* GameSettingsGameplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsGameplayView.swift; sourceTree = "<group>"; };
 		4B884CC22D8539E600C0A808 /* GameSettingsQuickplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsQuickplayView.swift; sourceTree = "<group>"; };
 		4B884CC42D853AA500C0A808 /* GameSettingsNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsNotificationsView.swift; sourceTree = "<group>"; };
@@ -304,6 +306,7 @@
 		4B091B3C2CD587530092600B /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				4B85B2C92D8BACA2003127E0 /* WordDatabaseEnum.swift */,
 				4B4929B12D6C3F1100CEBBF2 /* GameDatabaseHelper.swift */,
 				4BD0CF852D7154B10077640A /* UserDefaultsHelper.swift */,
 				4B091B4B2CD5EAA00092600B /* WordDatabaseHelper.swift */,
@@ -874,6 +877,7 @@
 				4BF5927D2CCC1B1900C555F6 /* 3DRadioButtonViewModel.swift in Sources */,
 				4BF592912CCEF83000C555F6 /* GameView.swift in Sources */,
 				4BD0CF892D7175C90077640A /* StatsView.swift in Sources */,
+				4B85B2CA2D8BACAD003127E0 /* WordDatabaseEnum.swift in Sources */,
 				4B1852872CCF05610054E5F4 /* KeyboardLetterView.swift in Sources */,
 				4BF592832CCD8DFC00C555F6 /* GameSelectionDifficultyButtonView.swift in Sources */,
 				4B091B5C2CD85C080092600B /* GameOverView.swift in Sources */,

@@ -1,6 +1,7 @@
 import SwiftUI
 import CoreData
 
+/// Database Helper for retrieve saved games
 class GameDatabaseHelper {
 
     let context: NSManagedObjectContext

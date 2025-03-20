@@ -86,7 +86,7 @@ class GameViewModel : BaseViewNavigation {
         if let wordSubmitted = gameBoardViewModel.activeWord?.getWord() {
             if self.targetWord == wordSubmitted {
                 self.correctWordSubmitted()
-            } else if (WordDatabaseHelper.shared.doesWordExist(wordSubmitted)) {
+            } else if (WordDatabaseHelper.shared.doesFiveLetterWordExist(wordSubmitted)) {
                 self.wrongWordSubmitted()
             } else {
                 self.invalidWordSubmitted()

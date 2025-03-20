@@ -7,31 +7,13 @@ class WordDatabaseHelper {
     static let shared = WordDatabaseHelper()
     
     let dailyEpoch: Date
-    let databaseName = "WordIQDatabase"
-    let tableName = "words_with_length_five"
     
     var db: OpaquePointer?
-    
-    /// Performs a query to get total number of rows
-    var rowCount: Int {
-        let queryStatementString = "SELECT COUNT(*) FROM \(tableName);"
-        var queryStatement: OpaquePointer?
-        var rowCount: Int = 0
 
-        if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
-            if sqlite3_step(queryStatement) == SQLITE_ROW {
-                rowCount = Int(sqlite3_column_int(queryStatement, 0))
-            }
-        }
-        
-        sqlite3_finalize(queryStatement)
-        return rowCount
-    }
-    
     /// Initializer
     private init() {
         // Open Database
-        guard let dbPath = Bundle.main.path(forResource: databaseName, ofType: "db") else {
+        guard let dbPath = Bundle.main.path(forResource: WordDatabaseEnum.databaseName.rawValue, ofType: "db") else {
             fatalError("Database file not found")
         }
         
@@ -57,22 +39,22 @@ class WordDatabaseHelper {
     
     // MARK: Database fetch functions
     /// Get daily word automatically
-    func fetchDailyWord() -> DatabaseWordModel {
+    func fetchDailyFiveLetterWord() -> DatabaseWordModel {
         guard let daysSinceEpoch = ValueConverter.daysSince(dailyEpoch), daysSinceEpoch > 0 else {
             fatalError("Unable to fetch days since epoch")
         }
-        guard let dailyWord = fetchDailyWord(dailyId: daysSinceEpoch) else {
+        guard let dailyWord = fetchDailyFiveLetterWord(dailyId: daysSinceEpoch) else {
             fatalError("Unable to fetch daily word")
         }
         return dailyWord
     }
     
     /// Perform a query to retrieve the daily word
-    func fetchDailyWord(dailyId: Int) -> DatabaseWordModel? {
-        let queryStatementString = "SELECT daily, difficulty, word FROM \(tableName) WHERE daily = ?;"
+    func fetchDailyFiveLetterWord(dailyId: Int) -> DatabaseWordModel? {
+        let queryStatementString = "SELECT daily, difficulty, word FROM \(WordDatabaseEnum.fiveLetterTableName.rawValue) WHERE daily = ?;"
         var queryStatement: OpaquePointer?
         
-        let adjustedDailyId = dailyId % rowCount
+        let adjustedDailyId = dailyId % fetchTableRowCount(WordDatabaseEnum.fiveLetterTableName)
         
         if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
             sqlite3_bind_int(queryStatement, 1, Int32(adjustedDailyId))
@@ -96,8 +78,8 @@ class WordDatabaseHelper {
     }
 
     /// Fetches a random word from the database based on the difficulty level
-    func fetchRandomWord(withDifficulty level: GameDifficulty) -> DatabaseWordModel {
-        let queryStatementString = "SELECT daily, difficulty, word FROM \(tableName) WHERE difficulty >= ? ORDER BY RANDOM() LIMIT 1;"
+    func fetchRandomFiveLetterWord(withDifficulty level: GameDifficulty) -> DatabaseWordModel {
+        let queryStatementString = "SELECT daily, difficulty, word FROM \(WordDatabaseEnum.fiveLetterTableName.rawValue) WHERE difficulty >= ? ORDER BY RANDOM() LIMIT 1;"
         var queryStatement: OpaquePointer?
 
         guard sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK else {
@@ -124,14 +106,31 @@ class WordDatabaseHelper {
         return databaseWord
     }
 
+    /// Performs a query to get total number of rows
+    func fetchTableRowCount(_ table : WordDatabaseEnum) -> Int {
+        let queryStatementString = "SELECT COUNT(*) FROM \(table.rawValue);"
+        var queryStatement: OpaquePointer?
+        var rowCount: Int = 0
+
+        if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
+            if sqlite3_step(queryStatement) == SQLITE_ROW {
+                rowCount = Int(sqlite3_column_int(queryStatement, 0))
+            }
+        }
+        
+        sqlite3_finalize(queryStatement)
+        return rowCount
+    }
+    
     // MARK: Database helper functions
     /// Performs a query on the database to see if a word is valid
-    func doesWordExist(_ word: GameWordModel) -> Bool {
-        let queryStatementString = "SELECT 1 FROM \(tableName) WHERE word = ? COLLATE NOCASE LIMIT 1;"
+    func doesFiveLetterWordExist(_ word: GameWordModel) -> Bool {
+        let queryStatementString = "SELECT 1 FROM \(WordDatabaseEnum.fiveLetterTableName.rawValue) WHERE word = ? COLLATE NOCASE LIMIT 1;"
         var queryStatement: OpaquePointer?
         var exists = false
 
         if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
+            
             // Bind the text value using NSString's utf8String
             sqlite3_bind_text(queryStatement, 1, (word.word as NSString).utf8String, -1, nil)
 
@@ -147,8 +146,8 @@ class WordDatabaseHelper {
     }
     
     /// Prints all words stored in the database
-    func printAllWords() {
-        let queryStatementString = "SELECT word FROM \(tableName);"
+    func printAllFiveLetterWords() {
+        let queryStatementString = "SELECT word FROM \(WordDatabaseEnum.fiveLetterTableName.rawValue);"
         var queryStatement: OpaquePointer?
         
         if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {

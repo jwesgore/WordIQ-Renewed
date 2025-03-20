@@ -22,7 +22,7 @@ class FrenzyModeViewModel : GameViewModel, ClockViewModelObserver {
             
             self.gameOverModel.correctlyGuessedWords?.append(gameWord)
             
-            self.gameOverModel.targetWord = WordDatabaseHelper.shared.fetchRandomWord(withDifficulty: gameOptions.gameDifficulty)
+            self.gameOverModel.targetWord = WordDatabaseHelper.shared.fetchRandomFiveLetterWord(withDifficulty: gameOptions.gameDifficulty)
             self.targetWord = self.gameOverModel.targetWord
             
             self.gameOverModel.lastGuessedWord = nil

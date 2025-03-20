@@ -145,7 +145,7 @@ class GameModeSelectionViewModel : ObservableObject {
         self.GameModeOptions.gameMode = .dailyGame
         self.GameModeOptions.timeLimit = 0
         self.GameModeOptions.gameDifficulty = .daily
-        self.GameModeOptions.targetWord = WordDatabaseHelper.shared.fetchDailyWord()
+        self.GameModeOptions.targetWord = WordDatabaseHelper.shared.fetchDailyFiveLetterWord()
         self.navigationController.goToViewWithAnimation(.game, delay:0.25, pauseLength: 0.25)
     }
     

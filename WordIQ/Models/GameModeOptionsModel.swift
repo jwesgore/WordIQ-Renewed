@@ -17,13 +17,13 @@ class GameModeOptionsModel : Codable {
     
     /// Initializer that presets the target word
     convenience init(gameMode: GameMode = .standardMode, gameDifficulty: GameDifficulty = .normal, timeLimit: Int = 0) {
-        let targetWord = WordDatabaseHelper.shared.fetchRandomWord(withDifficulty: gameDifficulty)
+        let targetWord = WordDatabaseHelper.shared.fetchRandomFiveLetterWord(withDifficulty: gameDifficulty)
         self.init(gameMode: gameMode, gameDifficulty: gameDifficulty, timeLimit: timeLimit, targetWord: targetWord)
     }
     
     /// Resets the target word so the model can be persisted
     func resetTargetWord() {
-        self.targetWord = WordDatabaseHelper.shared.fetchRandomWord(withDifficulty: gameDifficulty);
+        self.targetWord = WordDatabaseHelper.shared.fetchRandomFiveLetterWord(withDifficulty: gameDifficulty);
     }
     
     /// Resets all values back to default so the model can be persisted
