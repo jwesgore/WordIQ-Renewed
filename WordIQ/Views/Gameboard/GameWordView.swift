@@ -3,26 +3,24 @@ import SwiftUI
 /// View of a single row in the GameView representing a single word
 struct GameWordView : View {
     
-    @ObservedObject var wordVM : GameBoardWordViewModel
-    var spacing : CGFloat
-    
-    init(_ wordVM: GameBoardWordViewModel, spacing : CGFloat = 5) {
-        self.wordVM = wordVM
-        self.spacing = spacing
-    }
+    @ObservedObject var viewModel : GameBoardWordViewModel
     
     var body: some View {
-        HStack (spacing: spacing) {
-            GameLetterView(wordVM.letters[0])
-            GameLetterView(wordVM.letters[1])
-            GameLetterView(wordVM.letters[2])
-            GameLetterView(wordVM.letters[3])
-            GameLetterView(wordVM.letters[4])
+        HStack (spacing: viewModel.boardSpacing) {
+            ForEach(viewModel.letters, id: \.self.id) {
+                GameLetterView($0)
+            }
         }
-        .modifier(ShakeEffect(animatableData: wordVM.shake ? 1.5 : 0))
+        .modifier(ShakeEffect(animatableData: viewModel.shake ? 1.5 : 0))
+    }
+}
+
+extension GameWordView {
+    init(_ viewModel: GameBoardWordViewModel) {
+        self.viewModel = viewModel
     }
 }
 
 #Preview {
-    GameWordView(GameBoardWordViewModel())
+    GameWordView(GameBoardWordViewModel(boardWidth: 5, boardSpacing: 5.0))
 }

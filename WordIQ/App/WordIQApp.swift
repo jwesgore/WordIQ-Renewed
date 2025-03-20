@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
+import FirebaseCore
 
 @main
 struct WordIQApp: App {
     
-    // @Environment(\.scenePhase) var scenePhase
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     let persistenceController = GameDatabasePersistenceController.shared
     
     init() {
@@ -30,12 +31,5 @@ struct WordIQApp: App {
             AppStartingView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
-        
-        
-//        .onChange(of: scenePhase) {
-//            if scenePhase == .inactive {
-//                WordDatabaseHelper.shared.closeDatabase()
-//            }
-//        }
     }
 }

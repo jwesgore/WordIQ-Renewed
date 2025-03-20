@@ -1,23 +1,17 @@
 import SwiftUI
 
-/// View model for entire row on game board
-class GameBoardWordViewModel : ObservableObject {
-
-    @Published var letters : [GameBoardLetterViewModel]
+class TenLetterGuesserWordViewModel : ObservableObject {
+ 
+    @Published var letters = [GameBoardLetterViewModel]()
     @Published private(set) var shake : Bool
     
-    var hints : [ValidCharacters?]
-    var position : Int
+    var hints = [ValidCharacters?]()
+    var position = 0
     
-    /// Base Initializer
-    init () {
-        self.position = 0
+    init() {
         self.shake = false
-        self.letters = [GameBoardLetterViewModel]()
-        self.hints = [ValidCharacters?]()
         
-        // Populate letters
-        for _ in 0..<5 {
+        for _ in 0..<10 {
             self.letters.append(GameBoardLetterViewModel())
             self.hints.append(nil)
         }
@@ -26,14 +20,14 @@ class GameBoardWordViewModel : ObservableObject {
     // MARK: Helper functions
     /// Adds a letter to the current word
     func addLetter(_ letter : ValidCharacters) {
-        guard position < 5 else { return }
+        guard position < 10 else { return }
         self.letters[position].setLetter(letter)
         self.position += 1
     }
     
     /// Returns the full word representation of the letters
     func getWord() -> GameWordModel? {
-        guard position == 5 else { return nil }
+        guard position >= 3 else { return nil }
         var word = ""
         self.letters.forEach { if let letter = $0.letter { word.append(letter.stringValue) } }
         return GameWordModel(word)
@@ -57,7 +51,7 @@ class GameBoardWordViewModel : ObservableObject {
     
     /// Sets background colors on Active Word with the provided letter comparison
     func setBackgrounds(_ comparisons : [LetterComparison]) {
-        for i in 0..<5 {
+        for i in 0..<10 {
             self.letters[i].backgroundColor = comparisons[i]
 
             DispatchQueue.main.asyncAfter(deadline: .now() + (0.125 * Double(i)), execute: {
@@ -75,36 +69,4 @@ class GameBoardWordViewModel : ObservableObject {
         }
     }
     
-    // MARK: Data functions
-    /// Retrieve the save state
-    func getSaveState() -> GameBoardWordSaveStateModel {
-        let saveState = GameBoardWordSaveStateModel(letters: self.letters.map { $0.getSaveState() })
-        return saveState
-    }
-    
-    /// Load in save states
-    func loadSaveState(_ saveState : GameBoardWordSaveStateModel) {
-        guard saveState.letters.count == letters.count else { return }
-        for i in 0..<5 {
-            letters[i].loadSaveState(saveState.letters[i])
-        }
-    }
-    
-    /// Resets the word
-    func reset() {
-        self.position = 0
-        for letter in letters { letter.reset() }
-    }
-    
-    /// Resets the word using an animation
-    func resetWithAnimation(animationLength: Double, speed: Double = 1.0) {
-        self.position = 0
-        for i in stride(from: 4, through: 0, by: -1) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + ((animationLength / speed) * Double(i))) {
-                withAnimation(.linear(duration: animationLength)) {
-                    self.letters[i].reset()
-                }
-            }
-        }
-    }
 }

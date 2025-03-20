@@ -7,34 +7,13 @@ struct GameModeSelectionView: View {
 
     var body: some View {
         VStack {
-            // MARK: Header
-            HStack {
-                Text(SystemNames.Title.title)
-                    .font(.custom(RobotoSlabOptions.Weight.bold, fixedSize: CGFloat(RobotoSlabOptions.Size.title2)))
-                Spacer()
-                Button{
-                    gameModeSelectionVM.DisplayStats = true
-                } label: {
-                    Image(systemName: SFAssets.stats)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(maxWidth: CGFloat(RobotoSlabOptions.Size.title2))
-                }
-                .padding(.horizontal, 5)
-                Button {
-                    gameModeSelectionVM.DisplaySettings = true
-                } label: {
-                    Image(systemName: SFAssets.settings)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(maxWidth: CGFloat(RobotoSlabOptions.Size.title2))
-                }
-            }
-            Spacer()
             
-            // MARK: Buttons
+            AppHeaderView(displayStats: $gameModeSelectionVM.DisplayStats, displaySettings: $gameModeSelectionVM.DisplaySettings)
+                .padding()
+            
             ZStack {
-                VStack (spacing: 10) {
+                VStack (spacing: 14) {
+                    
                     HStack {
                         GameModeButton(gameModeSelectionVM.DailyGameButton, gameMode: .dailyGame)
                         GameModeButton(gameModeSelectionVM.QuickplayGameButton, gameMode: .quickplay)
@@ -44,15 +23,18 @@ struct GameModeSelectionView: View {
                     GameModeButton(gameModeSelectionVM.FrenzyGameModeButton, gameMode: .frenzyMode)
                     GameModeButton(gameModeSelectionVM.ZenGameModeButton, gameMode: .zenMode)
                     
+                    Spacer()
                 }
                 .offset(CGSize(width: gameModeSelectionVM.Offset - 2000, height: 0))
                 
                 GameModeOptionsView(gameModeSelectionVM)
                     .offset(CGSize(width: gameModeSelectionVM.Offset, height: 0))
             }
-            Spacer()
+            .padding()
+            
+            
+            
         }
-        .padding()
         .transition(.blurReplace)
         .fullScreenCover(isPresented: $gameModeSelectionVM.DisplaySettings) {
             GameSettingsView(isPresented: $gameModeSelectionVM.DisplaySettings)
@@ -63,6 +45,7 @@ struct GameModeSelectionView: View {
     }
 }
 
+/// Simple init
 extension GameModeSelectionView {
     init(_ gameModeSelectionVM: GameModeSelectionViewModel) {
         self.gameModeSelectionVM = gameModeSelectionVM

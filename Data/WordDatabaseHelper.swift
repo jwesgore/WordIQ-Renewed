@@ -7,6 +7,7 @@ class WordDatabaseHelper {
     static let shared = WordDatabaseHelper()
     
     let dailyEpoch: Date
+    let databaseName = "WordIQDatabase"
     let tableName = "words_with_length_five"
     
     var db: OpaquePointer?
@@ -30,7 +31,7 @@ class WordDatabaseHelper {
     /// Initializer
     private init() {
         // Open Database
-        guard let dbPath = Bundle.main.path(forResource: WordLists.database.filename, ofType: "db") else {
+        guard let dbPath = Bundle.main.path(forResource: databaseName, ofType: "db") else {
             fatalError("Database file not found")
         }
         

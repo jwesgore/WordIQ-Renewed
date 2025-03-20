@@ -37,7 +37,7 @@ class DailyModeViewModel : StandardModeViewModel {
     // MARK: Daily Specific Functions
     /// Ends the game without any animations
     func quickGameOver() {
-        self.isKeyboardActive = false
+        self.isKeyboardUnlocked = false
         self.showPauseMenu = false
         self.clock.stopClock()
         

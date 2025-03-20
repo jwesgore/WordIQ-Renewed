@@ -18,7 +18,7 @@ class RushModeViewModel : GameViewModel, ClockViewModelObserver {
         // Call Base Logic
         super.correctWordSubmitted()
         
-        if let activeWord = activeWord, let gameWord = activeWord.getWord() {
+        if let activeWord = gameBoardViewModel.activeWord, let gameWord = activeWord.getWord() {
             self.gameOverModel.gameResult = .win
             self.gameOverModel.lastGuessedWord = gameWord
             self.gameOver()
@@ -30,16 +30,8 @@ class RushModeViewModel : GameViewModel, ClockViewModelObserver {
         super.wrongWordSubmitted()
         
         // If the position has reached the end of the board, reset it
-        if self.boardPosition % 6 == 0 {
-            self.boardResetWithAnimation(delay: 1.0) {
-                self.activeWord = self.gameBoardWords[self.boardPosition % 6]
-                self.activeWord?.loadHints(self.targetWordHints)
-            }
-        }
-        // Else set the active row down and load in the hints
-        else {
-            activeWord = gameBoardWords[self.boardPosition % 6]
-            activeWord?.loadHints(targetWordHints)
+        super.gameBoardViewModel.goToNextLine {
+            self.gameBoardViewModel.resetBoardWithAnimation(delay: 1.0, loadHints: true)
         }
     }
 

@@ -18,7 +18,7 @@ class FrenzyModeViewModel : GameViewModel, ClockViewModelObserver {
         super.correctWordSubmitted()
         
         // Update GameOverDataModel
-        if let activeWord = activeWord, let gameWord = activeWord.getWord() {
+        if let activeWord = gameBoardViewModel.activeWord, let gameWord = activeWord.getWord() {
             
             self.gameOverModel.correctlyGuessedWords?.append(gameWord)
             
@@ -27,9 +27,9 @@ class FrenzyModeViewModel : GameViewModel, ClockViewModelObserver {
             
             self.gameOverModel.lastGuessedWord = nil
             
-            self.boardResetWithAnimation(delay: 0.5) {
-                self.targetWordHints = [ValidCharacters?](repeating: nil, count: 5)
-                self.keyboardReset()
+            self.gameBoardViewModel.resetBoardWithAnimation(delay: 0.5, hardReset: true) {
+                self.keyboardViewModel.resetKeyboard()
+                self.isKeyboardUnlocked = true
             }
         }
     }
@@ -38,12 +38,8 @@ class FrenzyModeViewModel : GameViewModel, ClockViewModelObserver {
         // Call Base Logic
         super.wrongWordSubmitted()
         
-        if self.boardPosition == 6 {
-            self.gameOver()
-        } else {
-            activeWord = gameBoardWords[self.boardPosition % 6]
-            activeWord?.loadHints(targetWordHints)
+        super.gameBoardViewModel.goToNextLine {
+            super.gameOver()
         }
     }
-
 }

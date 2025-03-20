@@ -4,16 +4,12 @@ struct GameModeOptionsView : View {
     
     @ObservedObject var gameModeSelectionVM: GameModeSelectionViewModel
     
-    init(_ gameModeSelectionVM: GameModeSelectionViewModel) {
-        self.gameModeSelectionVM = gameModeSelectionVM
-    }
-    
     var body: some View {
         let optionsHeader = gameModeSelectionVM.showTimeLimitOptions ?
-        "\(gameModeSelectionVM.GameModeOptions.gameMode.asStringShort): \(gameModeSelectionVM.GameModeOptions.gameDifficulty.asString), \(TimeUtility.formatTimeShort(gameModeSelectionVM.GameModeOptions.timeLimit))" :
-        "\(gameModeSelectionVM.GameModeOptions.gameMode.asStringShort): \(gameModeSelectionVM.GameModeOptions.gameDifficulty.asString)"
+            "\(gameModeSelectionVM.GameModeOptions.gameMode.asStringShort): \(gameModeSelectionVM.GameModeOptions.gameDifficulty.asString), \(TimeUtility.formatTimeShort(gameModeSelectionVM.GameModeOptions.timeLimit))" :
+            "\(gameModeSelectionVM.GameModeOptions.gameMode.asStringShort): \(gameModeSelectionVM.GameModeOptions.gameDifficulty.asString)"
             
-        VStack (spacing: 10) {
+        VStack {
             VStack {
                 Spacer().frame(height: 20)
                 
@@ -25,12 +21,15 @@ struct GameModeOptionsView : View {
                     .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.subheading)))
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
+            
             Spacer()
+            
             VStack {
                 GameSelectionDifficultyButtonView(gameModeSelectionVM.EasyDifficultyButton, difficulty: .easy)
                 GameSelectionDifficultyButtonView(gameModeSelectionVM.NormalDifficultyButton, difficulty: .normal)
                 GameSelectionDifficultyButtonView(gameModeSelectionVM.HardDifficultyButton, difficulty: .hard)
             }
+            
             if gameModeSelectionVM.showTimeLimitOptions {
                 HStack {
                     GameSelectionTimeButtonView(gameModeSelectionVM.TimeSelection1Button, timeLimit: gameModeSelectionVM.TimeLimitOptions.0)
@@ -39,7 +38,8 @@ struct GameModeOptionsView : View {
                 }
             }
             Spacer()
-            VStack (spacing: 10) {
+            
+            VStack {
                 ThreeDButtonView(gameModeSelectionVM.StartButton) {
                     Text(SystemNames.Navigation.startGame)
                         .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.title3)))
@@ -51,7 +51,12 @@ struct GameModeOptionsView : View {
                 }
             }
         }
-        .background(Color.appBackground)
+    }
+}
+
+extension GameModeOptionsView {
+    init(_ gameModeSelectionVM: GameModeSelectionViewModel) {
+        self.gameModeSelectionVM = gameModeSelectionVM
     }
 }
 

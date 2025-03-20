@@ -3,6 +3,8 @@ import SwiftUI
 /// View model for single letter on game board
 class GameBoardLetterViewModel : ObservableObject {
     
+    let id: UUID = UUID()
+    
     @Published var backgroundColor : LetterComparison
     @Published var borderColor : Color
     @Published var letter : ValidCharacters?
