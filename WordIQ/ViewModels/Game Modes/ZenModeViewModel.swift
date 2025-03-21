@@ -1,6 +1,6 @@
 
 /// ViewModel to handle the specific rules of Zen Mode
-class ZenModeViewModel : GameViewModel {
+class ZenModeViewModel : SingleWordGameViewModel {
     
     override func correctWordSubmitted() {
         // Call Base Logic

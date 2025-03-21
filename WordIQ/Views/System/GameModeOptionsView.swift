@@ -61,5 +61,5 @@ extension GameModeOptionsView {
 }
 
 #Preview {
-    GameModeOptionsView(GameModeSelectionViewModel(NavigationController()))
+    GameModeOptionsView(GameModeSelectionViewModel())
 }

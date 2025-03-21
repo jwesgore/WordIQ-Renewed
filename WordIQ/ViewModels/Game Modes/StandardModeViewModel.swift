@@ -1,6 +1,6 @@
 
 /// ViewModel to handle the specific rules of Standard Mode
-class StandardModeViewModel : GameViewModel {
+class StandardModeViewModel : SingleWordGameViewModel {
     
     override func correctWordSubmitted() {
         // Call Base Logic

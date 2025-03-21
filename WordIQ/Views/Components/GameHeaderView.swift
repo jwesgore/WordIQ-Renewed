@@ -6,6 +6,7 @@ struct GameHeaderView : View {
     
     var exitGame : () -> Void
     var pauseGame : () -> Void
+    var clockViewModel: ClockViewModel
     
     var body: some View {
         HStack (spacing: 0) {
@@ -19,8 +20,14 @@ struct GameHeaderView : View {
             }
             
             Spacer()
-            Text(title)
-                .font(.custom(RobotoSlabOptions.Weight.bold, fixedSize: CGFloat(RobotoSlabOptions.Size.title3)))
+            VStack {
+                Text(title)
+                    .font(.custom(RobotoSlabOptions.Weight.bold, fixedSize: CGFloat(RobotoSlabOptions.Size.title3)))
+                       
+                ClockView(clockVM: clockViewModel)
+                    .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.title2)))
+                            
+            }
             Spacer()
             
             Button {
@@ -37,9 +44,17 @@ struct GameHeaderView : View {
 }
 
 extension GameHeaderView {
-    init (_ title : String, exitGame: @escaping () -> Void, pauseGame: @escaping () -> Void) {
+    init (_ title : String, exitGame: @escaping () -> Void, pauseGame: @escaping () -> Void, clockViewModel: ClockViewModel) {
         self.title = title
         self.exitGame = exitGame
         self.pauseGame = pauseGame
+        self.clockViewModel = clockViewModel
+    }
+    
+    init (_ viewModel: SingleWordGameViewModel) {
+        self.title = viewModel.gameOptions.gameMode.asStringShort
+        self.exitGame = viewModel.exitGame
+        self.pauseGame = viewModel.pauseGame
+        self.clockViewModel = viewModel.clock
     }
 }

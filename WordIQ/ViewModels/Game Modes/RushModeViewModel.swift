@@ -1,6 +1,6 @@
 
 /// ViewModel to handle the specific rules of Rush Mode
-class RushModeViewModel : GameViewModel, ClockViewModelObserver {
+class RushModeViewModel : SingleWordGameViewModel, ClockViewModelObserver {
     
     override init(gameOptions: GameModeOptionsModel) {
         super.init(gameOptions: gameOptions)

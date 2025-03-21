@@ -3,8 +3,8 @@ import SwiftUI
 /// ViewModel to manage the GameModeSelectionView
 class GameModeSelectionViewModel : ObservableObject {
     
-    @Published var Offset : Int = 2000
     let navigationController: NavigationController
+    let selectionNavigationController : GameSelectionNavigationController
     
     var StartButton : ThreeDButtonViewModel
     var BackButton : ThreeDButtonViewModel
@@ -43,10 +43,11 @@ class GameModeSelectionViewModel : ObservableObject {
     let TimeSelectionButtonDimension: (CGFloat, CGFloat) = (50, 400)
     let NavigationButtonDimension: (CGFloat, CGFloat) = (50, 400)
     
-    init(_ navigationController: NavigationController) {
+    init() {
         
         // Step 1: Initialize Models
-        self.navigationController = navigationController
+        self.navigationController = NavigationController.shared
+        self.selectionNavigationController = GameSelectionNavigationController.shared
         self.GameModeOptions = GameModeOptionsModel()
         
         // Step 2: Initialize all buttons without action
@@ -157,21 +158,14 @@ class GameModeSelectionViewModel : ObservableObject {
     
     /// Function to transition the view from mode selection to options
     func goToGameModeOptions(_ gameMode: GameMode) {
-        withAnimation (.easeInOut(duration: 0.5)) {
-            self.Offset = 0
-        }
+        self.selectionNavigationController.goToViewWithAnimation(.gameModeSelectionOptions)
     }
     
     /// Function to transition the view from options to mode selection
     func goBackToModeSelection() {
-        DispatchQueue.main.asyncAfter(deadline: .now()) {
-            withAnimation (.easeInOut(duration: 0.5)) {
-                self.Offset = 2000
-            } completion: {
-                self.GameModeOptions.resetToDefaults()
-                self.TimeLimitOptions = (0, 0, 0)
-            }
-        }
+        self.selectionNavigationController.goToViewWithAnimation(.gameModeSelection)
+        self.GameModeOptions.resetToDefaults()
+        self.TimeLimitOptions = (0, 0, 0)
     }
 
     /// Resets all values for when game is exited
@@ -181,8 +175,8 @@ class GameModeSelectionViewModel : ObservableObject {
     }
     
     /// Creates a game view model based on the game mode options set
-    func getGameViewModel() -> GameViewModel {
-        let gameVM : GameViewModel = {
+    func getGameViewModel() -> SingleWordGameViewModel {
+        let gameVM : SingleWordGameViewModel = {
             switch GameModeOptions.gameMode {
             case .standardMode:
                 return StandardModeViewModel(gameOptions: self.GameModeOptions)

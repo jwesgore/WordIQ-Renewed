@@ -3,36 +3,36 @@ import SwiftUI
 /// View that manages the end of a game
 struct GameOverView : View {
     
-    @ObservedObject var gameoverVM : GameOverViewModel
+    @ObservedObject var viewModel : GameOverViewModel
     @State var gameMode : GameMode
     
-    init(_ gameoverVM: GameOverViewModel) {
-        self.gameoverVM = gameoverVM
-        self.gameMode = gameoverVM.gameOverData.gameMode
+    init(_ gameOverVM: GameOverViewModel) {
+        self.viewModel = gameOverVM
+        self.gameMode = gameOverVM.gameOverData.gameMode
     }
     
     var body: some View {
         VStack (spacing: 20) {
             Spacer()
             
-            Text(gameoverVM.gameOverData.gameResult.gameOverString)
+            Text(viewModel.gameOverData.gameResult.gameOverString)
                 .font(.custom(RobotoSlabOptions.Weight.bold, fixedSize: CGFloat(RobotoSlabOptions.Size.title)))
             
             Text("The word was ")
                 .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.title3))) +
-            Text(gameoverVM.gameOverData.targetWord.word.uppercased())
+            Text(viewModel.gameOverData.targetWord.word.uppercased())
                 .font(.custom(RobotoSlabOptions.Weight.semiBold, fixedSize: CGFloat(RobotoSlabOptions.Size.title3)))
             
             
             GroupBox {
-                InfoItemView(gameoverVM.firstRowStat)
+                InfoItemView(viewModel.firstRowStat)
                 Divider()
-                InfoItemView(gameoverVM.secondRowStat)
+                InfoItemView(viewModel.secondRowStat)
                 Divider()
-                InfoItemView(gameoverVM.thirdRowStat)
+                InfoItemView(viewModel.thirdRowStat)
                 if gameMode != .zenMode {
                     Divider()
-                    InfoItemView(gameoverVM.fourthRowStat)
+                    InfoItemView(viewModel.fourthRowStat)
                 }
             }
             .backgroundStyle(Color.appGroupBox)
@@ -40,21 +40,21 @@ struct GameOverView : View {
             Spacer()
             
             if gameMode != .dailyGame {
-                ThreeDButtonView(gameoverVM.PlayAgainButton) {
+                ThreeDButtonView(viewModel.PlayAgainButton) {
                     Text(SystemNames.Navigation.playAgain)
                         .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.title3)))
                 }
             }
             
-            ThreeDButtonView(gameoverVM.BackButton) {
+            ThreeDButtonView(viewModel.BackButton) {
                 Text(SystemNames.Navigation.mainMenu)
                     .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.title3)))
             }
         }
         .padding()
         .onAppear {
-            self.gameoverVM.saveData()
-            self.gameoverVM.setRowValues(gameMode)
+            self.viewModel.saveData()
+            self.viewModel.setRowValues(gameMode)
         }
     }
 }

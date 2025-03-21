@@ -45,3 +45,9 @@ struct KeyboardView : View {
         }
     }
 }
+
+extension KeyboardView {
+    init (_ viewModel: KeyboardViewModel) {
+        self.viewModel = viewModel
+    }
+}

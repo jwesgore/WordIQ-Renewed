@@ -1,6 +1,6 @@
 
 /// ViewModel to handle the specific rules of Frenzy Mode
-class FrenzyModeViewModel : GameViewModel, ClockViewModelObserver {
+class FrenzyModeViewModel : SingleWordGameViewModel, ClockViewModelObserver {
 
     override init(gameOptions: GameModeOptionsModel) {
         super.init(gameOptions: gameOptions)

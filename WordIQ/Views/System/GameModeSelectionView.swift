@@ -3,39 +3,50 @@ import SwiftUI
 /// View for the user to select which game mode they would like to play
 struct GameModeSelectionView: View {
     
+    @ObservedObject var navigationController: GameSelectionNavigationController
     @ObservedObject var gameModeSelectionVM: GameModeSelectionViewModel
+    
+    @State var slideForward = false
 
     var body: some View {
         VStack {
-            
             AppHeaderView(displayStats: $gameModeSelectionVM.DisplayStats, displaySettings: $gameModeSelectionVM.DisplaySettings)
-                .padding()
+                .padding(.bottom)
             
             ZStack {
-                VStack (spacing: 14) {
-                    
-                    HStack {
-                        GameModeButton(gameModeSelectionVM.DailyGameButton, gameMode: .dailyGame)
-                        GameModeButton(gameModeSelectionVM.QuickplayGameButton, gameMode: .quickplay)
+                switch navigationController.activeView {
+                case .gameModeSelection:
+                    VStack (spacing: 14) {
+                        HStack {
+                            GameModeButton(gameModeSelectionVM.DailyGameButton, gameMode: .dailyGame)
+                            GameModeButton(gameModeSelectionVM.QuickplayGameButton, gameMode: .quickplay)
+                        }
+                        GameModeButton(gameModeSelectionVM.StandardGameModeButton, gameMode: .standardMode)
+                        GameModeButton(gameModeSelectionVM.RushGameModeButton, gameMode: .rushMode)
+                        GameModeButton(gameModeSelectionVM.FrenzyGameModeButton, gameMode: .frenzyMode)
+                        GameModeButton(gameModeSelectionVM.ZenGameModeButton, gameMode: .zenMode)
+                        
+                        Spacer()
                     }
-                    GameModeButton(gameModeSelectionVM.StandardGameModeButton, gameMode: .standardMode)
-                    GameModeButton(gameModeSelectionVM.RushGameModeButton, gameMode: .rushMode)
-                    GameModeButton(gameModeSelectionVM.FrenzyGameModeButton, gameMode: .frenzyMode)
-                    GameModeButton(gameModeSelectionVM.ZenGameModeButton, gameMode: .zenMode)
+                    .transition(.dynamicSlide(forward: $slideForward))
+                    .onAppear {
+                        slideForward.toggle()
+                    }
                     
-                    Spacer()
+                case .gameModeSelectionOptions:
+                    GameModeOptionsView(gameModeSelectionVM)
+                        .transition(.dynamicSlide(forward: $slideForward))
+                        .onAppear {
+                            slideForward.toggle()
+                        }
+                    
+                default:
+                    Color.appBackground
                 }
-                .offset(CGSize(width: gameModeSelectionVM.Offset - 2000, height: 0))
-                
-                GameModeOptionsView(gameModeSelectionVM)
-                    .offset(CGSize(width: gameModeSelectionVM.Offset, height: 0))
             }
-            .padding()
-            
-            
-            
         }
-        .transition(.blurReplace)
+        .padding()
+        .background(Color.appBackground.ignoresSafeArea())
         .fullScreenCover(isPresented: $gameModeSelectionVM.DisplaySettings) {
             GameSettingsView(isPresented: $gameModeSelectionVM.DisplaySettings)
         }
@@ -48,10 +59,11 @@ struct GameModeSelectionView: View {
 /// Simple init
 extension GameModeSelectionView {
     init(_ gameModeSelectionVM: GameModeSelectionViewModel) {
+        self.navigationController = GameSelectionNavigationController.shared
         self.gameModeSelectionVM = gameModeSelectionVM
     }
 }
  
 #Preview {
-    GameModeSelectionView(GameModeSelectionViewModel(NavigationController()))
+    GameModeSelectionView(GameModeSelectionViewModel())
 }

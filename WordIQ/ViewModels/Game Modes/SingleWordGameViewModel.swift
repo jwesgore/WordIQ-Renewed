@@ -1,7 +1,7 @@
 import SwiftUI
 
-/// ViewModel to manage the playable game screen
-class GameViewModel : BaseViewNavigation {
+/// ViewModel to manage the playable game screen with a single board
+class SingleWordGameViewModel : BaseViewNavigation {
     
     // MARK: Properties
     @Published var showPauseMenu = false

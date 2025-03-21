@@ -2,10 +2,10 @@ import SwiftUI
 
 struct GamePauseView : View {
     
-    @ObservedObject var gameViewModel : GameViewModel
+    @ObservedObject var gameViewModel : SingleWordGameViewModel
     var gamePauseViewModel : GamePauseViewModel
     
-    init (_ gameViewModel: GameViewModel) {
+    init (_ gameViewModel: SingleWordGameViewModel) {
         self.gameViewModel = gameViewModel
         self.gamePauseViewModel = GamePauseViewModel()
         self.gamePauseViewModel.ResumeGameButton.action = gameViewModel.resumeGame
@@ -65,6 +65,6 @@ struct GamePauseInfoView: View {
 
 #Preview {
     GamePauseView(
-        GameViewModel(gameOptions:
+        SingleWordGameViewModel(gameOptions:
             GameModeOptionsModel(gameMode: .standardMode, gameDifficulty: .easy, timeLimit: 0)))
 }
