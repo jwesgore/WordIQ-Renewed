@@ -24,7 +24,7 @@ struct InfoItemView : View {
             
             Text(infoItemModel.value)
         }
-        .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.headline)))
+        .robotoSlabFont(.headline, .regular)
     }
 }
 

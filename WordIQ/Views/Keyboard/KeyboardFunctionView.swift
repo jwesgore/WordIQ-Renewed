@@ -10,13 +10,13 @@ struct KeyboardFunctionView : View {
     
     var body: some View {
         Button {
-            Haptics.shared.impact(.medium)
+            HapticsHelper.shared.impact(.medium)
             functionVM.PerformAction()
         } label: {
             Image(systemName: functionVM.keyboardFunction.symbol)
                 .resizable()
                 .scaledToFit()
-                .frame(maxWidth: CGFloat(RobotoSlabOptions.Size.title2), maxHeight: CGFloat(RobotoSlabOptions.Size.title2))
+                .frame(maxWidth: RobotoSlabOptions.Size.title2.rawValue, maxHeight: RobotoSlabOptions.Size.title2.rawValue)
                 .foregroundStyle(functionVM.fontColor)
         }
         .frame(width:functionVM.width, height: functionVM.height)

@@ -14,11 +14,11 @@ struct GameModeOptionsView : View {
                 Spacer().frame(height: 20)
                 
                 Text(optionsHeader)
-                    .font(.custom(RobotoSlabOptions.Weight.semiBold, fixedSize: CGFloat(RobotoSlabOptions.Size.title2)))
+                    .robotoSlabFont(.title2, .semiBold)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Text(gameModeSelectionVM.GameModeOptions.gameMode.description)
-                    .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.subheading)))
+                    .robotoSlabFont(.subheading, .regular)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             
@@ -42,12 +42,12 @@ struct GameModeOptionsView : View {
             VStack {
                 ThreeDButtonView(gameModeSelectionVM.StartButton) {
                     Text(SystemNames.Navigation.startGame)
-                        .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.title3)))
+                        .robotoSlabFont(.title3, .regular)
                 }
                 
                 ThreeDButtonView(gameModeSelectionVM.BackButton) {
                     Text(SystemNames.Navigation.back)
-                        .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.title3)))
+                        .robotoSlabFont(.title3, .regular)
                 }
             }
         }

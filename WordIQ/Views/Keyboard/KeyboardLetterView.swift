@@ -10,11 +10,11 @@ struct KeyboardLetterView : View {
     
     var body: some View {
         Button {
-            Haptics.shared.impact(.medium)
+            HapticsHelper.shared.impact(.medium)
             letterVM.PerformAction()
         } label: {
             Text(letterVM.letter.stringValue)
-                .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.title2)))
+                .robotoSlabFont(.title2, .regular)
                 .foregroundStyle(letterVM.fontColor)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }

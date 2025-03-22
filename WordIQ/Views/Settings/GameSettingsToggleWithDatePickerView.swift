@@ -17,7 +17,7 @@ struct GameSettingsToggleWithDatePickerView : View {
                     .padding(.top, 3)
             }
         }
-        .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.title3)))
+        .robotoSlabFont(.title3, .regular)
     }
 }
 

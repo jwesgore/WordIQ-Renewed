@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// Extension to help with adding dynamic sliding to view transitions
 extension AnyTransition {
 
     struct SlideModifier: ViewModifier {

@@ -1,7 +1,8 @@
 import UIKit
 
-class Haptics {
-    static let shared = Haptics()
+/// Class to help simplify applying haptics
+class HapticsHelper {
+    static let shared = HapticsHelper()
     
     private let impactFeedbackGenerator = UIImpactFeedbackGenerator()
     private let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
@@ -25,7 +26,7 @@ class Haptics {
     }
 }
 
-// Extension to map feedback style to intensity
+/// Extension to map feedback style to intensity
 private extension UIImpactFeedbackGenerator.FeedbackStyle {
     var intensity: CGFloat {
         switch self {

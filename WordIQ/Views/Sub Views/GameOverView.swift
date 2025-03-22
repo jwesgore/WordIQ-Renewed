@@ -16,13 +16,12 @@ struct GameOverView : View {
             Spacer()
             
             Text(viewModel.gameOverData.gameResult.gameOverString)
-                .font(.custom(RobotoSlabOptions.Weight.bold, fixedSize: CGFloat(RobotoSlabOptions.Size.title)))
+                .robotoSlabFont(.title, .bold)
             
             Text("The word was ")
-                .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.title3))) +
+                .robotoSlabFont(.title3, .regular) +
             Text(viewModel.gameOverData.targetWord.word.uppercased())
-                .font(.custom(RobotoSlabOptions.Weight.semiBold, fixedSize: CGFloat(RobotoSlabOptions.Size.title3)))
-            
+                .robotoSlabFont(.title3, .regular)
             
             GroupBox {
                 InfoItemView(viewModel.firstRowStat)
@@ -42,13 +41,13 @@ struct GameOverView : View {
             if gameMode != .dailyGame {
                 ThreeDButtonView(viewModel.PlayAgainButton) {
                     Text(SystemNames.Navigation.playAgain)
-                        .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.title3)))
+                        .robotoSlabFont(.title3, .regular)
                 }
             }
             
             ThreeDButtonView(viewModel.BackButton) {
                 Text(SystemNames.Navigation.mainMenu)
-                    .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.title3)))
+                    .robotoSlabFont(.title3, .regular)
             }
         }
         .padding()

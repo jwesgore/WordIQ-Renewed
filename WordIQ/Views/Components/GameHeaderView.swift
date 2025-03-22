@@ -16,16 +16,16 @@ struct GameHeaderView : View {
                 Image(systemName: SFAssets.backArrow)
                     .resizable()
                     .scaledToFit()
-                    .frame(maxWidth: CGFloat(RobotoSlabOptions.Size.title2), maxHeight: CGFloat(RobotoSlabOptions.Size.title2))
+                    .frame(maxWidth: RobotoSlabOptions.Size.title2.rawValue, maxHeight: RobotoSlabOptions.Size.title2.rawValue)
             }
             
             Spacer()
             VStack {
                 Text(title)
-                    .font(.custom(RobotoSlabOptions.Weight.bold, fixedSize: CGFloat(RobotoSlabOptions.Size.title3)))
+                    .robotoSlabFont(.title3, .bold)
                        
                 ClockView(clockVM: clockViewModel)
-                    .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.title2)))
+                    .robotoSlabFont(.title2, .regular)
                             
             }
             Spacer()
@@ -36,7 +36,7 @@ struct GameHeaderView : View {
                 Image(systemName: SFAssets.pause)
                     .resizable()
                     .scaledToFit()
-                    .frame(maxWidth: CGFloat(RobotoSlabOptions.Size.title2), maxHeight: CGFloat(RobotoSlabOptions.Size.title2))
+                    .frame(maxWidth: RobotoSlabOptions.Size.title2.rawValue, maxHeight: RobotoSlabOptions.Size.title2.rawValue)
             }
             
         }

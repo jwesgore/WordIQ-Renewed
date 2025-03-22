@@ -16,7 +16,7 @@ struct GamePauseView : View {
         VStack (spacing: 20) {
             
             Text(SystemNames.GamePause.title)
-                .font(.custom(RobotoSlabOptions.Weight.bold, fixedSize: CGFloat(RobotoSlabOptions.Size.title)))
+                .robotoSlabFont(.title, .bold)
             
             HStack {
                 Spacer()
@@ -37,7 +37,7 @@ struct GamePauseView : View {
             // MARK: Buttons
             ThreeDButtonView(gamePauseViewModel.ResumeGameButton) {
                 Text(SystemNames.GamePause.resumeGame)
-                    .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.title3)))
+                    .robotoSlabFont(.title3, .regular)
             }
             
         }
@@ -54,10 +54,10 @@ struct GamePauseInfoView: View {
     var body: some View {
         VStack{
             Text(title)
-                .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.headline)))
+                .robotoSlabFont(.headline, .regular)
                 .foregroundStyle(.secondary)
             Text(value)
-                .font(.custom(RobotoSlabOptions.Weight.semiBold, fixedSize: CGFloat(RobotoSlabOptions.Size.title2)))
+                .robotoSlabFont(.title2, .semiBold)
                 .foregroundStyle(.primary)
         }
     }

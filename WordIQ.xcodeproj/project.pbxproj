@@ -40,7 +40,7 @@
 		4B4929B22D6C3F1900CEBBF2 /* GameDatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4929B12D6C3F1100CEBBF2 /* GameDatabaseHelper.swift */; };
 		4B4929C92D6D8BF600CEBBF2 /* GameDatabasePersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4929C82D6D8BEA00CEBBF2 /* GameDatabasePersistenceController.swift */; };
 		4B4929CF2D6EB94200CEBBF2 /* ValueConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4929CE2D6EB92300CEBBF2 /* ValueConverter.swift */; };
-		4B4929D42D703D1100CEBBF2 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4929D32D703D0B00CEBBF2 /* Haptics.swift */; };
+		4B4929D42D703D1100CEBBF2 /* HapticsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4929D32D703D0B00CEBBF2 /* HapticsHelper.swift */; };
 		4B6603A62CDEF90B00F4F140 /* GameModeOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6603A52CDEF90000F4F140 /* GameModeOptionsView.swift */; };
 		4B6603A92CE159A200F4F140 /* GameSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6603A82CE1599800F4F140 /* GameSettingsView.swift */; };
 		4B6603AB2CE165C600F4F140 /* GameSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6603AA2CE165C000F4F140 /* GameSettingsViewModel.swift */; };
@@ -57,12 +57,15 @@
 		4B85B2D02D8CFD0A003127E0 /* QuadWordGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B85B2CF2D8CFD01003127E0 /* QuadWordGameViewModel.swift */; };
 		4B85B2D22D8D001C003127E0 /* GameSelectionNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B85B2D12D8D0001003127E0 /* GameSelectionNavigationController.swift */; };
 		4B85B2D62D8D1F16003127E0 /* TransitionDynamicSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B85B2D52D8D1F03003127E0 /* TransitionDynamicSlide.swift */; };
+		4B85B2D82D8D2A1A003127E0 /* SingleWordGameNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B85B2D72D8D2A0B003127E0 /* SingleWordGameNavigationController.swift */; };
+		4B85B2DA2D8D2BD7003127E0 /* AppNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B85B2D92D8D2BC5003127E0 /* AppNavigationController.swift */; };
+		4B85B2DC2D8DFBAE003127E0 /* TopDownButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B85B2DB2D8DFBA6003127E0 /* TopDownButtonView.swift */; };
 		4B884CBF2D85389E00C0A808 /* GameSettingsGameplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CBE2D85388C00C0A808 /* GameSettingsGameplayView.swift */; };
 		4B884CC32D8539F100C0A808 /* GameSettingsQuickplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CC22D8539E600C0A808 /* GameSettingsQuickplayView.swift */; };
 		4B884CC52D853AB200C0A808 /* GameSettingsNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CC42D853AA500C0A808 /* GameSettingsNotificationsView.swift */; };
 		4B884CC72D853EF600C0A808 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CC62D853EEF00C0A808 /* NotificationModel.swift */; };
 		4B884CC92D866C3500C0A808 /* NotificationIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CC82D866C2600C0A808 /* NotificationIdentifiers.swift */; };
-		4B884CCC2D8676B300C0A808 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CCB2D8676A800C0A808 /* NavigationController.swift */; };
+		4B884CCC2D8676B300C0A808 /* NavigationControllerBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CCB2D8676A800C0A808 /* NavigationControllerBase.swift */; };
 		4B884CCE2D867F3F00C0A808 /* AppStartingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CCD2D867F3B00C0A808 /* AppStartingView.swift */; };
 		4B884CD12D86840000C0A808 /* NotificationPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CD02D8683F500C0A808 /* NotificationPermissionView.swift */; };
 		4B884CD32D87526E00C0A808 /* HeaderWithDoneButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CD22D87525300C0A808 /* HeaderWithDoneButtonView.swift */; };
@@ -85,6 +88,9 @@
 		4B884CFF2D8A5A2A00C0A808 /* TenLetterGuesserWordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CFE2D8A5A2100C0A808 /* TenLetterGuesserWordViewModel.swift */; };
 		4B884D012D8A652E00C0A808 /* KeyboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884D002D8A652900C0A808 /* KeyboardViewModel.swift */; };
 		4B884D032D8A74AC00C0A808 /* GameBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884D022D8A74A400C0A808 /* GameBoardViewModel.swift */; };
+		4B99E8BA2D8E009400F0F081 /* RobotoSlabHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B99E8B92D8E008C00F0F081 /* RobotoSlabHelper.swift */; };
+		4B99E8BC2D8E144D00F0F081 /* TopDownButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B99E8BB2D8E144400F0F081 /* TopDownButtonViewModel.swift */; };
+		4B99E8C22D8E20E000F0F081 /* RemoveButtonAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B99E8C12D8E20D800F0F081 /* RemoveButtonAnimation.swift */; };
 		4BD0CF862D7154B90077640A /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD0CF852D7154B10077640A /* UserDefaultsHelper.swift */; };
 		4BD0CF892D7175C90077640A /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD0CF882D7175BB0077640A /* StatsView.swift */; };
 		4BD0CF922D7195A00077640A /* StatsGeneralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD0CF912D7195940077640A /* StatsGeneralView.swift */; };
@@ -105,7 +111,6 @@
 		4BF5921E2CC0814900C555F6 /* KeyboardFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF5921D2CC0813C00C555F6 /* KeyboardFunctions.swift */; };
 		4BF592202CC0817400C555F6 /* SFAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF5921F2CC0816E00C555F6 /* SFAssets.swift */; };
 		4BF592232CC0848A00C555F6 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF592222CC0848000C555F6 /* SplashScreenView.swift */; };
-		4BF592252CC086C200C555F6 /* RobotoSlabOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF592242CC0868200C555F6 /* RobotoSlabOptions.swift */; };
 		4BF592292CC0874C00C555F6 /* SystemNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF592282CC0873400C555F6 /* SystemNames.swift */; };
 		4BF5924D2CC088D700C555F6 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4BF592492CC088D700C555F6 /* LICENSE.txt */; };
 		4BF5924E2CC088D700C555F6 /* RobotoSlab-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BF592472CC088D700C555F6 /* RobotoSlab-Thin.ttf */; };
@@ -126,7 +131,6 @@
 		4BF592692CC30C1B00C555F6 /* GameModeSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF592682CC30BFE00C555F6 /* GameModeSelectionView.swift */; };
 		4BF5926B2CC30C3300C555F6 /* GameModeSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF5926A2CC30C2C00C555F6 /* GameModeSelectionViewModel.swift */; };
 		4BF5926D2CC3311D00C555F6 /* GameModeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF5926C2CC3311200C555F6 /* GameModeButton.swift */; };
-		4BF592732CC33AEB00C555F6 /* BaseViewNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF5926F2CC338E200C555F6 /* BaseViewNavigation.swift */; };
 		4BF592752CC33B4100C555F6 /* SystemViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF592742CC33B3D00C555F6 /* SystemViews.swift */; };
 		4BF592772CCC0DF100C555F6 /* GameModeOptionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF592762CCC0DEB00C555F6 /* GameModeOptionsModel.swift */; };
 		4BF5927B2CCC1A8700C555F6 /* 3DRadioButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF5927A2CCC1A7D00C555F6 /* 3DRadioButtonView.swift */; };
@@ -175,7 +179,7 @@
 		4B4929B12D6C3F1100CEBBF2 /* GameDatabaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDatabaseHelper.swift; sourceTree = "<group>"; };
 		4B4929C82D6D8BEA00CEBBF2 /* GameDatabasePersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDatabasePersistenceController.swift; sourceTree = "<group>"; };
 		4B4929CE2D6EB92300CEBBF2 /* ValueConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueConverter.swift; sourceTree = "<group>"; };
-		4B4929D32D703D0B00CEBBF2 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
+		4B4929D32D703D0B00CEBBF2 /* HapticsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsHelper.swift; sourceTree = "<group>"; };
 		4B6603A52CDEF90000F4F140 /* GameModeOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModeOptionsView.swift; sourceTree = "<group>"; };
 		4B6603A82CE1599800F4F140 /* GameSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsView.swift; sourceTree = "<group>"; };
 		4B6603AA2CE165C000F4F140 /* GameSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsViewModel.swift; sourceTree = "<group>"; };
@@ -193,12 +197,15 @@
 		4B85B2CF2D8CFD01003127E0 /* QuadWordGameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadWordGameViewModel.swift; sourceTree = "<group>"; };
 		4B85B2D12D8D0001003127E0 /* GameSelectionNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSelectionNavigationController.swift; sourceTree = "<group>"; };
 		4B85B2D52D8D1F03003127E0 /* TransitionDynamicSlide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionDynamicSlide.swift; sourceTree = "<group>"; };
+		4B85B2D72D8D2A0B003127E0 /* SingleWordGameNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWordGameNavigationController.swift; sourceTree = "<group>"; };
+		4B85B2D92D8D2BC5003127E0 /* AppNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationController.swift; sourceTree = "<group>"; };
+		4B85B2DB2D8DFBA6003127E0 /* TopDownButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopDownButtonView.swift; sourceTree = "<group>"; };
 		4B884CBE2D85388C00C0A808 /* GameSettingsGameplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsGameplayView.swift; sourceTree = "<group>"; };
 		4B884CC22D8539E600C0A808 /* GameSettingsQuickplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsQuickplayView.swift; sourceTree = "<group>"; };
 		4B884CC42D853AA500C0A808 /* GameSettingsNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsNotificationsView.swift; sourceTree = "<group>"; };
 		4B884CC62D853EEF00C0A808 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		4B884CC82D866C2600C0A808 /* NotificationIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationIdentifiers.swift; sourceTree = "<group>"; };
-		4B884CCB2D8676A800C0A808 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		4B884CCB2D8676A800C0A808 /* NavigationControllerBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerBase.swift; sourceTree = "<group>"; };
 		4B884CCD2D867F3B00C0A808 /* AppStartingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStartingView.swift; sourceTree = "<group>"; };
 		4B884CD02D8683F500C0A808 /* NotificationPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermissionView.swift; sourceTree = "<group>"; };
 		4B884CD22D87525300C0A808 /* HeaderWithDoneButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderWithDoneButtonView.swift; sourceTree = "<group>"; };
@@ -215,6 +222,9 @@
 		4B884CFE2D8A5A2100C0A808 /* TenLetterGuesserWordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenLetterGuesserWordViewModel.swift; sourceTree = "<group>"; };
 		4B884D002D8A652900C0A808 /* KeyboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewModel.swift; sourceTree = "<group>"; };
 		4B884D022D8A74A400C0A808 /* GameBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoardViewModel.swift; sourceTree = "<group>"; };
+		4B99E8B92D8E008C00F0F081 /* RobotoSlabHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotoSlabHelper.swift; sourceTree = "<group>"; };
+		4B99E8BB2D8E144400F0F081 /* TopDownButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopDownButtonViewModel.swift; sourceTree = "<group>"; };
+		4B99E8C12D8E20D800F0F081 /* RemoveButtonAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveButtonAnimation.swift; sourceTree = "<group>"; };
 		4BD0CF852D7154B10077640A /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
 		4BD0CF882D7175BB0077640A /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		4BD0CF912D7195940077640A /* StatsGeneralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsGeneralView.swift; sourceTree = "<group>"; };
@@ -235,7 +245,6 @@
 		4BF5921D2CC0813C00C555F6 /* KeyboardFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardFunctions.swift; sourceTree = "<group>"; };
 		4BF5921F2CC0816E00C555F6 /* SFAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFAssets.swift; sourceTree = "<group>"; };
 		4BF592222CC0848000C555F6 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
-		4BF592242CC0868200C555F6 /* RobotoSlabOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotoSlabOptions.swift; sourceTree = "<group>"; };
 		4BF592282CC0873400C555F6 /* SystemNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemNames.swift; sourceTree = "<group>"; };
 		4BF5923F2CC088D700C555F6 /* RobotoSlab-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Black.ttf"; sourceTree = "<group>"; };
 		4BF592402CC088D700C555F6 /* RobotoSlab-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Bold.ttf"; sourceTree = "<group>"; };
@@ -257,7 +266,6 @@
 		4BF592682CC30BFE00C555F6 /* GameModeSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModeSelectionView.swift; sourceTree = "<group>"; };
 		4BF5926A2CC30C2C00C555F6 /* GameModeSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModeSelectionViewModel.swift; sourceTree = "<group>"; };
 		4BF5926C2CC3311200C555F6 /* GameModeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModeButton.swift; sourceTree = "<group>"; };
-		4BF5926F2CC338E200C555F6 /* BaseViewNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewNavigation.swift; sourceTree = "<group>"; };
 		4BF592702CC338E200C555F6 /* ScreenSizeUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSizeUtility.swift; sourceTree = "<group>"; };
 		4BF592712CC338E200C555F6 /* ShakeEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeEffect.swift; sourceTree = "<group>"; };
 		4BF592722CC338E200C555F6 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
@@ -402,16 +410,17 @@
 		4B82B9D52CC072E2009A1502 /* WordIQ */ = {
 			isa = PBXGroup;
 			children = (
-				4BF5925D2CC08C8200C555F6 /* Info.plist */,
 				4B884CE52D87DD5200C0A808 /* GoogleService-Info.plist */,
+				4BF5925D2CC08C8200C555F6 /* Info.plist */,
 				4B6603A72CE156FE00F4F140 /* App */,
 				4B884CCA2D86769600C0A808 /* Controllers */,
 				4BF5920E2CC07C0500C555F6 /* Enums */,
+				4B99E8BD2D8E147F00F0F081 /* Generic Components */,
 				4BF5920B2CC07B8A00C555F6 /* Models */,
+				4B884CF92D8A599400C0A808 /* New Group */,
 				4B82B9DE2CC072E4009A1502 /* Preview Content */,
 				4BF592152CC07ED700C555F6 /* ViewModels */,
 				4BF592212CC0832400C555F6 /* Views */,
-				4B884CF92D8A599400C0A808 /* New Group */,
 			);
 			path = WordIQ;
 			sourceTree = "<group>";
@@ -440,10 +449,12 @@
 		4B884CCA2D86769600C0A808 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				4B85B2D12D8D0001003127E0 /* GameSelectionNavigationController.swift */,
-				4B884CF02D87E1AF00C0A808 /* SignInController.swift */,
+				4B85B2D92D8D2BC5003127E0 /* AppNavigationController.swift */,
+				4B85B2D72D8D2A0B003127E0 /* SingleWordGameNavigationController.swift */,
 				4B4929C82D6D8BEA00CEBBF2 /* GameDatabasePersistenceController.swift */,
-				4B884CCB2D8676A800C0A808 /* NavigationController.swift */,
+				4B85B2D12D8D0001003127E0 /* GameSelectionNavigationController.swift */,
+				4B884CCB2D8676A800C0A808 /* NavigationControllerBase.swift */,
+				4B884CF02D87E1AF00C0A808 /* SignInController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -496,6 +507,44 @@
 				4B884CFA2D8A599F00C0A808 /* TenLetterGuesserView.swift */,
 			);
 			path = "New Group";
+			sourceTree = "<group>";
+		};
+		4B99E8BD2D8E147F00F0F081 /* Generic Components */ = {
+			isa = PBXGroup;
+			children = (
+				4B99E8BE2D8E149400F0F081 /* Buttons */,
+			);
+			path = "Generic Components";
+			sourceTree = "<group>";
+		};
+		4B99E8BE2D8E149400F0F081 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				4B99E8C02D8E14AF00F0F081 /* 3D Button */,
+				4B99E8BF2D8E149B00F0F081 /* Top Down Button */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		4B99E8BF2D8E149B00F0F081 /* Top Down Button */ = {
+			isa = PBXGroup;
+			children = (
+				4B85B2DB2D8DFBA6003127E0 /* TopDownButtonView.swift */,
+				4B99E8BB2D8E144400F0F081 /* TopDownButtonViewModel.swift */,
+			);
+			path = "Top Down Button";
+			sourceTree = "<group>";
+		};
+		4B99E8C02D8E14AF00F0F081 /* 3D Button */ = {
+			isa = PBXGroup;
+			children = (
+				4BF592622CC1E71800C555F6 /* 3DButtonView.swift */,
+				4BF5925E2CC1E5F100C555F6 /* 3DButtonViewModel.swift */,
+				4BF592802CCD4A1F00C555F6 /* 3DRadioButtonGroupViewModel.swift */,
+				4BF5927A2CCC1A7D00C555F6 /* 3DRadioButtonView.swift */,
+				4BF5927C2CCC1B1100C555F6 /* 3DRadioButtonViewModel.swift */,
+			);
+			path = "3D Button";
 			sourceTree = "<group>";
 		};
 		4BD0CF832D714DF40077640A /* Components */ = {
@@ -592,9 +641,6 @@
 		4BF592162CC07EE300C555F6 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
-				4BF592802CCD4A1F00C555F6 /* 3DRadioButtonGroupViewModel.swift */,
-				4BF5927C2CCC1B1100C555F6 /* 3DRadioButtonViewModel.swift */,
-				4BF5925E2CC1E5F100C555F6 /* 3DButtonViewModel.swift */,
 				4B091B322CD3397D0092600B /* KeyboardFunctionViewModel.swift */,
 				4BF5928A2CCED43B00C555F6 /* KeyboardLetterViewModel.swift */,
 			);
@@ -639,7 +685,6 @@
 		4BF592272CC0872500C555F6 /* App Assets */ = {
 			isa = PBXGroup;
 			children = (
-				4BF592242CC0868200C555F6 /* RobotoSlabOptions.swift */,
 				4BF5921F2CC0816E00C555F6 /* SFAssets.swift */,
 				4BF592282CC0873400C555F6 /* SystemNames.swift */,
 				4BF592742CC33B3D00C555F6 /* SystemViews.swift */,
@@ -679,8 +724,6 @@
 			children = (
 				4BF592842CCD906900C555F6 /* GameSelectionTimeButtonView.swift */,
 				4BF592822CCD8DE200C555F6 /* GameSelectionDifficultyButtonView.swift */,
-				4BF5927A2CCC1A7D00C555F6 /* 3DRadioButtonView.swift */,
-				4BF592622CC1E71800C555F6 /* 3DButtonView.swift */,
 				4BF5926C2CC3311200C555F6 /* GameModeButton.swift */,
 			);
 			path = Buttons;
@@ -689,13 +732,14 @@
 		4BF5926E2CC338B500C555F6 /* Ultilities */ = {
 			isa = PBXGroup;
 			children = (
-				4B85B2D52D8D1F03003127E0 /* TransitionDynamicSlide.swift */,
-				4BF5926F2CC338E200C555F6 /* BaseViewNavigation.swift */,
-				4B4929D32D703D0B00CEBBF2 /* Haptics.swift */,
+				4B99E8C12D8E20D800F0F081 /* RemoveButtonAnimation.swift */,
+				4B99E8B92D8E008C00F0F081 /* RobotoSlabHelper.swift */,
+				4B4929D32D703D0B00CEBBF2 /* HapticsHelper.swift */,
 				4B1CC12B2D84EAD000A56316 /* NotificationHelper.swift */,
 				4BF592702CC338E200C555F6 /* ScreenSizeUtility.swift */,
 				4BF592712CC338E200C555F6 /* ShakeEffect.swift */,
 				4B6603B02CEC3B4A00F4F140 /* TimeUtility.swift */,
+				4B85B2D52D8D1F03003127E0 /* TransitionDynamicSlide.swift */,
 				4BF592722CC338E200C555F6 /* UIColorExtension.swift */,
 				4B4929CE2D6EB92300CEBBF2 /* ValueConverter.swift */,
 			);
@@ -790,6 +834,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B99E8BC2D8E144D00F0F081 /* TopDownButtonViewModel.swift in Sources */,
 				4BF592142CC07D1900C555F6 /* GameDifficulty.swift in Sources */,
 				4BF592102CC07C1D00C555F6 /* GameMode.swift in Sources */,
 				4B884CD12D86840000C0A808 /* NotificationPermissionView.swift in Sources */,
@@ -803,9 +848,11 @@
 				4B85B2D22D8D001C003127E0 /* GameSelectionNavigationController.swift in Sources */,
 				4B85B2CC2D8CF3F9003127E0 /* QuadStandardModeView.swift in Sources */,
 				4BF5921E2CC0814900C555F6 /* KeyboardFunctions.swift in Sources */,
-				4B4929D42D703D1100CEBBF2 /* Haptics.swift in Sources */,
+				4B4929D42D703D1100CEBBF2 /* HapticsHelper.swift in Sources */,
 				4B1CC12F2D850C3C00A56316 /* GameSettingsToggleView.swift in Sources */,
+				4B85B2D82D8D2A1A003127E0 /* SingleWordGameNavigationController.swift in Sources */,
 				4B6603B12CEC3B5F00F4F140 /* TimeUtility.swift in Sources */,
+				4B99E8BA2D8E009400F0F081 /* RobotoSlabHelper.swift in Sources */,
 				4B85B2CE2D8CF96E003127E0 /* QuadWordGameView.swift in Sources */,
 				4B091B392CD344430092600B /* GameBoardView.swift in Sources */,
 				4B884CFD2D8A59C400C0A808 /* TenLetterGuesserViewModel.swift in Sources */,
@@ -821,7 +868,6 @@
 				4B884CF12D87E1B600C0A808 /* SignInController.swift in Sources */,
 				4B1CC1232D82990700A56316 /* ClockSaveStateModel.swift in Sources */,
 				4B1CC1252D83A61700A56316 /* GameBoardLetterSaveStateModel.swift in Sources */,
-				4BF592252CC086C200C555F6 /* RobotoSlabOptions.swift in Sources */,
 				4B884CBF2D85389E00C0A808 /* GameSettingsGameplayView.swift in Sources */,
 				4BF592752CC33B4100C555F6 /* SystemViews.swift in Sources */,
 				4BD0CF9E2D7277870077640A /* StatsFrenzyModeView.swift in Sources */,
@@ -842,10 +888,10 @@
 				4BF5921C2CC07FF100C555F6 /* ValidCharacters.swift in Sources */,
 				4B884D012D8A652E00C0A808 /* KeyboardViewModel.swift in Sources */,
 				4BD9D6C12D727C4400EB9800 /* ItemInfoView.swift in Sources */,
+				4B99E8C22D8E20E000F0F081 /* RemoveButtonAnimation.swift in Sources */,
 				4B884CF62D8A4DDF00C0A808 /* AppHeaderView.swift in Sources */,
 				4B091B552CD684900092600B /* FrenzyModeViewModel.swift in Sources */,
 				4BD0CF962D719DAA0077640A /* StatsGameModeDistributionDonutChartView.swift in Sources */,
-				4BF592732CC33AEB00C555F6 /* BaseViewNavigation.swift in Sources */,
 				4BF5928B2CCED44600C555F6 /* KeyboardLetterViewModel.swift in Sources */,
 				4B1CC1132D7FDC2A00A56316 /* DailyModeViewModel.swift in Sources */,
 				4B884CD52D87547400C0A808 /* ExpandAndCollapseHeaderView.swift in Sources */,
@@ -865,13 +911,14 @@
 				4BF592632CC1E72200C555F6 /* 3DButtonView.swift in Sources */,
 				4BF5928F2CCEDA3100C555F6 /* GameBoardLetterViewModel.swift in Sources */,
 				4B091B532CD684880092600B /* RushModeViewModel.swift in Sources */,
-				4B884CCC2D8676B300C0A808 /* NavigationController.swift in Sources */,
+				4B884CCC2D8676B300C0A808 /* NavigationControllerBase.swift in Sources */,
 				4BF592812CCD4A2A00C555F6 /* 3DRadioButtonGroupViewModel.swift in Sources */,
 				4B82B9D72CC072E2009A1502 /* WordIQApp.swift in Sources */,
 				4BF5927B2CCC1A8700C555F6 /* 3DRadioButtonView.swift in Sources */,
 				4B1CC1202D826FA600A56316 /* GameResultsModel+CoreDataClass.swift in Sources */,
 				4B884CC52D853AB200C0A808 /* GameSettingsNotificationsView.swift in Sources */,
 				4B884CF82D8A568800C0A808 /* GameHeaderView.swift in Sources */,
+				4B85B2DC2D8DFBAE003127E0 /* TopDownButtonView.swift in Sources */,
 				4B1CC1212D826FA600A56316 /* GameResultsModel+CoreDataProperties.swift in Sources */,
 				4B6603A92CE159A200F4F140 /* GameSettingsView.swift in Sources */,
 				4BD0CF982D719DDB0077640A /* StatsTotalTimePlayedView.swift in Sources */,
@@ -879,6 +926,7 @@
 				4BF5928D2CCED9BA00C555F6 /* GameBoardWordViewModel.swift in Sources */,
 				4B091B332CD339840092600B /* KeyboardFunctionViewModel.swift in Sources */,
 				4B091B512CD684800092600B /* StandardModeViewModel.swift in Sources */,
+				4B85B2DA2D8D2BD7003127E0 /* AppNavigationController.swift in Sources */,
 				4BF592872CCEAB7700C555F6 /* KeyboardView.swift in Sources */,
 				4BF592232CC0848A00C555F6 /* SplashScreenView.swift in Sources */,
 				4B091B4C2CD5EAAA0092600B /* WordDatabaseHelper.swift in Sources */,

@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 
+/// Applies a shake effect to a view
 struct ShakeEffect: GeometryEffect {
     var animatableData: CGFloat
     

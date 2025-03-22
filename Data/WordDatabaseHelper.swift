@@ -105,7 +105,38 @@ class WordDatabaseHelper {
         let databaseWord = DatabaseWordModel(daily: daily, difficulty: difficulty, word: word)
         return databaseWord
     }
+    
+    func fetchMultipleRandomFiveLetterWord(withDifficulty level: GameDifficulty, count: Int) -> [DatabaseWordModel] {
+        let queryStatementString = "SELECT daily, difficulty, word FROM \(WordDatabaseEnum.fiveLetterTableName.rawValue) WHERE difficulty >= ? ORDER BY RANDOM() LIMIT \(count);"
+        
+        var queryStatement: OpaquePointer?
+        var words: [DatabaseWordModel] = []
 
+        guard sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK else {
+            fatalError("SELECT statement could not be prepared")
+        }
+        
+        sqlite3_bind_int(queryStatement, 1, Int32(level.id))
+        
+        // Loop through all rows
+        while sqlite3_step(queryStatement) == SQLITE_ROW {
+            let daily = Int(sqlite3_column_int(queryStatement, 0))
+            let difficulty = Int(sqlite3_column_int(queryStatement, 1))
+            
+            guard let queryResultCol3 = sqlite3_column_text(queryStatement, 2) else {
+                fatalError("Failed to retrieve word from the database")
+            }
+            
+            let word = String(cString: queryResultCol3)
+            
+            let databaseWord = DatabaseWordModel(daily: daily, difficulty: difficulty, word: word)
+            words.append(databaseWord)
+        }
+        
+        sqlite3_finalize(queryStatement)
+        return words
+    }
+    
     /// Performs a query to get total number of rows
     func fetchTableRowCount(_ table : WordDatabaseEnum) -> Int {
         let queryStatementString = "SELECT COUNT(*) FROM \(table.rawValue);"

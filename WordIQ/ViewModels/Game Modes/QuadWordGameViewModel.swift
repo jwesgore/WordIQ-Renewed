@@ -1,6 +1,6 @@
 import SwiftUI
 
-class QuadWordGameViewModel: BaseViewNavigation {
+class QuadWordGameViewModel : ObservableObject {
     
     // MARK: Properties
 //    @Published var showPauseMenu = false

@@ -13,7 +13,7 @@ class ThreeDRadioButtonGroupViewModel : ThreeDRadioButtonViewModelObserver {
     func add(_ buttons : ThreeDRadioButtonViewModel...) {
         for button in buttons {
             self.Buttons[button.id] = button
-            if button.buttonIsPressed { self.communicate(button.id) }
+            if button.isPressed { self.communicate(button.id) }
         }
     }
     
@@ -26,11 +26,11 @@ class ThreeDRadioButtonGroupViewModel : ThreeDRadioButtonViewModelObserver {
     /// Sets the active button and deselects the previous button
     func communicate(_ id: UUID) {
         if let currentButtonID = ActiveButton, let currentButton = Buttons[currentButtonID] {
-            currentButton.buttonIsPressed = false
+            currentButton.isPressed = false
         }
         self.ActiveButton = id
         if let currentButtonID = ActiveButton, let currentButton = Buttons[currentButtonID] {
-            currentButton.buttonIsPressed = true
+            currentButton.isPressed = true
         }
     }
 }

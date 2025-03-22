@@ -11,11 +11,11 @@ struct ExpandAndCollapseHeaderView: View {
         } label: {
             HStack {
                 Text(title)
-                    .font(.custom(RobotoSlabOptions.Weight.semiBold, fixedSize: CGFloat(RobotoSlabOptions.Size.title2)))
+                    .robotoSlabFont(.title2, .semiBold)
                 Image(systemName: isExpanded ? SFAssets.downArrow : SFAssets.upArrow)
                     .resizable()
                     .scaledToFit()
-                    .frame(maxWidth: CGFloat(RobotoSlabOptions.Size.title2), maxHeight: CGFloat(RobotoSlabOptions.Size.title2))
+                    .frame(maxWidth: RobotoSlabOptions.Size.title2.rawValue, maxHeight: RobotoSlabOptions.Size.title2.rawValue)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }

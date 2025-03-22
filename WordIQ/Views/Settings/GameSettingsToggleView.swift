@@ -8,7 +8,7 @@ struct GameSettingsToggle : View {
     
     var body: some View {
         Toggle(label, isOn: $isActive)
-            .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.title3)))
+            .robotoSlabFont(.title3, .regular)
             .tint(.gray)
     }
 }

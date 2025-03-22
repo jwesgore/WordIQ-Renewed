@@ -14,7 +14,7 @@ struct GameSelectionTimeButtonView : View {
     var body : some View {
         ThreeDRadioButtonView(button) {
             Text(formatTimeShort(timeLimit))
-                .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.title2)))
+                .robotoSlabFont(.title2, .regular)
         }
     }
     

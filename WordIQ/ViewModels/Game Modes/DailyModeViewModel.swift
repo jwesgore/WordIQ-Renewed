@@ -42,6 +42,6 @@ class DailyModeViewModel : StandardModeViewModel {
         self.clock.stopClock()
         
         super.gameOverModel = UserDefaultsHelper.shared.dailyGameOverModel!
-        super.goToTarget()
+        super.gameNavigationController.goToView(.gameOver)
     }
 }

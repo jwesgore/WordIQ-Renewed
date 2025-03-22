@@ -17,7 +17,7 @@ struct WordIQApp: App {
     init() {
         _ = WordDatabaseHelper.shared
         _ = UserDefaultsHelper.shared
-        _ = Haptics.shared
+        _ = HapticsHelper.shared
         
         // Clear current streak if last daily played is over a day ago
         if let daysSinceEpoch = ValueConverter.daysSince(WordDatabaseHelper.shared.dailyEpoch), daysSinceEpoch > UserDefaultsHelper.shared.lastDailyPlayed + 1 {

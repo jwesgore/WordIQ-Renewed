@@ -16,14 +16,14 @@ struct ThreeDRadioButtonView<Content: View>: View {
     var body: some View {
         Button(
             action: {
-                threeDButtonVM.PerformAction()
+                threeDButtonVM.performAction()
             }, label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: threeDButtonVM.cornerRadius)
                         .fill(threeDButtonVM.shadowColor)
                         .stroke(threeDButtonVM.borderColor, lineWidth: threeDButtonVM.borderThickness)
                         .frame(maxWidth: threeDButtonVM.width, maxHeight: threeDButtonVM.height)
-                        .shadow(color: threeDButtonVM.buttonIsPressed ? Color.clear : Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
+                        .shadow(color: threeDButtonVM.isPressed ? Color.clear : Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
                     
                     content
                         .frame(maxWidth:threeDButtonVM.width, maxHeight: threeDButtonVM.height)
@@ -39,10 +39,10 @@ struct ThreeDRadioButtonView<Content: View>: View {
         )
         .buttonStyle(NoAnimation())
         .onAppear{
-            self.offset = threeDButtonVM.buttonIsPressed ? 0.0 : threeDButtonVM.depth
+            self.offset = threeDButtonVM.isPressed ? 0.0 : threeDButtonVM.depth
         }
-        .onChange(of: threeDButtonVM.buttonIsPressed) {
-            self.offset = threeDButtonVM.buttonIsPressed ? 0.0 : threeDButtonVM.depth
+        .onChange(of: threeDButtonVM.isPressed) {
+            self.offset = threeDButtonVM.isPressed ? 0.0 : threeDButtonVM.depth
         }
     }
 }
@@ -50,8 +50,8 @@ struct ThreeDRadioButtonView<Content: View>: View {
 struct ThreeDRadioButtonView_Previews: PreviewProvider {
     static var previews: some View {
         let manager = ThreeDRadioButtonGroupViewModel()
-        let button1 = ThreeDRadioButtonViewModel(groupManager: manager, height: 100, width: 200)
-        let button2 = ThreeDRadioButtonViewModel(groupManager: manager, height: 100, width: 200)
+        let button1 = ThreeDRadioButtonViewModel(height: 100, width: 200, groupManager: manager)
+        let button2 = ThreeDRadioButtonViewModel(height: 100, width: 200, groupManager: manager)
         manager.add(button1, button2)
         
         return VStack(spacing: 20) {

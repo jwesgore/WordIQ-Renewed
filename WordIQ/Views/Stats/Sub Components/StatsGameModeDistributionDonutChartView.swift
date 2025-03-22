@@ -20,7 +20,7 @@ struct StatsGameModeDistribution : View {
                         Text(" \(ValueConverter.intsToPercent(top: distribution[favoriteMode], bottom: totalGamesPlayed)) of the time making it your most played game mode!")
                         Spacer()
                     }
-                    .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.headline)))
+                    .robotoSlabFont(.headline, .regular)
                     
                     // Displays chart without legends
                     donutChartView
@@ -65,7 +65,7 @@ private struct distributionChartLegend: View {
             
             Text(gameMode.asStringShort)
                 .foregroundColor(.gray)
-                .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.caption)))
+                .robotoSlabFont(.caption, .regular)
         }
     }
 }

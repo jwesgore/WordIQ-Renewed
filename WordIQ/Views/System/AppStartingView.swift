@@ -2,11 +2,11 @@ import SwiftUI
 
 struct AppStartingView: View {
     
-    @ObservedObject var navigationController : NavigationController
+    @ObservedObject var navigationController : AppNavigationController
     @ObservedObject var gameModeSelectionVM : GameModeSelectionViewModel
     
     init() {
-        self.navigationController = NavigationController.shared
+        self.navigationController = AppNavigationController.shared
         self.gameModeSelectionVM = GameModeSelectionViewModel()
     }
     

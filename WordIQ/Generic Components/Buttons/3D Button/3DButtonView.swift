@@ -16,7 +16,7 @@ struct ThreeDButtonView<Content: View>: View {
     var body: some View {
         Button(
             action: {
-                threeDButtonVM.PerformAction()
+                threeDButtonVM.performAction()
             }, label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: threeDButtonVM.cornerRadius)
@@ -36,7 +36,7 @@ struct ThreeDButtonView<Content: View>: View {
                 }
             }
         )
-        .buttonStyle(NoAnimation())
+        .removeDefaultButtonStyle()
         .simultaneousGesture(DragGesture(minimumDistance: 0)
             .onChanged { _ in
                 self.offset = 0.0
@@ -45,13 +45,6 @@ struct ThreeDButtonView<Content: View>: View {
                 self.offset = threeDButtonVM.depth
             }
         )
-    }
-}
-
-/// Removes animation from button
-struct NoAnimation: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
     }
 }
 

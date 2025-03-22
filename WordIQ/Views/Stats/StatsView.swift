@@ -30,7 +30,7 @@ struct StatsView : View {
                 }
             } else {
                 Text("Loading data...")
-                    .font(.custom(RobotoSlabOptions.Weight.semiBold, size: CGFloat(RobotoSlabOptions.Size.title2)))
+                    .robotoSlabFont(.title2, .semiBold)
                     .onAppear {
                         self.databaseHelper = GameDatabaseHelper(context: viewContext)
                     }

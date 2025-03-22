@@ -1,7 +1,10 @@
 import SwiftUI
 
 /// ViewModel to manage the playable game screen with a single board
-class SingleWordGameViewModel : BaseViewNavigation {
+class SingleWordGameViewModel : ObservableObject {
+    
+    let appNavigationController : AppNavigationController
+    var gameNavigationController : SingleWordGameNavigationController
     
     // MARK: Properties
     @Published var showPauseMenu = false
@@ -38,29 +41,32 @@ class SingleWordGameViewModel : BaseViewNavigation {
     // MARK: Initializers
     /// Base initializer
     init(gameOptions: GameModeOptionsModel) {
-        // Step 1: Init Variables
+        // Step 1: Init Controllers
+        self.appNavigationController = AppNavigationController.shared
+        self.gameNavigationController = SingleWordGameNavigationController.shared
+        
+        // Step 2: Init Variables
         self.clock = ClockViewModel(timeLimit: gameOptions.timeLimit, isClockTimer: gameOptions.timeLimit > 0)
         self.gameBoardViewModel = GameBoardViewModel(boardHeight: 6, boardWidth: 5, boardSpacing: 5.0)
         self.gameOptions = gameOptions
         self.gameOverModel = GameOverDataModel(gameOptions)
         self.targetWord = gameOptions.targetWord
         
-        super.init()
-        
         print(self.targetWord)
     }
     
     /// Save state initializer
     init(gameSaveState: GameSaveStateModel) {
+        // Step 1: Init Controllers
+        self.appNavigationController = AppNavigationController.shared
+        self.gameNavigationController = SingleWordGameNavigationController.shared
         
-        // Step 1: Initialize Variables
+        // Step 2: Init Variables
         self.clock = ClockViewModel(gameSaveState.clockState)
         self.gameBoardViewModel = GameBoardViewModel(boardHeight: 6, boardWidth: 5, boardSpacing: 5.0)
         self.gameOptions = gameSaveState.gameOptionsModel
         self.gameOverModel = gameSaveState.gameOverModel
         self.targetWord = gameSaveState.gameOptionsModel.targetWord
-        
-        super.init()
         
         print(self.targetWord)
         
@@ -176,6 +182,9 @@ class SingleWordGameViewModel : BaseViewNavigation {
     /// Function to go back to game mode selection
     func exitGame() {
         self.exitGameAction()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.gameNavigationController.dispose()
+        }
     }
     
     /// Function to end the game
@@ -186,7 +195,7 @@ class SingleWordGameViewModel : BaseViewNavigation {
         self.clock.stopClock()
         self.gameOverModel.timeElapsed = self.clock.timeElapsed
         
-        super.fadeToBlankDelay(delay: speed)
+        self.gameNavigationController.goToViewWithAnimation(.gameOver)
     }
     
     /// Function to pause the game
@@ -197,7 +206,7 @@ class SingleWordGameViewModel : BaseViewNavigation {
     
     /// Function to play a new game again
     func playAgain() {
-        super.fadeToBlank(fromRoot: false)
+        self.gameNavigationController.goToViewWithAnimation(.game)
         self.keyboardViewModel.resetKeyboard()
         self.gameBoardViewModel.resetBoardHard()
         self.clock.resetClock()

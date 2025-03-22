@@ -14,7 +14,7 @@ struct TenLetterGuesserView : View {
             HStack {
                 Spacer()
                 ClockView(clockVM: viewModel.clock)
-                    .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.title2)))
+                    .robotoSlabFont(.title2, .regular)
             }
             
             TenLetterGuesserBoardView(gameBoardWords: viewModel.gameBoardWords)

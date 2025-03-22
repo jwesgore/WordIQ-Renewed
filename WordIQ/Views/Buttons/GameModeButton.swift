@@ -11,9 +11,9 @@ struct GameModeButton: View {
         ThreeDButtonView(threeDButtonVM) {
             VStack {
                 Text(title)
-                    .font(.custom(RobotoSlabOptions.Weight.bold, fixedSize: CGFloat(RobotoSlabOptions.Size.title2)))
+                    .robotoSlabFont(.title2, .bold)
                 Text(caption)
-                    .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.caption)))
+                    .robotoSlabFont(.caption, .regular)
                     .opacity(0.6)
             }
         }

@@ -37,7 +37,7 @@ struct GameSettingsView : View {
                     } label: {
                         Text("Erase All Data")
                             .foregroundStyle(.red)
-                            .font(.custom(RobotoSlabOptions.Weight.regular, fixedSize: CGFloat(RobotoSlabOptions.Size.title3)))
+                            .robotoSlabFont(.title3, .regular)
                     }
                     .padding(.vertical, 20)
                     
@@ -45,7 +45,7 @@ struct GameSettingsView : View {
                 .padding([.horizontal, .bottom])
             }
         }
-        .font(.custom(RobotoSlabOptions.Weight.semiBold, fixedSize: CGFloat(RobotoSlabOptions.Size.headline)))
+        .robotoSlabFont(.headline, .semiBold)
         .ignoresSafeArea(edges: .bottom)
         .background(Color.appBackground)
         .onChange(of: gameSettingsVM.quickplayMode){

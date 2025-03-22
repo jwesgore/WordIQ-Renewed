@@ -3,7 +3,7 @@ import SwiftUI
 /// ViewModel to manage the GameModeSelectionView
 class GameModeSelectionViewModel : ObservableObject {
     
-    let navigationController: NavigationController
+    let appNavigationController: AppNavigationController
     let selectionNavigationController : GameSelectionNavigationController
     
     var StartButton : ThreeDButtonViewModel
@@ -26,6 +26,8 @@ class GameModeSelectionViewModel : ObservableObject {
     var FrenzyGameModeButton : ThreeDButtonViewModel
     var ZenGameModeButton : ThreeDButtonViewModel
     
+    var GameViewModel : SingleWordGameViewModel?
+    
     @Published var GameModeOptions : GameModeOptionsModel
     @Published var DisplaySettings: Bool = false
     @Published var DisplayStats: Bool = false
@@ -46,7 +48,7 @@ class GameModeSelectionViewModel : ObservableObject {
     init() {
         
         // Step 1: Initialize Models
-        self.navigationController = NavigationController.shared
+        self.appNavigationController = AppNavigationController.shared
         self.selectionNavigationController = GameSelectionNavigationController.shared
         self.GameModeOptions = GameModeOptionsModel()
         
@@ -55,18 +57,18 @@ class GameModeSelectionViewModel : ObservableObject {
         self.BackButton = ThreeDButtonViewModel(height: NavigationButtonDimension.0, width: NavigationButtonDimension.1)
         
         self.DifficultySelectionManager = ThreeDRadioButtonGroupViewModel()
-        self.EasyDifficultyButton = ThreeDRadioButtonViewModel(groupManager: DifficultySelectionManager, height: DifficultyButtonDimension.0, width: DifficultyButtonDimension.1)
-        self.NormalDifficultyButton = ThreeDRadioButtonViewModel(buttonIsPressed: true, groupManager: DifficultySelectionManager, height: DifficultyButtonDimension.0, width: DifficultyButtonDimension.1)
-        self.HardDifficultyButton = ThreeDRadioButtonViewModel(groupManager: DifficultySelectionManager, height: DifficultyButtonDimension.0, width: DifficultyButtonDimension.1)
+        self.EasyDifficultyButton = ThreeDRadioButtonViewModel(height: DifficultyButtonDimension.1, width: DifficultyButtonDimension.0, groupManager: DifficultySelectionManager)
+        self.NormalDifficultyButton = ThreeDRadioButtonViewModel(height: DifficultyButtonDimension.1, width: DifficultyButtonDimension.0, groupManager: DifficultySelectionManager, isPressed: true)
+        self.HardDifficultyButton = ThreeDRadioButtonViewModel(height: DifficultyButtonDimension.1, width: DifficultyButtonDimension.0, groupManager: DifficultySelectionManager)
         
         self.TimeSelectionManager = ThreeDRadioButtonGroupViewModel()
-        self.TimeSelection1Button = ThreeDRadioButtonViewModel(groupManager: TimeSelectionManager, height: TimeSelectionButtonDimension.0, width: TimeSelectionButtonDimension.1)
-        self.TimeSelection2Button = ThreeDRadioButtonViewModel(buttonIsPressed: true, groupManager: TimeSelectionManager, height: TimeSelectionButtonDimension.0, width: TimeSelectionButtonDimension.1)
-        self.TimeSelection3Button = ThreeDRadioButtonViewModel(groupManager: TimeSelectionManager, height: TimeSelectionButtonDimension.0, width: TimeSelectionButtonDimension.1)
+        self.TimeSelection1Button = ThreeDRadioButtonViewModel(height: TimeSelectionButtonDimension.1, width: TimeSelectionButtonDimension.0, groupManager: TimeSelectionManager)
+        self.TimeSelection2Button = ThreeDRadioButtonViewModel(height: TimeSelectionButtonDimension.1, width: TimeSelectionButtonDimension.0, groupManager: TimeSelectionManager, isPressed: true)
+        self.TimeSelection3Button = ThreeDRadioButtonViewModel(height: TimeSelectionButtonDimension.1, width: TimeSelectionButtonDimension.0, groupManager: TimeSelectionManager)
         
         self.DailyGameButton = ThreeDButtonViewModel(height: HalfButtonDimensions.0, width: HalfButtonDimensions.1)
         self.QuickplayGameButton = ThreeDButtonViewModel(height: HalfButtonDimensions.0, width: HalfButtonDimensions.1)
-        self.StandardGameModeButton = ThreeDButtonViewModel(height: GameModeButtonDimension.0, width: GameModeButtonDimension.1, speed: 0.02)
+        self.StandardGameModeButton = ThreeDButtonViewModel(height: GameModeButtonDimension.0, width: GameModeButtonDimension.1)
         self.RushGameModeButton = ThreeDButtonViewModel(height: GameModeButtonDimension.0, width: GameModeButtonDimension.1)
         self.FrenzyGameModeButton = ThreeDButtonViewModel(height: GameModeButtonDimension.0, width: GameModeButtonDimension.1)
         self.ZenGameModeButton = ThreeDButtonViewModel(height: GameModeButtonDimension.0, width: GameModeButtonDimension.1)
@@ -147,13 +149,13 @@ class GameModeSelectionViewModel : ObservableObject {
         self.GameModeOptions.timeLimit = 0
         self.GameModeOptions.gameDifficulty = .daily
         self.GameModeOptions.targetWord = WordDatabaseHelper.shared.fetchDailyFiveLetterWord()
-        self.navigationController.goToViewWithAnimation(.game, delay:0.25, pauseLength: 0.25)
+        self.appNavigationController.goToViewWithAnimation(.game, delay:0.25, pauseLength: 0.25)
     }
     
     /// Starts the game with the defined game options
     func startGame() {
         self.GameModeOptions.resetTargetWord()
-        self.navigationController.goToViewWithAnimation(.game, delay:0.25, pauseLength: 0.25)
+        self.appNavigationController.goToViewWithAnimation(.game, delay:0.25, pauseLength: 0.25)
     }
     
     /// Function to transition the view from mode selection to options
@@ -163,15 +165,16 @@ class GameModeSelectionViewModel : ObservableObject {
     
     /// Function to transition the view from options to mode selection
     func goBackToModeSelection() {
-        self.selectionNavigationController.goToViewWithAnimation(.gameModeSelection)
-        self.GameModeOptions.resetToDefaults()
-        self.TimeLimitOptions = (0, 0, 0)
+        self.selectionNavigationController.goToViewWithAnimation(.gameModeSelection) {
+            self.GameModeOptions.resetToDefaults()
+            self.TimeLimitOptions = (0, 0, 0)
+        }
     }
 
     /// Resets all values for when game is exited
     func exitFromGame() {
         self.goBackToModeSelection()
-        self.navigationController.goToViewWithAnimation(.gameModeSelection)
+        self.appNavigationController.goToViewWithAnimation(.gameModeSelection)
     }
     
     /// Creates a game view model based on the game mode options set
@@ -193,6 +196,7 @@ class GameModeSelectionViewModel : ObservableObject {
             }
         }()
         gameVM.exitGameAction = exitFromGame
+        GameViewModel = gameVM
         return gameVM
     }
     

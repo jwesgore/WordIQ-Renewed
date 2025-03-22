@@ -8,7 +8,7 @@ struct AppHeaderView : View {
     var body : some View {
         HStack {
             Text(SystemNames.Title.title)
-                .font(.custom(RobotoSlabOptions.Weight.bold, fixedSize: CGFloat(RobotoSlabOptions.Size.title2)))
+                .robotoSlabFont(.title2, .bold)
             Spacer()
             Button {
                 displayStats = true
@@ -16,7 +16,7 @@ struct AppHeaderView : View {
                 Image(systemName: SFAssets.stats)
                     .resizable()
                     .scaledToFit()
-                    .frame(maxWidth: CGFloat(RobotoSlabOptions.Size.title2))
+                    .frame(maxWidth: RobotoSlabOptions.Size.title2.rawValue)
             }
             .padding(.horizontal, 5)
             
@@ -26,7 +26,7 @@ struct AppHeaderView : View {
                 Image(systemName: SFAssets.settings)
                     .resizable()
                     .scaledToFit()
-                    .frame(maxWidth: CGFloat(RobotoSlabOptions.Size.title2))
+                    .frame(maxWidth: RobotoSlabOptions.Size.title2.rawValue)
             }
         }
     }
