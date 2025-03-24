@@ -167,6 +167,7 @@ class GameModeSelectionViewModel : ObservableObject {
     }
     
     func startMultiWordGame() {
+        self.multiWordGameModeOptions.resetToDefaults()
         self.appNavigationController.goToViewWithAnimation(.fourWordGame, delay:0.25, pauseLength: 0.25)
     }
     
@@ -179,6 +180,7 @@ class GameModeSelectionViewModel : ObservableObject {
     func goBackToModeSelection() {
         self.selectionNavigationController.goToViewWithAnimation(.gameModeSelection) {
             self.singleWordGameModeOptions.resetToDefaults()
+            //self.multiWordGameModeOptions.resetToDefaults()
             self.TimeLimitOptions = (0, 0, 0)
         }
     }

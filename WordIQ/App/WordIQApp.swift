@@ -6,12 +6,12 @@
 //
 
 import SwiftUI
-import FirebaseCore
+// import FirebaseCore
 
 @main
 struct WordIQApp: App {
     
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    // @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     let persistenceController = GameDatabasePersistenceController.shared
     
     init() {
