@@ -1,7 +1,7 @@
 import Foundation
 
 /// Model to more easily pass around data for the end of a game
-struct GameOverDataModel : Codable {
+struct SingleWordGameOverDataModel : Codable {
     var gameMode: GameMode
     var gameResult: GameResult
     var gameDifficulty: GameDifficulty
@@ -24,9 +24,9 @@ struct GameOverDataModel : Codable {
 }
 
 
-extension GameOverDataModel {
+extension SingleWordGameOverDataModel {
     /// Initializer for start of game
-    init(_ gameOptions: GameModeOptionsModel) {
+    init(_ gameOptions: SingleWordGameModeOptionsModel) {
         self.gameMode = gameOptions.gameMode
         self.gameResult = .na
         self.gameDifficulty = gameOptions.gameDifficulty

@@ -6,7 +6,7 @@ class SingleWordGameNavigationController : NavigationControllerBase {
     static var shared = SingleWordGameNavigationController()
     
     private init() {
-        super.init(.game)
+        super.init(.singleWordGame)
     }
     
     func dispose() {

@@ -3,10 +3,10 @@ import SwiftUI
 /// View that manages the end of a game
 struct GameOverView : View {
     
-    @ObservedObject var viewModel : GameOverViewModel
+    @ObservedObject var viewModel : SingleWordGameOverViewModel
     @State var gameMode : GameMode
     
-    init(_ gameOverVM: GameOverViewModel) {
+    init(_ gameOverVM: SingleWordGameOverViewModel) {
         self.viewModel = gameOverVM
         self.gameMode = gameOverVM.gameOverData.gameMode
     }
@@ -60,10 +60,10 @@ struct GameOverView : View {
 
 struct GameOverView_Preview: PreviewProvider {
     static var previews: some View {
-        let gameModeOptions = GameModeOptionsModel(gameMode: .standardMode, gameDifficulty: .normal, timeLimit: 0)
-        var gameoverModel = GameOverDataModel(gameModeOptions)
+        let gameModeOptions = SingleWordGameModeOptionsModel(gameMode: .standardMode, gameDifficulty: .normal, timeLimit: 0)
+        var gameoverModel = SingleWordGameOverDataModel(gameModeOptions)
         gameoverModel.gameResult = .win
-        let gameoverVM = GameOverViewModel(gameoverModel)
+        let gameoverVM = SingleWordGameOverViewModel(gameoverModel)
         return VStack {
             GameOverView(gameoverVM)
         }

@@ -44,7 +44,7 @@ class TopDownButtonViewModel : ObservableObject {
         self.init(height: height,
                   width: width,
                   actionDelay: 0.5,
-                  animationDuration: 0.1,
+                  animationDuration: 0.15,
                   backgroundColor: .Buttons.buttonBackground,
                   borderColor: .Buttons.buttonBorder,
                   borderThickness: 1.0,

@@ -25,8 +25,11 @@ struct AppStartingView: View {
             case .gameModeSelection:
                 GameModeSelectionView(gameModeSelectionVM)
                     .transition(.blurReplace)
-            case .game:
-                SingleWordGameView(gameModeSelectionVM.getGameViewModel())
+            case .singleWordGame:
+                SingleWordGameView(gameModeSelectionVM.getSingleWordGameViewModel())
+                    .transition(.blurReplace)
+            case .fourWordGame:
+                FourWordGameView(gameModeSelectionVM.getFourWordGameViewModel())
                     .transition(.blurReplace)
             default:
                 Color.appBackground

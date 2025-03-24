@@ -82,7 +82,7 @@ class GameDatabaseHelper {
     }
     
     // Update database
-    func saveGame(_ gameOverData : GameOverDataModel) {
+    func saveGame(_ gameOverData : SingleWordGameOverDataModel) {
         let newGameResult = GameResultsModel(context: context)
         
         newGameResult.id = UUID()
@@ -202,14 +202,14 @@ class GameDatabaseHelper {
     }
     
     /// Try and get game over model by id
-    func getGameResultsById(id: UUID) -> GameOverDataModel? {
+    func getGameResultsById(id: UUID) -> SingleWordGameOverDataModel? {
         let fetchRequest: NSFetchRequest<GameResultsModel> = GameResultsModel.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id == %@", id as CVarArg)
         
         do {
             let results = try context.fetch(fetchRequest)
             if let gameResults = results.first {
-                return GameOverDataModel(gameResults)
+                return SingleWordGameOverDataModel(gameResults)
             }
         } catch {
             print("Error fetching game results by ID: \(error)")

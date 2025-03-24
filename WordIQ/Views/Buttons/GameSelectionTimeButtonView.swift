@@ -13,14 +13,8 @@ struct GameSelectionTimeButtonView : View {
     
     var body : some View {
         ThreeDRadioButtonView(button) {
-            Text(formatTimeShort(timeLimit))
+            Text(TimeUtility.formatTimeShort(timeLimit))
                 .robotoSlabFont(.title2, .regular)
         }
-    }
-    
-    func formatTimeShort(_ seconds: Int) -> String {
-        let minutes = seconds / 60
-        let remainingSeconds = seconds % 60
-        return String(format: "%d:%02d", minutes, remainingSeconds)
     }
 }

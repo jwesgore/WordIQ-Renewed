@@ -53,7 +53,7 @@ extension View {
 /// Extension to allow for adding text views together
 extension Text {
     func robotoSlabFont(_ textStyle: Font.TextStyle, _ weight: RobotoSlabOptions.Weight) -> Text {
-        self.font(.custom(weight.rawValue, size: UIFont.preferredFont(forTextStyle: UIFont.TextStyle(textStyle)).pointSize))
+        self.font(.custom(weight.rawValue, fixedSize: UIFont.preferredFont(forTextStyle: UIFont.TextStyle(textStyle)).pointSize))
     }
 }
 

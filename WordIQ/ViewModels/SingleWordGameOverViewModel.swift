@@ -2,14 +2,14 @@ import SwiftUI
 import CoreData
 
 /// View Model for the game over screen
-class GameOverViewModel : ObservableObject {
+class SingleWordGameOverViewModel : ObservableObject {
     
     // MARK: Constants
     let databaseHelper = GameDatabaseHelper()
     let functionButtonDimensions : (CGFloat, CGFloat) = (50, 400)
     
     // MARK: Properties
-    @Published var gameOverData : GameOverDataModel
+    @Published var gameOverData : SingleWordGameOverDataModel
     
     // MARK: Stats Info Models
     @Published var firstRowStat = InfoItemModel()
@@ -22,7 +22,7 @@ class GameOverViewModel : ObservableObject {
     var PlayAgainButton : ThreeDButtonViewModel
     
     /// Initializer
-    init(_ gameOverModel: GameOverDataModel) {
+    init(_ gameOverModel: SingleWordGameOverDataModel) {
 
         self.gameOverData = gameOverModel
         self.BackButton = ThreeDButtonViewModel(height: functionButtonDimensions.0, width: functionButtonDimensions.1)

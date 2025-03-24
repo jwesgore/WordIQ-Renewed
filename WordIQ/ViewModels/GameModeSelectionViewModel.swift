@@ -19,23 +19,26 @@ class GameModeSelectionViewModel : ObservableObject {
     var TimeSelection2Button : ThreeDRadioButtonViewModel
     var TimeSelection3Button : ThreeDRadioButtonViewModel
     
-    var DailyGameButton : ThreeDButtonViewModel
-    var QuickplayGameButton : ThreeDButtonViewModel
-    var StandardGameModeButton : ThreeDButtonViewModel
-    var RushGameModeButton : ThreeDButtonViewModel
-    var FrenzyGameModeButton : ThreeDButtonViewModel
-    var ZenGameModeButton : ThreeDButtonViewModel
+    var DailyGameButton : TopDownButtonViewModel
+    var QuickplayGameButton : TopDownButtonViewModel
+    var StandardGameModeButton : TopDownButtonViewModel
+    var RushGameModeButton : TopDownButtonViewModel
+    var FrenzyGameModeButton : TopDownButtonViewModel
+    var ZenGameModeButton : TopDownButtonViewModel
+    
+    var FourWordGameModeButton : TopDownButtonViewModel
     
     var GameViewModel : SingleWordGameViewModel?
     
-    @Published var GameModeOptions : GameModeOptionsModel
+    @Published var singleWordGameModeOptions : SingleWordGameModeOptionsModel
+    @Published var multiWordGameModeOptions : FourWordGameModeOptionsModel
     @Published var DisplaySettings: Bool = false
     @Published var DisplayStats: Bool = false
     @Published var TimeLimitOptions : (Int, Int, Int) = (0, 0, 0)
     
     // Calculated Values
     var showTimeLimitOptions: Bool {
-        return [GameMode.rushMode, GameMode.frenzyMode].contains(GameModeOptions.gameMode)
+        return [GameMode.rushMode, GameMode.frenzyMode].contains(singleWordGameModeOptions.gameMode)
     }
     
     // Set Values
@@ -50,91 +53,96 @@ class GameModeSelectionViewModel : ObservableObject {
         // Step 1: Initialize Models
         self.appNavigationController = AppNavigationController.shared
         self.selectionNavigationController = GameSelectionNavigationController.shared
-        self.GameModeOptions = GameModeOptionsModel()
+        self.singleWordGameModeOptions = SingleWordGameModeOptionsModel()
+        self.multiWordGameModeOptions = FourWordGameModeOptionsModel()
         
         // Step 2: Initialize all buttons without action
         self.StartButton = ThreeDButtonViewModel(height: NavigationButtonDimension.0, width: NavigationButtonDimension.1)
         self.BackButton = ThreeDButtonViewModel(height: NavigationButtonDimension.0, width: NavigationButtonDimension.1)
         
         self.DifficultySelectionManager = ThreeDRadioButtonGroupViewModel()
-        self.EasyDifficultyButton = ThreeDRadioButtonViewModel(height: DifficultyButtonDimension.1, width: DifficultyButtonDimension.0, groupManager: DifficultySelectionManager)
-        self.NormalDifficultyButton = ThreeDRadioButtonViewModel(height: DifficultyButtonDimension.1, width: DifficultyButtonDimension.0, groupManager: DifficultySelectionManager, isPressed: true)
-        self.HardDifficultyButton = ThreeDRadioButtonViewModel(height: DifficultyButtonDimension.1, width: DifficultyButtonDimension.0, groupManager: DifficultySelectionManager)
+        self.EasyDifficultyButton = ThreeDRadioButtonViewModel(height: DifficultyButtonDimension.0, width: DifficultyButtonDimension.1, groupManager: DifficultySelectionManager)
+        self.NormalDifficultyButton = ThreeDRadioButtonViewModel(height: DifficultyButtonDimension.0, width: DifficultyButtonDimension.1, groupManager: DifficultySelectionManager, isPressed: true)
+        self.HardDifficultyButton = ThreeDRadioButtonViewModel(height: DifficultyButtonDimension.0, width: DifficultyButtonDimension.1, groupManager: DifficultySelectionManager)
         
         self.TimeSelectionManager = ThreeDRadioButtonGroupViewModel()
-        self.TimeSelection1Button = ThreeDRadioButtonViewModel(height: TimeSelectionButtonDimension.1, width: TimeSelectionButtonDimension.0, groupManager: TimeSelectionManager)
-        self.TimeSelection2Button = ThreeDRadioButtonViewModel(height: TimeSelectionButtonDimension.1, width: TimeSelectionButtonDimension.0, groupManager: TimeSelectionManager, isPressed: true)
-        self.TimeSelection3Button = ThreeDRadioButtonViewModel(height: TimeSelectionButtonDimension.1, width: TimeSelectionButtonDimension.0, groupManager: TimeSelectionManager)
+        self.TimeSelection1Button = ThreeDRadioButtonViewModel(height: TimeSelectionButtonDimension.0, width: TimeSelectionButtonDimension.1, groupManager: TimeSelectionManager)
+        self.TimeSelection2Button = ThreeDRadioButtonViewModel(height: TimeSelectionButtonDimension.0, width: TimeSelectionButtonDimension.1, groupManager: TimeSelectionManager, isPressed: true)
+        self.TimeSelection3Button = ThreeDRadioButtonViewModel(height: TimeSelectionButtonDimension.0, width: TimeSelectionButtonDimension.1, groupManager: TimeSelectionManager)
         
-        self.DailyGameButton = ThreeDButtonViewModel(height: HalfButtonDimensions.0, width: HalfButtonDimensions.1)
-        self.QuickplayGameButton = ThreeDButtonViewModel(height: HalfButtonDimensions.0, width: HalfButtonDimensions.1)
-        self.StandardGameModeButton = ThreeDButtonViewModel(height: GameModeButtonDimension.0, width: GameModeButtonDimension.1)
-        self.RushGameModeButton = ThreeDButtonViewModel(height: GameModeButtonDimension.0, width: GameModeButtonDimension.1)
-        self.FrenzyGameModeButton = ThreeDButtonViewModel(height: GameModeButtonDimension.0, width: GameModeButtonDimension.1)
-        self.ZenGameModeButton = ThreeDButtonViewModel(height: GameModeButtonDimension.0, width: GameModeButtonDimension.1)
+        self.DailyGameButton = TopDownButtonViewModel(height: HalfButtonDimensions.0, width: HalfButtonDimensions.1)
+        self.QuickplayGameButton = TopDownButtonViewModel(height: HalfButtonDimensions.0, width: HalfButtonDimensions.1)
+        self.StandardGameModeButton = TopDownButtonViewModel(height: GameModeButtonDimension.0, width: GameModeButtonDimension.1)
+        self.RushGameModeButton = TopDownButtonViewModel(height: GameModeButtonDimension.0, width: GameModeButtonDimension.1)
+        self.FrenzyGameModeButton = TopDownButtonViewModel(height: GameModeButtonDimension.0, width: GameModeButtonDimension.1)
+        self.ZenGameModeButton = TopDownButtonViewModel(height: GameModeButtonDimension.0, width: GameModeButtonDimension.1)
+        self.FourWordGameModeButton = TopDownButtonViewModel(height: GameModeButtonDimension.0, width: GameModeButtonDimension.1)
         
         // Step 4: Add actions to buttons
         self.StartButton.action = {
-            self.startGame()
+            self.startSingleWordGame()
         }
         self.BackButton.action = {
             self.goBackToModeSelection()
         }
         
         self.EasyDifficultyButton.action = {
-            self.GameModeOptions.gameDifficulty = .easy
+            self.singleWordGameModeOptions.gameDifficulty = .easy
         }
         self.NormalDifficultyButton.action = {
-            self.GameModeOptions.gameDifficulty = .normal
+            self.singleWordGameModeOptions.gameDifficulty = .normal
         }
         self.HardDifficultyButton.action = {
-            self.GameModeOptions.gameDifficulty = .hard
+            self.singleWordGameModeOptions.gameDifficulty = .hard
         }
         
         self.TimeSelection1Button.action = {
-            self.GameModeOptions.timeLimit = self.TimeLimitOptions.0
+            self.singleWordGameModeOptions.timeLimit = self.TimeLimitOptions.0
         }
         self.TimeSelection2Button.action = {
-            self.GameModeOptions.timeLimit = self.TimeLimitOptions.1
+            self.singleWordGameModeOptions.timeLimit = self.TimeLimitOptions.1
         }
         self.TimeSelection3Button.action = {
-            self.GameModeOptions.timeLimit = self.TimeLimitOptions.2
+            self.singleWordGameModeOptions.timeLimit = self.TimeLimitOptions.2
         }
         
         self.DailyGameButton.action = {
             self.startDaily()
         }
         self.QuickplayGameButton.action = {
-            self.GameModeOptions.gameMode = UserDefaultsHelper.shared.quickplaySetting_mode
-            self.GameModeOptions.timeLimit = UserDefaultsHelper.shared.quickplaySetting_timeLimit
-            self.GameModeOptions.gameDifficulty = UserDefaultsHelper.shared.quickplaySetting_difficulty
-            self.startGame()
+            self.singleWordGameModeOptions.gameMode = UserDefaultsHelper.shared.quickplaySetting_mode
+            self.singleWordGameModeOptions.timeLimit = UserDefaultsHelper.shared.quickplaySetting_timeLimit
+            self.singleWordGameModeOptions.gameDifficulty = UserDefaultsHelper.shared.quickplaySetting_difficulty
+            self.startSingleWordGame()
         }
         self.StandardGameModeButton.action = {
             self.TimeLimitOptions = GameTimeLimit.none.values
-            self.GameModeOptions.gameMode = .standardMode
-            self.GameModeOptions.timeLimit = 0
+            self.singleWordGameModeOptions.gameMode = .standardMode
+            self.singleWordGameModeOptions.timeLimit = 0
             self.goToGameModeOptions(.standardMode)
         }
         self.RushGameModeButton.action = {
             self.TimeLimitOptions = GameTimeLimit.rush.values
-            self.GameModeOptions.gameMode = .rushMode
-            self.GameModeOptions.timeLimit = GameTimeLimit.rush.values.1
+            self.singleWordGameModeOptions.gameMode = .rushMode
+            self.singleWordGameModeOptions.timeLimit = GameTimeLimit.rush.values.1
             self.TimeSelectionManager.communicate(self.TimeSelection2Button.id)
             self.goToGameModeOptions(.rushMode)
         }
         self.FrenzyGameModeButton.action = {
             self.TimeLimitOptions = GameTimeLimit.frenzy.values
-            self.GameModeOptions.gameMode = .frenzyMode
-            self.GameModeOptions.timeLimit = GameTimeLimit.frenzy.values.1
+            self.singleWordGameModeOptions.gameMode = .frenzyMode
+            self.singleWordGameModeOptions.timeLimit = GameTimeLimit.frenzy.values.1
             self.TimeSelectionManager.communicate(self.TimeSelection2Button.id)
             self.goToGameModeOptions(.frenzyMode)
         }
         self.ZenGameModeButton.action = {
             self.TimeLimitOptions = GameTimeLimit.none.values
-            self.GameModeOptions.gameMode = .zenMode
-            self.GameModeOptions.timeLimit = 0
+            self.singleWordGameModeOptions.gameMode = .zenMode
+            self.singleWordGameModeOptions.timeLimit = 0
             self.goToGameModeOptions(.zenMode)
+        }
+        self.FourWordGameModeButton.action = {
+            self.startMultiWordGame()
         }
         
         // Step 5: Add radio buttons to their managers
@@ -145,17 +153,21 @@ class GameModeSelectionViewModel : ObservableObject {
     // MARK: Navigation Functions
     /// Starts the game in daily mode
     func startDaily() {
-        self.GameModeOptions.gameMode = .dailyGame
-        self.GameModeOptions.timeLimit = 0
-        self.GameModeOptions.gameDifficulty = .daily
-        self.GameModeOptions.targetWord = WordDatabaseHelper.shared.fetchDailyFiveLetterWord()
-        self.appNavigationController.goToViewWithAnimation(.game, delay:0.25, pauseLength: 0.25)
+        self.singleWordGameModeOptions.gameMode = .dailyGame
+        self.singleWordGameModeOptions.timeLimit = 0
+        self.singleWordGameModeOptions.gameDifficulty = .daily
+        self.singleWordGameModeOptions.targetWord = WordDatabaseHelper.shared.fetchDailyFiveLetterWord()
+        self.appNavigationController.goToViewWithAnimation(.singleWordGame, delay:0.25, pauseLength: 0.25)
     }
     
     /// Starts the game with the defined game options
-    func startGame() {
-        self.GameModeOptions.resetTargetWord()
-        self.appNavigationController.goToViewWithAnimation(.game, delay:0.25, pauseLength: 0.25)
+    func startSingleWordGame() {
+        self.singleWordGameModeOptions.resetTargetWord()
+        self.appNavigationController.goToViewWithAnimation(.singleWordGame, delay:0.25, pauseLength: 0.25)
+    }
+    
+    func startMultiWordGame() {
+        self.appNavigationController.goToViewWithAnimation(.fourWordGame, delay:0.25, pauseLength: 0.25)
     }
     
     /// Function to transition the view from mode selection to options
@@ -166,7 +178,7 @@ class GameModeSelectionViewModel : ObservableObject {
     /// Function to transition the view from options to mode selection
     func goBackToModeSelection() {
         self.selectionNavigationController.goToViewWithAnimation(.gameModeSelection) {
-            self.GameModeOptions.resetToDefaults()
+            self.singleWordGameModeOptions.resetToDefaults()
             self.TimeLimitOptions = (0, 0, 0)
         }
     }
@@ -177,27 +189,33 @@ class GameModeSelectionViewModel : ObservableObject {
         self.appNavigationController.goToViewWithAnimation(.gameModeSelection)
     }
     
+    func getFourWordGameViewModel() -> FourWordGameViewModel {
+        let viewModel = FourWordGameViewModel(gameOptions: multiWordGameModeOptions)
+        viewModel.exitGameAction = exitFromGame
+        return viewModel
+    }
+    
     /// Creates a game view model based on the game mode options set
-    func getGameViewModel() -> SingleWordGameViewModel {
-        let gameVM : SingleWordGameViewModel = {
-            switch GameModeOptions.gameMode {
+    func getSingleWordGameViewModel() -> SingleWordGameViewModel {
+        let viewModel : SingleWordGameViewModel = {
+            switch singleWordGameModeOptions.gameMode {
             case .standardMode:
-                return StandardModeViewModel(gameOptions: self.GameModeOptions)
+                return StandardModeViewModel(gameOptions: self.singleWordGameModeOptions)
             case .rushMode:
-                return RushModeViewModel(gameOptions: self.GameModeOptions)
+                return RushModeViewModel(gameOptions: self.singleWordGameModeOptions)
             case .frenzyMode:
-                return FrenzyModeViewModel(gameOptions: self.GameModeOptions)
+                return FrenzyModeViewModel(gameOptions: self.singleWordGameModeOptions)
             case .zenMode:
-                return ZenModeViewModel(gameOptions: self.GameModeOptions)
+                return ZenModeViewModel(gameOptions: self.singleWordGameModeOptions)
             case .dailyGame:
-                return DailyModeViewModel(gameOptions: self.GameModeOptions)
-            case .quickplay:
-                return StandardModeViewModel(gameOptions: self.GameModeOptions)
+                return DailyModeViewModel(gameOptions: self.singleWordGameModeOptions)
+            default:
+                return StandardModeViewModel(gameOptions: self.singleWordGameModeOptions)
             }
         }()
-        gameVM.exitGameAction = exitFromGame
-        GameViewModel = gameVM
-        return gameVM
+        viewModel.exitGameAction = exitFromGame
+        GameViewModel = viewModel
+        return viewModel
     }
     
 }

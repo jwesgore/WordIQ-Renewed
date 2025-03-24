@@ -1,14 +1,17 @@
 import SwiftUI
 
+/// Button for selecting which game mode
 struct GameModeButton: View {
     
-    @ObservedObject var threeDButtonVM : ThreeDButtonViewModel
+    // @ObservedObject var threeDButtonVM : ThreeDButtonViewModel
+    @ObservedObject var viewModel : TopDownButtonViewModel
     
     let title : String
     var caption: String
     
     var body: some View {
-        ThreeDButtonView(threeDButtonVM) {
+        
+        TopDownButtonView(viewModel) {
             VStack {
                 Text(title)
                     .robotoSlabFont(.title2, .bold)
@@ -17,12 +20,22 @@ struct GameModeButton: View {
                     .opacity(0.6)
             }
         }
+        
+//        ThreeDButtonView(threeDButtonVM) {
+//            VStack {
+//                Text(title)
+//                    .robotoSlabFont(.title2, .bold)
+//                Text(caption)
+//                    .robotoSlabFont(.caption, .regular)
+//                    .opacity(0.6)
+//            }
+//        }
     }
 }
 
 extension GameModeButton {
-    init(_ threeDButtonVM: ThreeDButtonViewModel, gameMode: GameMode) {
-        self.threeDButtonVM = threeDButtonVM
+    init(_ viewModel: TopDownButtonViewModel, gameMode: GameMode) {
+        self.viewModel = viewModel
         self.title = gameMode.asStringShort
         
         switch gameMode {

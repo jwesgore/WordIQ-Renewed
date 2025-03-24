@@ -9,6 +9,7 @@ enum GameMode: String, Codable, Identifiable, Equatable {
     case zenMode
     case dailyGame
     case quickplay
+    case quadWordMode
     
     /// Implementation of Identifiable
     var id: Int {
@@ -19,6 +20,7 @@ enum GameMode: String, Codable, Identifiable, Equatable {
         case .zenMode: return 3
         case .dailyGame: return 4
         case .quickplay: return 5
+        case .quadWordMode: return 6
         }
     }
     
@@ -31,6 +33,7 @@ enum GameMode: String, Codable, Identifiable, Equatable {
         case 3: return .zenMode
         case 4: return .dailyGame
         case 5: return .quickplay
+        case 6: return .quadWordMode
         default: return nil
         }
     }
@@ -44,6 +47,7 @@ extension GameMode {
         case .frenzyMode: return .orange
         case .zenMode: return .purple
         case .dailyGame: return .red
+        case .quadWordMode: return ValueConverter.colorFromHex("#006400")
         default: return .yellow
         }
     }
@@ -60,6 +64,7 @@ extension GameMode {
         case .zenMode: return "Zen"
         case .dailyGame: return "Daily"
         case .quickplay: return "Quickplay"
+        case .quadWordMode: return "Quad"
         }
     }
     

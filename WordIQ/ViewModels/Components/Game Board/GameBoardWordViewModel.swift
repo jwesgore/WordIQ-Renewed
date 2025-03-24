@@ -5,10 +5,12 @@ class GameBoardWordViewModel : ObservableObject {
     
     let boardSpacing: CGFloat
     let boardWidth: Int
+    
+    // TODO: Is this necessary?
     let id: UUID = UUID()
     
     @Published var letters: [GameBoardLetterViewModel] = []
-    @Published private(set) var shake: Bool = false
+    @Published private(set) var shakeWord: Bool = false
     
     var hints: [ValidCharacters?] = []
     var position: Int = 0
@@ -70,10 +72,18 @@ class GameBoardWordViewModel : ObservableObject {
         }
     }
     
+    /// Sets the font options for all letters
+    func setFontOptions(fontSize: RobotoSlabOptions.Size, fontWeight: RobotoSlabOptions.Weight) {
+        for letter in letters {
+            letter.fontSize = fontSize
+            letter.fontWeight = fontWeight
+        }
+    }
+    
     /// Performs the shake animation
-    func shakeAnimation() {
+    func shake() {
         withAnimation(.easeInOut(duration: 0.2)) {
-            self.shake.toggle()
+            self.shakeWord.toggle()
         }
     }
     

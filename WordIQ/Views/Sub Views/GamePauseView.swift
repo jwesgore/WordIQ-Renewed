@@ -66,5 +66,5 @@ struct GamePauseInfoView: View {
 #Preview {
     GamePauseView(
         SingleWordGameViewModel(gameOptions:
-            GameModeOptionsModel(gameMode: .standardMode, gameDifficulty: .easy, timeLimit: 0)))
+            SingleWordGameModeOptionsModel(gameMode: .standardMode, gameDifficulty: .easy, timeLimit: 0)))
 }

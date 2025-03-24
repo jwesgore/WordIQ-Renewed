@@ -24,12 +24,13 @@ struct TopDownButtonView<Content: View>: View {
             viewModel.performAction()
         } label: {
             content
-                .frame(width: viewModel.width, height: viewModel.height)
+                .frame(maxWidth: viewModel.width, maxHeight: viewModel.height)
                 .background(
                     RoundedRectangle(cornerRadius: viewModel.cornerRadius)
                         .fill(viewModel.backgroundColor)
                         .stroke(viewModel.borderColor, lineWidth: viewModel.borderThickness)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .shadow(color: self.isPressed ? Color.clear : Color.black.opacity(0.3), radius: 3, x: 5, y: 5)
                 )
         }
         .removeDefaultButtonStyle()

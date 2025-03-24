@@ -1,6 +1,7 @@
 
 enum SystemView {
-    case game
+    case singleWordGame
+    case fourWordGame
     case gameOver
     case gameModeSelection
     case gameModeSelectionOptions

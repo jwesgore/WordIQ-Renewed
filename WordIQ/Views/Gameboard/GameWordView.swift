@@ -11,7 +11,7 @@ struct GameWordView : View {
                 GameLetterView($0)
             }
         }
-        .modifier(ShakeEffect(animatableData: viewModel.shake ? 1.5 : 0))
+        .modifier(ShakeEffect(animatableData: viewModel.shakeWord ? 1.5 : 0))
     }
 }
 

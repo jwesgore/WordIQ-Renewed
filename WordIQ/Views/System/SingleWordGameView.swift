@@ -9,7 +9,7 @@ struct SingleWordGameView : View {
     var body : some View {
         ZStack {
             switch navigationController.activeView {
-            case .game:
+            case .singleWordGame:
                 VStack (spacing: 0) {
                     
                     GameHeaderView(viewModel)
@@ -46,5 +46,5 @@ extension SingleWordGameView {
 }
 
 #Preview {
-    SingleWordGameView(StandardModeViewModel(gameOptions: GameModeOptionsModel(gameMode: .standardMode, gameDifficulty: .normal, timeLimit:0)))
+    SingleWordGameView(StandardModeViewModel(gameOptions: SingleWordGameModeOptionsModel(gameMode: .standardMode, gameDifficulty: .normal, timeLimit:0)))
 }

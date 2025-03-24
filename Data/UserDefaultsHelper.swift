@@ -263,11 +263,11 @@ class UserDefaultsHelper {
     }
     
     /// Final save state of daily mode
-    var dailyGameOverModel : GameOverDataModel? {
+    var dailyGameOverModel : SingleWordGameOverDataModel? {
         get {
             if let data = UserDefaults.standard.data(forKey: dailyModelKey) {
                 let decoder = JSONDecoder()
-                return try? decoder.decode(GameOverDataModel.self, from: data)
+                return try? decoder.decode(SingleWordGameOverDataModel.self, from: data)
             }
             return nil
         }
@@ -348,7 +348,7 @@ class UserDefaultsHelper {
     
     // MARK: Functions
     // Update values based on game over results
-    func update(_ gameOverResults : GameOverDataModel) {
+    func update(_ gameOverResults : SingleWordGameOverDataModel) {
         switch gameOverResults.gameMode {
         case .dailyGame:
             if gameOverResults.gameResult == .win {

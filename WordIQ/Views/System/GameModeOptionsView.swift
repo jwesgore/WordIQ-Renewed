@@ -6,8 +6,8 @@ struct GameModeOptionsView : View {
     
     var body: some View {
         let optionsHeader = gameModeSelectionVM.showTimeLimitOptions ?
-            "\(gameModeSelectionVM.GameModeOptions.gameMode.asStringShort): \(gameModeSelectionVM.GameModeOptions.gameDifficulty.asString), \(TimeUtility.formatTimeShort(gameModeSelectionVM.GameModeOptions.timeLimit))" :
-            "\(gameModeSelectionVM.GameModeOptions.gameMode.asStringShort): \(gameModeSelectionVM.GameModeOptions.gameDifficulty.asString)"
+            "\(gameModeSelectionVM.singleWordGameModeOptions.gameMode.asStringShort): \(gameModeSelectionVM.singleWordGameModeOptions.gameDifficulty.asString), \(TimeUtility.formatTimeShort(gameModeSelectionVM.singleWordGameModeOptions.timeLimit))" :
+            "\(gameModeSelectionVM.singleWordGameModeOptions.gameMode.asStringShort): \(gameModeSelectionVM.singleWordGameModeOptions.gameDifficulty.asString)"
             
         VStack {
             VStack {
@@ -17,7 +17,7 @@ struct GameModeOptionsView : View {
                     .robotoSlabFont(.title2, .semiBold)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                Text(gameModeSelectionVM.GameModeOptions.gameMode.description)
+                Text(gameModeSelectionVM.singleWordGameModeOptions.gameMode.description)
                     .robotoSlabFont(.subheading, .regular)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }

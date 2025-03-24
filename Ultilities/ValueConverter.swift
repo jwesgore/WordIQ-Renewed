@@ -1,6 +1,24 @@
 import Foundation
+import SwiftUI
 
 class ValueConverter {
+    
+    static func colorFromHex(_ hex: String) -> Color {
+        let scanner = Scanner(string: hex)
+        var hexNumber : UInt64 = 0
+        
+        if (hex.hasPrefix("#")) {
+            scanner.currentIndex = hex.index(after: hex.startIndex)
+        }
+
+        scanner.scanHexInt64(&hexNumber)
+        
+        let red = Double((hexNumber & 0xFF0000) >> 16) / 255.0
+        let green = Double((hexNumber & 0x00FF00) >> 8) / 255.0
+        let blue = Double(hexNumber & 0x0000F) / 255.0
+        
+        return Color(red: red, green: green, blue: blue)
+    }
     
     static func dateToDateComponents(_ date: Date, components: Set<Calendar.Component>) -> DateComponents {
         let calendar = Calendar.current

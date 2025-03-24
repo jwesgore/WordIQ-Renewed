@@ -25,6 +25,7 @@ struct GameModeSelectionView: View {
                         GameModeButton(gameModeSelectionVM.RushGameModeButton, gameMode: .rushMode)
                         GameModeButton(gameModeSelectionVM.FrenzyGameModeButton, gameMode: .frenzyMode)
                         GameModeButton(gameModeSelectionVM.ZenGameModeButton, gameMode: .zenMode)
+                        GameModeButton(gameModeSelectionVM.FourWordGameModeButton, gameMode: .quadWordMode)
                         
                         Spacer()
                     }

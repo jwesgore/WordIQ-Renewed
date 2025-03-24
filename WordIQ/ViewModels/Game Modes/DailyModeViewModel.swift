@@ -3,7 +3,7 @@ class DailyModeViewModel : StandardModeViewModel {
     
     // MARK: Overrides
     /// Override init to check for save states
-    override init(gameOptions: GameModeOptionsModel) {
+    override init(gameOptions: SingleWordGameModeOptionsModel) {
         // First Check to make sure that the user has not "time traveled" or already played todays game
         if UserDefaultsHelper.shared.lastDailyPlayed >= gameOptions.targetWord.daily {
             super.init(gameOptions: gameOptions)
