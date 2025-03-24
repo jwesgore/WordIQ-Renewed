@@ -18,21 +18,21 @@ class SingleWordGameOverViewModel : ObservableObject {
     @Published var fourthRowStat = InfoItemModel()
     
     // MARK: Button View Models
-    var BackButton : ThreeDButtonViewModel
-    var PlayAgainButton : ThreeDButtonViewModel
+    var backButton : TopDownButtonViewModel
+    var playAgainButton : TopDownButtonViewModel
     
     /// Initializer
     init(_ gameOverModel: SingleWordGameOverDataModel) {
 
         self.gameOverData = gameOverModel
-        self.BackButton = ThreeDButtonViewModel(height: functionButtonDimensions.0, width: functionButtonDimensions.1)
-        self.PlayAgainButton = ThreeDButtonViewModel(height: functionButtonDimensions.0, width: functionButtonDimensions.1)
+        self.backButton = TopDownButtonViewModel(height: functionButtonDimensions.0, width: functionButtonDimensions.1)
+        self.playAgainButton = TopDownButtonViewModel(height: functionButtonDimensions.0, width: functionButtonDimensions.1)
         
         self.setRowDefaults(gameOverModel.gameMode)
     }
     
     // MARK: Row Data Functions
-    /// Initialize the icon and label defaults for each row based on the gamemode
+    /// Initialize the icon and label defaults for each row based on the game mode
     func setRowDefaults(_ gameMode : GameMode) {
         // Set First Row Defaults
         firstRowStat.icon = SFAssets.timer
@@ -66,7 +66,7 @@ class SingleWordGameOverViewModel : ObservableObject {
         }
     }
     
-    /// Set the values on all stats items based on the gamemode
+    /// Set the values on all stats items based on the game mode
     func setRowValues(_ gameMode : GameMode) {
         // Set First and Second Row values
         firstRowStat.value = TimeUtility.formatTimeShort(gameOverData.timeElapsed)

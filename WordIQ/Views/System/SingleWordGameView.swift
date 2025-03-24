@@ -22,13 +22,13 @@ struct SingleWordGameView : View {
                     
                     KeyboardView(viewModel.keyboardViewModel)
                 }
-                .padding()
+                .padding([.horizontal, .bottom])
                 .transition(.blurReplace)
                 .fullScreenCover(isPresented: $viewModel.showPauseMenu) {
                     GamePauseView(viewModel)
                 }
             case .gameOver:
-                GameOverView(viewModel.gameOverViewModel)
+                SingleWordGameOverView(viewModel.gameOverViewModel)
                     .transition(.blurReplace)
             default:
                 Color.appBackground

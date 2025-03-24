@@ -1,16 +1,11 @@
 import SwiftUI
 
+/// View for game pause menu
 struct GamePauseView : View {
     
-    @ObservedObject var gameViewModel : SingleWordGameViewModel
-    var gamePauseViewModel : GamePauseViewModel
-    
-    init (_ gameViewModel: SingleWordGameViewModel) {
-        self.gameViewModel = gameViewModel
-        self.gamePauseViewModel = GamePauseViewModel()
-        self.gamePauseViewModel.ResumeGameButton.action = gameViewModel.resumeGame
-        self.gamePauseViewModel.EndGameButton.action = gameViewModel.exitGame
-    }
+    var clock : ClockViewModel
+    var options : GameOptionsBaseProtocol
+    var viewModel : GamePauseViewModel
     
     var body: some View {
         VStack (spacing: 20) {
@@ -21,7 +16,7 @@ struct GamePauseView : View {
             HStack {
                 Spacer()
                 
-                GamePauseInfoView(title: "Time", value: TimeUtility.formatTimeShort(gameViewModel.clock.timeElapsed))
+                GamePauseInfoView(title: "Time", value: TimeUtility.formatTimeShort(clock.timeElapsed))
                 
                 Spacer()
                 
@@ -29,13 +24,13 @@ struct GamePauseView : View {
                 
                 Spacer()
                 
-                GamePauseInfoView(title: SystemNames.GameSettings.gameDifficulty, value: gameViewModel.gameOptions.gameDifficulty.asString)
+                GamePauseInfoView(title: SystemNames.GameSettings.gameDifficulty, value: options.gameDifficulty.asString)
                 
                 Spacer()
             }
             
             // MARK: Buttons
-            ThreeDButtonView(gamePauseViewModel.ResumeGameButton) {
+            ThreeDButtonView(viewModel.ResumeGameButton) {
                 Text(SystemNames.GamePause.resumeGame)
                     .robotoSlabFont(.title3, .regular)
             }
@@ -43,6 +38,24 @@ struct GamePauseView : View {
         }
         .padding()
         .background(Color.appBackground)
+    }
+}
+
+extension GamePauseView {
+    init (_ viewModel: SingleWordGameViewModel) {
+        self.clock = viewModel.clock
+        self.options = viewModel.gameOptions
+        self.viewModel = GamePauseViewModel()
+        self.viewModel.ResumeGameButton.action = viewModel.resumeGame
+        self.viewModel.EndGameButton.action = viewModel.exitGame
+    }
+    
+    init (_ viewModel: FourWordGameViewModel) {
+        self.clock = viewModel.clock
+        self.options = viewModel.gameOptions
+        self.viewModel = GamePauseViewModel()
+        self.viewModel.ResumeGameButton.action = viewModel.resumeGame
+        self.viewModel.EndGameButton.action = viewModel.exitGame
     }
 }
 

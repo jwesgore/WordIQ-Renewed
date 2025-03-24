@@ -8,14 +8,14 @@ class ThreeDRadioButtonViewModel : ThreeDButtonViewModel {
     var activeBackgroundColor : Color {
         return self.isPressed ? self.selectedBackgroundColor : self.backgroundColor
     }
-    var groupManager : ThreeDRadioButtonViewModelObserver
+    var groupManager : RadioButtonViewModelObserver
     var id : UUID
     var selectedBackgroundColor : Color
 
     init(height: CGFloat,
          width: CGFloat,
          actionDelay: Double,
-         groupManager : ThreeDRadioButtonViewModelObserver,
+         groupManager : RadioButtonViewModelObserver,
          isPressed: Bool,
          selectedBackgroundColor: Color) {
         
@@ -39,7 +39,7 @@ class ThreeDRadioButtonViewModel : ThreeDButtonViewModel {
               )
     }
     
-    convenience init(height: CGFloat, width: CGFloat, groupManager : ThreeDRadioButtonViewModelObserver, isPressed: Bool = false) {
+    convenience init(height: CGFloat, width: CGFloat, groupManager : RadioButtonViewModelObserver, isPressed: Bool = false) {
         self.init(height: height,
                   width: width,
                   actionDelay: 0.0,
@@ -55,6 +55,6 @@ class ThreeDRadioButtonViewModel : ThreeDButtonViewModel {
     }
 }
 
-protocol ThreeDRadioButtonViewModelObserver {
+protocol RadioButtonViewModelObserver {
     func communicate(_ id: UUID)
 }

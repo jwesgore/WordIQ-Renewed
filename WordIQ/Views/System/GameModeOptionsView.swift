@@ -40,12 +40,12 @@ struct GameModeOptionsView : View {
             Spacer()
             
             VStack {
-                ThreeDButtonView(gameModeSelectionVM.StartButton) {
+                TopDownButtonView(gameModeSelectionVM.StartButton) {
                     Text(SystemNames.Navigation.startGame)
                         .robotoSlabFont(.title3, .regular)
                 }
                 
-                ThreeDButtonView(gameModeSelectionVM.BackButton) {
+                TopDownButtonView(gameModeSelectionVM.BackButton) {
                     Text(SystemNames.Navigation.back)
                         .robotoSlabFont(.title3, .regular)
                 }

@@ -3,18 +3,20 @@ import SwiftUI
 class FourWordGameViewModel : FourWordGameBaseProtocol {
     
     let appNavigationController : AppNavigationController
+    let gameNavigationController : MultiWordGameNavigationController
     
     // MARK: Properties
     @Published var showPauseMenu = false
     
     var clock : ClockViewModel
+    var gameBoardStates : [UUID: MultiWordBoardState] = [:]
     var gameBoardViewModel: MultiGameBoardViewModel
     var gameOptions: FourWordGameModeOptionsModel
     var gameOverModel: FourWordGameOverDataModel
     var gameOverViewModel: FourWordGameOverViewModel {
         let gameOverVM = FourWordGameOverViewModel(gameOverModel)
-//        gameOverVM.PlayAgainButton.action = self.playAgain
-//        gameOverVM.BackButton.action = self.exitGame
+        gameOverVM.playAgainButton.action = self.playAgain
+        gameOverVM.backButton.action = self.exitGame
         return gameOverVM
     }
     var gamePauseViewModel: GamePauseViewModel {
@@ -38,6 +40,8 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
     
     init(gameOptions: FourWordGameModeOptionsModel) {
         self.appNavigationController = AppNavigationController.shared
+        self.gameNavigationController = MultiWordGameNavigationController.shared
+        
         self.clock = ClockViewModel(timeLimit: gameOptions.timeLimit, isClockTimer: false)
         self.gameBoardViewModel = MultiGameBoardViewModel(boardHeight: 9, boardWidth: 5, boardCount: 4, boardSpacing: 1.0, boardMargin: 10.0)
         self.gameOptions = gameOptions
@@ -45,6 +49,7 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
         
         // Build target words
         for (id, targetWord) in zip(gameBoardViewModel.getBoardIds(), gameOptions.targetWords) {
+            gameBoardStates[id] = .unsolved
             targetWords[id] = targetWord
         }
     }
@@ -75,17 +80,37 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
 
         Task {
             await withTaskGroup(of: Void.self) { taskGroup in
-                for (id, targetWord) in targetWords {
+                for (id, targetWord) in targetWords where gameBoardStates[id] == .unsolved {
                     taskGroup.addTask {
                         await MainActor.run {
-                            targetWord == wordSubmitted ? self.correctWordSubmitted(id, activeWord: wordSubmitted) : self.wrongWordSubmitted(id, activeWord: wordSubmitted)
+                            if targetWord == wordSubmitted {
+                                self.correctWordSubmitted(id, activeWord: wordSubmitted)
+                                self.gameBoardStates[id] = .solved
+                            } else {
+                                self.wrongWordSubmitted(id, activeWord: wordSubmitted) {
+                                    self.gameBoardStates[id] = .boardMaxedOut
+                                }
+                            }
                         }
                     }
                 }
             }
+            
+            switch MultiWordBoardState.getGameState(from: Array(gameBoardStates.values)) {
+            case .win:
+                await MainActor.run {
+                    gameOverModel.gameResult = .win
+                    gameOver()
+                }
+            case .lose:
+                await MainActor.run {
+                    gameOverModel.gameResult = .lose
+                    gameOver()
+                }
+            default:
+                isKeyboardUnlocked = true
+            }
         }
-      
-        isKeyboardUnlocked = true
     }
     
     /// Function to communicate to the active game word to delete a letter
@@ -115,7 +140,7 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
     }
     
     /// Handles what to do if the wrong word is submitted
-    func wrongWordSubmitted(_ id: UUID, activeWord: GameWordModel) {
+    func wrongWordSubmitted(_ id: UUID, activeWord: GameWordModel, isGameOver: @escaping () -> Void) {
         guard let targetWord = targetWords[id] else {
             fatalError("Unable to get active word")
         }
@@ -130,9 +155,7 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
         // Updates gameOverModel
         gameOverModel.lastGuessedWord = activeWord
         
-        gameBoardViewModel.goToNextLine(id) {
-            
-        }
+        gameBoardViewModel.goToNextLine(id, atEndOfBoard: isGameOver)
     }
     
     // MARK: Navigation functions
@@ -140,45 +163,47 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
     func exitGame() {
         self.exitGameAction()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            // self.gameNavigationController.dispose()
+            self.gameNavigationController.dispose()
         }
     }
     
     /// Function to end the game
     func gameOver(speed : Double = 1.5) {
-        self.isKeyboardUnlocked = false
-        self.showPauseMenu = false
+        showPauseMenu = false
         
-        self.clock.stopClock()
-        self.gameOverModel.timeElapsed = self.clock.timeElapsed
+        clock.stopClock()
+        gameOverModel.timeElapsed = clock.timeElapsed
         
-        // self.gameNavigationController.goToViewWithAnimation(.gameOver)
+        gameNavigationController.goToViewWithAnimation(.gameOver)
     }
     
     /// Function to pause the game
     func pauseGame() {
-        self.showPauseMenu = true
-        self.clock.stopClock()
+        showPauseMenu = true
+        clock.stopClock()
     }
     
     /// Function to play a new game again
     func playAgain() {
-        // self.gameNavigationController.goToViewWithAnimation(.game)
-        self.keyboardViewModel.resetKeyboard()
-        self.gameBoardViewModel.resetAllBoardsHard()
-        self.clock.resetClock()
+        gameNavigationController.goToViewWithAnimation(.fourWordGame)
+        keyboardViewModel.resetKeyboard()
+        gameBoardViewModel.resetAllBoardsHard()
+        clock.resetClock()
         
-        self.gameOptions.resetTargetWords()
-        // self.gameOverModel = GameOverDataModel(self.gameOptions)
+        gameOptions.resetTargetWords()
+        gameOverModel = FourWordGameOverDataModel(gameOptions)
         
-        // self.targetWord = self.gameOverModel.targetWord
-        self.isKeyboardUnlocked = true
+        for (id, targetWord) in zip(gameBoardViewModel.getBoardIds(), gameOptions.targetWords) {
+            gameBoardStates[id] = .unsolved
+            targetWords[id] = targetWord
+        }
+        isKeyboardUnlocked = true
         // print(self.targetWord)
     }
     
     /// Function to resume the game when paused
     func resumeGame() {
-        self.showPauseMenu = false
-        self.clock.startClock()
+        showPauseMenu = false
+        clock.startClock()
     }
 }

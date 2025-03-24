@@ -3,7 +3,6 @@ import SwiftUI
 /// Button for selecting which game mode
 struct GameModeButton: View {
     
-    // @ObservedObject var threeDButtonVM : ThreeDButtonViewModel
     @ObservedObject var viewModel : TopDownButtonViewModel
     
     let title : String
@@ -20,16 +19,6 @@ struct GameModeButton: View {
                     .opacity(0.6)
             }
         }
-        
-//        ThreeDButtonView(threeDButtonVM) {
-//            VStack {
-//                Text(title)
-//                    .robotoSlabFont(.title2, .bold)
-//                Text(caption)
-//                    .robotoSlabFont(.caption, .regular)
-//                    .opacity(0.6)
-//            }
-//        }
     }
 }
 

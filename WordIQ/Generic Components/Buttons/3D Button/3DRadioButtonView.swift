@@ -14,30 +14,28 @@ struct ThreeDRadioButtonView<Content: View>: View {
     }
     
     var body: some View {
-        Button(
-            action: {
-                threeDButtonVM.performAction()
-            }, label: {
-                ZStack {
-                    RoundedRectangle(cornerRadius: threeDButtonVM.cornerRadius)
-                        .fill(threeDButtonVM.shadowColor)
-                        .stroke(threeDButtonVM.borderColor, lineWidth: threeDButtonVM.borderThickness)
-                        .frame(maxWidth: threeDButtonVM.width, maxHeight: threeDButtonVM.height)
-                        .shadow(color: threeDButtonVM.isPressed ? Color.clear : Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
-                    
-                    content
-                        .frame(maxWidth:threeDButtonVM.width, maxHeight: threeDButtonVM.height)
-                        .background(
-                            RoundedRectangle(cornerRadius: threeDButtonVM.cornerRadius)
-                                .fill(threeDButtonVM.activeBackgroundColor)
-                                .stroke(threeDButtonVM.borderColor, lineWidth: threeDButtonVM.borderThickness)
-                        )
-                        .offset(CGSize(width: 0.0, height: self.offset))
+        Button {
+            threeDButtonVM.performAction()
+        } label: {
+            ZStack {
+                RoundedRectangle(cornerRadius: threeDButtonVM.cornerRadius)
+                    .fill(threeDButtonVM.shadowColor)
+                    .stroke(threeDButtonVM.borderColor, lineWidth: threeDButtonVM.borderThickness)
+                    .frame(maxWidth: threeDButtonVM.width, maxHeight: threeDButtonVM.height)
+                    .shadow(color: threeDButtonVM.isPressed ? Color.clear : Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
+                
+                content
+                    .frame(maxWidth:threeDButtonVM.width, maxHeight: threeDButtonVM.height)
+                    .background(
+                        RoundedRectangle(cornerRadius: threeDButtonVM.cornerRadius)
+                            .fill(threeDButtonVM.activeBackgroundColor)
+                            .stroke(threeDButtonVM.borderColor, lineWidth: threeDButtonVM.borderThickness)
+                    )
+                    .offset(CGSize(width: 0.0, height: self.offset))
 
-                }
             }
-        )
-        .buttonStyle(NoAnimation())
+        }
+        .removeDefaultButtonStyle()
         .onAppear{
             self.offset = threeDButtonVM.isPressed ? 0.0 : threeDButtonVM.depth
         }

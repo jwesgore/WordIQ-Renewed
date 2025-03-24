@@ -86,6 +86,7 @@ extension GameMode {
         case .frenzyMode: return "Test your endurance"
         case .zenMode: return "Take it easy"
         case .dailyGame: return "New Daily Available!"
+        case .quadWordMode: return "Four words at once"
         default: return ""
         }
     }

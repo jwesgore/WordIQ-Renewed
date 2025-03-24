@@ -1,15 +1,10 @@
 import SwiftUI
 
 /// View that manages the end of a game
-struct GameOverView : View {
+struct SingleWordGameOverView : View {
     
     @ObservedObject var viewModel : SingleWordGameOverViewModel
     @State var gameMode : GameMode
-    
-    init(_ gameOverVM: SingleWordGameOverViewModel) {
-        self.viewModel = gameOverVM
-        self.gameMode = gameOverVM.gameOverData.gameMode
-    }
     
     var body: some View {
         VStack (spacing: 20) {
@@ -39,13 +34,13 @@ struct GameOverView : View {
             Spacer()
             
             if gameMode != .dailyGame {
-                ThreeDButtonView(viewModel.PlayAgainButton) {
+                TopDownButtonView(viewModel.playAgainButton) {
                     Text(SystemNames.Navigation.playAgain)
                         .robotoSlabFont(.title3, .regular)
                 }
             }
             
-            ThreeDButtonView(viewModel.BackButton) {
+            TopDownButtonView(viewModel.backButton) {
                 Text(SystemNames.Navigation.mainMenu)
                     .robotoSlabFont(.title3, .regular)
             }
@@ -58,6 +53,13 @@ struct GameOverView : View {
     }
 }
 
+extension SingleWordGameOverView {
+    init(_ viewModel: SingleWordGameOverViewModel) {
+        self.viewModel = viewModel
+        self.gameMode = viewModel.gameOverData.gameMode
+    }
+}
+
 struct GameOverView_Preview: PreviewProvider {
     static var previews: some View {
         let gameModeOptions = SingleWordGameModeOptionsModel(gameMode: .standardMode, gameDifficulty: .normal, timeLimit: 0)
@@ -65,7 +67,7 @@ struct GameOverView_Preview: PreviewProvider {
         gameoverModel.gameResult = .win
         let gameoverVM = SingleWordGameOverViewModel(gameoverModel)
         return VStack {
-            GameOverView(gameoverVM)
+            SingleWordGameOverView(gameoverVM)
         }
         .padding()
         .previewDisplayName("Game Over Preview")

@@ -6,18 +6,18 @@ class GameModeSelectionViewModel : ObservableObject {
     let appNavigationController: AppNavigationController
     let selectionNavigationController : GameSelectionNavigationController
     
-    var StartButton : ThreeDButtonViewModel
-    var BackButton : ThreeDButtonViewModel
+    var StartButton : TopDownButtonViewModel
+    var BackButton : TopDownButtonViewModel
     
-    var DifficultySelectionManager : ThreeDRadioButtonGroupViewModel
-    var EasyDifficultyButton : ThreeDRadioButtonViewModel
-    var NormalDifficultyButton : ThreeDRadioButtonViewModel
-    var HardDifficultyButton : ThreeDRadioButtonViewModel
+    var DifficultySelectionManager : TopDownRadioButtonGroupViewModel
+    var EasyDifficultyButton : TopDownRadioButtonViewModel
+    var NormalDifficultyButton : TopDownRadioButtonViewModel
+    var HardDifficultyButton : TopDownRadioButtonViewModel
     
-    var TimeSelectionManager : ThreeDRadioButtonGroupViewModel
-    var TimeSelection1Button : ThreeDRadioButtonViewModel
-    var TimeSelection2Button : ThreeDRadioButtonViewModel
-    var TimeSelection3Button : ThreeDRadioButtonViewModel
+    var TimeSelectionManager : TopDownRadioButtonGroupViewModel
+    var TimeSelection1Button : TopDownRadioButtonViewModel
+    var TimeSelection2Button : TopDownRadioButtonViewModel
+    var TimeSelection3Button : TopDownRadioButtonViewModel
     
     var DailyGameButton : TopDownButtonViewModel
     var QuickplayGameButton : TopDownButtonViewModel
@@ -57,18 +57,18 @@ class GameModeSelectionViewModel : ObservableObject {
         self.multiWordGameModeOptions = FourWordGameModeOptionsModel()
         
         // Step 2: Initialize all buttons without action
-        self.StartButton = ThreeDButtonViewModel(height: NavigationButtonDimension.0, width: NavigationButtonDimension.1)
-        self.BackButton = ThreeDButtonViewModel(height: NavigationButtonDimension.0, width: NavigationButtonDimension.1)
+        self.StartButton = TopDownButtonViewModel(height: NavigationButtonDimension.0, width: NavigationButtonDimension.1)
+        self.BackButton = TopDownButtonViewModel(height: NavigationButtonDimension.0, width: NavigationButtonDimension.1)
         
-        self.DifficultySelectionManager = ThreeDRadioButtonGroupViewModel()
-        self.EasyDifficultyButton = ThreeDRadioButtonViewModel(height: DifficultyButtonDimension.0, width: DifficultyButtonDimension.1, groupManager: DifficultySelectionManager)
-        self.NormalDifficultyButton = ThreeDRadioButtonViewModel(height: DifficultyButtonDimension.0, width: DifficultyButtonDimension.1, groupManager: DifficultySelectionManager, isPressed: true)
-        self.HardDifficultyButton = ThreeDRadioButtonViewModel(height: DifficultyButtonDimension.0, width: DifficultyButtonDimension.1, groupManager: DifficultySelectionManager)
+        self.DifficultySelectionManager = TopDownRadioButtonGroupViewModel()
+        self.EasyDifficultyButton = TopDownRadioButtonViewModel(height: DifficultyButtonDimension.0, width: DifficultyButtonDimension.1, groupManager: DifficultySelectionManager)
+        self.NormalDifficultyButton = TopDownRadioButtonViewModel(height: DifficultyButtonDimension.0, width: DifficultyButtonDimension.1, groupManager: DifficultySelectionManager, isPressed: true)
+        self.HardDifficultyButton = TopDownRadioButtonViewModel(height: DifficultyButtonDimension.0, width: DifficultyButtonDimension.1, groupManager: DifficultySelectionManager)
         
-        self.TimeSelectionManager = ThreeDRadioButtonGroupViewModel()
-        self.TimeSelection1Button = ThreeDRadioButtonViewModel(height: TimeSelectionButtonDimension.0, width: TimeSelectionButtonDimension.1, groupManager: TimeSelectionManager)
-        self.TimeSelection2Button = ThreeDRadioButtonViewModel(height: TimeSelectionButtonDimension.0, width: TimeSelectionButtonDimension.1, groupManager: TimeSelectionManager, isPressed: true)
-        self.TimeSelection3Button = ThreeDRadioButtonViewModel(height: TimeSelectionButtonDimension.0, width: TimeSelectionButtonDimension.1, groupManager: TimeSelectionManager)
+        self.TimeSelectionManager = TopDownRadioButtonGroupViewModel()
+        self.TimeSelection1Button = TopDownRadioButtonViewModel(height: TimeSelectionButtonDimension.0, width: TimeSelectionButtonDimension.1, groupManager: TimeSelectionManager)
+        self.TimeSelection2Button = TopDownRadioButtonViewModel(height: TimeSelectionButtonDimension.0, width: TimeSelectionButtonDimension.1, groupManager: TimeSelectionManager, isPressed: true)
+        self.TimeSelection3Button = TopDownRadioButtonViewModel(height: TimeSelectionButtonDimension.0, width: TimeSelectionButtonDimension.1, groupManager: TimeSelectionManager)
         
         self.DailyGameButton = TopDownButtonViewModel(height: HalfButtonDimensions.0, width: HalfButtonDimensions.1)
         self.QuickplayGameButton = TopDownButtonViewModel(height: HalfButtonDimensions.0, width: HalfButtonDimensions.1)

@@ -15,8 +15,8 @@ class SingleWordGameViewModel : SingleWordGameBaseProtocol {
     var gameOverModel: SingleWordGameOverDataModel
     var gameOverViewModel: SingleWordGameOverViewModel {
         let gameOverVM = SingleWordGameOverViewModel(gameOverModel)
-        gameOverVM.PlayAgainButton.action = self.playAgain
-        gameOverVM.BackButton.action = self.exitGame
+        gameOverVM.playAgainButton.action = self.playAgain
+        gameOverVM.backButton.action = self.exitGame
         return gameOverVM
     }
     var gamePauseViewModel: GamePauseViewModel {
@@ -97,6 +97,7 @@ class SingleWordGameViewModel : SingleWordGameBaseProtocol {
         
         isKeyboardUnlocked = false
         
+        gameOverModel.numValidGuesses += 1
         targetWord == wordSubmitted ? correctWordSubmitted() : wrongWordSubmitted()
     }
     
@@ -145,16 +146,14 @@ class SingleWordGameViewModel : SingleWordGameBaseProtocol {
         gameBoardViewModel.setActiveWordBackground(comparisons)
         
         keyboardViewModel.keyboardSetBackgrounds(gameWord.comparisonRankingMap(comparisons))
-        
-        gameOverModel.numValidGuesses += 1
+
         gameOverModel.numCorrectWords += 1
-        
     }
     
     /// Handles what to do if an invalid word is submitted
     func invalidWordSubmitted() {
         gameBoardViewModel.activeWord?.shake()
-        self.gameOverModel.numInvalidGuesses += 1
+        gameOverModel.numInvalidGuesses += 1
     }
     
     /// Handles what to do if the wrong word is submitted
@@ -175,10 +174,9 @@ class SingleWordGameViewModel : SingleWordGameBaseProtocol {
         gameBoardViewModel.setTargetWordHints(comparisons)
         
         // Updates gameOverModel
-        gameOverModel.numValidGuesses += 1
         gameOverModel.lastGuessedWord = gameWord
         
-        self.isKeyboardUnlocked = true
+        isKeyboardUnlocked = true
     }
     
     // MARK: Navigation functions

@@ -1,17 +1,16 @@
 import SwiftUI
 
-/// Group manager for ThreeDRadioButtonViewModel
-class ThreeDRadioButtonGroupViewModel : RadioButtonViewModelObserver {
+class TopDownRadioButtonGroupViewModel : RadioButtonViewModelObserver {
     
-    private var Buttons : [UUID : ThreeDRadioButtonViewModel]
+    private var Buttons : [UUID : TopDownRadioButtonViewModel]
     private var ActiveButton : UUID?
     
     init() {
-        self.Buttons = [UUID : ThreeDRadioButtonViewModel]()
+        self.Buttons = [UUID : TopDownRadioButtonViewModel]()
     }
     
     /// Adds a button onto the group
-    func add(_ buttons : ThreeDRadioButtonViewModel...) {
+    func add(_ buttons : TopDownRadioButtonViewModel...) {
         for button in buttons {
             self.Buttons[button.id] = button
             if button.isPressed { self.communicate(button.id) }
@@ -19,7 +18,7 @@ class ThreeDRadioButtonGroupViewModel : RadioButtonViewModelObserver {
     }
     
     /// Returns the view model of the active button
-    func getActive() -> ThreeDRadioButtonViewModel? {
+    func getActive() -> TopDownRadioButtonViewModel? {
         guard let activeButton = ActiveButton else { return nil }
         return Buttons[activeButton]
     }
