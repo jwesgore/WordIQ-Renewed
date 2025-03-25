@@ -21,10 +21,10 @@ struct AppStartingView: View {
                     .transition(.blurReplace)
             case .singleWordGame:
                 SingleWordGameView()
-                    .transition(.blurReplace)
+                    .transition(.opacity)
             case .fourWordGame:
                 FourWordGameView(controller.fourWordGameViewModel)
-                    .transition(.blurReplace)
+                    .transition(.opacity)
             default:
                 Color.appBackground
             }

@@ -24,13 +24,13 @@ struct FourWordGameView : View {
                     KeyboardView(viewModel.keyboardViewModel)
                 }
                 .padding([.horizontal, .bottom])
-                .transition(.blurReplace)
+                .transition(.opacity)
                 .fullScreenCover(isPresented: $viewModel.showPauseMenu) {
                     GamePauseView(viewModel)
                 }
             case .gameOver:
                 FourWordGameOverView(viewModel.gameOverDataModel)
-                    .transition(.blurReplace)
+                    .transition(.opacity)
             default:
                 Color.appBackground
             }
