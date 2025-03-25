@@ -385,14 +385,14 @@
 			path = "Data Models";
 			sourceTree = "<group>";
 		};
-		4B4929D22D6EE5BC00CEBBF2 /* Sub Views */ = {
+		4B4929D22D6EE5BC00CEBBF2 /* Game Sub Views */ = {
 			isa = PBXGroup;
 			children = (
 				4B99E8DA2D9114CA00F0F081 /* FourWordGameOverView.swift */,
 				4B091B5B2CD85BF40092600B /* SingleWordGameOverView.swift */,
 				4B6603AE2CEAE02400F4F140 /* GamePauseView.swift */,
 			);
-			path = "Sub Views";
+			path = "Game Sub Views";
 			sourceTree = "<group>";
 		};
 		4B6603A72CE156FE00F4F140 /* App */ = {
@@ -448,6 +448,66 @@
 				4B82B9DF2CC072E4009A1502 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		4B8798FF2D936AD800E4946E /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				4B884CD22D87525300C0A808 /* HeaderWithDoneButtonView.swift */,
+				4B884CF72D8A568200C0A808 /* GameHeaderView.swift */,
+				4B884CF52D8A4DD600C0A808 /* AppHeaderView.swift */,
+				4B884CD42D87546A00C0A808 /* ExpandAndCollapseHeaderView.swift */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		4B8799002D936B6B00E4946E /* Game Sub View Models */ = {
+			isa = PBXGroup;
+			children = (
+				4B99E8CE2D90B15100F0F081 /* FourWordGameOverViewModel.swift */,
+				4B4929AD2D6BE8FC00CEBBF2 /* GamePauseViewModel.swift */,
+				4B091B5D2CD85CC40092600B /* SingleWordGameOverViewModel.swift */,
+			);
+			path = "Game Sub View Models";
+			sourceTree = "<group>";
+		};
+		4B8799012D936BBA00E4946E /* Game Mode Selection View Models */ = {
+			isa = PBXGroup;
+			children = (
+				4B99E8DE2D91F95400F0F081 /* GameModeOptionsViewModel.swift */,
+				4BF5926A2CC30C2C00C555F6 /* GameModeSelectionViewModel.swift */,
+				4B6603AA2CE165C000F4F140 /* GameSettingsViewModel.swift */,
+			);
+			path = "Game Mode Selection View Models";
+			sourceTree = "<group>";
+		};
+		4B8799022D936BF100E4946E /* Data Models */ = {
+			isa = PBXGroup;
+			children = (
+				4B99E8CC2D90AD3B00F0F081 /* FourWordGameOverDataModel.swift */,
+				4B99E8C52D8F144200F0F081 /* FourWordGameModeOptionsModel.swift */,
+				4BF592762CCC0DEB00C555F6 /* SingleWordGameModeOptionsModel.swift */,
+				4B091B592CD830630092600B /* SingleWordGameOverDataModel.swift */,
+			);
+			path = "Data Models";
+			sourceTree = "<group>";
+		};
+		4B8799032D936C0400E4946E /* Word Models */ = {
+			isa = PBXGroup;
+			children = (
+				4B1CC1182D82661400A56316 /* DatabaseWordModel.swift */,
+				4BF5927E2CCD496C00C555F6 /* GameWordModel.swift */,
+			);
+			path = "Word Models";
+			sourceTree = "<group>";
+		};
+		4B8799042D936C1300E4946E /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				4B1CC1162D811FA500A56316 /* InfoItemModel.swift */,
+				4B884CC62D853EEF00C0A808 /* NotificationModel.swift */,
+			);
+			path = Misc;
 			sourceTree = "<group>";
 		};
 		4B884CBD2D85388000C0A808 /* Settings */ = {
@@ -582,7 +642,6 @@
 		4BD0CF832D714DF40077640A /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				4B99E8C92D907B7C00F0F081 /* Game Board */,
 				4B884D002D8A652900C0A808 /* KeyboardViewModel.swift */,
 				4BF592662CC2EDAD00C555F6 /* ClockViewModel.swift */,
 			);
@@ -617,10 +676,6 @@
 		4BD9D6BF2D727C2500EB9800 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				4B884CF72D8A568200C0A808 /* GameHeaderView.swift */,
-				4B884CF52D8A4DD600C0A808 /* AppHeaderView.swift */,
-				4B884CD42D87546A00C0A808 /* ExpandAndCollapseHeaderView.swift */,
-				4B884CD22D87525300C0A808 /* HeaderWithDoneButtonView.swift */,
 				4BF592642CC2EDA000C555F6 /* ClockView.swift */,
 				4BD9D6C02D727C2D00EB9800 /* ItemInfoView.swift */,
 			);
@@ -630,15 +685,10 @@
 		4BF5920B2CC07B8A00C555F6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				4B99E8CC2D90AD3B00F0F081 /* FourWordGameOverDataModel.swift */,
-				4B99E8C52D8F144200F0F081 /* FourWordGameModeOptionsModel.swift */,
-				4B1CC1182D82661400A56316 /* DatabaseWordModel.swift */,
-				4BF592762CCC0DEB00C555F6 /* SingleWordGameModeOptionsModel.swift */,
-				4B091B592CD830630092600B /* SingleWordGameOverDataModel.swift */,
-				4BF5927E2CCD496C00C555F6 /* GameWordModel.swift */,
-				4B1CC1162D811FA500A56316 /* InfoItemModel.swift */,
-				4B884CC62D853EEF00C0A808 /* NotificationModel.swift */,
+				4B8799022D936BF100E4946E /* Data Models */,
+				4B8799042D936C1300E4946E /* Misc */,
 				4B1CC1282D83F31D00A56316 /* Save State Models */,
+				4B8799032D936C0400E4946E /* Word Models */,
 				4B884CDE2D87D56B00C0A808 /* WordIQ Challenge */,
 			);
 			path = Models;
@@ -660,15 +710,12 @@
 		4BF592152CC07ED700C555F6 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				4B99E8CE2D90B15100F0F081 /* FourWordGameOverViewModel.swift */,
-				4B99E8DE2D91F95400F0F081 /* GameModeOptionsViewModel.swift */,
-				4BF5926A2CC30C2C00C555F6 /* GameModeSelectionViewModel.swift */,
-				4B4929AD2D6BE8FC00CEBBF2 /* GamePauseViewModel.swift */,
-				4B6603AA2CE165C000F4F140 /* GameSettingsViewModel.swift */,
-				4B091B5D2CD85CC40092600B /* SingleWordGameOverViewModel.swift */,
 				4BF592162CC07EE300C555F6 /* Buttons */,
 				4BD0CF832D714DF40077640A /* Components */,
+				4B99E8C92D907B7C00F0F081 /* Game Board */,
+				4B8799012D936BBA00E4946E /* Game Mode Selection View Models */,
 				4B091B4F2CD6846C0092600B /* Game Modes */,
+				4B8799002D936B6B00E4946E /* Game Sub View Models */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -698,11 +745,12 @@
 			children = (
 				4BF592602CC1E70700C555F6 /* Buttons */,
 				4BD9D6BF2D727C2500EB9800 /* Components */,
+				4B4929D22D6EE5BC00CEBBF2 /* Game Sub Views */,
 				4B091B372CD344220092600B /* Gameboard */,
+				4B8798FF2D936AD800E4946E /* Headers */,
 				4B091B342CD33DD20092600B /* Keyboard */,
 				4B884CBD2D85388000C0A808 /* Settings */,
 				4BD0CF8A2D7183D90077640A /* Stats */,
-				4B4929D22D6EE5BC00CEBBF2 /* Sub Views */,
 				4B884CCF2D8683E700C0A808 /* System */,
 			);
 			path = Views;

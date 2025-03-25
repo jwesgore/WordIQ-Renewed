@@ -2,7 +2,6 @@ import SwiftUI
 
 struct NotificationPermissionView : View {
     
-    
     var body: some View {
         VStack {
             Text(SystemNames.Title.title)
