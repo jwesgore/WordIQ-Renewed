@@ -21,6 +21,23 @@ class SingleWordGameModeOptionsModel : SingleWordGameOptionsProtocol {
         self.init(gameMode: gameMode, gameDifficulty: gameDifficulty, timeLimit: timeLimit, targetWord: targetWord)
     }
     
+    /// Gets the view model for the set game mode options
+    func getSingleWordGameViewModel() -> SingleWordGameViewModel {
+        switch gameMode {
+        case .standardMode: return StandardModeViewModel(gameOptions: self)
+        case .rushMode: return RushModeViewModel(gameOptions: self)
+        case .frenzyMode: return FrenzyModeViewModel(gameOptions: self)
+        case .zenMode: return ZenModeViewModel(gameOptions: self)
+        case .dailyGame: return DailyModeViewModel(gameOptions: self)
+        default: fatalError("Invalid game mode selection")
+        }
+    }
+    
+    /// Gets a fresh game over data model base on current settings
+    func getSingleWordGameOverDataModelTemplate() -> SingleWordGameOverDataModel {
+        return SingleWordGameOverDataModel(self)
+    }
+    
     /// Resets the target word so the model can be persisted
     func resetTargetWord() {
         self.targetWord = WordDatabaseHelper.shared.fetchRandomFiveLetterWord(withDifficulty: gameDifficulty);

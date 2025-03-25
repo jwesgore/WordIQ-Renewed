@@ -7,7 +7,7 @@ class ZenModeViewModel : SingleWordGameViewModel {
         super.correctWordSubmitted()
         
         if let activeWord = gameBoardViewModel.activeWord, let gameWord = activeWord.getWord() {
-            self.gameOverModel.lastGuessedWord = gameWord
+            self.gameOverDataModel.lastGuessedWord = gameWord
             self.gameOver()
         }
     }

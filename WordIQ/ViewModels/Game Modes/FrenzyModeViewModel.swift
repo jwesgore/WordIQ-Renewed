@@ -20,12 +20,13 @@ class FrenzyModeViewModel : SingleWordGameViewModel, ClockViewModelObserver {
         // Update GameOverDataModel
         if let activeWord = gameBoardViewModel.activeWord, let gameWord = activeWord.getWord() {
             
-            self.gameOverModel.correctlyGuessedWords?.append(gameWord)
+            self.gameOverDataModel.correctlyGuessedWords?.append(gameWord)
             
-            self.gameOverModel.targetWord = WordDatabaseHelper.shared.fetchRandomFiveLetterWord(withDifficulty: gameOptions.gameDifficulty)
-            self.targetWord = self.gameOverModel.targetWord
+            let newWord = WordDatabaseHelper.shared.fetchRandomFiveLetterWord(withDifficulty: gameOptions.gameDifficulty)
+            self.gameOptions.targetWord = newWord
+            self.gameOverDataModel.targetWord = newWord
             
-            self.gameOverModel.lastGuessedWord = nil
+            self.gameOverDataModel.lastGuessedWord = nil
             
             self.gameBoardViewModel.resetBoardWithAnimation(delay: 0.5, hardReset: true) {
                 self.keyboardViewModel.resetKeyboard()

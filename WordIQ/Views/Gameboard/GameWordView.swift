@@ -4,11 +4,12 @@ import SwiftUI
 struct GameWordView : View {
     
     @ObservedObject var viewModel : GameBoardWordViewModel
+    var edgeLength: CGFloat
     
     var body: some View {
         HStack (spacing: viewModel.boardSpacing) {
             ForEach(viewModel.letters, id: \.self.id) {
-                GameLetterView($0)
+                GameLetterView($0, edgeSize: edgeLength)
             }
         }
         .modifier(ShakeEffect(animatableData: viewModel.shakeWord ? 1.5 : 0))
@@ -16,11 +17,12 @@ struct GameWordView : View {
 }
 
 extension GameWordView {
-    init(_ viewModel: GameBoardWordViewModel) {
+    init(_ viewModel: GameBoardWordViewModel, edgeLength: CGFloat) {
         self.viewModel = viewModel
+        self.edgeLength = edgeLength
     }
 }
 
-#Preview {
-    GameWordView(GameBoardWordViewModel(boardWidth: 5, boardSpacing: 5.0))
-}
+//#Preview {
+//    GameWordView(GameBoardWordViewModel(boardWidth: 5, boardSpacing: 5.0))
+//}

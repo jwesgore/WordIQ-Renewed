@@ -1,16 +1,50 @@
 import SwiftUI
 
-/// Navigation Controller for single game view
+/// Navigation Controller for single word game view
 class SingleWordGameNavigationController : NavigationControllerBase {
+
+    private static var privateShared: SingleWordGameNavigationController?
     
-    static var shared = SingleWordGameNavigationController()
+    class func shared() -> SingleWordGameNavigationController {
+        guard let unwrappedShared = privateShared else {
+            privateShared = SingleWordGameNavigationController()
+            return privateShared!
+        }
+        return unwrappedShared
+    }
     
-    private init() {
+    class func destroy() {
+        privateShared = nil
+    }
+    
+    let singleWordGameViewModel: SingleWordGameViewModel
+    let singleWordGameOverViewModel = SingleWordGameOverViewModel()
+    
+    var singleWordGameModeOptions: SingleWordGameModeOptionsModel {
+        return AppNavigationController.shared.singleWordGameModeOptions
+    }
+    
+    init() {
+        self.singleWordGameViewModel = AppNavigationController.shared.singleWordGameModeOptions.getSingleWordGameViewModel()
         super.init(.singleWordGame)
     }
     
-    func dispose() {
-        SingleWordGameNavigationController.shared = SingleWordGameNavigationController()
+    func goToGameOverView(immediate: Bool = false) {
+        if immediate {
+            goToView(.gameOver)
+        } else {
+            goToViewWithAnimation(.gameOver)
+        }
+    }
+    
+    func goToGameView(immediate: Bool = false) {
+        if immediate {
+            goToView(.singleWordGame)
+        } else {
+            goToViewWithAnimation(.singleWordGame, delay: 0.5) {
+                self.singleWordGameViewModel.playAgain()
+            }
+        }
     }
     
     override func goToViewWithAnimation(_ view: SystemView,

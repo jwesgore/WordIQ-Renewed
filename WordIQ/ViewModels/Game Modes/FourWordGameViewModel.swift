@@ -2,7 +2,6 @@ import SwiftUI
 
 class FourWordGameViewModel : FourWordGameBaseProtocol {
     
-    let appNavigationController : AppNavigationController
     let gameNavigationController : MultiWordGameNavigationController
     
     // MARK: Properties
@@ -39,7 +38,6 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
     var exitGameAction: () -> Void = {}
     
     init(gameOptions: FourWordGameModeOptionsModel) {
-        self.appNavigationController = AppNavigationController.shared
         self.gameNavigationController = MultiWordGameNavigationController.shared
         
         self.clock = ClockViewModel(timeLimit: gameOptions.timeLimit, isClockTimer: false)
@@ -161,7 +159,7 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
     // MARK: Navigation functions
     /// Function to go back to game mode selection
     func exitGame() {
-        self.exitGameAction()
+        AppNavigationController.shared.goToViewWithAnimation(.gameModeSelection)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.gameNavigationController.dispose()
         }

@@ -8,9 +8,6 @@ class SingleWordGameOverViewModel : ObservableObject {
     let databaseHelper = GameDatabaseHelper()
     let functionButtonDimensions : (CGFloat, CGFloat) = (50, 400)
     
-    // MARK: Properties
-    @Published var gameOverData : SingleWordGameOverDataModel
-    
     // MARK: Stats Info Models
     @Published var firstRowStat = InfoItemModel()
     @Published var secondRowStat = InfoItemModel()
@@ -22,18 +19,20 @@ class SingleWordGameOverViewModel : ObservableObject {
     var playAgainButton : TopDownButtonViewModel
     
     /// Initializer
-    init(_ gameOverModel: SingleWordGameOverDataModel) {
-
-        self.gameOverData = gameOverModel
-        self.backButton = TopDownButtonViewModel(height: functionButtonDimensions.0, width: functionButtonDimensions.1)
-        self.playAgainButton = TopDownButtonViewModel(height: functionButtonDimensions.0, width: functionButtonDimensions.1)
+    init() {
+        self.backButton = TopDownButtonViewModel(height: functionButtonDimensions.0, width: functionButtonDimensions.1) {
+            GameSelectionNavigationController.shared.exitFromGame()
+        }
+        self.playAgainButton = TopDownButtonViewModel(height: functionButtonDimensions.0, width: functionButtonDimensions.1) {
+            SingleWordGameNavigationController.shared().goToGameView()
+        }
         
-        self.setRowDefaults(gameOverModel.gameMode)
+        self.setRowDefaults()
     }
     
     // MARK: Row Data Functions
     /// Initialize the icon and label defaults for each row based on the game mode
-    func setRowDefaults(_ gameMode : GameMode) {
+    func setRowDefaults(gameMode : GameMode = AppNavigationController.shared.singleWordGameModeOptions.gameMode) {
         // Set First Row Defaults
         firstRowStat.icon = SFAssets.timer
         firstRowStat.label = SystemNames.GameOver.timeElapsed
@@ -67,21 +66,21 @@ class SingleWordGameOverViewModel : ObservableObject {
     }
     
     /// Set the values on all stats items based on the game mode
-    func setRowValues(_ gameMode : GameMode) {
+    func setRowValues(_ gameOverData: SingleWordGameOverDataModel) {
         // Set First and Second Row values
         firstRowStat.value = TimeUtility.formatTimeShort(gameOverData.timeElapsed)
         secondRowStat.value = gameOverData.numValidGuesses.description
         
-        switch gameMode {
+        switch gameOverData.gameMode {
         case .dailyGame:
             thirdRowStat.value = UserDefaultsHelper.shared.currentStreak_daily.description
-            fourthRowStat.value = ValueConverter.doubleToPercent(databaseHelper.getGameModeWinPercentage(mode: gameMode))
+            fourthRowStat.value = ValueConverter.doubleToPercent(databaseHelper.getGameModeWinPercentage(mode: gameOverData.gameMode))
         case .standardMode:
             thirdRowStat.value = UserDefaultsHelper.shared.currentStreak_standard.description
-            fourthRowStat.value = ValueConverter.doubleToPercent(databaseHelper.getGameModeWinPercentage(mode: gameMode))
+            fourthRowStat.value = ValueConverter.doubleToPercent(databaseHelper.getGameModeWinPercentage(mode: gameOverData.gameMode))
         case .rushMode:
             thirdRowStat.value = UserDefaultsHelper.shared.currentStreak_rush.description
-            fourthRowStat.value = ValueConverter.doubleToPercent(databaseHelper.getGameModeWinPercentage(mode: gameMode))
+            fourthRowStat.value = ValueConverter.doubleToPercent(databaseHelper.getGameModeWinPercentage(mode: gameOverData.gameMode))
         case .frenzyMode:
             thirdRowStat.value = gameOverData.numCorrectWords.description
             if gameOverData.numCorrectWords > 0 {
@@ -91,7 +90,7 @@ class SingleWordGameOverViewModel : ObservableObject {
                 fourthRowStat.value = TimeUtility.formatTimeShort(gameOverData.timeElapsed)
             }
         case .zenMode:
-            thirdRowStat.value = databaseHelper.getGameModeCount(mode: gameMode).description
+            thirdRowStat.value = databaseHelper.getGameModeCount(mode: gameOverData.gameMode).description
         default:
             break
         }
@@ -99,7 +98,7 @@ class SingleWordGameOverViewModel : ObservableObject {
     
     // MARK: General Functions
     /// Save game over data
-    func saveData() {
+    func saveData(_ gameOverData: SingleWordGameOverDataModel) {
         guard !(gameOverData.gameMode == .dailyGame && UserDefaultsHelper.shared.lastDailyPlayed == gameOverData.targetWord.daily) else {
             print("Daily already played")
             return

@@ -73,7 +73,6 @@
 		4B884CDD2D87D12000C0A808 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CDC2D87D11600C0A808 /* AppDelegate.swift */; };
 		4B884CE02D87D58C00C0A808 /* ChallengeRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CDF2D87D57E00C0A808 /* ChallengeRequestModel.swift */; };
 		4B884CE22D87D59500C0A808 /* ChallengeResultsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CE12D87D59000C0A808 /* ChallengeResultsModel.swift */; };
-		4B884CE62D87DD5200C0A808 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4B884CE52D87DD5200C0A808 /* GoogleService-Info.plist */; };
 		4B884CF12D87E1B600C0A808 /* SignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CF02D87E1AF00C0A808 /* SignInController.swift */; };
 		4B884CF62D8A4DDF00C0A808 /* AppHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CF52D8A4DD600C0A808 /* AppHeaderView.swift */; };
 		4B884CF82D8A568800C0A808 /* GameHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CF72D8A568200C0A808 /* GameHeaderView.swift */; };
@@ -98,6 +97,7 @@
 		4B99E8D92D91122500F0F081 /* MultiWordNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B99E8D82D91121C00F0F081 /* MultiWordNavigationController.swift */; };
 		4B99E8DB2D9114D200F0F081 /* FourWordGameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B99E8DA2D9114CA00F0F081 /* FourWordGameOverView.swift */; };
 		4B99E8DD2D91275200F0F081 /* MultiWordBoardState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B99E8DC2D91274300F0F081 /* MultiWordBoardState.swift */; };
+		4B99E8DF2D91F95E00F0F081 /* GameModeOptionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B99E8DE2D91F95400F0F081 /* GameModeOptionsViewModel.swift */; };
 		4BD0CF862D7154B90077640A /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD0CF852D7154B10077640A /* UserDefaultsHelper.swift */; };
 		4BD0CF892D7175C90077640A /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD0CF882D7175BB0077640A /* StatsView.swift */; };
 		4BD0CF922D7195A00077640A /* StatsGeneralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD0CF912D7195940077640A /* StatsGeneralView.swift */; };
@@ -220,7 +220,6 @@
 		4B884CDC2D87D11600C0A808 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4B884CDF2D87D57E00C0A808 /* ChallengeRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeRequestModel.swift; sourceTree = "<group>"; };
 		4B884CE12D87D59000C0A808 /* ChallengeResultsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeResultsModel.swift; sourceTree = "<group>"; };
-		4B884CE52D87DD5200C0A808 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4B884CF02D87E1AF00C0A808 /* SignInController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInController.swift; sourceTree = "<group>"; };
 		4B884CF52D8A4DD600C0A808 /* AppHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHeaderView.swift; sourceTree = "<group>"; };
 		4B884CF72D8A568200C0A808 /* GameHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHeaderView.swift; sourceTree = "<group>"; };
@@ -245,6 +244,7 @@
 		4B99E8D82D91121C00F0F081 /* MultiWordNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiWordNavigationController.swift; sourceTree = "<group>"; };
 		4B99E8DA2D9114CA00F0F081 /* FourWordGameOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourWordGameOverView.swift; sourceTree = "<group>"; };
 		4B99E8DC2D91274300F0F081 /* MultiWordBoardState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiWordBoardState.swift; sourceTree = "<group>"; };
+		4B99E8DE2D91F95400F0F081 /* GameModeOptionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModeOptionsViewModel.swift; sourceTree = "<group>"; };
 		4BD0CF852D7154B10077640A /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
 		4BD0CF882D7175BB0077640A /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		4BD0CF912D7195940077640A /* StatsGeneralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsGeneralView.swift; sourceTree = "<group>"; };
@@ -428,7 +428,6 @@
 		4B82B9D52CC072E2009A1502 /* WordIQ */ = {
 			isa = PBXGroup;
 			children = (
-				4B884CE52D87DD5200C0A808 /* GoogleService-Info.plist */,
 				4BF5925D2CC08C8200C555F6 /* Info.plist */,
 				4B6603A72CE156FE00F4F140 /* App */,
 				4B884CCA2D86769600C0A808 /* Controllers */,
@@ -467,13 +466,13 @@
 		4B884CCA2D86769600C0A808 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				4B99E8D82D91121C00F0F081 /* MultiWordNavigationController.swift */,
 				4B85B2D92D8D2BC5003127E0 /* AppNavigationController.swift */,
-				4B85B2D72D8D2A0B003127E0 /* SingleWordGameNavigationController.swift */,
 				4B4929C82D6D8BEA00CEBBF2 /* GameDatabasePersistenceController.swift */,
 				4B85B2D12D8D0001003127E0 /* GameSelectionNavigationController.swift */,
+				4B99E8D82D91121C00F0F081 /* MultiWordNavigationController.swift */,
 				4B884CCB2D8676A800C0A808 /* NavigationControllerBase.swift */,
 				4B884CF02D87E1AF00C0A808 /* SignInController.swift */,
+				4B85B2D72D8D2A0B003127E0 /* SingleWordGameNavigationController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -662,6 +661,7 @@
 			isa = PBXGroup;
 			children = (
 				4B99E8CE2D90B15100F0F081 /* FourWordGameOverViewModel.swift */,
+				4B99E8DE2D91F95400F0F081 /* GameModeOptionsViewModel.swift */,
 				4BF5926A2CC30C2C00C555F6 /* GameModeSelectionViewModel.swift */,
 				4B4929AD2D6BE8FC00CEBBF2 /* GamePauseViewModel.swift */,
 				4B6603AA2CE165C000F4F140 /* GameSettingsViewModel.swift */,
@@ -851,7 +851,6 @@
 				4BF592532CC088D700C555F6 /* RobotoSlab-Black.ttf in Resources */,
 				4BF592542CC088D700C555F6 /* RobotoSlab-ExtraBold.ttf in Resources */,
 				4BF592552CC088D700C555F6 /* RobotoSlab-SemiBold.ttf in Resources */,
-				4B884CE62D87DD5200C0A808 /* GoogleService-Info.plist in Resources */,
 				4BF592562CC088D700C555F6 /* RobotoSlab-ExtraLight.ttf in Resources */,
 				4BF592572CC088D700C555F6 /* RobotoSlab-Light.ttf in Resources */,
 				4BF592582CC088D700C555F6 /* RobotoSlab-Regular.ttf in Resources */,
@@ -992,6 +991,7 @@
 				4BD0CF892D7175C90077640A /* StatsView.swift in Sources */,
 				4B85B2CA2D8BACAD003127E0 /* WordDatabaseEnum.swift in Sources */,
 				4B1852872CCF05610054E5F4 /* KeyboardLetterView.swift in Sources */,
+				4B99E8DF2D91F95E00F0F081 /* GameModeOptionsViewModel.swift in Sources */,
 				4BF592832CCD8DFC00C555F6 /* GameSelectionDifficultyButtonView.swift in Sources */,
 				4B091B5C2CD85C080092600B /* SingleWordGameOverView.swift in Sources */,
 				4B99E8D92D91122500F0F081 /* MultiWordNavigationController.swift in Sources */,
@@ -1061,6 +1061,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
@@ -1116,6 +1117,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 6.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1127,7 +1129,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"WordIQ/Preview Content\"";
 				DEVELOPMENT_TEAM = WZ6NWM775D;
 				ENABLE_PREVIEWS = YES;
@@ -1137,13 +1139,13 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.6.4;
+				MARKETING_VERSION = 0.7.1;
 				PRODUCT_BUNDLE_IDENTIFIER = capygames.WordIQ;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1159,7 +1161,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"WordIQ/Preview Content\"";
 				DEVELOPMENT_TEAM = WZ6NWM775D;
 				ENABLE_PREVIEWS = YES;
@@ -1169,13 +1171,13 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.6.4;
+				MARKETING_VERSION = 0.7.1;
 				PRODUCT_BUNDLE_IDENTIFIER = capygames.WordIQ;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

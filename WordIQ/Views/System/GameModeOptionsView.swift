@@ -2,12 +2,12 @@ import SwiftUI
 
 struct GameModeOptionsView : View {
     
-    @ObservedObject var gameModeSelectionVM: GameModeSelectionViewModel
+    @ObservedObject var viewModel: GameModeOptionsViewModel
     
     var body: some View {
-        let optionsHeader = gameModeSelectionVM.showTimeLimitOptions ?
-            "\(gameModeSelectionVM.singleWordGameModeOptions.gameMode.asStringShort): \(gameModeSelectionVM.singleWordGameModeOptions.gameDifficulty.asString), \(TimeUtility.formatTimeShort(gameModeSelectionVM.singleWordGameModeOptions.timeLimit))" :
-            "\(gameModeSelectionVM.singleWordGameModeOptions.gameMode.asStringShort): \(gameModeSelectionVM.singleWordGameModeOptions.gameDifficulty.asString)"
+        let optionsHeader = viewModel.showTimeLimitOptions ?
+            "\(viewModel.singleWordGameModeOptions.gameMode.asStringShort): \(viewModel.singleWordGameModeOptions.gameDifficulty.asString), \(TimeUtility.formatTimeShort(viewModel.singleWordGameModeOptions.timeLimit))" :
+            "\(viewModel.singleWordGameModeOptions.gameMode.asStringShort): \(viewModel.singleWordGameModeOptions.gameDifficulty.asString)"
             
         VStack {
             VStack {
@@ -17,7 +17,7 @@ struct GameModeOptionsView : View {
                     .robotoSlabFont(.title2, .semiBold)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                Text(gameModeSelectionVM.singleWordGameModeOptions.gameMode.description)
+                Text(viewModel.singleWordGameModeOptions.gameMode.description)
                     .robotoSlabFont(.subheading, .regular)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
@@ -25,27 +25,27 @@ struct GameModeOptionsView : View {
             Spacer()
             
             VStack {
-                GameSelectionDifficultyButtonView(gameModeSelectionVM.EasyDifficultyButton, difficulty: .easy)
-                GameSelectionDifficultyButtonView(gameModeSelectionVM.NormalDifficultyButton, difficulty: .normal)
-                GameSelectionDifficultyButtonView(gameModeSelectionVM.HardDifficultyButton, difficulty: .hard)
+                GameSelectionDifficultyButtonView(viewModel.easyDifficultyButton, difficulty: .easy)
+                GameSelectionDifficultyButtonView(viewModel.normalDifficultyButton, difficulty: .normal)
+                GameSelectionDifficultyButtonView(viewModel.hardDifficultyButton, difficulty: .hard)
             }
             
-            if gameModeSelectionVM.showTimeLimitOptions {
+            if viewModel.showTimeLimitOptions {
                 HStack {
-                    GameSelectionTimeButtonView(gameModeSelectionVM.TimeSelection1Button, timeLimit: gameModeSelectionVM.TimeLimitOptions.0)
-                    GameSelectionTimeButtonView(gameModeSelectionVM.TimeSelection2Button, timeLimit: gameModeSelectionVM.TimeLimitOptions.1)
-                    GameSelectionTimeButtonView(gameModeSelectionVM.TimeSelection3Button, timeLimit: gameModeSelectionVM.TimeLimitOptions.2)
+                    GameSelectionTimeButtonView(viewModel.timeSelection1Button, timeLimit: viewModel.timeLimitOptions.0)
+                    GameSelectionTimeButtonView(viewModel.timeSelection2Button, timeLimit: viewModel.timeLimitOptions.1)
+                    GameSelectionTimeButtonView(viewModel.timeSelection3Button, timeLimit: viewModel.timeLimitOptions.2)
                 }
             }
             Spacer()
             
             VStack {
-                TopDownButtonView(gameModeSelectionVM.StartButton) {
+                TopDownButtonView(viewModel.startButton) {
                     Text(SystemNames.Navigation.startGame)
                         .robotoSlabFont(.title3, .regular)
                 }
                 
-                TopDownButtonView(gameModeSelectionVM.BackButton) {
+                TopDownButtonView(viewModel.backButton) {
                     Text(SystemNames.Navigation.back)
                         .robotoSlabFont(.title3, .regular)
                 }
@@ -55,11 +55,11 @@ struct GameModeOptionsView : View {
 }
 
 extension GameModeOptionsView {
-    init(_ gameModeSelectionVM: GameModeSelectionViewModel) {
-        self.gameModeSelectionVM = gameModeSelectionVM
+    init(_ viewModel: GameModeOptionsViewModel) {
+        self.viewModel = viewModel
     }
 }
 
 #Preview {
-    GameModeOptionsView(GameModeSelectionViewModel())
+    GameModeOptionsView(GameModeOptionsViewModel())
 }

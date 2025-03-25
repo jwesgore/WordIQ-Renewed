@@ -13,7 +13,7 @@ protocol GameBaseProtocol : ObservableObject {
 
 /// Protocol to define structure for single word game requirements
 protocol SingleWordGameBaseProtocol : GameBaseProtocol {
-    var targetWord: DatabaseWordModel { get set }
+    var targetWord: DatabaseWordModel { get }
     var gameOptions: SingleWordGameModeOptionsModel { get set }
     
 }

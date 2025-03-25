@@ -2,29 +2,15 @@ import SwiftUI
 
 /// ViewModel to manage the playable game screen with a single board
 class SingleWordGameViewModel : SingleWordGameBaseProtocol {
-    
-    let appNavigationController : AppNavigationController
-    var gameNavigationController : SingleWordGameNavigationController
-    
+
     // MARK: Properties
     @Published var showPauseMenu = false
     
     var clock : ClockViewModel
     var gameBoardViewModel: GameBoardViewModel
     var gameOptions: SingleWordGameModeOptionsModel
-    var gameOverModel: SingleWordGameOverDataModel
-    var gameOverViewModel: SingleWordGameOverViewModel {
-        let gameOverVM = SingleWordGameOverViewModel(gameOverModel)
-        gameOverVM.playAgainButton.action = self.playAgain
-        gameOverVM.backButton.action = self.exitGame
-        return gameOverVM
-    }
-    var gamePauseViewModel: GamePauseViewModel {
-        let gamePauseVM = GamePauseViewModel()
-        gamePauseVM.ResumeGameButton.action = self.resumeGame
-        gamePauseVM.EndGameButton.action = self.exitGame
-        return gamePauseVM
-    }
+    var gameOverDataModel: SingleWordGameOverDataModel
+    lazy var gamePauseViewModel = GamePauseViewModel()
     var isKeyboardUnlocked = true {
         didSet {
             keyboardViewModel.isKeyboardUnlocked = isKeyboardUnlocked
@@ -35,42 +21,39 @@ class SingleWordGameViewModel : SingleWordGameBaseProtocol {
                           keyboardEnter: self.keyboardEnter,
                           keyboardDelete: self.keyboardDelete)
     }()
-    var targetWord : DatabaseWordModel
-    var exitGameAction: () -> Void = {}
+    var targetWord : DatabaseWordModel {
+        return gameOptions.targetWord
+    }
     
     // MARK: Initializers
     /// Base initializer
     init(gameOptions: SingleWordGameModeOptionsModel) {
-        // Step 1: Init Controllers
-        self.appNavigationController = AppNavigationController.shared
-        self.gameNavigationController = SingleWordGameNavigationController.shared
-        
-        // Step 2: Init Variables
+        // Init Variables
         self.clock = ClockViewModel(timeLimit: gameOptions.timeLimit, isClockTimer: gameOptions.timeLimit > 0)
         self.gameBoardViewModel = GameBoardViewModel(boardHeight: 6, boardWidth: 5, boardSpacing: 5.0)
         self.gameOptions = gameOptions
-        self.gameOverModel = SingleWordGameOverDataModel(gameOptions)
-        self.targetWord = gameOptions.targetWord
+        self.gameOverDataModel = gameOptions.getSingleWordGameOverDataModelTemplate()
+        
+        gamePauseViewModel.ResumeGameButton.action = self.resumeGame
+        gamePauseViewModel.EndGameButton.action = self.exitGame
         
         print(self.targetWord)
     }
     
     /// Save state initializer
     init(gameSaveState: GameSaveStateModel) {
-        // Step 1: Init Controllers
-        self.appNavigationController = AppNavigationController.shared
-        self.gameNavigationController = SingleWordGameNavigationController.shared
-        
-        // Step 2: Init Variables
+        // Init Variables
         self.clock = ClockViewModel(gameSaveState.clockState)
         self.gameBoardViewModel = GameBoardViewModel(boardHeight: 6, boardWidth: 5, boardSpacing: 5.0)
         self.gameOptions = gameSaveState.gameOptionsModel
-        self.gameOverModel = gameSaveState.gameOverModel
-        self.targetWord = gameSaveState.gameOptionsModel.targetWord
+        self.gameOverDataModel = gameSaveState.gameOverModel
+        
+        gamePauseViewModel.ResumeGameButton.action = self.resumeGame
+        gamePauseViewModel.EndGameButton.action = self.exitGame
         
         print(self.targetWord)
         
-        // Step 2: Populate Collections
+        // Populate Collections
         self.keyboardViewModel.loadSaveState(gameSaveState: gameSaveState)
         self.gameBoardViewModel.loadSaveState(gameSaveState: gameSaveState)
     }
@@ -97,7 +80,7 @@ class SingleWordGameViewModel : SingleWordGameBaseProtocol {
         
         isKeyboardUnlocked = false
         
-        gameOverModel.numValidGuesses += 1
+        gameOverDataModel.numValidGuesses += 1
         targetWord == wordSubmitted ? correctWordSubmitted() : wrongWordSubmitted()
     }
     
@@ -147,13 +130,13 @@ class SingleWordGameViewModel : SingleWordGameBaseProtocol {
         
         keyboardViewModel.keyboardSetBackgrounds(gameWord.comparisonRankingMap(comparisons))
 
-        gameOverModel.numCorrectWords += 1
+        gameOverDataModel.numCorrectWords += 1
     }
     
     /// Handles what to do if an invalid word is submitted
     func invalidWordSubmitted() {
         gameBoardViewModel.activeWord?.shake()
-        gameOverModel.numInvalidGuesses += 1
+        gameOverDataModel.numInvalidGuesses += 1
     }
     
     /// Handles what to do if the wrong word is submitted
@@ -174,7 +157,7 @@ class SingleWordGameViewModel : SingleWordGameBaseProtocol {
         gameBoardViewModel.setTargetWordHints(comparisons)
         
         // Updates gameOverModel
-        gameOverModel.lastGuessedWord = gameWord
+        gameOverDataModel.lastGuessedWord = gameWord
         
         isKeyboardUnlocked = true
     }
@@ -182,21 +165,18 @@ class SingleWordGameViewModel : SingleWordGameBaseProtocol {
     // MARK: Navigation functions
     /// Function to go back to game mode selection
     func exitGame() {
-        self.exitGameAction()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.gameNavigationController.dispose()
-        }
+        GameSelectionNavigationController.shared.exitFromGame()
     }
     
     /// Function to end the game
     func gameOver(speed : Double = 1.5) {
-        self.isKeyboardUnlocked = false
-        self.showPauseMenu = false
+        isKeyboardUnlocked = false
+        showPauseMenu = false
         
-        self.clock.stopClock()
-        self.gameOverModel.timeElapsed = self.clock.timeElapsed
+        clock.stopClock()
+        gameOverDataModel.timeElapsed = clock.timeElapsed
         
-        self.gameNavigationController.goToViewWithAnimation(.gameOver)
+        SingleWordGameNavigationController.shared().goToGameOverView()
     }
     
     /// Function to pause the game
@@ -207,23 +187,21 @@ class SingleWordGameViewModel : SingleWordGameBaseProtocol {
     
     /// Function to play a new game again
     func playAgain() {
-        self.gameNavigationController.goToViewWithAnimation(.singleWordGame)
-        self.keyboardViewModel.resetKeyboard()
-        self.gameBoardViewModel.resetBoardHard()
-        self.clock.resetClock()
+        keyboardViewModel.resetKeyboard()
+        gameBoardViewModel.resetBoardHard()
+        clock.resetClock()
         
-        self.gameOptions.resetTargetWord()
-        self.gameOverModel = SingleWordGameOverDataModel(self.gameOptions)
+        gameOptions.resetTargetWord()
+        gameOverDataModel = gameOptions.getSingleWordGameOverDataModelTemplate()
+        isKeyboardUnlocked = true
         
-        self.targetWord = self.gameOverModel.targetWord
-        self.isKeyboardUnlocked = true
         print(self.targetWord)
     }
     
     /// Function to resume the game when paused
     func resumeGame() {
-        self.showPauseMenu = false
-        self.clock.startClock()
+        showPauseMenu = false
+        clock.startClock()
     }
 
     // MARK: Data Functions
@@ -241,7 +219,7 @@ class SingleWordGameViewModel : SingleWordGameBaseProtocol {
             clockState: self.clock.getClockSaveState(),
             gameBoard: self.gameBoardViewModel.getSaveState(),
             gameOptionsModel: self.gameOptions,
-            gameOverModel: self.gameOverModel,
+            gameOverModel: self.gameOverDataModel,
             keyboardLetters: keyboardSaveState
         )
     }

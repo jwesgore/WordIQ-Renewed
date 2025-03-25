@@ -6,12 +6,10 @@
 //
 
 import SwiftUI
-// import FirebaseCore
 
 @main
 struct WordIQApp: App {
     
-    // @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     let persistenceController = GameDatabasePersistenceController.shared
     
     init() {
@@ -23,7 +21,6 @@ struct WordIQApp: App {
         if let daysSinceEpoch = ValueConverter.daysSince(WordDatabaseHelper.shared.dailyEpoch), daysSinceEpoch > UserDefaultsHelper.shared.lastDailyPlayed + 1 {
             UserDefaultsHelper.shared.currentStreak_daily = 0
         }
-
     }
 
     var body: some Scene {

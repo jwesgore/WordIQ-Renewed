@@ -41,7 +41,8 @@ class DailyModeViewModel : StandardModeViewModel {
         self.showPauseMenu = false
         self.clock.stopClock()
         
-        super.gameOverModel = UserDefaultsHelper.shared.dailyGameOverModel!
-        super.gameNavigationController.goToView(.gameOver)
+        super.gameOverDataModel = UserDefaultsHelper.shared.dailyGameOverModel!
+        SingleWordGameNavigationController.shared().goToGameOverView(immediate: true)
     }
 }
+

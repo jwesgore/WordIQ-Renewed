@@ -26,7 +26,9 @@ class FourWordGameModeOptionsModel : FourWordGameOptionsProtocol {
     }
     
     func resetToDefaults() {
-        
+        gameDifficulty = .normal
+        timeLimit = 0
+        resetTargetWords()
     }
     
 }

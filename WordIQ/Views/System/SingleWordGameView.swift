@@ -3,12 +3,12 @@ import SwiftUI
 /// View of the playable game are
 struct SingleWordGameView : View {
     
-    @ObservedObject var navigationController : SingleWordGameNavigationController
+    @ObservedObject var controller : SingleWordGameNavigationController
     @ObservedObject var viewModel : SingleWordGameViewModel
     
     var body : some View {
         ZStack {
-            switch navigationController.activeView {
+            switch controller.activeView {
             case .singleWordGame:
                 VStack (spacing: 0) {
                     
@@ -28,7 +28,7 @@ struct SingleWordGameView : View {
                     GamePauseView(viewModel)
                 }
             case .gameOver:
-                SingleWordGameOverView(viewModel.gameOverViewModel)
+                SingleWordGameOverView(viewModel.gameOverDataModel)
                     .transition(.blurReplace)
             default:
                 Color.appBackground
@@ -41,7 +41,12 @@ struct SingleWordGameView : View {
 extension SingleWordGameView {
     init (_ viewModel: SingleWordGameViewModel) {
         self.viewModel = viewModel
-        self.navigationController = SingleWordGameNavigationController.shared
+        self.controller = SingleWordGameNavigationController.shared()
+    }
+    
+    init () {
+        self.controller = SingleWordGameNavigationController.shared()
+        self.viewModel = SingleWordGameNavigationController.shared().singleWordGameViewModel
     }
 }
 

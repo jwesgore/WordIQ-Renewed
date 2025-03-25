@@ -2,34 +2,28 @@ import SwiftUI
 
 struct AppStartingView: View {
     
-    @ObservedObject var navigationController : AppNavigationController
-    @ObservedObject var gameModeSelectionVM : GameModeSelectionViewModel
-    
-    init() {
-        self.navigationController = AppNavigationController.shared
-        self.gameModeSelectionVM = GameModeSelectionViewModel()
-    }
+    @ObservedObject var controller = AppNavigationController.shared
     
     var body: some View {
         ZStack {
-            switch navigationController.activeView {
+            switch controller.activeView {
             case .splashScreen:
                 SplashScreenView()
                     .transition(.blurReplace)
                     .onAppear {
                         Task {
-                            await navigationController.notificationFirstLaunch()
-                            navigationController.goToViewWithAnimation(.gameModeSelection, delay: 2.5, pauseLength: 0.5)
+                            await controller.notificationFirstLaunch()
+                            controller.goToViewWithAnimation(.gameModeSelection, delay: 2.5, pauseLength: 0.5)
                         }
                     }
             case .gameModeSelection:
-                GameModeSelectionView(gameModeSelectionVM)
+                GameModeSelectionView(controller.gameModeSelectionViewModel)
                     .transition(.blurReplace)
             case .singleWordGame:
-                SingleWordGameView(gameModeSelectionVM.getSingleWordGameViewModel())
+                SingleWordGameView()
                     .transition(.blurReplace)
             case .fourWordGame:
-                FourWordGameView(gameModeSelectionVM.getFourWordGameViewModel())
+                FourWordGameView(controller.fourWordGameViewModel)
                     .transition(.blurReplace)
             default:
                 Color.appBackground

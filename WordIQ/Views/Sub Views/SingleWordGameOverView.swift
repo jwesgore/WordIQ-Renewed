@@ -4,18 +4,18 @@ import SwiftUI
 struct SingleWordGameOverView : View {
     
     @ObservedObject var viewModel : SingleWordGameOverViewModel
-    @State var gameMode : GameMode
+    var gameOverData : SingleWordGameOverDataModel
     
     var body: some View {
         VStack (spacing: 20) {
             Spacer()
             
-            Text(viewModel.gameOverData.gameResult.gameOverString)
+            Text(gameOverData.gameResult.gameOverString)
                 .robotoSlabFont(.title, .bold)
             
             Text("The word was ")
                 .robotoSlabFont(.title3, .regular) +
-            Text(viewModel.gameOverData.targetWord.word.uppercased())
+            Text(gameOverData.targetWord.word.uppercased())
                 .robotoSlabFont(.title3, .regular)
             
             GroupBox {
@@ -24,7 +24,7 @@ struct SingleWordGameOverView : View {
                 InfoItemView(viewModel.secondRowStat)
                 Divider()
                 InfoItemView(viewModel.thirdRowStat)
-                if gameMode != .zenMode {
+                if gameOverData.gameMode != .zenMode {
                     Divider()
                     InfoItemView(viewModel.fourthRowStat)
                 }
@@ -33,7 +33,7 @@ struct SingleWordGameOverView : View {
             
             Spacer()
             
-            if gameMode != .dailyGame {
+            if gameOverData.gameMode != .dailyGame {
                 TopDownButtonView(viewModel.playAgainButton) {
                     Text(SystemNames.Navigation.playAgain)
                         .robotoSlabFont(.title3, .regular)
@@ -47,31 +47,32 @@ struct SingleWordGameOverView : View {
         }
         .padding()
         .onAppear {
-            self.viewModel.saveData()
-            self.viewModel.setRowValues(gameMode)
+            viewModel.setRowDefaults()
+            viewModel.saveData(gameOverData)
+            viewModel.setRowValues(gameOverData)
         }
     }
 }
 
 extension SingleWordGameOverView {
-    init(_ viewModel: SingleWordGameOverViewModel) {
-        self.viewModel = viewModel
-        self.gameMode = viewModel.gameOverData.gameMode
+    init(_ gameOverData: SingleWordGameOverDataModel) {
+        self.viewModel = SingleWordGameNavigationController.shared().singleWordGameOverViewModel
+        self.gameOverData = gameOverData
     }
 }
 
-struct GameOverView_Preview: PreviewProvider {
-    static var previews: some View {
-        let gameModeOptions = SingleWordGameModeOptionsModel(gameMode: .standardMode, gameDifficulty: .normal, timeLimit: 0)
-        var gameoverModel = SingleWordGameOverDataModel(gameModeOptions)
-        gameoverModel.gameResult = .win
-        let gameoverVM = SingleWordGameOverViewModel(gameoverModel)
-        return VStack {
-            SingleWordGameOverView(gameoverVM)
-        }
-        .padding()
-        .previewDisplayName("Game Over Preview")
-        .previewLayout(.sizeThatFits)
-        .environment(\.managedObjectContext, GameDatabasePersistenceController.preview.container.viewContext)
-    }
-}
+//struct GameOverView_Preview: PreviewProvider {
+//    static var previews: some View {
+//        let gameModeOptions = SingleWordGameModeOptionsModel(gameMode: .standardMode, gameDifficulty: .normal, timeLimit: 0)
+//        var gameoverModel = SingleWordGameOverDataModel(gameModeOptions)
+//        gameoverModel.gameResult = .win
+//        let gameoverVM = SingleWordGameOverViewModel(gameoverModel)
+//        return VStack {
+//            SingleWordGameOverView(gameoverVM)
+//        }
+//        .padding()
+//        .previewDisplayName("Game Over Preview")
+//        .previewLayout(.sizeThatFits)
+//        .environment(\.managedObjectContext, GameDatabasePersistenceController.preview.container.viewContext)
+//    }
+//}

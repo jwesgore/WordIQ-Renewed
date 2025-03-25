@@ -4,33 +4,31 @@ import SwiftUI
 struct GameLetterView : View {
     
     @ObservedObject var viewModel : GameBoardLetterViewModel
+    var edgeSize: CGFloat
     
     var body : some View {
-        GeometryReader { geometry in
-            let edgeSize = min(geometry.size.width, geometry.size.height)
-            
-            Text(viewModel.letter?.stringValue ?? " ")
-                .robotoSlabFont(viewModel.fontSize, viewModel.fontWeight)
-                .opacity(viewModel.opacity)
-                .frame(width: edgeSize, height: edgeSize)
-                .background(viewModel.showBackgroundColor ? viewModel.backgroundColor.color : .LetterComparison.notSet)
-                .overlay(
-                    RoundedRectangle(cornerRadius: viewModel.cornerRadius)
-                        .stroke(viewModel.borderColor, lineWidth: viewModel.borderThickness)
-                )
-                .clipShape(RoundedRectangle(cornerRadius: viewModel.cornerRadius))
-        }
-        .aspectRatio(1, contentMode: .fit)
+        Text(viewModel.letter?.stringValue ?? " ")
+            .robotoSlabFont(viewModel.fontSize, viewModel.fontWeight)
+            .opacity(viewModel.opacity)
+            .frame(width: edgeSize, height: edgeSize)
+            .background(viewModel.showBackgroundColor ? viewModel.backgroundColor.color : .LetterComparison.notSet)
+            .overlay(
+                RoundedRectangle(cornerRadius: viewModel.cornerRadius)
+                    .stroke(viewModel.borderColor, lineWidth: viewModel.borderThickness)
+            )
+            .clipShape(RoundedRectangle(cornerRadius: viewModel.cornerRadius))
+            .aspectRatio(1, contentMode: .fit)
     }
 }
 
 extension GameLetterView {
-    init(_ viewModel: GameBoardLetterViewModel) {
+    init(_ viewModel: GameBoardLetterViewModel, edgeSize: CGFloat = 10.0) {
         self.viewModel = viewModel
+        self.edgeSize = edgeSize
     }
 }
 
-#Preview {
-    GameLetterView(GameBoardLetterViewModel(letter: .A))
-        .frame(width: 50)
-}
+//#Preview {
+//    GameLetterView(GameBoardLetterViewModel(letter: .A))
+//        .frame(width: 50)
+//}

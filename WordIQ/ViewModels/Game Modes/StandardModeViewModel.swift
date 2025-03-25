@@ -8,8 +8,8 @@ class StandardModeViewModel : SingleWordGameViewModel {
         
         // Apply Extra Logic
         if let activeWord = gameBoardViewModel.activeWord, let gameWord = activeWord.getWord() {
-            self.gameOverModel.gameResult = .win
-            self.gameOverModel.lastGuessedWord = gameWord
+            self.gameOverDataModel.gameResult = .win
+            self.gameOverDataModel.lastGuessedWord = gameWord
             self.gameOver()
         }
     }
@@ -21,7 +21,7 @@ class StandardModeViewModel : SingleWordGameViewModel {
         // Apply Extra Logic
         super.gameBoardViewModel.goToNextLine() {
             super.isKeyboardUnlocked = false
-            super.gameOverModel.gameResult = .lose
+            super.gameOverDataModel.gameResult = .lose
             super.gameOver()
         }
     }
