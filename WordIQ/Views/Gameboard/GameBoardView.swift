@@ -31,8 +31,8 @@ struct GameBoardView : View {
         let boardHeight = CGFloat(viewModel.boardHeight)
         let boardWidth = CGFloat(viewModel.boardWidth)
         
-        let height = geometry.size.height - (viewModel.boardSpacing * boardHeight)
-        let width = geometry.size.width - (viewModel.boardSpacing * boardWidth)
+        let height = geometry.size.height - (viewModel.boardSpacing * (boardHeight - 1.0))
+        let width = geometry.size.width - (viewModel.boardSpacing * (boardWidth - 1.0))
         
         return min(height / boardHeight, width / boardWidth )
     }
