@@ -7,9 +7,6 @@ class FourWordGameOverViewModel : ObservableObject {
     let databaseHelper = GameDatabaseHelper()
     let functionButtonDimensions : (CGFloat, CGFloat) = (50, 400)
     
-    // MARK: Properties
-    @Published var gameOverData : FourWordGameOverDataModel
-    
     // MARK: Stats Info Models
     @Published var firstRowStat = InfoItemModel()
     @Published var secondRowStat = InfoItemModel()
@@ -21,10 +18,12 @@ class FourWordGameOverViewModel : ObservableObject {
     var playAgainButton : TopDownButtonViewModel
     
     /// Initializer
-    init(_ gameOverModel: FourWordGameOverDataModel) {
-        gameOverData = gameOverModel
-        
-        self.backButton = TopDownButtonViewModel(height: functionButtonDimensions.0, width: functionButtonDimensions.1)
-        self.playAgainButton = TopDownButtonViewModel(height: functionButtonDimensions.0, width: functionButtonDimensions.1)
+    init() {
+        self.backButton = TopDownButtonViewModel(height: functionButtonDimensions.0, width: functionButtonDimensions.1) {
+            GameSelectionNavigationController.shared.exitFromGame()
+        }
+        self.playAgainButton = TopDownButtonViewModel(height: functionButtonDimensions.0, width: functionButtonDimensions.1) {
+            MultiWordGameNavigationController.shared().goToGameView()
+        }
     }
 }

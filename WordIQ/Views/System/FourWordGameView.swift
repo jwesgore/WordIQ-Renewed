@@ -3,13 +3,13 @@ import SwiftUI
 /// View for games with four words
 struct FourWordGameView : View {
     
-    @ObservedObject var navigationController : MultiWordGameNavigationController
+    @ObservedObject var controller : MultiWordGameNavigationController
     @ObservedObject var viewModel : FourWordGameViewModel
     
     var body: some View {
 
         ZStack {
-            switch navigationController.activeView {
+            switch controller.activeView {
             case .fourWordGame:
                 VStack (spacing: 0) {
                     
@@ -29,7 +29,7 @@ struct FourWordGameView : View {
                     GamePauseView(viewModel)
                 }
             case .gameOver:
-                FourWordGameOverView(viewModel.gameOverViewModel)
+                FourWordGameOverView(viewModel.gameOverDataModel)
                     .transition(.blurReplace)
             default:
                 Color.appBackground
@@ -42,7 +42,7 @@ struct FourWordGameView : View {
 extension FourWordGameView {
     init (_ viewModel : FourWordGameViewModel) {
         self.viewModel = viewModel
-        self.navigationController = MultiWordGameNavigationController.shared
+        self.controller = MultiWordGameNavigationController.shared()
     }
 }
 

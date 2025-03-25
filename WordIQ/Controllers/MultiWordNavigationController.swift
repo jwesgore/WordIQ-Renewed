@@ -3,14 +3,44 @@ import SwiftUI
 /// Navigation Controller for single game view
 class MultiWordGameNavigationController : NavigationControllerBase {
     
-    static var shared = MultiWordGameNavigationController()
+    private static var privateShared: MultiWordGameNavigationController?
+    
+    class func shared() -> MultiWordGameNavigationController {
+        guard let unwrappedShared = privateShared else {
+            privateShared = MultiWordGameNavigationController()
+            return privateShared!
+        }
+        return unwrappedShared
+    }
+    
+    class func destroy() {
+        privateShared = nil
+    }
+    
+    let multiWordGameViewModel: FourWordGameViewModel
+    let multiWordGameOverViewModel = FourWordGameOverViewModel()
     
     private init() {
+        self.multiWordGameViewModel = AppNavigationController.shared.multiWordGameModeOptions.getFourWordGameViewModel()
         super.init(.fourWordGame)
     }
     
-    func dispose() {
-        MultiWordGameNavigationController.shared = MultiWordGameNavigationController()
+    func goToGameOverView(immediate: Bool = false) {
+        if immediate {
+            goToView(.gameOver)
+        } else {
+            goToViewWithAnimation(.gameOver)
+        }
+    }
+    
+    func goToGameView(immediate: Bool = false) {
+        if immediate {
+            goToView(.singleWordGame)
+        } else {
+            goToViewWithAnimation(.singleWordGame, delay: 0.5) {
+                self.multiWordGameViewModel.playAgain()
+            }
+        }
     }
     
     override func goToViewWithAnimation(_ view: SystemView,

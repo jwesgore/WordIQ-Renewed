@@ -20,6 +20,16 @@ class FourWordGameModeOptionsModel : FourWordGameOptionsProtocol {
         self.init(gameDifficulty: .normal, timeLimit: 0, targetWords: targetWords)
     }
     
+    /// Gets the view model for the set game mode options
+    func getFourWordGameViewModel() -> FourWordGameViewModel {
+        return FourWordGameViewModel(gameOptions: self)
+    }
+    
+    /// Gets a fresh game over data model base on current settings
+    func getFourWordGameOverDataModelTemplate() -> FourWordGameOverDataModel {
+        return FourWordGameOverDataModel(self)
+    }
+    
     /// Resets the target word so the model can be persisted
     func resetTargetWords() {
         self.targetWords = WordDatabaseHelper.shared.fetchMultipleRandomFiveLetterWord(withDifficulty: gameDifficulty, count: 4)

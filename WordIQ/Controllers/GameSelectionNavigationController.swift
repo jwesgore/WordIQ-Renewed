@@ -17,6 +17,7 @@ class GameSelectionNavigationController : NavigationControllerBase {
         goToGameModeSelectionImmediate() {
             AppNavigationController.shared.goToViewWithAnimation(.gameModeSelection) {
                 SingleWordGameNavigationController.destroy()
+                MultiWordGameNavigationController.destroy()
             }
         }
     }

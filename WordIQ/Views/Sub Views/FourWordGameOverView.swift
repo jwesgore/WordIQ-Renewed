@@ -4,13 +4,13 @@ import SwiftUI
 struct FourWordGameOverView : View {
     
     @ObservedObject var viewModel : FourWordGameOverViewModel
-    @State var gameMode : GameMode
+    var gameOverData : FourWordGameOverDataModel
     
     var body : some View {
         VStack (spacing: 20) {
             Spacer()
             
-            Text(viewModel.gameOverData.gameResult.gameOverString)
+            Text(gameOverData.gameResult.gameOverString)
                 .robotoSlabFont(.title, .bold)
             
 
@@ -29,8 +29,8 @@ struct FourWordGameOverView : View {
 }
 
 extension FourWordGameOverView {
-    init (_ viewModel: FourWordGameOverViewModel) {
-        self.viewModel = viewModel
-        self.gameMode = viewModel.gameOverData.gameMode
+    init (_ gameOverData: FourWordGameOverDataModel) {
+        self.viewModel = MultiWordGameNavigationController.shared().multiWordGameOverViewModel
+        self.gameOverData = gameOverData
     }
 }

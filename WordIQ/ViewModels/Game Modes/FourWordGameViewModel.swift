@@ -2,8 +2,6 @@ import SwiftUI
 
 class FourWordGameViewModel : FourWordGameBaseProtocol {
     
-    let gameNavigationController : MultiWordGameNavigationController
-    
     // MARK: Properties
     @Published var showPauseMenu = false
     
@@ -11,13 +9,7 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
     var gameBoardStates : [UUID: MultiWordBoardState] = [:]
     var gameBoardViewModel: MultiGameBoardViewModel
     var gameOptions: FourWordGameModeOptionsModel
-    var gameOverModel: FourWordGameOverDataModel
-    var gameOverViewModel: FourWordGameOverViewModel {
-        let gameOverVM = FourWordGameOverViewModel(gameOverModel)
-        gameOverVM.playAgainButton.action = self.playAgain
-        gameOverVM.backButton.action = self.exitGame
-        return gameOverVM
-    }
+    var gameOverDataModel: FourWordGameOverDataModel
     var gamePauseViewModel: GamePauseViewModel {
         let gamePauseVM = GamePauseViewModel()
         gamePauseVM.ResumeGameButton.action = self.resumeGame
@@ -38,12 +30,11 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
     var exitGameAction: () -> Void = {}
     
     init(gameOptions: FourWordGameModeOptionsModel) {
-        self.gameNavigationController = MultiWordGameNavigationController.shared
-        
+
         self.clock = ClockViewModel(timeLimit: gameOptions.timeLimit, isClockTimer: false)
         self.gameBoardViewModel = MultiGameBoardViewModel(boardHeight: 9, boardWidth: 5, boardCount: 4, boardSpacing: 1.0, boardMargin: 10.0)
         self.gameOptions = gameOptions
-        self.gameOverModel = FourWordGameOverDataModel(gameOptions)
+        self.gameOverDataModel = FourWordGameOverDataModel(gameOptions)
         
         // Build target words
         for (id, targetWord) in zip(gameBoardViewModel.getBoardIds(), gameOptions.targetWords) {
@@ -74,7 +65,7 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
         
         isKeyboardUnlocked = false
         
-        gameOverModel.numValidGuesses += 1
+        gameOverDataModel.numValidGuesses += 1
 
         Task {
             await withTaskGroup(of: Void.self) { taskGroup in
@@ -97,12 +88,12 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
             switch MultiWordBoardState.getGameState(from: Array(gameBoardStates.values)) {
             case .win:
                 await MainActor.run {
-                    gameOverModel.gameResult = .win
+                    gameOverDataModel.gameResult = .win
                     gameOver()
                 }
             case .lose:
                 await MainActor.run {
-                    gameOverModel.gameResult = .lose
+                    gameOverDataModel.gameResult = .lose
                     gameOver()
                 }
             default:
@@ -128,13 +119,13 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
         
         gameBoardViewModel.gameBoards[id]?.isBoardActive = false
         
-        gameOverModel.numCorrectWords += 1
+        gameOverDataModel.numCorrectWords += 1
     }
     
     /// Handles what to do if an invalid word is submitted
     func invalidWordSubmitted() {
         gameBoardViewModel.shakeActiveRows()
-        gameOverModel.numInvalidGuesses += 1
+        gameOverDataModel.numInvalidGuesses += 1
     }
     
     /// Handles what to do if the wrong word is submitted
@@ -151,7 +142,7 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
         gameBoardViewModel.setTargetWordHints(id, comparisons: comparisons)
         
         // Updates gameOverModel
-        gameOverModel.lastGuessedWord = activeWord
+        gameOverDataModel.lastGuessedWord = activeWord
         
         gameBoardViewModel.goToNextLine(id, atEndOfBoard: isGameOver)
     }
@@ -159,10 +150,7 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
     // MARK: Navigation functions
     /// Function to go back to game mode selection
     func exitGame() {
-        AppNavigationController.shared.goToViewWithAnimation(.gameModeSelection)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.gameNavigationController.dispose()
-        }
+        GameSelectionNavigationController.shared.exitFromGame()
     }
     
     /// Function to end the game
@@ -170,9 +158,9 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
         showPauseMenu = false
         
         clock.stopClock()
-        gameOverModel.timeElapsed = clock.timeElapsed
+        gameOverDataModel.timeElapsed = clock.timeElapsed
         
-        gameNavigationController.goToViewWithAnimation(.gameOver)
+        MultiWordGameNavigationController.shared().goToGameOverView()
     }
     
     /// Function to pause the game
@@ -183,13 +171,12 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
     
     /// Function to play a new game again
     func playAgain() {
-        gameNavigationController.goToViewWithAnimation(.fourWordGame)
         keyboardViewModel.resetKeyboard()
         gameBoardViewModel.resetAllBoardsHard()
         clock.resetClock()
         
         gameOptions.resetTargetWords()
-        gameOverModel = FourWordGameOverDataModel(gameOptions)
+        gameOverDataModel = gameOptions.getFourWordGameOverDataModelTemplate()
         
         for (id, targetWord) in zip(gameBoardViewModel.getBoardIds(), gameOptions.targetWords) {
             gameBoardStates[id] = .unsolved
