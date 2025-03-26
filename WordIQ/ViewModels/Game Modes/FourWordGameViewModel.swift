@@ -40,6 +40,7 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
         for (id, targetWord) in zip(gameBoardViewModel.getBoardIds(), gameOptions.targetWords) {
             gameBoardStates[id] = .unsolved
             targetWords[id] = targetWord
+            print(targetWord)
         }
     }
     
@@ -58,7 +59,7 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
         guard self.isKeyboardUnlocked else { return }
         
         guard let wordSubmitted = gameBoardViewModel.activeWord.getWord(),
-        WordDatabaseHelper.shared.doesFiveLetterWordExist(wordSubmitted) else {
+              WordDatabaseHelper.shared.doesFiveLetterWordExist(wordSubmitted) else {
             invalidWordSubmitted()
             return
         }
@@ -67,38 +68,27 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
         
         gameOverDataModel.numValidGuesses += 1
 
-        Task {
-            await withTaskGroup(of: Void.self) { taskGroup in
-                for (id, targetWord) in targetWords where gameBoardStates[id] == .unsolved {
-                    taskGroup.addTask {
-                        await MainActor.run {
-                            if targetWord == wordSubmitted {
-                                self.correctWordSubmitted(id, activeWord: wordSubmitted)
-                                self.gameBoardStates[id] = .solved
-                            } else {
-                                self.wrongWordSubmitted(id, activeWord: wordSubmitted) {
-                                    self.gameBoardStates[id] = .boardMaxedOut
-                                }
-                            }
-                        }
-                    }
+        for (id, targetWord) in targetWords where gameBoardStates[id] == .unsolved {
+            if targetWord == wordSubmitted {
+                self.correctWordSubmitted(id, activeWord: wordSubmitted)
+                self.gameBoardStates[id] = .solved
+
+            } else {
+                self.wrongWordSubmitted(id, activeWord: wordSubmitted) {
+                    self.gameBoardStates[id] = .boardMaxedOut
                 }
             }
-            
-            switch MultiWordBoardState.getGameState(from: Array(gameBoardStates.values)) {
-            case .win:
-                await MainActor.run {
-                    gameOverDataModel.gameResult = .win
-                    gameOver()
-                }
-            case .lose:
-                await MainActor.run {
-                    gameOverDataModel.gameResult = .lose
-                    gameOver()
-                }
-            default:
-                isKeyboardUnlocked = true
-            }
+        }
+
+        switch MultiWordBoardState.getGameState(from: Array(gameBoardStates.values)) {
+        case .win:
+            gameOverDataModel.gameResult = .win
+            gameOver()
+        case .lose:
+            gameOverDataModel.gameResult = .lose
+            gameOver()
+        default:
+            isKeyboardUnlocked = true
         }
     }
     
@@ -177,13 +167,14 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
         
         gameOptions.resetTargetWords()
         gameOverDataModel = gameOptions.getFourWordGameOverDataModelTemplate()
-        
+
         for (id, targetWord) in zip(gameBoardViewModel.getBoardIds(), gameOptions.targetWords) {
             gameBoardStates[id] = .unsolved
             targetWords[id] = targetWord
+            print(targetWord)
         }
+        
         isKeyboardUnlocked = true
-        // print(self.targetWord)
     }
     
     /// Function to resume the game when paused

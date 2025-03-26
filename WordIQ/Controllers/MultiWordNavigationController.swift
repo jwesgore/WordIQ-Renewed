@@ -35,9 +35,9 @@ class MultiWordGameNavigationController : NavigationControllerBase {
     
     func goToGameView(immediate: Bool = false) {
         if immediate {
-            goToView(.singleWordGame)
+            goToView(.fourWordGame)
         } else {
-            goToViewWithAnimation(.singleWordGame, delay: 0.5) {
+            goToViewWithAnimation(.fourWordGame, delay: 0.5) {
                 self.multiWordGameViewModel.playAgain()
             }
         }

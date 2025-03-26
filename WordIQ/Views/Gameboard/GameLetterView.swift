@@ -28,7 +28,7 @@ extension GameLetterView {
     }
 }
 
-//#Preview {
-//    GameLetterView(GameBoardLetterViewModel(letter: .A))
-//        .frame(width: 50)
-//}
+#Preview {
+    GameLetterView(GameBoardLetterViewModel(letter: .A))
+        .frame(width: 50)
+}

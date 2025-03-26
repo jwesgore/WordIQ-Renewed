@@ -12,10 +12,8 @@ class AppNavigationController : NavigationControllerBase {
     // MARK: View Models
     /// Creates a game mode selection view model
     let gameModeSelectionViewModel = GameModeSelectionViewModel()
-    let fourWordGameViewModel : FourWordGameViewModel
     
     init() {
-        self.fourWordGameViewModel = FourWordGameViewModel(gameOptions: multiWordGameModeOptions)
     }
 
     /// Starts the game with the defined game options

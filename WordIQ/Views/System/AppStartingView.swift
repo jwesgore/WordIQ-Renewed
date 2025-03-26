@@ -23,7 +23,7 @@ struct AppStartingView: View {
                 SingleWordGameView()
                     .transition(.opacity)
             case .fourWordGame:
-                FourWordGameView(controller.fourWordGameViewModel)
+                FourWordGameView()
                     .transition(.opacity)
             default:
                 Color.appBackground

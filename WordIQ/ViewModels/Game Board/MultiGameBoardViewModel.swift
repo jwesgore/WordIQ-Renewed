@@ -100,9 +100,7 @@ class MultiGameBoardViewModel : ObservableObject {
     
     /// Resets all sub board to their default state
     func resetAllBoardsHard() {
-        
         activeWord.reset()
-        
         for gameBoard in gameBoards.values { gameBoard.resetBoardHard() }
     }
     

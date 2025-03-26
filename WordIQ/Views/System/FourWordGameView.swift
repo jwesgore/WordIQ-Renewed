@@ -5,7 +5,7 @@ struct FourWordGameView : View {
     
     @ObservedObject var controller : MultiWordGameNavigationController
     @ObservedObject var viewModel : FourWordGameViewModel
-    
+
     var body: some View {
 
         ZStack {
@@ -40,12 +40,12 @@ struct FourWordGameView : View {
 }
 
 extension FourWordGameView {
-    init (_ viewModel : FourWordGameViewModel) {
-        self.viewModel = viewModel
+    init () {
         self.controller = MultiWordGameNavigationController.shared()
+        self.viewModel = MultiWordGameNavigationController.shared().multiWordGameViewModel
     }
 }
 
 #Preview {
-    FourWordGameView(FourWordGameViewModel(gameOptions: FourWordGameModeOptionsModel()))
+    FourWordGameView()
 }

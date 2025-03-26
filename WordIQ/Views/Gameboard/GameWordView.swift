@@ -23,6 +23,6 @@ extension GameWordView {
     }
 }
 
-//#Preview {
-//    GameWordView(GameBoardWordViewModel(boardWidth: 5, boardSpacing: 5.0))
-//}
+#Preview {
+    GameWordView(GameBoardWordViewModel(boardWidth: 5, boardSpacing: 5.0), edgeLength: 10.0)
+}
