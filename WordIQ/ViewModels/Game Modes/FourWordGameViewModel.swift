@@ -27,7 +27,6 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
                           keyboardDelete: self.keyboardDelete)
     }()
     var targetWords : [UUID: DatabaseWordModel] = [:]
-    var exitGameAction: () -> Void = {}
     
     init(gameOptions: FourWordGameModeOptionsModel) {
 
@@ -141,6 +140,7 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
     /// Function to go back to game mode selection
     func exitGame() {
         GameSelectionNavigationController.shared.exitFromGame()
+        AppNavigationController.shared.multiWordGameModeOptions.resetTargetWords()
     }
     
     /// Function to end the game

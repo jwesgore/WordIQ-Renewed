@@ -4,7 +4,7 @@ import SwiftUI
 struct SingleWordGameOverView : View {
     
     @ObservedObject var gameOverWordViewModel: GameOverWordViewModel
-    @ObservedObject var viewModel : SingleWordGameOverViewModel
+    var viewModel : SingleWordGameOverViewModel
     
     var gameOverData : SingleWordGameOverDataModel
     

@@ -276,5 +276,51 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "05EF3573-DDF4-44A2-B3D9-931BD6B43B0E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WordIQ/Controllers/SingleWordGameNavigationController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "goToGameView(immediate:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "05EF3573-DDF4-44A2-B3D9-931BD6B43B0E - 8471aa7aa67b337f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "default argument 0 of WordIQ.SingleWordGameNavigationController.goToGameView(immediate: Swift.Bool) -&gt; ()"
+                  moduleName = "WordIQ.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wesleygore/XCode/WordIQ/WordIQ/Controllers/SingleWordGameNavigationController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40">
+               </Location>
+               <Location
+                  uuid = "05EF3573-DDF4-44A2-B3D9-931BD6B43B0E - 7f1e7b4b4df041a2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WordIQ.SingleWordGameNavigationController.goToGameView(immediate: Swift.Bool) -&gt; ()"
+                  moduleName = "WordIQ.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wesleygore/XCode/WordIQ/WordIQ/Controllers/SingleWordGameNavigationController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "41"
+                  endingLineNumber = "41">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

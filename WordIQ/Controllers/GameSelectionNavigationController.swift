@@ -18,6 +18,7 @@ class GameSelectionNavigationController : NavigationControllerBase {
             AppNavigationController.shared.goToViewWithAnimation(.gameModeSelection) {
                 SingleWordGameNavigationController.destroy()
                 MultiWordGameNavigationController.destroy()
+                AppNavigationController.shared.multiWordGameModeOptions.resetTargetWords()
             }
         }
     }
