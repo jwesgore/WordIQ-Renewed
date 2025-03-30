@@ -142,7 +142,7 @@ class SingleWordGameViewModel : SingleWordGameBaseProtocol {
     /// Handles what to do if the wrong word is submitted
     func wrongWordSubmitted() {
         guard let activeWord = gameBoardViewModel.activeWord,
-                let gameWord = activeWord.getWord() else {
+            let gameWord = activeWord.getWord() else {
             fatalError("Unable to get active word")
         }
         
@@ -150,7 +150,7 @@ class SingleWordGameViewModel : SingleWordGameBaseProtocol {
         // Builds comparisons and updates backgrounds on board and keyboard
         let comparisons = gameWord.comparison(targetWord)
     
-        activeWord.setBackgrounds(comparisons)
+        gameBoardViewModel.setActiveWordBackground(comparisons)
         keyboardViewModel.keyboardSetBackgrounds(gameWord.comparisonRankingMap(comparisons))
         
         // Updates hints
@@ -175,6 +175,7 @@ class SingleWordGameViewModel : SingleWordGameBaseProtocol {
         
         clock.stopClock()
         gameOverDataModel.timeElapsed = clock.timeElapsed
+        gameOverDataModel.targetWordBackgrounds = gameBoardViewModel.targetWordBackgrounds
         
         SingleWordGameNavigationController.shared().goToGameOverView()
     }

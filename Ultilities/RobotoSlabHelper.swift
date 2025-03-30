@@ -45,6 +45,10 @@ extension View {
         self.modifier(RobotoSlabModifier(size: size.rawValue, weight: weight.rawValue))
     }
     
+    func robotoSlabFont(_ size : CGFloat, _ weight : RobotoSlabOptions.Weight) -> some View {
+        self.modifier(RobotoSlabModifier(size: size, weight: weight.rawValue))
+    }
+    
     func robotoSlabFont(_ size : CGFloat, _ weight : String) -> some View {
         self.modifier(RobotoSlabModifier(size: size, weight: weight))
     }

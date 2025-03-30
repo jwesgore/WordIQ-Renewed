@@ -16,7 +16,8 @@ struct FourWordGameOverDataModel : Codable {
     var timeRemaining: Int?
     var xp: Int
     
-    var targetWords: [DatabaseWordModel]
+    var targetWords: OrderedDictionaryCodable<UUID, DatabaseWordModel>
+    var targetWordsBackgrounds: OrderedDictionaryCodable<UUID, [LetterComparison]>
     var lastGuessedWord: GameWordModel?
 
     var correctlyGuessedWords: [GameWordModel]
@@ -33,12 +34,17 @@ extension FourWordGameOverDataModel {
         self.numInvalidGuesses = 0
         
         self.date = Date.now
-        
+                
         self.targetWords = gameOptions.targetWords
+        self.targetWordsBackgrounds = OrderedDictionaryCodable<UUID, [LetterComparison]>()
         self.timeElapsed = 0
         self.timeLimit = gameOptions.timeLimit
         self.xp = 0
         
         self.correctlyGuessedWords = []
+        
+        for (id, word) in gameOptions.targetWords {
+            self.targetWordsBackgrounds[id] = [LetterComparison](repeating: .notSet, count: word.word.count)
+        }
     }
 }

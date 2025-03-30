@@ -9,7 +9,7 @@ struct GameWordView : View {
     var body: some View {
         HStack (spacing: viewModel.boardSpacing) {
             ForEach(viewModel.letters, id: \.self.id) {
-                GameLetterView($0, edgeSize: edgeLength)
+                GameBoardLetterView($0, edgeSize: edgeLength)
             }
         }
         .modifier(ShakeEffect(animatableData: viewModel.shakeWord ? 1.5 : 0))
@@ -23,6 +23,6 @@ extension GameWordView {
     }
 }
 
-#Preview {
-    GameWordView(GameBoardWordViewModel(boardWidth: 5, boardSpacing: 5.0), edgeLength: 10.0)
-}
+//#Preview {
+//    GameWordView(GameBoardWordViewModel(boardWidth: 5, boardSpacing: 5.0))
+//}

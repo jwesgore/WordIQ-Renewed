@@ -1,15 +1,8 @@
 import SwiftUI
 
 /// View model for entire row on game board
-class GameBoardWordViewModel : ObservableObject {
+class GameBoardWordViewModel : GameWordBaseViewModel {
     
-    let boardSpacing: CGFloat
-    let boardWidth: Int
-    
-    // TODO: Is this necessary?
-    let id: UUID = UUID()
-    
-    @Published var letters: [GameBoardLetterViewModel] = []
     @Published private(set) var shakeWord: Bool = false
     
     var hints: [ValidCharacters?] = []
@@ -17,8 +10,7 @@ class GameBoardWordViewModel : ObservableObject {
     
     /// Base Initializer
     init (boardWidth: Int, boardSpacing: CGFloat) {
-        self.boardWidth = boardWidth
-        self.boardSpacing = boardSpacing
+        super.init(boardWidth: boardWidth, boardSpacing: boardSpacing)
         
         // Populate letters
         for _ in 0..<boardWidth {
@@ -56,27 +48,6 @@ class GameBoardWordViewModel : ObservableObject {
         self.hints = hints
         for (letterVM, hint) in zip(self.letters, hints) {
             letterVM.setHint(hint)
-        }
-    }
-    
-    /// Sets background colors on Active Word with the provided letter comparison
-    func setBackgrounds(_ comparisons : [LetterComparison]) {
-        for i in 0..<boardWidth {
-            self.letters[i].backgroundColor = comparisons[i]
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + (0.125 * Double(i)), execute: {
-                withAnimation(.smooth(duration: 0.2)) {
-                    self.letters[i].showBackgroundColor = true
-                }
-            })
-        }
-    }
-    
-    /// Sets the font options for all letters
-    func setFontOptions(fontSize: RobotoSlabOptions.Size, fontWeight: RobotoSlabOptions.Weight) {
-        for letter in letters {
-            letter.fontSize = fontSize
-            letter.fontWeight = fontWeight
         }
     }
     

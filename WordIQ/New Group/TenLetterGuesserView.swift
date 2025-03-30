@@ -56,16 +56,16 @@ struct TenLetterGuesserWordView : View {
     
     var body: some View {
         HStack (spacing: 1) {
-            GameLetterView(viewModel.letters[0])
-            GameLetterView(viewModel.letters[1])
-            GameLetterView(viewModel.letters[2])
-            GameLetterView(viewModel.letters[3])
-            GameLetterView(viewModel.letters[4])
-            GameLetterView(viewModel.letters[5])
-            GameLetterView(viewModel.letters[6])
-            GameLetterView(viewModel.letters[7])
-            GameLetterView(viewModel.letters[8])
-            GameLetterView(viewModel.letters[9])
+            GameBoardLetterView(viewModel.letters[0])
+            GameBoardLetterView(viewModel.letters[1])
+            GameBoardLetterView(viewModel.letters[2])
+            GameBoardLetterView(viewModel.letters[3])
+            GameBoardLetterView(viewModel.letters[4])
+            GameBoardLetterView(viewModel.letters[5])
+            GameBoardLetterView(viewModel.letters[6])
+            GameBoardLetterView(viewModel.letters[7])
+            GameBoardLetterView(viewModel.letters[8])
+            GameBoardLetterView(viewModel.letters[9])
         }
     }
 }

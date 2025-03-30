@@ -32,12 +32,12 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
     init(gameOptions: FourWordGameModeOptionsModel) {
 
         self.clock = ClockViewModel(timeLimit: gameOptions.timeLimit, isClockTimer: false)
-        self.gameBoardViewModel = MultiGameBoardViewModel(boardHeight: 9, boardWidth: 5, boardCount: 4, boardSpacing: 1.0, boardMargin: 10.0)
+        self.gameBoardViewModel = MultiGameBoardViewModel(gameOptions)
         self.gameOptions = gameOptions
         self.gameOverDataModel = FourWordGameOverDataModel(gameOptions)
         
         // Build target words
-        for (id, targetWord) in zip(gameBoardViewModel.getBoardIds(), gameOptions.targetWords) {
+        for (id, targetWord) in gameOptions.targetWords {
             gameBoardStates[id] = .unsolved
             targetWords[id] = targetWord
             print(targetWord)
@@ -149,6 +149,7 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
         
         clock.stopClock()
         gameOverDataModel.timeElapsed = clock.timeElapsed
+        gameOverDataModel.targetWordsBackgrounds = gameBoardViewModel.getTargetWordsBackgrounds().toCodable()
         
         MultiWordGameNavigationController.shared().goToGameOverView()
     }
@@ -168,7 +169,7 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
         gameOptions.resetTargetWords()
         gameOverDataModel = gameOptions.getFourWordGameOverDataModelTemplate()
 
-        for (id, targetWord) in zip(gameBoardViewModel.getBoardIds(), gameOptions.targetWords) {
+        for (id, targetWord) in gameOptions.targetWords {
             gameBoardStates[id] = .unsolved
             targetWords[id] = targetWord
             print(targetWord)

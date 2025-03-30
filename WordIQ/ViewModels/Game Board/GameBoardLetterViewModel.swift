@@ -13,8 +13,7 @@ class GameBoardLetterViewModel : ObservableObject {
     
     var borderThickness : CGFloat
     var cornerRadius : CGFloat
-    var fontSize : RobotoSlabOptions.Size
-    var fontWeight : RobotoSlabOptions.Weight
+
     /// Base initializer
     init(letter: ValidCharacters? = nil,
          opacity: CGFloat = 1.0,
@@ -27,8 +26,6 @@ class GameBoardLetterViewModel : ObservableObject {
         self.borderColor = Color.GameBoard.letterBorderInactive
         self.borderThickness = borderThickness
         self.cornerRadius = cornerRadius
-        self.fontSize = .title
-        self.fontWeight = .bold
     }
     
     // MARK: Visual functions

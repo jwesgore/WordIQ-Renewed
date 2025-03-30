@@ -39,14 +39,14 @@ struct GameModeOptionsView : View {
             }
             Spacer()
             
-            VStack {
-                TopDownButtonView(viewModel.startButton) {
-                    Text(SystemNames.Navigation.startGame)
+            HStack {
+                TopDownButtonView(viewModel.backButton) {
+                    Text(SystemNames.Navigation.back)
                         .robotoSlabFont(.title3, .regular)
                 }
                 
-                TopDownButtonView(viewModel.backButton) {
-                    Text(SystemNames.Navigation.back)
+                TopDownButtonView(viewModel.startButton) {
+                    Text(SystemNames.Navigation.startGame)
                         .robotoSlabFont(.title3, .regular)
                 }
             }

@@ -43,7 +43,7 @@ protocol SingleWordGameOptionsProtocol : GameOptionsBaseProtocol {
 
 /// Protocol to define structure for single word games
 protocol FourWordGameOptionsProtocol : GameOptionsBaseProtocol {
-    var targetWords: [DatabaseWordModel] { get set }
+    var targetWords: OrderedDictionaryCodable<UUID, DatabaseWordModel> { get set }
     
     func resetTargetWords()
 }

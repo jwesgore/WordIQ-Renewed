@@ -37,6 +37,6 @@ extension FourWordGameBoardView {
     }
 }
 
-#Preview {
-    FourWordGameBoardView(MultiGameBoardViewModel(boardHeight: 9, boardWidth: 5, boardCount: 4, boardSpacing: 1.0, boardMargin: 10.0))
-}
+//#Preview {
+//    FourWordGameBoardView(MultiGameBoardViewModel(boardHeight: 9, boardWidth: 5, boardCount: 4, boardSpacing: 1.0, boardMargin: 10.0, targetWords: <#[UUID : DatabaseWordModel]?#>))
+//}

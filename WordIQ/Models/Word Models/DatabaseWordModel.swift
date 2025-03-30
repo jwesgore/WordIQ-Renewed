@@ -1,5 +1,8 @@
+import SwiftUI
+
 /// Struct for passing around words from database
-struct DatabaseWordModel : Codable, Equatable {
+struct DatabaseWordModel : Codable, Equatable, Hashable {
+    
     let daily : Int
     let difficulty : GameDifficulty
     let word : String

@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Game Board View Model
-class GameBoardViewModel : ObservableObject {
+class GameBoardViewModel : ObservableObject, Identifiable {
     
     let boardHeight: Int
     let boardSpacing: CGFloat
@@ -14,9 +14,10 @@ class GameBoardViewModel : ObservableObject {
     var boardPosition: Int
     var isBoardActive: Bool = true
     var targetWordHints: [ValidCharacters?] = []
+    var targetWordBackgrounds: [LetterComparison] = []
     
-    init(boardHeight: Int, boardWidth: Int, boardSpacing: CGFloat) {
-        self.id = UUID()
+    init(boardHeight: Int, boardWidth: Int, boardSpacing: CGFloat, id: UUID = UUID()) {
+        self.id = id
         
         self.boardHeight = boardHeight
         self.boardWidth = boardWidth
@@ -30,6 +31,7 @@ class GameBoardViewModel : ObservableObject {
         
         for _ in 0..<boardWidth {
             self.targetWordHints.append(nil)
+            self.targetWordBackgrounds.append(.notSet)
         }
         
         self.activeWord = self.wordViewModels.first
@@ -113,10 +115,14 @@ class GameBoardViewModel : ObservableObject {
             word.reset()
         }
         
-        activeWord = wordViewModels.first
         boardPosition = 0
         isBoardActive = true
-        targetWordHints = [ValidCharacters?](repeating: nil, count: self.boardWidth)
+        activeWord = wordViewModels.first
+        
+        for i in 0..<boardWidth {
+            targetWordHints[i] = nil
+            targetWordBackgrounds[i] = .notSet
+        }
     }
 
     /// Function to reset the board to its default state with an animation
@@ -140,7 +146,10 @@ class GameBoardViewModel : ObservableObject {
         activeWord = wordViewModels.first
         
         if hardReset {
-            targetWordHints = [ValidCharacters?](repeating: nil, count: boardWidth)
+            for i in 0..<boardWidth {
+                targetWordHints[i] = nil
+                targetWordBackgrounds[i] = .notSet
+            }
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + totalDelay + 0.2) {
@@ -175,12 +184,9 @@ class GameBoardViewModel : ObservableObject {
     func setActiveWordBackground(_ comparisons: [LetterComparison]) {
         guard isBoardActive else { return }
         activeWord?.setBackgrounds(comparisons)
-    }
-    
-    /// Sets the font options for all words
-    func setFontOptions(fontSize: RobotoSlabOptions.Size, fontWeight: RobotoSlabOptions.Weight) {
-        for word in wordViewModels {
-            word.setFontOptions(fontSize: fontSize, fontWeight: fontWeight)
+        
+        for (index, incomingComparison) in comparisons.enumerated() {
+            targetWordBackgrounds[index] = max(incomingComparison, targetWordBackgrounds[index])
         }
     }
     

@@ -10,9 +10,14 @@ class MultiGameBoardViewModel : ObservableObject {
     let boardWidth: Int
     
     var activeWord: GameBoardWordViewModel
-    var gameBoards: [UUID: GameBoardViewModel] = [:]
+    var gameBoards = OrderedDictionary<UUID, GameBoardViewModel>()
     
-    init(boardHeight: Int, boardWidth: Int, boardCount: Int, boardSpacing: CGFloat, boardMargin: CGFloat) {
+    init(boardHeight: Int,
+         boardWidth: Int,
+         boardCount: Int,
+         boardSpacing: CGFloat,
+         boardMargin: CGFloat,
+         targetWords: OrderedDictionaryCodable<UUID, DatabaseWordModel>? = nil) {
         self.boardCount = boardCount
         self.boardHeight = boardHeight
         self.boardWidth = boardWidth
@@ -21,28 +26,36 @@ class MultiGameBoardViewModel : ObservableObject {
         
         self.activeWord = GameBoardWordViewModel(boardWidth: boardWidth, boardSpacing: boardSpacing)
         
-        for _ in 0..<boardCount {
-            let gameBoard = GameBoardViewModel(boardHeight: boardHeight, boardWidth: boardWidth, boardSpacing: boardSpacing)
-            gameBoard.setFontOptions(fontSize: .title3, fontWeight: .semiBold)
-            
-            gameBoards[gameBoard.id] = gameBoard
+        if let targetWords = targetWords {
+            for (id, word) in targetWords {
+                gameBoards[id] = GameBoardViewModel(boardHeight: boardHeight, boardWidth: boardWidth, boardSpacing: boardSpacing, id: id)
+            }
+        } else {
+            for _ in 0..<boardCount {
+                let gameBoard = GameBoardViewModel(boardHeight: boardHeight, boardWidth: boardWidth, boardSpacing: boardSpacing)
+                gameBoards[gameBoard.id] = gameBoard
+            }
         }
+    }
+    
+    convenience init(_ gameOptions: FourWordGameModeOptionsModel) {
+        self.init(boardHeight: 9, boardWidth: 5, boardCount: 4, boardSpacing: 1.0, boardMargin: 10.0, targetWords: gameOptions.targetWords)
     }
     
     /// Adds a letter to all boards
     func addLetterToActiveWord(_ letter: ValidCharacters) {
         activeWord.addLetter(letter)
-        for gameBoard in gameBoards.values { gameBoard.addLetterToActiveWord(letter) }
+        for gameBoard in gameBoards.allValues { gameBoard.addLetterToActiveWord(letter) }
     }
     
     /// Returns all the IDs of the boards
     func getBoardIds() -> [UUID] {
-        return gameBoards.values.map { $0.id }
+        return gameBoards.allKeys
     }
     
     /// Get the target word hints for all boards
     func getAllTargetWordHints() -> [UUID: [ValidCharacters?]] {
-        return gameBoards.values.reduce(into: [:]) { result, gameBoard in
+        return gameBoards.allValues.reduce(into: [:]) { result, gameBoard in
             result[gameBoard.id] = gameBoard.getTargetWordHints()
         }
     }
@@ -50,7 +63,7 @@ class MultiGameBoardViewModel : ObservableObject {
     // TODO: Determine if returning [UUID: GameBoardSaveStateModel] is necessary or if it should just return [GameBoardSaveStateModel]
     /// Get the save states of all the boards
     func getSaveStates() -> [UUID: GameBoardSaveStateModel] {
-        return gameBoards.values.reduce(into: [:]) { result, gameBoard in
+        return gameBoards.allValues.reduce(into: [:]) { result, gameBoard in
             result[gameBoard.id] = gameBoard.getSaveState()
         }
     }
@@ -63,6 +76,11 @@ class MultiGameBoardViewModel : ObservableObject {
         return gameBoard.getTargetWordHints()
     }
     
+    /// Gets all of the target word backgrounds for the boards
+    func getTargetWordsBackgrounds() -> OrderedDictionary<UUID, [LetterComparison]> {
+        return gameBoards.mapValues { $0.targetWordBackgrounds }
+    }
+    
     /// Progresses all boards to the next line
     func goToNextLine(atEndOfBoard: @escaping () -> Void) {
         
@@ -70,7 +88,7 @@ class MultiGameBoardViewModel : ObservableObject {
         
         activeWord.reset()
         
-        for gameBoard in gameBoards.values {
+        for gameBoard in gameBoards.allValues {
             gameBoard.goToNextLine() {
                 atEndOfBoardCalled = true
             }
@@ -95,13 +113,13 @@ class MultiGameBoardViewModel : ObservableObject {
     /// Removes letter from all boards
     func removeLetterFromActiveWord() {
         activeWord.removeLetter()
-        for gameBoard in gameBoards.values { gameBoard.removeLetterFromActiveWord() }
+        for gameBoard in gameBoards.allValues { gameBoard.removeLetterFromActiveWord() }
     }
     
     /// Resets all sub board to their default state
     func resetAllBoardsHard() {
         activeWord.reset()
-        for gameBoard in gameBoards.values { gameBoard.resetBoardHard() }
+        for gameBoard in gameBoards.allValues { gameBoard.resetBoardHard() }
     }
     
     /// Function to reset the board to its default state with an animation
@@ -113,7 +131,7 @@ class MultiGameBoardViewModel : ObservableObject {
                                      complete: @escaping () -> Void = {}) {
         Task {
             await withTaskGroup(of: Void.self) { taskGroup in
-                for gameBoard in gameBoards.values {
+                for gameBoard in gameBoards.allValues {
                     taskGroup.addTask {
                         await gameBoard.resetBoardWithAnimationAsync(animationLength: animationLength,
                                                                      speed: speed,
@@ -187,7 +205,7 @@ class MultiGameBoardViewModel : ObservableObject {
     
     /// Calls shake animation on all boards
     func shakeActiveRows() {
-        for gameBoard in gameBoards.values {
+        for gameBoard in gameBoards.allValues {
             gameBoard.activeWord?.shake()
         }
     }

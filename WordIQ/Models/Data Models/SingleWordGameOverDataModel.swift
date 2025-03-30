@@ -17,6 +17,7 @@ struct SingleWordGameOverDataModel : Codable {
     var xp: Int
     
     var targetWord: DatabaseWordModel
+    var targetWordBackgrounds: [LetterComparison]
     var lastGuessedWord: GameWordModel?
     
     // Frenzy mode specific
@@ -41,6 +42,7 @@ extension SingleWordGameOverDataModel {
         self.xp = 0
         
         self.targetWord = gameOptions.targetWord
+        self.targetWordBackgrounds = [LetterComparison](repeating: .notSet, count: gameOptions.targetWord.word.count)
         
         if gameOptions.gameMode == .frenzyMode {
             self.timeLimit = gameOptions.timeLimit
@@ -52,8 +54,13 @@ extension SingleWordGameOverDataModel {
     
     /// Initializer for reading in from database
     init(_ gameResults: GameResultsModel) {
+        let gameResult = GameResult.fromId(Int(gameResults.gameResult))
+        let targetWord = DatabaseWordModel(daily: gameResults.targetWordDaily,
+                                           difficulty: gameResults.gameDifficulty,
+                                           word: gameResults.targetWord)
+        
         self.gameMode = GameMode.fromId(Int(gameResults.gameMode))!
-        self.gameResult = GameResult.fromId(Int(gameResults.gameResult))
+        self.gameResult = gameResult
         self.gameDifficulty = GameDifficulty.fromId(Int(gameResults.gameDifficulty))!
         self.numCorrectWords = Int(gameResults.numCorrectWords)
         self.numValidGuesses = Int(gameResults.numValidGuesses)
@@ -62,8 +69,9 @@ extension SingleWordGameOverDataModel {
         self.timeLimit = Int(gameResults.timeLimit)
         self.timeElapsed = Int(gameResults.timeElapsed)
         self.xp = Int(gameResults.xp)
-        self.targetWord = DatabaseWordModel(daily: gameResults.targetWordDaily,
-                                            difficulty: gameResults.gameDifficulty,
-                                            word: gameResults.targetWord)
+        self.targetWord = targetWord
+        
+        self.targetWordBackgrounds = [LetterComparison](repeating: gameResult == .win ? .correct : .wrong,
+                                                        count: targetWord.word.count)
     }
 }
