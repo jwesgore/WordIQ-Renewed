@@ -19,11 +19,15 @@ class SingleWordGameNavigationController : NavigationControllerBase {
     }
     
     /// Entry point for AppNavigationController to go to the game over view
-    func goToGameOverView(immediate: Bool = false) {
+    func goToGameOverView(immediate: Bool = false, complete: @escaping () -> Void = {}) {
         if immediate {
-            goToView(.gameOver)
+            goToView(.gameOver) {
+                complete()
+            }
         } else {
-            goToViewWithAnimation(.gameOver)
+            goToViewWithAnimation(.gameOver) {
+                complete()
+            }
         }
     }
     

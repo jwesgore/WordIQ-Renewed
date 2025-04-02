@@ -43,10 +43,10 @@ class SingleWordGameViewModel : SingleWordGameBaseProtocol {
     /// Save state initializer
     init(gameSaveState: GameSaveStateModel) {
         // Init Variables
-        self.clock = ClockViewModel(gameSaveState.clockState)
-        self.gameBoardViewModel = GameBoardViewModel(boardHeight: 6, boardWidth: 5, boardSpacing: 5.0)
-        self.gameOptions = gameSaveState.gameOptionsModel
-        self.gameOverDataModel = gameSaveState.gameOverModel
+        clock = ClockViewModel(gameSaveState.clockState)
+        gameBoardViewModel = GameBoardViewModel(boardHeight: 6, boardWidth: 5, boardSpacing: 5.0)
+        gameOptions = gameSaveState.gameOptionsModel
+        gameOverDataModel = gameSaveState.gameOverModel
         
         gamePauseViewModel.ResumeGameButton.action = self.resumeGame
         gamePauseViewModel.EndGameButton.action = self.exitGame
@@ -54,8 +54,8 @@ class SingleWordGameViewModel : SingleWordGameBaseProtocol {
         print(self.targetWord)
         
         // Populate Collections
-        self.keyboardViewModel.loadSaveState(gameSaveState: gameSaveState)
-        self.gameBoardViewModel.loadSaveState(gameSaveState: gameSaveState)
+        keyboardViewModel.loadSaveState(gameSaveState: gameSaveState)
+        gameBoardViewModel.loadSaveState(gameSaveState: gameSaveState)
     }
     
     // MARK: Keyboard functions

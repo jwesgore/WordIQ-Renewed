@@ -1,25 +1,19 @@
 /// ViewModel to handle the specific rules of Daily Mode
 class DailyModeViewModel : StandardModeViewModel {
     
-    // MARK: Overrides
+    // MARK: - Overrides
     /// Override init to check for save states
     override init(gameOptions: SingleWordGameModeOptionsModel) {
-        super.init(gameOptions: gameOptions)
-        // First Check to make sure that the user has not "time traveled" or already played todays game
-//        if UserDefaultsHelper.shared.lastDailyPlayed >= gameOptions.targetWord.daily {
-//            super.init(gameOptions: gameOptions)
-//            self.quickGameOver()
-//        }
-//        
-//        // If the save state is not null and is the same save state for today's game then call the save state initializer
-//        else if let saveState = UserDefaultsHelper.shared.dailySaveStateModel, saveState.gameOverModel.targetWord.daily == gameOptions.targetWord.daily {
-//            super.init(gameSaveState: saveState)
-//        }
-//        
-//        // Else call base initializer
-//        else {
-//            super.init(gameOptions: gameOptions)
-//        }
+        if let saveState = UserDefaultsHelper.shared.dailySaveStateModel,
+            saveState.gameOverModel.targetWord.daily == gameOptions.targetWord.daily {
+            super.init(gameSaveState: saveState)
+        } else {
+            super.init(gameOptions: gameOptions)
+        }
+        
+        if UserDefaultsHelper.shared.lastDailyPlayed >= gameOptions.targetWord.daily {
+            super.gameOverDataModel = UserDefaultsHelper.shared.dailyGameOverModel!
+        }
     }
     
     /// Override game over to clear out save state
@@ -34,16 +28,5 @@ class DailyModeViewModel : StandardModeViewModel {
         let saveState = super.getGameSaveState()
         UserDefaultsHelper.shared.dailySaveStateModel = saveState
     }
-    
-    // MARK: Daily Specific Functions
-    /// Ends the game without any animations
-//    func quickGameOver() {
-//        self.isKeyboardUnlocked = false
-//        self.showPauseMenu = false
-//        self.clock.stopClock()
-//        
-//        super.gameOverDataModel = UserDefaultsHelper.shared.dailyGameOverModel!
-//        SingleWordGameNavigationController.shared().goToGameOverView(immediate: true)
-//    }
 }
 

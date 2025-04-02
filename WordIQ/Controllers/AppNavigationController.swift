@@ -4,7 +4,11 @@ import SwiftUI
 final class AppNavigationController : NavigationControllerBase {
     
     static var shared = AppNavigationController()
-        
+    
+    var isDailyAlreadyPlayed : Bool {
+        UserDefaultsHelper.shared.lastDailyPlayed >= WordDatabaseHelper.shared.fetchDailyFiveLetterWord().daily
+    }
+    
     // MARK: - Controllers
     let singleWordGameNavigationController : SingleWordGameNavigationController
     let multiWordGameNavigationController : MultiWordGameNavigationController
@@ -30,6 +34,19 @@ final class AppNavigationController : NavigationControllerBase {
         goToGameModeSelection()
     }
     
+    /// Starts a daily word game
+    func goToDailyWordGame() {
+        if isDailyAlreadyPlayed {
+            goToSingleWordGameOver(immediate: true) { [weak self] in
+                self?.goToViewWithAnimation(.singleWordGame, delay: 0.25, pauseLength: 0.25)
+            }
+        } else {
+            singleWordGameNavigationController.startGame { [weak self] in
+                self?.goToViewWithAnimation(.singleWordGame, delay: 0.25, pauseLength: 0.25)
+            }
+        }
+    }
+    
     /// Starts a single word game with the defined game options
     func goToSingleWordGame() {
         singleWordGameModeOptionsModel.resetTargetWord()
@@ -39,8 +56,10 @@ final class AppNavigationController : NavigationControllerBase {
     }
     
     /// Used to transition single word game view to game over view
-    func goToSingleWordGameOver() {
-        singleWordGameNavigationController.goToGameOverView()
+    func goToSingleWordGameOver(immediate: Bool = false, complete: @escaping () -> Void = {}) {
+        singleWordGameNavigationController.goToGameOverView(immediate: immediate) {
+            complete()
+        }
     }
     
     /// Used to play single word game mode again

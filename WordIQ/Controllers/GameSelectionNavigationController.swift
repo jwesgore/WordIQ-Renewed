@@ -19,7 +19,7 @@ class GameSelectionNavigationController : NavigationControllerBase {
     /// Launch the daily puzzle
     func goToDailyMode() {
         gameModeOptionsViewModel.setSingleWordGameMode(.dailyGame)
-        AppNavigationController.shared.goToSingleWordGame()
+        AppNavigationController.shared.goToDailyWordGame()
     }
     
     /// Transition to a four word game

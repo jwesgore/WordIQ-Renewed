@@ -89,7 +89,6 @@ class GameModeOptionsViewModel : ObservableObject {
             AppNavigationController.shared.goToSingleWordGame()
         case .dailyGame:
             setSingleWordGameModeDaily()
-            AppNavigationController.shared.goToSingleWordGame()
         default:
             setSingleWordGameModeStandard()
         }

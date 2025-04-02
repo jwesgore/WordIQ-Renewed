@@ -88,6 +88,8 @@ class GameBoardViewModel : ObservableObject, Identifiable {
         self.boardPosition = boardSaveState.gameBoardPosition
         self.targetWordHints = boardSaveState.targetWordHints
         
+        self.wordViewModels = []
+        
         for i in 0..<boardHeight {
             let gameBoardWord = GameBoardWordViewModel(boardWidth: boardWidth, boardSpacing: boardSpacing)
             
@@ -98,7 +100,7 @@ class GameBoardViewModel : ObservableObject, Identifiable {
             self.wordViewModels.append(gameBoardWord)
         }
         
-        self.activeWord = self.wordViewModels[boardSaveState.gameBoardPosition]
+        self.activeWord = self.wordViewModels[boardSaveState.gameBoardPosition % boardHeight]
         self.activeWord?.loadHints(getTargetWordHints())
     }
     
