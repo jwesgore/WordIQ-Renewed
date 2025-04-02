@@ -165,7 +165,7 @@ class SingleWordGameViewModel : SingleWordGameBaseProtocol {
     // MARK: Navigation functions
     /// Function to go back to game mode selection
     func exitGame() {
-        GameSelectionNavigationController.shared.exitFromGame()
+        AppNavigationController.shared.exitFromSingleWordGame()
     }
     
     /// Function to end the game
@@ -177,7 +177,7 @@ class SingleWordGameViewModel : SingleWordGameBaseProtocol {
         gameOverDataModel.timeElapsed = clock.timeElapsed
         gameOverDataModel.targetWordBackgrounds = gameBoardViewModel.targetWordBackgrounds
         
-        SingleWordGameNavigationController.shared().goToGameOverView()
+        AppNavigationController.shared.goToSingleWordGameOver()
     }
     
     /// Function to pause the game

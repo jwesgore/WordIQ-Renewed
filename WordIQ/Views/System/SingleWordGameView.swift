@@ -4,7 +4,7 @@ import SwiftUI
 struct SingleWordGameView : View {
     
     @ObservedObject var controller : SingleWordGameNavigationController
-    @ObservedObject var viewModel : SingleWordGameViewModel
+    @StateObject var viewModel : SingleWordGameViewModel
     
     var body : some View {
         ZStack {
@@ -28,7 +28,7 @@ struct SingleWordGameView : View {
                     GamePauseView(viewModel)
                 }
             case .gameOver:
-                SingleWordGameOverView(viewModel.gameOverDataModel)
+                SingleWordGameOverView(viewModel)
                     .transition(.opacity)
             default:
                 Color.appBackground
@@ -39,17 +39,8 @@ struct SingleWordGameView : View {
 }
 
 extension SingleWordGameView {
-    init (_ viewModel: SingleWordGameViewModel) {
-        self.viewModel = viewModel
-        self.controller = SingleWordGameNavigationController.shared()
+    init (_ controller: SingleWordGameNavigationController = AppNavigationController.shared.singleWordGameNavigationController) {
+        self.controller = controller
+        self._viewModel = StateObject(wrappedValue: controller.gameOptions.getSingleWordGameViewModel())
     }
-    
-    init () {
-        self.controller = SingleWordGameNavigationController.shared()
-        self.viewModel = SingleWordGameNavigationController.shared().singleWordGameViewModel
-    }
-}
-
-#Preview {
-    SingleWordGameView(StandardModeViewModel(gameOptions: SingleWordGameModeOptionsModel(gameMode: .standardMode, gameDifficulty: .normal, timeLimit:0)))
 }

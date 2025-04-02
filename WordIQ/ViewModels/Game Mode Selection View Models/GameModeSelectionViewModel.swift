@@ -6,6 +6,10 @@ class GameModeSelectionViewModel : ObservableObject {
     @Published var displaySettings: Bool = false
     @Published var displayStats: Bool = false
     
+    var gameSelectionController : GameSelectionNavigationController {
+        return AppNavigationController.shared.gameSelectionNavigationController
+    }
+    
     let halfButtonDimensions: (CGFloat, CGFloat) = (70, 200)
     let gameModeButtonDimension: (CGFloat, CGFloat) = (70, 400)
         
@@ -20,40 +24,35 @@ class GameModeSelectionViewModel : ObservableObject {
 
     init() {
         // Initialize all buttons without action
-        self.dailyGameButton = TopDownButtonViewModel(height: halfButtonDimensions.0, width: halfButtonDimensions.1)
-        self.quickplayGameButton = TopDownButtonViewModel(height: halfButtonDimensions.0, width: halfButtonDimensions.1)
-        self.standardGameModeButton = TopDownButtonViewModel(height: gameModeButtonDimension.0, width: gameModeButtonDimension.1)
-        self.rushGameModeButton = TopDownButtonViewModel(height: gameModeButtonDimension.0, width: gameModeButtonDimension.1)
-        self.frenzyGameModeButton = TopDownButtonViewModel(height: gameModeButtonDimension.0, width: gameModeButtonDimension.1)
-        self.zenGameModeButton = TopDownButtonViewModel(height: gameModeButtonDimension.0, width: gameModeButtonDimension.1)
-        self.fourWordGameModeButton = TopDownButtonViewModel(height: gameModeButtonDimension.0, width: gameModeButtonDimension.1)
+        dailyGameButton = TopDownButtonViewModel(height: halfButtonDimensions.0, width: halfButtonDimensions.1)
+        quickplayGameButton = TopDownButtonViewModel(height: halfButtonDimensions.0, width: halfButtonDimensions.1)
+        standardGameModeButton = TopDownButtonViewModel(height: gameModeButtonDimension.0, width: gameModeButtonDimension.1)
+        rushGameModeButton = TopDownButtonViewModel(height: gameModeButtonDimension.0, width: gameModeButtonDimension.1)
+        frenzyGameModeButton = TopDownButtonViewModel(height: gameModeButtonDimension.0, width: gameModeButtonDimension.1)
+        zenGameModeButton = TopDownButtonViewModel(height: gameModeButtonDimension.0, width: gameModeButtonDimension.1)
+        fourWordGameModeButton = TopDownButtonViewModel(height: gameModeButtonDimension.0, width: gameModeButtonDimension.1)
         
         // Add actions to buttons
-        self.dailyGameButton.action = {
-            GameSelectionNavigationController.shared.goToDailyMode()
+        dailyGameButton.action = {
+            self.gameSelectionController.goToDailyMode()
         }
-        self.quickplayGameButton.action = {
-            GameSelectionNavigationController.shared.goToQuickPlay()
+        quickplayGameButton.action = {
+            self.gameSelectionController.goToQuickPlay()
         }
-        self.standardGameModeButton.action = {
-            GameSelectionNavigationController.shared.goToGameModeOptions(.standardMode)
+        standardGameModeButton.action = {
+            self.gameSelectionController.goToGameModeOptions(.standardMode)
         }
-        self.rushGameModeButton.action = {
-            GameSelectionNavigationController.shared.goToGameModeOptions(.rushMode)
+        rushGameModeButton.action = {
+            self.gameSelectionController.goToGameModeOptions(.rushMode)
         }
-        self.frenzyGameModeButton.action = {
-            GameSelectionNavigationController.shared.goToGameModeOptions(.frenzyMode)
+        frenzyGameModeButton.action = {
+            self.gameSelectionController.goToGameModeOptions(.frenzyMode)
         }
-        self.zenGameModeButton.action = {
-            GameSelectionNavigationController.shared.goToGameModeOptions(.zenMode)
+        zenGameModeButton.action = {
+            self.gameSelectionController.goToGameModeOptions(.zenMode)
         }
-        self.fourWordGameModeButton.action = {
-            self.startMultiWordGame()
+        fourWordGameModeButton.action = {
+            self.gameSelectionController.goToFourWordGame()
         }
-    }
-    
-    // MARK: Navigation Functions    
-    func startMultiWordGame() {
-        AppNavigationController.shared.goToViewWithAnimation(.fourWordGame, delay:0.25, pauseLength: 0.25)
     }
 }

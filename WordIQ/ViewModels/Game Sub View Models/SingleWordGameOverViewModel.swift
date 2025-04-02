@@ -4,35 +4,49 @@ import CoreData
 /// View Model for the game over screen
 class SingleWordGameOverViewModel : ObservableObject {
     
-    // MARK: Constants
+    // MARK: - Constants
     let databaseHelper = GameDatabaseHelper()
     let functionButtonDimensions : (CGFloat, CGFloat) = (50, 400)
     
-    // MARK: Stats Info Models
+    private let extraPlayAgainAction : () -> Void
+    private let extraGameOverAction : () -> Void
+    
+    // MARK: - Stats Info Models
     @Published var firstRowStat = InfoItemModel()
     @Published var secondRowStat = InfoItemModel()
     @Published var thirdRowStat = InfoItemModel()
     @Published var fourthRowStat = InfoItemModel()
     
-    // MARK: Button View Models
-    var backButton : TopDownButtonViewModel
-    var playAgainButton : TopDownButtonViewModel
+    // MARK: - Button View Models
+    lazy var backButton: TopDownButtonViewModel = {
+        TopDownButtonViewModel(height: functionButtonDimensions.0, width: functionButtonDimensions.1) {
+            self.extraGameOverAction()
+            AppNavigationController.shared.exitFromSingleWordGame()
+        }
+    }()
+    lazy var playAgainButton: TopDownButtonViewModel = {
+        TopDownButtonViewModel(height: functionButtonDimensions.0, width: functionButtonDimensions.1) {
+            self.extraPlayAgainAction()
+            AppNavigationController.shared.playAgainSingleWordGame()
+        }
+    }()
+    
+    var gameOverData: SingleWordGameOverDataModel
     
     /// Initializer
-    init() {
-        self.backButton = TopDownButtonViewModel(height: functionButtonDimensions.0, width: functionButtonDimensions.1) {
-            GameSelectionNavigationController.shared.exitFromGame()
-        }
-        self.playAgainButton = TopDownButtonViewModel(height: functionButtonDimensions.0, width: functionButtonDimensions.1) {
-            SingleWordGameNavigationController.shared().goToGameView()
-        }
+    init(_ gameOverData: SingleWordGameOverDataModel,
+         extraPlayAgainAction: @escaping () -> Void = {},
+         extraGameOverAction: @escaping () -> Void = {}) {
+        self.gameOverData = gameOverData
+        self.extraPlayAgainAction = extraPlayAgainAction
+        self.extraGameOverAction = extraGameOverAction
         
-        self.setRowDefaults()
+        setRowDefaults()
     }
     
-    // MARK: Row Data Functions
+    // MARK: - Row Data Functions
     /// Initialize the icon and label defaults for each row based on the game mode
-    func setRowDefaults(gameMode : GameMode = AppNavigationController.shared.singleWordGameModeOptions.gameMode) {
+    func setRowDefaults() {
         // Set First Row Defaults
         firstRowStat.icon = SFAssets.timer
         firstRowStat.label = SystemNames.GameOver.timeElapsed
@@ -41,7 +55,7 @@ class SingleWordGameOverViewModel : ObservableObject {
         secondRowStat.icon = SFAssets.numberSign
         secondRowStat.label = SystemNames.GameOver.guesses
         
-        switch gameMode {
+        switch gameOverData.gameMode {
         case .frenzyMode:
             // Set Third Row Defaults
             thirdRowStat.icon = SFAssets.star
@@ -66,7 +80,7 @@ class SingleWordGameOverViewModel : ObservableObject {
     }
     
     /// Set the values on all stats items based on the game mode
-    func setRowValues(_ gameOverData: SingleWordGameOverDataModel) {
+    func setRowValues() {
         // Set First and Second Row values
         firstRowStat.value = TimeUtility.formatTimeShort(gameOverData.timeElapsed)
         secondRowStat.value = gameOverData.numValidGuesses.description
@@ -96,9 +110,9 @@ class SingleWordGameOverViewModel : ObservableObject {
         }
     }
     
-    // MARK: General Functions
+    // MARK: - General Functions
     /// Save game over data
-    func saveData(_ gameOverData: SingleWordGameOverDataModel) {
+    func saveData() {
         guard !(gameOverData.gameMode == .dailyGame && UserDefaultsHelper.shared.lastDailyPlayed == gameOverData.targetWord.daily) else {
             print("Daily already played")
             return

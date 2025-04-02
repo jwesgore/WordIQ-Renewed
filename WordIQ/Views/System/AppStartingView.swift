@@ -11,13 +11,10 @@ struct AppStartingView: View {
                 SplashScreenView()
                     .transition(.blurReplace)
                     .onAppear {
-                        Task {
-                            await controller.notificationFirstLaunch()
-                            controller.goToViewWithAnimation(.gameModeSelection, delay: 2.5, pauseLength: 0.5)
-                        }
+                        controller.goToViewWithAnimation(.gameModeSelection, delay: 2.5, pauseLength: 0.5)
                     }
             case .gameModeSelection:
-                GameModeSelectionView(controller.gameModeSelectionViewModel)
+                GameModeSelectionView()
                     .transition(.blurReplace)
             case .singleWordGame:
                 SingleWordGameView()

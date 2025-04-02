@@ -2,33 +2,23 @@ import SwiftUI
 
 /// Navigation Controller for single word game view
 class SingleWordGameNavigationController : NavigationControllerBase {
-
-    private static var privateShared: SingleWordGameNavigationController?
     
-    class func shared() -> SingleWordGameNavigationController {
-        guard let unwrappedShared = privateShared else {
-            privateShared = SingleWordGameNavigationController()
-            return privateShared!
-        }
-        return unwrappedShared
-    }
-    
-    class func destroy() {
-        privateShared = nil
-    }
-    
-    let singleWordGameViewModel: SingleWordGameViewModel
-    let singleWordGameOverViewModel = SingleWordGameOverViewModel()
-    
-    var singleWordGameModeOptions: SingleWordGameModeOptionsModel {
-        return AppNavigationController.shared.singleWordGameModeOptions
+    var gameOptions: SingleWordGameModeOptionsModel {
+        return AppNavigationController.shared.singleWordGameModeOptionsModel
     }
     
     init() {
-        self.singleWordGameViewModel = AppNavigationController.shared.singleWordGameModeOptions.getSingleWordGameViewModel()
         super.init(.singleWordGame)
     }
     
+    /// Entry point for AppNavigationController to start game
+    func startGame(complete: @escaping () -> Void = {}) {
+        goToGameView(immediate: true) {
+            complete()
+        }
+    }
+    
+    /// Entry point for AppNavigationController to go to the game over view
     func goToGameOverView(immediate: Bool = false) {
         if immediate {
             goToView(.gameOver)
@@ -37,12 +27,15 @@ class SingleWordGameNavigationController : NavigationControllerBase {
         }
     }
     
-    func goToGameView(immediate: Bool = false) {
+    /// Entry point for AppNavigationController to go to the game view
+    func goToGameView(immediate: Bool = false, complete: @escaping () -> Void = {}) {
         if immediate {
-            goToView(.singleWordGame)
+            goToView(.singleWordGame) {
+                complete()
+            }
         } else {
             goToViewWithAnimation(.singleWordGame, delay: 0.5) {
-                self.singleWordGameViewModel.playAgain()
+                complete()
             }
         }
     }

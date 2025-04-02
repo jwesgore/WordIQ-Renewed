@@ -6,8 +6,6 @@ struct GameModeSelectionView: View {
     @ObservedObject var controller: GameSelectionNavigationController
     @ObservedObject var viewModel: GameModeSelectionViewModel
     
-    @State var slideForward = false
-
     var body: some View {
         VStack {
             AppHeaderView(displayStats: $viewModel.displayStats, displaySettings: $viewModel.displaySettings)
@@ -53,12 +51,13 @@ struct GameModeSelectionView: View {
 
 /// Simple init
 extension GameModeSelectionView {
-    init(_ viewModel: GameModeSelectionViewModel) {
-        self.controller = GameSelectionNavigationController.shared
-        self.viewModel = viewModel
+    init() {
+        let controller = AppNavigationController.shared.gameSelectionNavigationController
+        self.controller = controller
+        self.viewModel = controller.gameModeSelectionViewModel
     }
 }
  
 #Preview {
-    GameModeSelectionView(GameModeSelectionViewModel())
+    GameModeSelectionView()
 }

@@ -12,9 +12,11 @@ class NavigationControllerBase: ObservableObject {
     }
     
     /// Transition to a view immediately
-    func goToView(_ view: SystemView) {
+    func goToView(_ view: SystemView, complete: @escaping () -> Void = {}) {
         self.previousView = self.activeView
         self.activeView = view
+        
+        complete()
     }
     
     /// Transition to a view with animation fading to a blank view

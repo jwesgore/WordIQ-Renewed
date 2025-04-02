@@ -7,6 +7,9 @@ class FourWordGameOverViewModel : ObservableObject {
     let databaseHelper = GameDatabaseHelper()
     let functionButtonDimensions : (CGFloat, CGFloat) = (50, 400)
     
+    private let extraPlayAgainAction : () -> Void
+    private let extraGameOverAction : () -> Void
+    
     // MARK: Stats Info Models
     @Published var firstRowStat = InfoItemModel()
     @Published var secondRowStat = InfoItemModel()
@@ -14,16 +17,27 @@ class FourWordGameOverViewModel : ObservableObject {
     @Published var fourthRowStat = InfoItemModel()
     
     // MARK: Button View Models
-    var backButton : TopDownButtonViewModel
-    var playAgainButton : TopDownButtonViewModel
+    lazy var backButton: TopDownButtonViewModel = {
+        TopDownButtonViewModel(height: functionButtonDimensions.0, width: functionButtonDimensions.1) {
+            self.extraGameOverAction()
+            AppNavigationController.shared.exitFromFourWordGame()
+        }
+    }()
+    lazy var playAgainButton: TopDownButtonViewModel = {
+        TopDownButtonViewModel(height: functionButtonDimensions.0, width: functionButtonDimensions.1) {
+            self.extraPlayAgainAction()
+            AppNavigationController.shared.playAgainFourWordGame()
+        }
+    }()
+    
+    var gameOverData: FourWordGameOverDataModel
     
     /// Initializer
-    init() {
-        self.backButton = TopDownButtonViewModel(height: functionButtonDimensions.0, width: functionButtonDimensions.1) {
-            GameSelectionNavigationController.shared.exitFromGame()
-        }
-        self.playAgainButton = TopDownButtonViewModel(height: functionButtonDimensions.0, width: functionButtonDimensions.1) {
-            MultiWordGameNavigationController.shared().goToGameView()
-        }
+    init(_ gameOverData: FourWordGameOverDataModel,
+         extraPlayAgainAction: @escaping () -> Void = {},
+         extraGameOverAction: @escaping () -> Void = {}) {
+        self.gameOverData = gameOverData
+        self.extraPlayAgainAction = extraPlayAgainAction
+        self.extraGameOverAction = extraGameOverAction
     }
 }

@@ -139,8 +139,7 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
     // MARK: Navigation functions
     /// Function to go back to game mode selection
     func exitGame() {
-        GameSelectionNavigationController.shared.exitFromGame()
-        AppNavigationController.shared.multiWordGameModeOptions.resetTargetWords()
+        AppNavigationController.shared.exitFromFourWordGame()
     }
     
     /// Function to end the game
@@ -151,7 +150,7 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
         gameOverDataModel.timeElapsed = clock.timeElapsed
         gameOverDataModel.targetWordsBackgrounds = gameBoardViewModel.getTargetWordsBackgrounds().toCodable()
         
-        MultiWordGameNavigationController.shared().goToGameOverView()
+        AppNavigationController.shared.goToFourWordGameOver()
     }
     
     /// Function to pause the game

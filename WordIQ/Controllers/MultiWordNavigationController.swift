@@ -3,28 +3,22 @@ import SwiftUI
 /// Navigation Controller for single game view
 class MultiWordGameNavigationController : NavigationControllerBase {
     
-    private static var privateShared: MultiWordGameNavigationController?
-    
-    class func shared() -> MultiWordGameNavigationController {
-        guard let unwrappedShared = privateShared else {
-            privateShared = MultiWordGameNavigationController()
-            return privateShared!
-        }
-        return unwrappedShared
+    var gameOptions: FourWordGameModeOptionsModel {
+        return AppNavigationController.shared.fourWordGameModeOptionsModel
     }
     
-    class func destroy() {
-        privateShared = nil
-    }
-    
-    let multiWordGameViewModel: FourWordGameViewModel
-    let multiWordGameOverViewModel = FourWordGameOverViewModel()
-    
-    private init() {
-        self.multiWordGameViewModel = AppNavigationController.shared.multiWordGameModeOptions.getFourWordGameViewModel()
+    init() {
         super.init(.fourWordGame)
     }
     
+    /// Entry point for AppNavigationController to start game
+    func startGame(complete: @escaping () -> Void = {}) {
+        goToGameView(immediate: true) {
+            complete()
+        }
+    }
+    
+    /// Entry point for AppNavigationController to go to the game over view
     func goToGameOverView(immediate: Bool = false) {
         if immediate {
             goToView(.gameOver)
@@ -33,12 +27,15 @@ class MultiWordGameNavigationController : NavigationControllerBase {
         }
     }
     
-    func goToGameView(immediate: Bool = false) {
+    /// Entry point for AppNavigationController to go to the game view
+    func goToGameView(immediate: Bool = false, complete: @escaping () -> Void = {}) {
         if immediate {
-            goToView(.fourWordGame)
+            goToView(.fourWordGame) {
+                complete()
+            }
         } else {
             goToViewWithAnimation(.fourWordGame, delay: 0.5) {
-                self.multiWordGameViewModel.playAgain()
+                complete()
             }
         }
     }

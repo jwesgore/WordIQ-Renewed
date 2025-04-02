@@ -3,10 +3,12 @@ import SwiftUI
 /// View that manages the end of a game
 struct FourWordGameOverView : View {
     
-    @ObservedObject var viewModel : FourWordGameOverViewModel
-    var gameOverData : FourWordGameOverDataModel
+    @StateObject var viewModel : FourWordGameOverViewModel
+    var gameOverWords: [GameOverWordViewModel]
     
-    var gameOverWordViewModels: [GameOverWordViewModel]
+    @ObservedObject var gameViewModel: FourWordGameViewModel
+    
+    @State var gameOverData : FourWordGameOverDataModel
     
     var body : some View {
         VStack (spacing: 20) {
@@ -19,8 +21,8 @@ struct FourWordGameOverView : View {
                 .robotoSlabFont(.title3, .regular)
 
             // MARK: Words
-            FourWordGameOverWordsRow(viewModel1: gameOverWordViewModels[0], viewModel2: gameOverWordViewModels[1])
-            FourWordGameOverWordsRow(viewModel1: gameOverWordViewModels[2], viewModel2: gameOverWordViewModels[3])
+            FourWordGameOverWordsRow(viewModel1: gameOverWords[0], viewModel2: gameOverWords[1])
+            FourWordGameOverWordsRow(viewModel1: gameOverWords[2], viewModel2: gameOverWords[3])
             
             // MARK: Stats
             GroupBox {
@@ -55,9 +57,9 @@ struct FourWordGameOverView : View {
         }
         .padding()
         .onAppear {
-            for gameOverViewModel in gameOverWordViewModels {
-                if let backgrounds = gameOverData.targetWordsBackgrounds[gameOverViewModel.id] {
-                    gameOverViewModel.setBackgrounds(backgrounds)
+            for gameOverWord in gameOverWords {
+                if let backgrounds = gameOverData.targetWordsBackgrounds[gameOverWord.id] {
+                    gameOverWord.setBackgrounds(backgrounds)
                 }
             }
         }
@@ -65,21 +67,24 @@ struct FourWordGameOverView : View {
 }
 
 extension FourWordGameOverView {
-    init (_ gameOverData: FourWordGameOverDataModel) {
-        self.viewModel = MultiWordGameNavigationController.shared().multiWordGameOverViewModel
-        self.gameOverData = gameOverData
-        self.gameOverWordViewModels = []
+    init (_ viewModel : FourWordGameViewModel) {
+        self.gameViewModel = viewModel
+        self.gameOverData = viewModel.gameOverDataModel
         
+        self._viewModel = StateObject(wrappedValue: FourWordGameOverViewModel(viewModel.gameOverDataModel, extraPlayAgainAction: viewModel.playAgain))
+        
+        self.gameOverWords = []
+
         for (id, word) in gameOverData.targetWords {
-            self.gameOverWordViewModels.append(GameOverWordViewModel(word, id: id))
+            self.gameOverWords.append(GameOverWordViewModel(word, id: id))
         }
     }
 }
 
 private struct FourWordGameOverWordsRow: View {
     
-    var viewModel1: GameOverWordViewModel
-    var viewModel2: GameOverWordViewModel
+    @StateObject var viewModel1: GameOverWordViewModel
+    @StateObject var viewModel2: GameOverWordViewModel
     
     var body: some View {
         HStack {
@@ -91,18 +96,18 @@ private struct FourWordGameOverWordsRow: View {
     }
 }
 
-struct FourWordsGameOverView_Preview: PreviewProvider {
-    static var previews: some View {
-        let gameModeOptions = FourWordGameModeOptionsModel()
-        var gameoverModel = FourWordGameOverDataModel(gameModeOptions)
-        gameoverModel.gameResult = .win
-        let gameoverVM = FourWordGameOverViewModel()
-        return VStack {
-            FourWordGameOverView(gameoverModel)
-        }
-        .padding()
-        .previewDisplayName("Game Over Preview")
-        .previewLayout(.sizeThatFits)
-        .environment(\.managedObjectContext, GameDatabasePersistenceController.preview.container.viewContext)
-    }
-}
+//struct FourWordsGameOverView_Preview: PreviewProvider {
+//    static var previews: some View {
+//        let gameModeOptions = FourWordGameModeOptionsModel()
+//        var gameoverModel = FourWordGameOverDataModel(gameModeOptions)
+//        gameoverModel.gameResult = .win
+//        let gameoverVM = FourWordGameOverViewModel()
+//        return VStack {
+//            // FourWordGameOverView(gameoverModel)
+//        }
+//        .padding()
+//        .previewDisplayName("Game Over Preview")
+//        .previewLayout(.sizeThatFits)
+//        .environment(\.managedObjectContext, GameDatabasePersistenceController.preview.container.viewContext)
+//    }
+//}

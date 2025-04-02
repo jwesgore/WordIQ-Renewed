@@ -21,54 +21,56 @@ class GameModeOptionsViewModel : ObservableObject {
     let navigationButtonDimension: (CGFloat, CGFloat) = (50, 400)
     let timeSelectionButtonDimension: (CGFloat, CGFloat) = (50, 400)
     
-    let singleWordGameModeOptions = AppNavigationController.shared.singleWordGameModeOptions
+    var singleWordGameModeOptions : SingleWordGameModeOptionsModel {
+        return AppNavigationController.shared.singleWordGameModeOptionsModel
+    }
     
     var showTimeLimitOptions: Bool {
         return [GameMode.rushMode, GameMode.frenzyMode].contains(singleWordGameModeOptions.gameMode)
     }
     
     init() {
-        self.difficultySelectionManager = TopDownRadioButtonGroupViewModel()
-        self.easyDifficultyButton = TopDownRadioButtonViewModel(height: difficultyButtonDimension.0, width: difficultyButtonDimension.1, groupManager: difficultySelectionManager)
-        self.normalDifficultyButton = TopDownRadioButtonViewModel(height: difficultyButtonDimension.0, width: difficultyButtonDimension.1, groupManager: difficultySelectionManager, isPressed: true)
-        self.hardDifficultyButton = TopDownRadioButtonViewModel(height: difficultyButtonDimension.0, width: difficultyButtonDimension.1, groupManager: difficultySelectionManager)
+        difficultySelectionManager = TopDownRadioButtonGroupViewModel()
+        easyDifficultyButton = TopDownRadioButtonViewModel(height: difficultyButtonDimension.0, width: difficultyButtonDimension.1, groupManager: difficultySelectionManager)
+        normalDifficultyButton = TopDownRadioButtonViewModel(height: difficultyButtonDimension.0, width: difficultyButtonDimension.1, groupManager: difficultySelectionManager, isPressed: true)
+        hardDifficultyButton = TopDownRadioButtonViewModel(height: difficultyButtonDimension.0, width: difficultyButtonDimension.1, groupManager: difficultySelectionManager)
         
-        self.timeSelectionManager = TopDownRadioButtonGroupViewModel()
-        self.timeSelection1Button = TopDownRadioButtonViewModel(height: timeSelectionButtonDimension.0, width: timeSelectionButtonDimension.1, groupManager: timeSelectionManager)
-        self.timeSelection2Button = TopDownRadioButtonViewModel(height: timeSelectionButtonDimension.0, width: timeSelectionButtonDimension.1, groupManager: timeSelectionManager, isPressed: true)
-        self.timeSelection3Button = TopDownRadioButtonViewModel(height: timeSelectionButtonDimension.0, width: timeSelectionButtonDimension.1, groupManager: timeSelectionManager)
+        timeSelectionManager = TopDownRadioButtonGroupViewModel()
+        timeSelection1Button = TopDownRadioButtonViewModel(height: timeSelectionButtonDimension.0, width: timeSelectionButtonDimension.1, groupManager: timeSelectionManager)
+        timeSelection2Button = TopDownRadioButtonViewModel(height: timeSelectionButtonDimension.0, width: timeSelectionButtonDimension.1, groupManager: timeSelectionManager, isPressed: true)
+        timeSelection3Button = TopDownRadioButtonViewModel(height: timeSelectionButtonDimension.0, width: timeSelectionButtonDimension.1, groupManager: timeSelectionManager)
         
-        self.startButton = TopDownButtonViewModel(height: navigationButtonDimension.0, width: navigationButtonDimension.1)
-        self.backButton = TopDownButtonViewModel(height: navigationButtonDimension.0, width: navigationButtonDimension.1)
+        startButton = TopDownButtonViewModel(height: navigationButtonDimension.0, width: navigationButtonDimension.1)
+        backButton = TopDownButtonViewModel(height: navigationButtonDimension.0, width: navigationButtonDimension.1)
         
-        self.easyDifficultyButton.action = {
+        easyDifficultyButton.action = {
             self.singleWordGameModeOptions.gameDifficulty = .easy
         }
-        self.normalDifficultyButton.action = {
+        normalDifficultyButton.action = {
             self.singleWordGameModeOptions.gameDifficulty = .normal
         }
-        self.hardDifficultyButton.action = {
+        hardDifficultyButton.action = {
             self.singleWordGameModeOptions.gameDifficulty = .hard
         }
-        self.timeSelection1Button.action = {
+        timeSelection1Button.action = {
             self.singleWordGameModeOptions.timeLimit = self.timeLimitOptions.0
         }
-        self.timeSelection2Button.action = {
+        timeSelection2Button.action = {
             self.singleWordGameModeOptions.timeLimit = self.timeLimitOptions.1
         }
-        self.timeSelection3Button.action = {
+        timeSelection3Button.action = {
             self.singleWordGameModeOptions.timeLimit = self.timeLimitOptions.2
         }
-        self.startButton.action = {
+        startButton.action = {
             AppNavigationController.shared.goToSingleWordGame()
         }
-        self.backButton.action = {
-            GameSelectionNavigationController.shared.goToGameModeSelection()
+        backButton.action = {
+            AppNavigationController.shared.goToGameModeSelection()
         }
         
         // Add radio buttons to their managers
-        self.difficultySelectionManager.add(easyDifficultyButton, normalDifficultyButton, hardDifficultyButton)
-        self.timeSelectionManager.add(timeSelection1Button, timeSelection2Button, timeSelection3Button)
+        difficultySelectionManager.add(easyDifficultyButton, normalDifficultyButton, hardDifficultyButton)
+        timeSelectionManager.add(timeSelection1Button, timeSelection2Button, timeSelection3Button)
     }
     
     /// Sets the game mode options model to defaults for a specific mode
@@ -93,6 +95,7 @@ class GameModeOptionsViewModel : ObservableObject {
         }
     }
     
+    // MARK: - Private game mode settings loaders
     /// Prepares the game mode options for the daily puzzle
     private func setSingleWordGameModeDaily() {
         singleWordGameModeOptions.gameMode = .dailyGame

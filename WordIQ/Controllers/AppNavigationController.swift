@@ -1,34 +1,90 @@
 import SwiftUI
 
 /// Navigation controller for top level view AppStartingView
-class AppNavigationController : NavigationControllerBase {
+final class AppNavigationController : NavigationControllerBase {
     
-    static let shared = AppNavigationController()
+    static var shared = AppNavigationController()
         
-    // MARK: Models
-    let singleWordGameModeOptions = SingleWordGameModeOptionsModel()
-    let multiWordGameModeOptions = FourWordGameModeOptionsModel()
+    // MARK: - Controllers
+    let singleWordGameNavigationController : SingleWordGameNavigationController
+    let multiWordGameNavigationController : MultiWordGameNavigationController
+    let gameSelectionNavigationController : GameSelectionNavigationController
     
-    // MARK: View Models
-    /// Creates a game mode selection view model
-    let gameModeSelectionViewModel = GameModeSelectionViewModel()
+    // MARK: - Models
+    let singleWordGameModeOptionsModel : SingleWordGameModeOptionsModel
+    let fourWordGameModeOptionsModel : FourWordGameModeOptionsModel
     
-    init() {
+    // MARK: - Initializer
+    private init() {
+        singleWordGameNavigationController = SingleWordGameNavigationController()
+        multiWordGameNavigationController = MultiWordGameNavigationController()
+        gameSelectionNavigationController = GameSelectionNavigationController()
+        
+        singleWordGameModeOptionsModel = SingleWordGameModeOptionsModel()
+        fourWordGameModeOptionsModel = FourWordGameModeOptionsModel()
     }
-
-    /// Starts the game with the defined game options
+    
+    // MARK: - Single Word Game Functions
+    /// Exit point from a single word game
+    func exitFromSingleWordGame() {
+        goToGameModeSelection()
+    }
+    
+    /// Starts a single word game with the defined game options
     func goToSingleWordGame() {
-        if singleWordGameModeOptions.gameMode != .dailyGame {
-            singleWordGameModeOptions.resetTargetWord()
+        singleWordGameModeOptionsModel.resetTargetWord()
+        singleWordGameNavigationController.startGame { [weak self] in
+            self?.goToViewWithAnimation(.singleWordGame, delay: 0.25, pauseLength: 0.25)
         }
-        goToViewWithAnimation(.singleWordGame, delay:0.25, pauseLength: 0.25)
     }
     
+    /// Used to transition single word game view to game over view
+    func goToSingleWordGameOver() {
+        singleWordGameNavigationController.goToGameOverView()
+    }
+    
+    /// Used to play single word game mode again
+    func playAgainSingleWordGame() {
+        singleWordGameNavigationController.goToGameView() {
+            
+        }
+    }
+    
+    // MARK: - Multi Word Game Functions
+    /// Exit point from a four word game
+    func exitFromFourWordGame() {
+        goToGameModeSelection()
+    }
+    
+    /// Starts a four word game with the defined game options
+    func goToFourWordGame() {
+        fourWordGameModeOptionsModel.resetTargetWords()
+        multiWordGameNavigationController.startGame { [weak self] in
+            self?.goToViewWithAnimation(.fourWordGame, delay: 0.25, pauseLength: 0.25)
+        }
+    }
+    
+    /// Used to transition four word game view to game over view
+    func goToFourWordGameOver() {
+        multiWordGameNavigationController.goToGameOverView()
+    }
+    
+    /// Used to play four word game mode again
+    func playAgainFourWordGame() {
+        multiWordGameNavigationController.goToGameView() {
+            
+        }
+    }
+    
+    // MARK: - Game Options Functions
+    /// Go to game mode selection view
     func goToGameModeSelection() {
-        goToViewWithAnimation(.gameModeSelection)
+        gameSelectionNavigationController.goToGameModeSelection(immediate: true) { [weak self] in
+            self?.goToViewWithAnimation(.gameModeSelection)
+        }
     }
     
-    // MARK: Functions
+    // MARK: - Misc Functions
     /// Performs the necessary checks for notification permissions as well as setting up notifications for the first time
     func notificationFirstLaunch() async {
         let notificationHelper = NotificationHelper()
