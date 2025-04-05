@@ -1,27 +1,21 @@
 import SwiftUI
+import Foundation
 
 /// Enum to support comparison between incoming word and target word
-enum LetterComparison: Comparable, Codable {
-    case wrong, contains, correct, notSet
+enum LetterComparison: Int, Comparable, Codable {
+    case wrong = 1
+    case contains = 2
+    case correct = 3
+    case notSet = 0
         
     /// Implementation of Comparable
     static func < (lhs: LetterComparison, rhs: LetterComparison) -> Bool {
-        return lhs.rank < rhs.rank
+        return lhs.rawValue < rhs.rawValue
     }
 }
 
 extension LetterComparison {
     // MARK: - Properties
-    /// Get rank of comparison
-    var rank: Int {
-        switch self {
-        case .notSet: 0
-        case .wrong: 1
-        case .contains: 2
-        case .correct: 3
-        }
-    }
-    
     /// Get Color of enum
     var color: Color {
         switch self {
@@ -38,5 +32,13 @@ extension LetterComparison {
     /// Gets a collection of LetterComparisons
     static func getCollection(size: Int, value: LetterComparison) -> [LetterComparison] {
         return [LetterComparison](repeating: value, count: size)
+    }
+    
+    /// Returns the maximum value of both lists
+    static func max(_ lhs: [LetterComparison], _ rhs: [LetterComparison]) -> [LetterComparison] {
+        guard lhs.count == rhs.count else {
+            fatalError("The input arrays must have the same length.")
+        }
+        return zip(lhs, rhs).map { Swift.max($0.0, $0.1) }
     }
 }

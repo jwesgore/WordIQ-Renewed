@@ -59,7 +59,7 @@ struct SingleWordGameOverView : View {
             viewModel.saveData()
             viewModel.setRowValues()
 
-            // gameOverWord.setBackgrounds(gameOverData.targetWordBackgrounds)
+            gameOverWord.setBackgrounds(gameOverData.currentTargetWordBackgrounds ?? LetterComparison.getCollection(size: 5, value: .notSet))
         }
     }
 }

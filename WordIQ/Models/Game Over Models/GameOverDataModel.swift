@@ -16,6 +16,7 @@ class GameOverDataModel : GameOverData {
     var timeRemaining: Int
     
     var currentTargetWord: DatabaseWordModel? { targetWords.lastValue }
+    var currentTargetWordBackgrounds: [LetterComparison]? { targetWordsBackgrounds.lastValue }
     
     // MARK: - Initializers
     /// Explicit initializer with defaults
@@ -86,7 +87,11 @@ class GameOverDataModel : GameOverData {
     
     /// adds the updated backgrounds for an incorrect word
     func addIncorrectGuess(_ id: UUID, comparisons: [LetterComparison]) {
-        targetWordsBackgrounds[id] = comparisons
+        if let backgrounds = targetWordsBackgrounds[id] {
+            targetWordsBackgrounds[id] = LetterComparison.max(backgrounds, comparisons)
+        } else {
+            targetWordsBackgrounds[id] = comparisons
+        }
         numberOfValidGuesses += 1
     }
     

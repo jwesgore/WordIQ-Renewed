@@ -36,6 +36,10 @@ class FourWordGameViewModel : MultiBoardGame {
         self.gameOptionsModel = gameOptions
         self.gameOverDataModel = gameOptions.getMultiBoardGameOverDataModelTemplate()
         self.targetWords = gameOptions.targetWords.copy()
+        
+        for targetWord in targetWords.allValues {
+            print(targetWord.word)
+        }
     }
     
     // MARK: - Keyboard functions
