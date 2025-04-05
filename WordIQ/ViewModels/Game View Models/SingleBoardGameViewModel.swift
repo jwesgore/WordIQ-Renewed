@@ -1,15 +1,15 @@
 import SwiftUI
 
 /// ViewModel to manage the playable game screen with a single board
-class SingleWordGameViewModel : SingleWordGameBaseProtocol {
+class SingleBoardGameViewModel : SingleBoardGame {
 
-    // MARK: Properties
+    // MARK: - Properties
     @Published var showPauseMenu = false
     
-    var clock : ClockViewModel
+    var clockViewModel : ClockViewModel
     var gameBoardViewModel: GameBoardViewModel
-    var gameOptions: SingleWordGameModeOptionsModel
-    var gameOverDataModel: SingleWordGameOverDataModel
+    var gameOptionsModel: SingleBoardGameOptionsModel
+    var gameOverDataModel: GameOverDataModel
     lazy var gamePauseViewModel = GamePauseViewModel()
     var isKeyboardUnlocked = true {
         didSet {
@@ -21,17 +21,15 @@ class SingleWordGameViewModel : SingleWordGameBaseProtocol {
                           keyboardEnter: self.keyboardEnter,
                           keyboardDelete: self.keyboardDelete)
     }()
-    var targetWord : DatabaseWordModel {
-        return gameOptions.targetWord
-    }
+    var targetWord : DatabaseWordModel { return gameOptionsModel.targetWord }
     
-    // MARK: Initializers
+    // MARK: - Initializers
     /// Base initializer
-    init(gameOptions: SingleWordGameModeOptionsModel) {
+    init(gameOptions: SingleBoardGameOptionsModel) {
         // Init Variables
-        self.clock = ClockViewModel(timeLimit: gameOptions.timeLimit, isClockTimer: gameOptions.timeLimit > 0)
+        self.clockViewModel = ClockViewModel(timeLimit: gameOptions.timeLimit, isClockTimer: gameOptions.timeLimit > 0)
         self.gameBoardViewModel = GameBoardViewModel(boardHeight: 6, boardWidth: 5, boardSpacing: 5.0)
-        self.gameOptions = gameOptions
+        self.gameOptionsModel = gameOptions
         self.gameOverDataModel = gameOptions.getSingleWordGameOverDataModelTemplate()
         
         gamePauseViewModel.ResumeGameButton.action = self.resumeGame
@@ -43,9 +41,9 @@ class SingleWordGameViewModel : SingleWordGameBaseProtocol {
     /// Save state initializer
     init(gameSaveState: GameSaveStateModel) {
         // Init Variables
-        clock = ClockViewModel(gameSaveState.clockState)
+        clockViewModel = ClockViewModel(gameSaveState.clockState)
         gameBoardViewModel = GameBoardViewModel(boardHeight: 6, boardWidth: 5, boardSpacing: 5.0)
-        gameOptions = gameSaveState.gameOptionsModel
+        gameOptionsModel = gameSaveState.gameOptionsModel
         gameOverDataModel = gameSaveState.gameOverModel
         
         gamePauseViewModel.ResumeGameButton.action = self.resumeGame
@@ -58,30 +56,36 @@ class SingleWordGameViewModel : SingleWordGameBaseProtocol {
         gameBoardViewModel.loadSaveState(gameSaveState: gameSaveState)
     }
     
-    // MARK: Keyboard functions
+    // MARK: - Keyboard functions
     /// Function to communicate to the active game word to add a letter
     func keyboardAddLetter(_ letter : ValidCharacters) {
+        // Check that keyboard is active
         guard isKeyboardUnlocked else { return }
         
+        // Add letter to game board
         gameBoardViewModel.addLetterToActiveWord(letter)
         
-        if !clock.isClockActive { clock.startClock() }
+        // If clock is not active, start it up
+        if !clockViewModel.isClockActive { clockViewModel.startClock() }
     }
     
     /// Function to communicate to subclass if the correct word or wrong word was submitted
     func keyboardEnter() {
+        // Check that keyboard is active
         guard self.isKeyboardUnlocked else { return }
         
+        // Check that the word submitted is a valid word
         guard let wordSubmitted = gameBoardViewModel.activeWord?.getWord(),
                 WordDatabaseHelper.shared.doesFiveLetterWordExist(wordSubmitted) else {
+            gameOverDataModel.numberOfInvalidGuesses += 1
             invalidWordSubmitted()
             return
         }
         
+        // Lock the keyboard and determine if word is correct
         isKeyboardUnlocked = false
-        
-        gameOverDataModel.numValidGuesses += 1
         targetWord == wordSubmitted ? correctWordSubmitted() : wrongWordSubmitted()
+        isKeyboardUnlocked = true
     }
     
     /// Function to communicate to the active game word to delete a letter
@@ -91,7 +95,7 @@ class SingleWordGameViewModel : SingleWordGameBaseProtocol {
         gameBoardViewModel.removeLetterFromActiveWord()
     }
 
-    // MARK: Board functions
+    // MARK: - Board functions
     /// Function to reset the board to its default state
     func resetBoardHard() {
         self.isKeyboardUnlocked = false
@@ -101,42 +105,40 @@ class SingleWordGameViewModel : SingleWordGameBaseProtocol {
     
     /// Function to reset the board to its default state with an animation
     func resetBoardSoftWithAnimation(loadHints:Bool = false,
-                                 animationLength: Double = 0.25,
-                                 speed: Double = 4.0,
-                                 delay: Double = 0.0,
-                                 complete: @escaping () -> Void = {}) {
-        // disable the keyboard
-        self.isKeyboardUnlocked = false
-        self.gameBoardViewModel.resetBoardWithAnimation(animationLength: animationLength,
-                                                        speed: speed,
-                                                        delay: delay,
-                                                        loadHints: loadHints) {
-            complete()
-            self.isKeyboardUnlocked = true
+                                     animationLength: Double = 0.25,
+                                     speed: Double = 4.0,
+                                     delay: Double = 0.0,
+                                     complete: @escaping () -> Void = {}) {
+            // disable the keyboard
+            self.isKeyboardUnlocked = false
+            self.gameBoardViewModel.resetBoardWithAnimation(animationLength: animationLength,
+                                                            speed: speed,
+                                                            delay: delay,
+                                                            loadHints: loadHints) {
+                complete()
+                self.isKeyboardUnlocked = true
+            }
         }
-    }
     
-    // MARK: Enter Key pressed functions
+    // MARK: - Enter Key pressed functions
     /// Handles what to do if the correct word is submitted
     func correctWordSubmitted() {
         guard let activeWord = gameBoardViewModel.activeWord,
               let gameWord = activeWord.getWord() else {
             fatalError("Unable to get active word")
         }
-
+        
+        // Set the backgrounds
         let comparisons = [LetterComparison](repeating: .correct, count: 5)
-        
         gameBoardViewModel.setActiveWordBackground(comparisons)
-        
         keyboardViewModel.keyboardSetBackgrounds(gameWord.comparisonRankingMap(comparisons))
 
-        gameOverDataModel.numCorrectWords += 1
+        gameOverDataModel.addCorrectGuess(targetWord)
     }
     
     /// Handles what to do if an invalid word is submitted
     func invalidWordSubmitted() {
         gameBoardViewModel.activeWord?.shake()
-        gameOverDataModel.numInvalidGuesses += 1
     }
     
     /// Handles what to do if the wrong word is submitted
@@ -145,7 +147,6 @@ class SingleWordGameViewModel : SingleWordGameBaseProtocol {
             let gameWord = activeWord.getWord() else {
             fatalError("Unable to get active word")
         }
-        
 
         // Builds comparisons and updates backgrounds on board and keyboard
         let comparisons = gameWord.comparison(targetWord)
@@ -153,18 +154,15 @@ class SingleWordGameViewModel : SingleWordGameBaseProtocol {
         gameBoardViewModel.setActiveWordBackground(comparisons)
         keyboardViewModel.keyboardSetBackgrounds(gameWord.comparisonRankingMap(comparisons))
         
-        // Updates hints
+        // Updates hints and game over model
         gameBoardViewModel.setTargetWordHints(comparisons)
-        
-        // Updates gameOverModel
-        gameOverDataModel.lastGuessedWord = gameWord
-        
-        isKeyboardUnlocked = true
+        gameOverDataModel.addIncorrectGuess(targetWord.id, comparisons: comparisons)
     }
     
-    // MARK: Navigation functions
+    // MARK: - Navigation functions
     /// Function to go back to game mode selection
     func exitGame() {
+        clockViewModel.stopClock()
         AppNavigationController.shared.exitFromSingleWordGame()
     }
     
@@ -173,27 +171,27 @@ class SingleWordGameViewModel : SingleWordGameBaseProtocol {
         isKeyboardUnlocked = false
         showPauseMenu = false
         
-        clock.stopClock()
-        gameOverDataModel.timeElapsed = clock.timeElapsed
-        gameOverDataModel.targetWordBackgrounds = gameBoardViewModel.targetWordBackgrounds
+        clockViewModel.stopClock()
+        gameOverDataModel.timeElapsed = clockViewModel.timeElapsed
         
         AppNavigationController.shared.goToSingleWordGameOver()
     }
     
     /// Function to pause the game
     func pauseGame() {
-        self.showPauseMenu = true
-        self.clock.stopClock()
+        showPauseMenu = true
+        clockViewModel.stopClock()
     }
     
     /// Function to play a new game again
     func playAgain() {
+        // Reset all components
         keyboardViewModel.resetKeyboard()
         gameBoardViewModel.resetBoardHard()
-        clock.resetClock()
+        clockViewModel.resetClock()
         
-        gameOptions.resetTargetWord()
-        gameOverDataModel = gameOptions.getSingleWordGameOverDataModelTemplate()
+        gameOptionsModel.resetTargetWord()
+        gameOverDataModel = gameOptionsModel.getSingleWordGameOverDataModelTemplate()
         isKeyboardUnlocked = true
         
         print(self.targetWord)
@@ -202,7 +200,7 @@ class SingleWordGameViewModel : SingleWordGameBaseProtocol {
     /// Function to resume the game when paused
     func resumeGame() {
         showPauseMenu = false
-        clock.startClock()
+        clockViewModel.startClock()
     }
 
     // MARK: Data Functions
@@ -217,9 +215,9 @@ class SingleWordGameViewModel : SingleWordGameBaseProtocol {
         }
         
         return GameSaveStateModel (
-            clockState: self.clock.getClockSaveState(),
+            clockState: self.clockViewModel.getClockSaveState(),
             gameBoard: self.gameBoardViewModel.getSaveState(),
-            gameOptionsModel: self.gameOptions,
+            gameOptionsModel: self.gameOptionsModel,
             gameOverModel: self.gameOverDataModel,
             keyboardLetters: keyboardSaveState
         )

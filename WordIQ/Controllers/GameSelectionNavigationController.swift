@@ -37,12 +37,12 @@ class GameSelectionNavigationController : NavigationControllerBase {
     func goToGameModeSelection(immediate: Bool = false, complete: @escaping () -> Void = {}) {
         if immediate {
             goToView(.gameModeSelection) {
-                AppNavigationController.shared.singleWordGameModeOptionsModel.resetToDefaults()
+                AppNavigationController.shared.singleWordGameOptionsModel.resetToDefaults()
                 complete()
             }
         } else {
             goToViewWithAnimation(.gameModeSelection) {
-                AppNavigationController.shared.singleWordGameModeOptionsModel.resetToDefaults()
+                AppNavigationController.shared.singleWordGameOptionsModel.resetToDefaults()
                 complete()
             }
         }

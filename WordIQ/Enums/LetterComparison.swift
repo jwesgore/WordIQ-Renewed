@@ -10,9 +10,8 @@ enum LetterComparison: Comparable, Codable {
     }
 }
 
-/// Helper properties
 extension LetterComparison {
-    
+    // MARK: - Properties
     /// Get rank of comparison
     var rank: Int {
         switch self {
@@ -33,5 +32,11 @@ extension LetterComparison {
             UserDefaultsHelper.shared.setting_colorBlindMode ?
                 .LetterComparison.correctColorBlind : .LetterComparison.correct
         }
+    }
+    
+    // MARK: - Functions
+    /// Gets a collection of LetterComparisons
+    static func getCollection(size: Int, value: LetterComparison) -> [LetterComparison] {
+        return [LetterComparison](repeating: value, count: size)
     }
 }

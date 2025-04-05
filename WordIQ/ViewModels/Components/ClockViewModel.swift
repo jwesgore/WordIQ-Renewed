@@ -34,6 +34,10 @@ class ClockViewModel: ObservableObject, ClockViewModelObserver {
         self.timeRemaining = clockState.timeRemaining
     }
     
+    deinit {
+        self.stopClock()
+    }
+    
     // MARK: Adjust Time Functions
     /// Add some amount of time to the clock
     func addTime(_ seconds: Int) -> Void {

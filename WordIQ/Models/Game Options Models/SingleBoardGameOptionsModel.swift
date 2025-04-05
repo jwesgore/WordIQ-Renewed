@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Model used to package up game mode options
-class SingleWordGameModeOptionsModel : SingleWordGameOptionsProtocol {
+class SingleBoardGameOptionsModel : SingleWordGameOptions {
     
     var gameMode: GameMode
     var gameDifficulty: GameDifficulty
@@ -23,7 +23,7 @@ class SingleWordGameModeOptionsModel : SingleWordGameOptionsProtocol {
     }
     
     /// Gets the view model for the set game mode options
-    func getSingleWordGameViewModel() -> SingleWordGameViewModel {
+    func getSingleWordGameViewModel() -> SingleBoardGameViewModel {
         switch gameMode {
         case .standardMode: return StandardModeViewModel(gameOptions: self)
         case .rushMode: return RushModeViewModel(gameOptions: self)
@@ -35,20 +35,20 @@ class SingleWordGameModeOptionsModel : SingleWordGameOptionsProtocol {
     }
     
     /// Gets a fresh game over data model base on current settings
-    func getSingleWordGameOverDataModelTemplate() -> SingleWordGameOverDataModel {
-        return SingleWordGameOverDataModel(self)
+    func getSingleWordGameOverDataModelTemplate() -> GameOverDataModel {
+        return GameOverDataModel(self)
     }
     
     /// Resets the target word so the model can be persisted
     func resetTargetWord() {
-        self.targetWord = WordDatabaseHelper.shared.fetchRandomFiveLetterWord(withDifficulty: gameDifficulty);
+        targetWord = WordDatabaseHelper.shared.fetchRandomFiveLetterWord(withDifficulty: gameDifficulty);
     }
     
     /// Resets all values back to default so the model can be persisted
     func resetToDefaults() {
-        self.gameMode = .standardMode
-        self.gameDifficulty = .normal
-        self.timeLimit = 0
+        gameMode = .standardMode
+        gameDifficulty = .normal
+        timeLimit = 0
     }
 }
 

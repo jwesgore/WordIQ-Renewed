@@ -41,7 +41,7 @@ extension GameModeButton {
                         if lastDailyPlayedResults.gameResult == .lose {
                             self.caption = "Better luck tomorrow :("
                         } else {
-                            self.caption = "You solved it in \(lastDailyPlayedResults.numValidGuesses) guesses!"
+                            self.caption = "You solved it in \(lastDailyPlayedResults.numberOfValidGuesses) guesses!"
                         }
                     }
                 } else if lastDailyPlayed > daysSinceEpoch {

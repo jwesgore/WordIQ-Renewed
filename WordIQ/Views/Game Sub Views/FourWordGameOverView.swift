@@ -8,7 +8,7 @@ struct FourWordGameOverView : View {
     
     @ObservedObject var gameViewModel: FourWordGameViewModel
     
-    @State var gameOverData : FourWordGameOverDataModel
+    @State var gameOverData : GameOverDataModel
     
     var body : some View {
         VStack (spacing: 20) {

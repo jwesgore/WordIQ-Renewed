@@ -106,6 +106,7 @@ class WordDatabaseHelper {
         return databaseWord
     }
     
+    /// Fetches a collection of unique random five letter words
     func fetchMultipleRandomFiveLetterWord(withDifficulty level: GameDifficulty, count: Int) -> [DatabaseWordModel] {
         let queryStatementString = "SELECT daily, difficulty, word FROM \(WordDatabaseEnum.fiveLetterTableName.rawValue) WHERE difficulty >= ? ORDER BY RANDOM() LIMIT \(count);"
         

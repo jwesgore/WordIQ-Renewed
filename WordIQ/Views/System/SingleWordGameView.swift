@@ -4,7 +4,7 @@ import SwiftUI
 struct SingleWordGameView : View {
     
     @ObservedObject var controller : SingleWordGameNavigationController
-    @StateObject var viewModel : SingleWordGameViewModel
+    @StateObject var viewModel : SingleBoardGameViewModel
     
     var body : some View {
         ZStack {

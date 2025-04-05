@@ -3,6 +3,7 @@ import SwiftUI
 /// Struct for passing around words from database
 struct DatabaseWordModel : Codable, Equatable, Hashable {
     
+    let id: UUID
     let daily : Int
     let difficulty : GameDifficulty
     let word : String
@@ -20,6 +21,8 @@ extension DatabaseWordModel {
         self.daily = daily
         self.difficulty = GameDifficulty.fromId(difficulty)!
         self.word = word
+        
+        self.id = UUID()
     }
     
     /// Initializer to assist with reading from Core Data database
@@ -27,5 +30,7 @@ extension DatabaseWordModel {
         self.daily = Int(daily)
         self.difficulty = GameDifficulty.fromId(Int(difficulty))!
         self.word = word!
+        
+        self.id = UUID()
     }
 }

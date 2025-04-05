@@ -1,27 +1,33 @@
-/// Implementation of a dictionary that preserves the order this were stored in
-struct OrderedDictionaryCodable<Key: Hashable & Codable, Value: Codable> : Codable, Sequence {
+/// A dictionary that preserves the order in which items were added
+struct OrderedDictionaryCodable<Key: Hashable & Codable, Value: Codable>: Codable, Sequence {
+    // MARK: - Properties
     private var keys: [Key] = []
-    private var values: [Key : Value] = [:]
-    
-    init() {}
-    
-    // MARK: - Standard functionality
-    var allKeys: [Key] {
-        keys
+    private var values: [Key: Value] = [:]
+
+    /// Returns the last key added to the ordered dictionary
+    var lastKey: Key? { keys.last }
+
+    /// Returns the value of the last key added to the ordered dictionary
+    var lastValue: Value? {
+        guard let lastKey = keys.last else { return nil }
+        return values[lastKey]
     }
 
-    var allValues: [Value] {
-        keys.compactMap { values[$0] }
-    }
-    
-    var count: Int {
-        keys.count
-    }
-    
+    /// All keys in their insertion order
+    var allKeys: [Key] { keys }
+
+    /// All values in their insertion order
+    var allValues: [Value] { keys.compactMap { values[$0] } }
+
+    /// Total count of items in the dictionary
+    var count: Int { keys.count }
+
+    // MARK: - Initializers
+    init() {}
+
+    // MARK: - Subscript
     subscript(key: Key) -> Value? {
-        get {
-            values[key]
-        }
+        get { values[key] }
         set {
             if let newValue = newValue {
                 if values[key] == nil {
@@ -34,12 +40,26 @@ struct OrderedDictionaryCodable<Key: Hashable & Codable, Value: Codable> : Codab
             }
         }
     }
-    
-    func value(forKey key: Key) -> Value? {
-        values[key]
+
+    // MARK: - Public Methods
+    /// Retrieves the value associated with a key
+    func value(forKey key: Key) -> Value? { values[key] }
+
+    /// Clears all data from the dictionary
+    mutating func clear() {
+        keys = []
+        values = [:]
     }
 
-    // MARK: - Conformance to Codable
+    /// Creates a deep copy of the dictionary
+    func copy() -> OrderedDictionaryCodable<Key, Value> {
+        var newDictionary = OrderedDictionaryCodable<Key, Value>()
+        newDictionary.keys = self.keys
+        newDictionary.values = self.values
+        return newDictionary
+    }
+
+    // MARK: - Codable Conformance
     enum CodingKeys: String, CodingKey {
         case keys
         case values
@@ -59,8 +79,8 @@ struct OrderedDictionaryCodable<Key: Hashable & Codable, Value: Codable> : Codab
         // Reconstruct the values dictionary
         values = Dictionary(uniqueKeysWithValues: zip(keys, decodedValues))
     }
-    
-    // MARK: - Conformance to Sequence
+
+    // MARK: - Sequence Conformance
     func makeIterator() -> AnyIterator<(Key, Value)> {
         var index = 0
         return AnyIterator {

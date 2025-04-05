@@ -15,8 +15,8 @@ final class AppNavigationController : NavigationControllerBase {
     let gameSelectionNavigationController : GameSelectionNavigationController
     
     // MARK: - Models
-    let singleWordGameModeOptionsModel : SingleWordGameModeOptionsModel
-    let fourWordGameModeOptionsModel : FourWordGameModeOptionsModel
+    let singleWordGameOptionsModel : SingleBoardGameOptionsModel
+    let multiBoardGameOptionsModel : MultiBoardGameOptionsModel
     
     // MARK: - Initializer
     private init() {
@@ -24,8 +24,8 @@ final class AppNavigationController : NavigationControllerBase {
         multiWordGameNavigationController = MultiWordGameNavigationController()
         gameSelectionNavigationController = GameSelectionNavigationController()
         
-        singleWordGameModeOptionsModel = SingleWordGameModeOptionsModel()
-        fourWordGameModeOptionsModel = FourWordGameModeOptionsModel()
+        singleWordGameOptionsModel = SingleBoardGameOptionsModel()
+        multiBoardGameOptionsModel = MultiBoardGameOptionsModel()
     }
     
     // MARK: - Single Word Game Functions
@@ -49,7 +49,7 @@ final class AppNavigationController : NavigationControllerBase {
     
     /// Starts a single word game with the defined game options
     func goToSingleWordGame() {
-        singleWordGameModeOptionsModel.resetTargetWord()
+        singleWordGameOptionsModel.resetTargetWord()
         singleWordGameNavigationController.startGame { [weak self] in
             self?.goToViewWithAnimation(.singleWordGame, delay: 0.25, pauseLength: 0.25)
         }
@@ -77,7 +77,7 @@ final class AppNavigationController : NavigationControllerBase {
     
     /// Starts a four word game with the defined game options
     func goToFourWordGame() {
-        fourWordGameModeOptionsModel.resetTargetWords()
+        multiBoardGameOptionsModel.resetTargetWords()
         multiWordGameNavigationController.startGame { [weak self] in
             self?.goToViewWithAnimation(.fourWordGame, delay: 0.25, pauseLength: 0.25)
         }
@@ -97,8 +97,8 @@ final class AppNavigationController : NavigationControllerBase {
     
     // MARK: - Game Options Functions
     /// Go to game mode selection view
-    func goToGameModeSelection() {
-        gameSelectionNavigationController.goToGameModeSelection(immediate: true) { [weak self] in
+    func goToGameModeSelection(immediate: Bool = true) {
+        gameSelectionNavigationController.goToGameModeSelection(immediate: immediate) { [weak self] in
             self?.goToViewWithAnimation(.gameModeSelection)
         }
     }

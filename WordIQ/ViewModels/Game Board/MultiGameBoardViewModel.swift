@@ -27,7 +27,7 @@ class MultiGameBoardViewModel : ObservableObject {
         self.activeWord = GameBoardWordViewModel(boardWidth: boardWidth, boardSpacing: boardSpacing)
         
         if let targetWords = targetWords {
-            for (id, word) in targetWords {
+            for (id, _) in targetWords {
                 gameBoards[id] = GameBoardViewModel(boardHeight: boardHeight, boardWidth: boardWidth, boardSpacing: boardSpacing, id: id)
             }
         } else {
@@ -38,7 +38,7 @@ class MultiGameBoardViewModel : ObservableObject {
         }
     }
     
-    convenience init(_ gameOptions: FourWordGameModeOptionsModel) {
+    convenience init(_ gameOptions: MultiBoardGameOptionsModel) {
         self.init(boardHeight: 9, boardWidth: 5, boardCount: 4, boardSpacing: 1.0, boardMargin: 10.0, targetWords: gameOptions.targetWords)
     }
     

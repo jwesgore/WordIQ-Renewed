@@ -1,10 +1,10 @@
 
 /// ViewModel to handle the specific rules of Rush Mode
-class RushModeViewModel : SingleWordGameViewModel, ClockViewModelObserver {
+class RushModeViewModel : SingleBoardGameViewModel, ClockViewModelObserver {
     
-    override init(gameOptions: SingleWordGameModeOptionsModel) {
+    override init(gameOptions: SingleBoardGameOptionsModel) {
         super.init(gameOptions: gameOptions)
-        self.clock.addObserver(self)
+        self.clockViewModel.addObserver(self)
     }
     
     /// Function to notify VM that the clock has reached zero
@@ -20,7 +20,6 @@ class RushModeViewModel : SingleWordGameViewModel, ClockViewModelObserver {
         
         if let activeWord = gameBoardViewModel.activeWord, let gameWord = activeWord.getWord() {
             self.gameOverDataModel.gameResult = .win
-            self.gameOverDataModel.lastGuessedWord = gameWord
             self.gameOver()
         }
     }

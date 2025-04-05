@@ -1,6 +1,6 @@
 
 /// ViewModel to handle the specific rules of Standard Mode
-class StandardModeViewModel : SingleWordGameViewModel {
+class StandardModeViewModel : SingleBoardGameViewModel {
     
     override func correctWordSubmitted() {
         // Call Base Logic
@@ -9,7 +9,6 @@ class StandardModeViewModel : SingleWordGameViewModel {
         // Apply Extra Logic
         if let activeWord = gameBoardViewModel.activeWord, let gameWord = activeWord.getWord() {
             self.gameOverDataModel.gameResult = .win
-            self.gameOverDataModel.lastGuessedWord = gameWord
             self.gameOver()
         }
     }
@@ -20,7 +19,6 @@ class StandardModeViewModel : SingleWordGameViewModel {
         
         // Apply Extra Logic
         super.gameBoardViewModel.goToNextLine() {
-            super.isKeyboardUnlocked = false
             super.gameOverDataModel.gameResult = .lose
             super.gameOver()
         }

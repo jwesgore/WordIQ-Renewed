@@ -51,17 +51,17 @@ extension GameHeaderView {
         self.clockViewModel = clockViewModel
     }
     
-    init (_ viewModel: any SingleWordGameBaseProtocol) {
-        self.title = viewModel.gameOptions.gameMode.asStringShort
+    init (_ viewModel: any SingleBoardGame) {
+        self.title = viewModel.gameOptionsModel.gameMode.asStringShort
         self.exitGame = viewModel.exitGame
         self.pauseGame = viewModel.pauseGame
-        self.clockViewModel = viewModel.clock
+        self.clockViewModel = viewModel.clockViewModel
     }
     
-    init (_ viewModel: any FourWordGameBaseProtocol) {
-        self.title = viewModel.gameOptions.gameMode.asStringShort
+    init (_ viewModel: any MultiBoardGame) {
+        self.title = viewModel.gameOptionsModel.gameMode.asStringShort
         self.exitGame = viewModel.exitGame
         self.pauseGame = viewModel.pauseGame
-        self.clockViewModel = viewModel.clock
+        self.clockViewModel = viewModel.clockViewModel
     }
 }

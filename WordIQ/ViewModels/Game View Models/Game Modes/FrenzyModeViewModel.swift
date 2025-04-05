@@ -1,10 +1,10 @@
 
 /// ViewModel to handle the specific rules of Frenzy Mode
-class FrenzyModeViewModel : SingleWordGameViewModel, ClockViewModelObserver {
+class FrenzyModeViewModel : SingleBoardGameViewModel, ClockViewModelObserver {
 
-    override init(gameOptions: SingleWordGameModeOptionsModel) {
+    override init(gameOptions: SingleBoardGameOptionsModel) {
         super.init(gameOptions: gameOptions)
-        self.clock.addObserver(self)
+        super.clockViewModel.addObserver(self)
     }
 
     /// Function to notify VM that the clock has reached zero
@@ -12,7 +12,7 @@ class FrenzyModeViewModel : SingleWordGameViewModel, ClockViewModelObserver {
         self.gameOver()
     }
     
-    // MARK: Word Submitted Functions
+    // MARK: - Word Submitted Functions
     override func correctWordSubmitted() {
         // Call Base Logic
         super.correctWordSubmitted()
@@ -20,13 +20,8 @@ class FrenzyModeViewModel : SingleWordGameViewModel, ClockViewModelObserver {
         // Update GameOverDataModel
         if let activeWord = gameBoardViewModel.activeWord, let gameWord = activeWord.getWord() {
             
-            self.gameOverDataModel.correctlyGuessedWords?.append(gameWord)
-            
-            let newWord = WordDatabaseHelper.shared.fetchRandomFiveLetterWord(withDifficulty: gameOptions.gameDifficulty)
-            self.gameOptions.targetWord = newWord
-            self.gameOverDataModel.targetWord = newWord
-            
-            self.gameOverDataModel.lastGuessedWord = nil
+            gameOptionsModel.resetTargetWord()
+            gameOverDataModel.addNewWord(gameOptionsModel.targetWord)
             
             self.gameBoardViewModel.resetBoardWithAnimation(delay: 0.5, hardReset: true) {
                 self.keyboardViewModel.resetKeyboard()

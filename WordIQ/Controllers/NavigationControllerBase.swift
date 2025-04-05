@@ -26,6 +26,8 @@ class NavigationControllerBase: ObservableObject {
                                pauseLength: Double = 0.0,
                                onCompletion: @escaping () -> Void = {}) {
         
+        guard activeView != view else { return }
+        
         self.previousView = self.activeView
         
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) {

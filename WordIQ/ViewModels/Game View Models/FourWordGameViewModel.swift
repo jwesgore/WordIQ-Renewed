@@ -1,15 +1,16 @@
 import SwiftUI
 
-class FourWordGameViewModel : FourWordGameBaseProtocol {
+/// View Model to support a quad mode game
+class FourWordGameViewModel : MultiBoardGame {
     
-    // MARK: Properties
+    // MARK: - Properties
     @Published var showPauseMenu = false
     
-    var clock : ClockViewModel
+    var clockViewModel : ClockViewModel
     var gameBoardStates : [UUID: MultiWordBoardState] = [:]
     var gameBoardViewModel: MultiGameBoardViewModel
-    var gameOptions: FourWordGameModeOptionsModel
-    var gameOverDataModel: FourWordGameOverDataModel
+    var gameOptionsModel: MultiBoardGameOptionsModel
+    var gameOverDataModel: GameOverDataModel
     var gamePauseViewModel: GamePauseViewModel {
         let gamePauseVM = GamePauseViewModel()
         gamePauseVM.ResumeGameButton.action = self.resumeGame
@@ -26,31 +27,25 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
                           keyboardEnter: self.keyboardEnter,
                           keyboardDelete: self.keyboardDelete)
     }()
-    var targetWords : [UUID: DatabaseWordModel] = [:]
+    var targetWords : OrderedDictionaryCodable<UUID, DatabaseWordModel>
     
-    init(gameOptions: FourWordGameModeOptionsModel) {
-
-        self.clock = ClockViewModel(timeLimit: gameOptions.timeLimit, isClockTimer: false)
+    init(gameOptions: MultiBoardGameOptionsModel) {
+        self.clockViewModel = ClockViewModel(timeLimit: gameOptions.timeLimit, isClockTimer: false)
+        self.gameBoardStates = Dictionary(uniqueKeysWithValues: gameOptions.targetWords.allKeys.map { ($0, .unsolved) })
         self.gameBoardViewModel = MultiGameBoardViewModel(gameOptions)
-        self.gameOptions = gameOptions
-        self.gameOverDataModel = FourWordGameOverDataModel(gameOptions)
-        
-        // Build target words
-        for (id, targetWord) in gameOptions.targetWords {
-            gameBoardStates[id] = .unsolved
-            targetWords[id] = targetWord
-            print(targetWord)
-        }
+        self.gameOptionsModel = gameOptions
+        self.gameOverDataModel = gameOptions.getMultiBoardGameOverDataModelTemplate()
+        self.targetWords = gameOptions.targetWords.copy()
     }
     
-    // MARK: Keyboard functions
+    // MARK: - Keyboard functions
     /// Function to communicate to the active game word to add a letter
     func keyboardAddLetter(_ letter : ValidCharacters) {
         guard isKeyboardUnlocked else { return }
         
         gameBoardViewModel.addLetterToActiveWord(letter)
         
-        if !clock.isClockActive { clock.startClock() }
+        if !clockViewModel.isClockActive { clockViewModel.startClock() }
     }
     
     /// Function to communicate to subclass if the correct word or wrong word was submitted
@@ -58,14 +53,14 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
         guard self.isKeyboardUnlocked else { return }
         
         guard let wordSubmitted = gameBoardViewModel.activeWord.getWord(),
-              WordDatabaseHelper.shared.doesFiveLetterWordExist(wordSubmitted) else {
+                WordDatabaseHelper.shared.doesFiveLetterWordExist(wordSubmitted) else {
+            gameOverDataModel.numberOfInvalidGuesses += 1
             invalidWordSubmitted()
             return
         }
         
+        // Lock the keyboard and determine if word is correct
         isKeyboardUnlocked = false
-        
-        gameOverDataModel.numValidGuesses += 1
 
         for (id, targetWord) in targetWords where gameBoardStates[id] == .unsolved {
             if targetWord == wordSubmitted {
@@ -98,23 +93,22 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
         gameBoardViewModel.removeLetterFromActiveWord()
     }
     
-    // MARK: Enter Key pressed functions
+    // MARK: - Enter Key pressed functions
     /// Handles what to do if the correct word is submitted
     func correctWordSubmitted(_ id: UUID, activeWord: GameWordModel) {
-        let comparisons = [LetterComparison](repeating: .correct, count: 5)
+        let comparisons = LetterComparison.getCollection(size: activeWord.word.count, value: .correct)
 
         gameBoardViewModel.setActiveWordBackground(id, comparisons: comparisons)
         keyboardViewModel.keyboardSetBackgrounds(activeWord.comparisonRankingMap(comparisons))
         
         gameBoardViewModel.gameBoards[id]?.isBoardActive = false
         
-        gameOverDataModel.numCorrectWords += 1
+        gameOverDataModel.addCorrectGuess(id: id)
     }
     
     /// Handles what to do if an invalid word is submitted
     func invalidWordSubmitted() {
         gameBoardViewModel.shakeActiveRows()
-        gameOverDataModel.numInvalidGuesses += 1
     }
     
     /// Handles what to do if the wrong word is submitted
@@ -123,22 +117,23 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
             fatalError("Unable to get active word")
         }
         
+        // Builds comparisons and updates backgrounds on board and keyboard
         let comparisons = activeWord.comparison(targetWord)
         
         gameBoardViewModel.setActiveWordBackground(id, comparisons: comparisons)
         keyboardViewModel.keyboardSetBackgrounds(activeWord.comparisonRankingMap(comparisons))
         
+        // Updates hints and game over model
         gameBoardViewModel.setTargetWordHints(id, comparisons: comparisons)
-        
-        // Updates gameOverModel
-        gameOverDataModel.lastGuessedWord = activeWord
+        gameOverDataModel.addIncorrectGuess(id, comparisons: comparisons)
         
         gameBoardViewModel.goToNextLine(id, atEndOfBoard: isGameOver)
     }
     
-    // MARK: Navigation functions
+    // MARK: - Navigation functions
     /// Function to go back to game mode selection
     func exitGame() {
+        clockViewModel.stopClock()
         AppNavigationController.shared.exitFromFourWordGame()
     }
     
@@ -146,8 +141,8 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
     func gameOver(speed : Double = 1.5) {
         showPauseMenu = false
         
-        clock.stopClock()
-        gameOverDataModel.timeElapsed = clock.timeElapsed
+        clockViewModel.stopClock()
+        gameOverDataModel.timeElapsed = clockViewModel.timeElapsed
         gameOverDataModel.targetWordsBackgrounds = gameBoardViewModel.getTargetWordsBackgrounds().toCodable()
         
         AppNavigationController.shared.goToFourWordGameOver()
@@ -156,19 +151,19 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
     /// Function to pause the game
     func pauseGame() {
         showPauseMenu = true
-        clock.stopClock()
+        clockViewModel.stopClock()
     }
     
     /// Function to play a new game again
     func playAgain() {
         keyboardViewModel.resetKeyboard()
         gameBoardViewModel.resetAllBoardsHard()
-        clock.resetClock()
+        clockViewModel.resetClock()
         
-        gameOptions.resetTargetWords()
-        gameOverDataModel = gameOptions.getFourWordGameOverDataModelTemplate()
+        gameOptionsModel.resetTargetWords()
+        gameOverDataModel = gameOptionsModel.getMultiBoardGameOverDataModelTemplate()
 
-        for (id, targetWord) in gameOptions.targetWords {
+        for (id, targetWord) in gameOptionsModel.targetWords {
             gameBoardStates[id] = .unsolved
             targetWords[id] = targetWord
             print(targetWord)
@@ -180,6 +175,6 @@ class FourWordGameViewModel : FourWordGameBaseProtocol {
     /// Function to resume the game when paused
     func resumeGame() {
         showPauseMenu = false
-        clock.startClock()
+        clockViewModel.startClock()
     }
 }

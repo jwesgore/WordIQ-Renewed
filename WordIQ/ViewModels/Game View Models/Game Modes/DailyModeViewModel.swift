@@ -3,16 +3,19 @@ class DailyModeViewModel : StandardModeViewModel {
     
     // MARK: - Overrides
     /// Override init to check for save states
-    override init(gameOptions: SingleWordGameModeOptionsModel) {
-        if let saveState = UserDefaultsHelper.shared.dailySaveStateModel,
-            saveState.gameOverModel.targetWord.daily == gameOptions.targetWord.daily {
+    override init(gameOptions: SingleBoardGameOptionsModel) {
+        // Has daily already been played
+        guard !AppNavigationController.shared.isDailyAlreadyPlayed else {
+            super.init(gameOptions: gameOptions)
+            super.gameOverDataModel = UserDefaultsHelper.shared.dailyGameOverModel!
+            return
+        }
+        
+        // Daily has not been played: check if there is a valid save state to load from => else start a new game
+        if let saveState = UserDefaultsHelper.shared.dailySaveStateModel, saveState.gameOptionsModel.targetWord.daily == gameOptions.targetWord.daily {
             super.init(gameSaveState: saveState)
         } else {
             super.init(gameOptions: gameOptions)
-        }
-        
-        if UserDefaultsHelper.shared.lastDailyPlayed >= gameOptions.targetWord.daily {
-            super.gameOverDataModel = UserDefaultsHelper.shared.dailyGameOverModel!
         }
     }
     

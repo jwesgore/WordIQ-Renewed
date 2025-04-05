@@ -30,10 +30,10 @@ class FourWordGameOverViewModel : ObservableObject {
         }
     }()
     
-    var gameOverData: FourWordGameOverDataModel
+    var gameOverData: GameOverDataModel
     
     /// Initializer
-    init(_ gameOverData: FourWordGameOverDataModel,
+    init(_ gameOverData: GameOverDataModel,
          extraPlayAgainAction: @escaping () -> Void = {},
          extraGameOverAction: @escaping () -> Void = {}) {
         self.gameOverData = gameOverData

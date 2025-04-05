@@ -3,8 +3,8 @@ import SwiftUI
 /// Navigation Controller for single word game view
 class SingleWordGameNavigationController : NavigationControllerBase {
     
-    var gameOptions: SingleWordGameModeOptionsModel {
-        return AppNavigationController.shared.singleWordGameModeOptionsModel
+    var gameOptions: SingleBoardGameOptionsModel {
+        return AppNavigationController.shared.singleWordGameOptionsModel
     }
     
     init() {

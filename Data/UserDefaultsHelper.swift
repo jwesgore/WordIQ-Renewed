@@ -263,11 +263,11 @@ class UserDefaultsHelper {
     }
     
     /// Final save state of daily mode
-    var dailyGameOverModel : SingleWordGameOverDataModel? {
+    var dailyGameOverModel : GameOverDataModel? {
         get {
             if let data = UserDefaults.standard.data(forKey: dailyModelKey) {
                 let decoder = JSONDecoder()
-                return try? decoder.decode(SingleWordGameOverDataModel.self, from: data)
+                return try? decoder.decode(GameOverDataModel.self, from: data)
             }
             return nil
         }
@@ -348,23 +348,25 @@ class UserDefaultsHelper {
     
     // MARK: Functions
     // Update values based on game over results
-    func update(_ gameOverResults : SingleWordGameOverDataModel) {
+    func update(_ gameOverResults : GameOverDataModel) {
         switch gameOverResults.gameMode {
         case .dailyGame:
-            if gameOverResults.gameResult == .win {
-                currentStreak_daily = lastDailyPlayed + 1 >= gameOverResults.targetWord.daily ? currentStreak_daily + 1 : 1
-            } else {
-                currentStreak_daily = 0
+            if let currentTargetWord = gameOverResults.currentTargetWord {
+                if gameOverResults.gameResult == .win {
+                    currentStreak_daily = lastDailyPlayed + 1 >= currentTargetWord.daily ? currentStreak_daily + 1 : 1
+                } else {
+                    currentStreak_daily = 0
+                }
+                lastDailyPlayed = currentTargetWord.daily
             }
-            lastDailyPlayed = gameOverResults.targetWord.daily
             dailyGameOverModel = gameOverResults
         case .standardMode:
             currentStreak_standard = gameOverResults.gameResult == .win ? currentStreak_standard + 1 : 0
         case .rushMode:
             currentStreak_rush = gameOverResults.gameResult == .win ? currentStreak_rush + 1 : 0
         case .frenzyMode:
-            if gameOverResults.numCorrectWords > maxScore_frenzy {
-                maxScore_frenzy = gameOverResults.numCorrectWords
+            if gameOverResults.targetWordsCorrect.count > maxScore_frenzy {
+                maxScore_frenzy = gameOverResults.targetWordsCorrect.count
             }
         default:
             break

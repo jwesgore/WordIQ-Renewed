@@ -21,8 +21,8 @@ class GameModeOptionsViewModel : ObservableObject {
     let navigationButtonDimension: (CGFloat, CGFloat) = (50, 400)
     let timeSelectionButtonDimension: (CGFloat, CGFloat) = (50, 400)
     
-    var singleWordGameModeOptions : SingleWordGameModeOptionsModel {
-        return AppNavigationController.shared.singleWordGameModeOptionsModel
+    var singleWordGameModeOptions : SingleBoardGameOptionsModel {
+        return AppNavigationController.shared.singleWordGameOptionsModel
     }
     
     var showTimeLimitOptions: Bool {
@@ -65,7 +65,7 @@ class GameModeOptionsViewModel : ObservableObject {
             AppNavigationController.shared.goToSingleWordGame()
         }
         backButton.action = {
-            AppNavigationController.shared.goToGameModeSelection()
+            AppNavigationController.shared.goToGameModeSelection(immediate: false)
         }
         
         // Add radio buttons to their managers

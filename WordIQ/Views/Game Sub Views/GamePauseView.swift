@@ -4,7 +4,7 @@ import SwiftUI
 struct GamePauseView : View {
     
     var clock : ClockViewModel
-    var options : GameOptionsBaseProtocol
+    var options : GameOptionsBase
     var viewModel : GamePauseViewModel
     
     var body: some View {
@@ -42,17 +42,17 @@ struct GamePauseView : View {
 }
 
 extension GamePauseView {
-    init (_ viewModel: SingleWordGameViewModel) {
-        self.clock = viewModel.clock
-        self.options = viewModel.gameOptions
+    init (_ viewModel: SingleBoardGameViewModel) {
+        self.clock = viewModel.clockViewModel
+        self.options = viewModel.gameOptionsModel
         self.viewModel = GamePauseViewModel()
         self.viewModel.ResumeGameButton.action = viewModel.resumeGame
         self.viewModel.EndGameButton.action = viewModel.exitGame
     }
     
     init (_ viewModel: FourWordGameViewModel) {
-        self.clock = viewModel.clock
-        self.options = viewModel.gameOptions
+        self.clock = viewModel.clockViewModel
+        self.options = viewModel.gameOptionsModel
         self.viewModel = GamePauseViewModel()
         self.viewModel.ResumeGameButton.action = viewModel.resumeGame
         self.viewModel.EndGameButton.action = viewModel.exitGame
@@ -76,8 +76,8 @@ struct GamePauseInfoView: View {
     }
 }
 
-#Preview {
-    GamePauseView(
-        SingleWordGameViewModel(gameOptions:
-            SingleWordGameModeOptionsModel(gameMode: .standardMode, gameDifficulty: .easy, timeLimit: 0)))
-}
+//#Preview {
+//    GamePauseView(
+//        SingleWordGameViewModel(gameOptions:
+//            SingleWordGameModeOptionsModel(gameMode: .standardMode, gameDifficulty: .easy, timeLimit: 0)))
+//}

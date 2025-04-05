@@ -82,23 +82,23 @@ class GameDatabaseHelper {
     }
     
     // Update database
-    func saveGame(_ gameOverData : SingleWordGameOverDataModel) {
-        let newGameResult = GameResultsModel(context: context)
-        
-        newGameResult.id = UUID()
-        newGameResult.date = gameOverData.date
-        
-        newGameResult.gameDifficulty = Int64(gameOverData.gameDifficulty.id)
-        newGameResult.gameMode = Int64(gameOverData.gameMode.id)
-        newGameResult.gameResult = Int64(gameOverData.gameResult.id)
-        
-        newGameResult.numCorrectWords = Int64(gameOverData.numCorrectWords)
-        newGameResult.numValidGuesses = Int64(gameOverData.numValidGuesses)
-        newGameResult.numInvalidGuesses = Int64(gameOverData.numInvalidGuesses)
-        
-        newGameResult.targetWord = gameOverData.targetWord.word
-        newGameResult.timeElapsed = Int64(gameOverData.timeElapsed)
-        newGameResult.timeLimit = Int64(gameOverData.timeLimit ?? 0)
+    func saveGame(_ gameOverData : GameOverDataModel) {
+//        let newGameResult = GameResultsModel(context: context)
+//        
+//        newGameResult.id = UUID()
+//        newGameResult.date = gameOverData.date
+//        
+//        newGameResult.gameDifficulty = Int64(gameOverData.gameDifficulty.id)
+//        newGameResult.gameMode = Int64(gameOverData.gameMode.id)
+//        newGameResult.gameResult = Int64(gameOverData.gameResult.id)
+//        
+//        newGameResult.numCorrectWords = Int64(gameOverData.numCorrectWords)
+//        newGameResult.numValidGuesses = Int64(gameOverData.numValidGuesses)
+//        newGameResult.numInvalidGuesses = Int64(gameOverData.numInvalidGuesses)
+//        
+//        newGameResult.targetWord = gameOverData.targetWord.word
+//        newGameResult.timeElapsed = Int64(gameOverData.timeElapsed)
+//        newGameResult.timeLimit = Int64(gameOverData.timeLimit ?? 0)
         
         saveContext()
     }
@@ -202,20 +202,20 @@ class GameDatabaseHelper {
     }
     
     /// Try and get game over model by id
-    func getGameResultsById(id: UUID) -> SingleWordGameOverDataModel? {
-        let fetchRequest: NSFetchRequest<GameResultsModel> = GameResultsModel.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "id == %@", id as CVarArg)
-        
-        do {
-            let results = try context.fetch(fetchRequest)
-            if let gameResults = results.first {
-                return SingleWordGameOverDataModel(gameResults)
-            }
-        } catch {
-            print("Error fetching game results by ID: \(error)")
-        }
-        return nil
-    }
+//    func getGameResultsById(id: UUID) -> GameOverDataModel? {
+//        let fetchRequest: NSFetchRequest<GameResultsModel> = GameResultsModel.fetchRequest()
+//        fetchRequest.predicate = NSPredicate(format: "id == %@", id as CVarArg)
+//        
+//        do {
+//            let results = try context.fetch(fetchRequest)
+//            if let gameResults = results.first {
+//                return GameOverDataModel(gameResults)
+//            }
+//        } catch {
+//            print("Error fetching game results by ID: \(error)")
+//        }
+//        return nil
+//    }
     
     // MARK: Private Functions
     private func getGamesByMode(_ mode: GameMode) -> [GameResultsModel] {

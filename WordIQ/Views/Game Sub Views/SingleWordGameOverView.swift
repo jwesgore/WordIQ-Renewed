@@ -6,9 +6,9 @@ struct SingleWordGameOverView : View {
     @StateObject var viewModel : SingleWordGameOverViewModel
     @StateObject var gameOverWord: GameOverWordViewModel
     
-    @ObservedObject var gameViewModel: SingleWordGameViewModel
+    @ObservedObject var gameViewModel: SingleBoardGameViewModel
     
-    @State var gameOverData : SingleWordGameOverDataModel
+    @State var gameOverData : GameOverDataModel
     
     var body: some View {
         VStack (spacing: 20) {
@@ -59,19 +59,19 @@ struct SingleWordGameOverView : View {
             viewModel.saveData()
             viewModel.setRowValues()
 
-            gameOverWord.setBackgrounds(gameOverData.targetWordBackgrounds)
+            // gameOverWord.setBackgrounds(gameOverData.targetWordBackgrounds)
         }
     }
 }
 
 extension SingleWordGameOverView {
-    init(_ viewModel : SingleWordGameViewModel) {
+    init(_ viewModel : SingleBoardGameViewModel) {
         self.gameViewModel = viewModel
         self.gameOverData = viewModel.gameOverDataModel
         
         self._viewModel = StateObject(wrappedValue: SingleWordGameOverViewModel(viewModel.gameOverDataModel,
                                                                                 extraPlayAgainAction: viewModel.playAgain))
-        self._gameOverWord = StateObject(wrappedValue: GameOverWordViewModel(viewModel.gameOverDataModel.targetWord))
+        self._gameOverWord = StateObject(wrappedValue: GameOverWordViewModel(viewModel.gameOverDataModel.currentTargetWord!))
     }
 }
 

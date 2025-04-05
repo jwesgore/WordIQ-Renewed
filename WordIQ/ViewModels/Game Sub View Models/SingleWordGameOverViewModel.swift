@@ -31,10 +31,10 @@ class SingleWordGameOverViewModel : ObservableObject {
         }
     }()
     
-    var gameOverData: SingleWordGameOverDataModel
+    var gameOverData: GameOverDataModel
     
     /// Initializer
-    init(_ gameOverData: SingleWordGameOverDataModel,
+    init(_ gameOverData: GameOverDataModel,
          extraPlayAgainAction: @escaping () -> Void = {},
          extraGameOverAction: @escaping () -> Void = {}) {
         self.gameOverData = gameOverData
@@ -83,7 +83,7 @@ class SingleWordGameOverViewModel : ObservableObject {
     func setRowValues() {
         // Set First and Second Row values
         firstRowStat.value = TimeUtility.formatTimeShort(gameOverData.timeElapsed)
-        secondRowStat.value = gameOverData.numValidGuesses.description
+        secondRowStat.value = gameOverData.numberOfValidGuesses.description
         
         switch gameOverData.gameMode {
         case .dailyGame:
@@ -96,9 +96,10 @@ class SingleWordGameOverViewModel : ObservableObject {
             thirdRowStat.value = UserDefaultsHelper.shared.currentStreak_rush.description
             fourthRowStat.value = ValueConverter.doubleToPercent(databaseHelper.getGameModeWinPercentage(mode: gameOverData.gameMode))
         case .frenzyMode:
-            thirdRowStat.value = gameOverData.numCorrectWords.description
-            if gameOverData.numCorrectWords > 0 {
-                fourthRowStat.value = TimeUtility.formatTimeShort(gameOverData.timeElapsed / gameOverData.numCorrectWords)
+            let numberOfCorrectWords = gameOverData.targetWordsCorrect.count
+            thirdRowStat.value = numberOfCorrectWords.description
+            if numberOfCorrectWords > 0 {
+                fourthRowStat.value = TimeUtility.formatTimeShort(gameOverData.timeElapsed / numberOfCorrectWords)
             }
             else {
                 fourthRowStat.value = TimeUtility.formatTimeShort(gameOverData.timeElapsed)
@@ -113,7 +114,9 @@ class SingleWordGameOverViewModel : ObservableObject {
     // MARK: - General Functions
     /// Save game over data
     func saveData() {
-        guard !(gameOverData.gameMode == .dailyGame && UserDefaultsHelper.shared.lastDailyPlayed == gameOverData.targetWord.daily) else {
+        let isDailyMode = gameOverData.gameMode == .dailyGame
+        
+        guard !(isDailyMode && AppNavigationController.shared.isDailyAlreadyPlayed) else {
             print("Daily already played")
             return
         }
