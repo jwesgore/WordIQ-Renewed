@@ -4,19 +4,10 @@ import SwiftUI
 struct StatsDailyModeView: View {
     
     @State var showStats: Bool = true
-    
-    var databaseHelper: GameDatabaseHelper
-    let mode = GameMode.dailyGame
+    @State var statsModel: StatsModel
     
     var body: some View {
-        let avgTimePerGame = TimeUtility.formatTimeShort(databaseHelper.getGameModeAvgTimePerGame(mode: mode))
-        let bestStreak = UserDefaultsHelper.shared.maxStreak_daily.description
-        let currentSteak = UserDefaultsHelper.shared.currentStreak_daily.description
-        let guessesMade = databaseHelper.getGameModeNumGuesses(mode: mode).description
-        let timeInMode = TimeUtility.formatTimeShort(databaseHelper.getGameModeTimePlayed(mode: mode))
-        let totalGamesPlayed = databaseHelper.getGameModeCount(mode: mode).description
-        let winPercentage = ValueConverter.doubleToPercent(databaseHelper.getGameModeWinPercentage(mode: mode))
-        
+
         VStack (spacing: StatsViewHelper.vStackSpacing) {
             ExpandAndCollapseHeaderView(title: SystemNames.GameStats.dailyModeStats, isExpanded: $showStats)
                 .padding(.vertical, StatsViewHelper.baseHeaderPadding)
@@ -26,34 +17,40 @@ struct StatsDailyModeView: View {
                 GroupBox {
                     InfoItemView(icon: SFAssets.numberSign,
                                  label: SystemNames.GameStats.gamesPlayed,
-                                 value: totalGamesPlayed)
+                                 value: statsModel.totalGamesPlayed.description)
                     Divider()
                     InfoItemView(icon: SFAssets.numberSign,
                                  label: SystemNames.GameStats.guessesMade,
-                                 value: guessesMade)
+                                 value: statsModel.totalValidGuesses.description)
                     Divider()
                     InfoItemView(icon: SFAssets.stats,
                                  label: SystemNames.GameStats.winPercentage,
-                                 value: winPercentage)
+                                 value: ValueConverter.doubleToPercent(statsModel.winRate))
                     Divider()
                     InfoItemView(icon: SFAssets.timer,
                                  label: SystemNames.GameStats.timePlayed,
-                                 value: timeInMode)
+                                 value: TimeUtility.formatTimeShort(statsModel.totalTimePlayed))
                     Divider()
                     InfoItemView(icon: SFAssets.timer,
                                  label: SystemNames.GameStats.avgTime,
-                                 value: avgTimePerGame)
+                                 value: TimeUtility.formatTimeShort(statsModel.averageTimePerGame))
                     Divider()
                     InfoItemView(icon: SFAssets.star,
                                  label: SystemNames.GameStats.currentStreak,
-                                 value: currentSteak)
+                                 value: statsModel.currentStreak.description)
                     Divider()
                     InfoItemView(icon: SFAssets.star,
                                  label: SystemNames.GameStats.bestStreak,
-                                 value: bestStreak)
+                                 value: statsModel.bestStreak.description)
                 }
                 .backgroundStyle(Color.appGroupBox)
             }
         }
+    }
+}
+
+extension StatsDailyModeView {
+    init(databaseHelper: GameDatabaseHelper) {
+        statsModel = StatsModelFactory(databaseHelper: databaseHelper).getStatsModel(for: .dailyGame)
     }
 }

@@ -17,11 +17,8 @@ class RushModeViewModel : SingleBoardGameViewModel, ClockViewModelObserver {
     override func correctWordSubmitted() {
         // Call Base Logic
         super.correctWordSubmitted()
-        
-        if let activeWord = gameBoardViewModel.activeWord, let gameWord = activeWord.getWord() {
-            self.gameOverDataModel.gameResult = .win
-            self.gameOver()
-        }
+        self.gameOverDataModel.gameResult = .win
+        self.gameOver()
     }
     
     override func wrongWordSubmitted() {

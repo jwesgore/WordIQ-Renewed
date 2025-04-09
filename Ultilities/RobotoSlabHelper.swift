@@ -1,8 +1,8 @@
 import SwiftUI
 
 /// Settings for using RobotoSlab font
-enum RobotoSlabOptions{
-    enum Size : CGFloat {
+enum RobotoSlabOptions {
+    enum Size: CGFloat {
         case title = 33
         case title1 = 27
         case title2 = 21
@@ -11,10 +11,9 @@ enum RobotoSlabOptions{
         case subheading = 14
         case footnote = 12
         case caption = 11
-        
     }
     
-    enum Weight : String {
+    enum Weight: String {
         case regular = "RobotoSlab-Regular"
         case thin = "RobotoSlab-Regular_Thin"
         case extraLight = "RobotoSlab-Regular_ExtraLight"
@@ -27,56 +26,51 @@ enum RobotoSlabOptions{
     }
 }
 
-/// Modifier to assist with adding custom font to views
-struct RobotoSlabModifier : ViewModifier {
+/// Modifier for adding custom font to views
+struct RobotoSlabModifier: ViewModifier {
+    let size: CGFloat
+    let weight: String
     
-    let size : CGFloat
-    let weight : String
-    
-    func body (content : Content) -> some View {
+    func body(content: Content) -> some View {
         content
             .font(.custom(weight, fixedSize: size))
     }
 }
 
-/// Extension to allow for simple use of modifier
+/// View Extension for RobotoSlab font
 extension View {
-    func robotoSlabFont(_ size : RobotoSlabOptions.Size, _ weight : RobotoSlabOptions.Weight) -> some View {
+    func robotoSlabFont(_ size: RobotoSlabOptions.Size, _ weight: RobotoSlabOptions.Weight) -> some View {
         self.modifier(RobotoSlabModifier(size: size.rawValue, weight: weight.rawValue))
     }
     
-    func robotoSlabFont(_ size : CGFloat, _ weight : RobotoSlabOptions.Weight) -> some View {
+    func robotoSlabFont(_ size: CGFloat, _ weight: RobotoSlabOptions.Weight) -> some View {
         self.modifier(RobotoSlabModifier(size: size, weight: weight.rawValue))
     }
-    
-    func robotoSlabFont(_ size : CGFloat, _ weight : String) -> some View {
-        self.modifier(RobotoSlabModifier(size: size, weight: weight))
-    }
 }
 
-/// Extension to allow for adding text views together
+/// Text Extension for RobotoSlab font
 extension Text {
     func robotoSlabFont(_ textStyle: Font.TextStyle, _ weight: RobotoSlabOptions.Weight) -> Text {
-        self.font(.custom(weight.rawValue, fixedSize: UIFont.preferredFont(forTextStyle: UIFont.TextStyle(textStyle)).pointSize))
+        self.font(.custom(weight.rawValue, fixedSize: UIFont.preferredFont(forTextStyle: textStyle.uiFontStyle()).pointSize))
     }
 }
 
-/// Bullshit extra extension
-extension UIFont.TextStyle {
-    init(_ textStyle: Font.TextStyle) {
-        switch textStyle {
-        case .largeTitle: self = .largeTitle
-        case .title: self = .title1
-        case .title2: self = .title2
-        case .title3: self = .title3
-        case .headline: self = .headline
-        case .subheadline: self = .subheadline
-        case .body: self = .body
-        case .callout: self = .callout
-        case .footnote: self = .footnote
-        case .caption: self = .caption1
-        case .caption2: self = .caption2
-        @unknown default: self = .body
+/// Font.TextStyle extension to map to UIFont.TextStyle
+extension Font.TextStyle {
+    func uiFontStyle() -> UIFont.TextStyle {
+        switch self {
+        case .largeTitle: return .largeTitle
+        case .title: return .title1
+        case .title2: return .title2
+        case .title3: return .title3
+        case .headline: return .headline
+        case .subheadline: return .subheadline
+        case .body: return .body
+        case .callout: return .callout
+        case .footnote: return .footnote
+        case .caption: return .caption1
+        case .caption2: return .caption2
+        @unknown default: return .body
         }
     }
 }

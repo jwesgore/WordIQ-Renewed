@@ -5,10 +5,7 @@ class ZenModeViewModel : SingleBoardGameViewModel {
     override func correctWordSubmitted() {
         // Call Base Logic
         super.correctWordSubmitted()
-        
-        if let activeWord = gameBoardViewModel.activeWord {
-            super.gameOver()
-        }
+        super.gameOver()
     }
     
     override func wrongWordSubmitted() {

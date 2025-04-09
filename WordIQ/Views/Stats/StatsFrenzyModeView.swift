@@ -4,18 +4,10 @@ import SwiftUI
 struct StatsFrenzyModeView: View {
     
     @State var showStats: Bool = true
-    
-    var databaseHelper: GameDatabaseHelper
-    let mode = GameMode.frenzyMode
+    @State var statsModel: StatsModel
     
     var body: some View {
-        let avgTimePerWord = TimeUtility.formatTimeShort(databaseHelper.getGameModeAvgTimePerWord(mode: mode))
-        let avgScore = ValueConverter.doubleToTwoPlaces(databaseHelper.getGameModeAvgScore(mode: mode))
-        let bestScore = UserDefaultsHelper.shared.maxScore_frenzy.description
-        let guessesMade = databaseHelper.getGameModeNumGuesses(mode: mode).description
-        let timeInMode = TimeUtility.formatTimeShort(databaseHelper.getGameModeTimePlayed(mode: mode))
-        let totalGamesPlayed = databaseHelper.getGameModeCount(mode: mode).description
-        
+
         VStack (spacing: StatsViewHelper.vStackSpacing) {
             ExpandAndCollapseHeaderView(title: SystemNames.GameStats.frenzyModeStats, isExpanded: $showStats)
                 .padding(.vertical, StatsViewHelper.baseHeaderPadding)
@@ -25,30 +17,36 @@ struct StatsFrenzyModeView: View {
                 GroupBox {
                     InfoItemView(icon: SFAssets.numberSign,
                                  label: SystemNames.GameStats.gamesPlayed,
-                                 value: totalGamesPlayed)
+                                 value: statsModel.totalGamesPlayed.description)
                     Divider()
                     InfoItemView(icon: SFAssets.numberSign,
                                  label: SystemNames.GameStats.guessesMade,
-                                 value: guessesMade)
+                                 value: statsModel.totalValidGuesses.description)
                     Divider()
                     InfoItemView(icon: SFAssets.timer,
                                  label: SystemNames.GameStats.timePlayed,
-                                 value: timeInMode)
+                                 value: TimeUtility.formatTimeShort(statsModel.totalTimePlayed))
                     Divider()
                     InfoItemView(icon: SFAssets.timer,
-                                 label: SystemNames.GameStats.avgTimePerWord,
-                                 value: avgTimePerWord)
+                                 label: SystemNames.GameStats.avgTime,
+                                 value: TimeUtility.formatTimeShort(statsModel.averageTimePerGame))
                     Divider()
                     InfoItemView(icon: SFAssets.star,
                                  label: SystemNames.GameStats.avgScore,
-                                 value: avgScore)
+                                 value: "Temp")
                     Divider()
                     InfoItemView(icon: SFAssets.star,
                                  label: SystemNames.GameStats.bestScore,
-                                 value: bestScore)
+                                 value: "Temp")
                 }
                 .backgroundStyle(Color.appGroupBox)
             }
         }
+    }
+}
+
+extension StatsFrenzyModeView {
+    init(databaseHelper: GameDatabaseHelper) {
+        statsModel = StatsModelFactory(databaseHelper: databaseHelper).getStatsModel(for: .frenzyMode)
     }
 }

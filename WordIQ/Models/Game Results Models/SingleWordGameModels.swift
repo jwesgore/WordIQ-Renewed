@@ -29,7 +29,16 @@ struct ZenGameModel : SingleWordGame, VariableDifficulty {
     var difficulty: GameDifficulty
     var numberOfInvalidGuesses: Int
     var numberOfValidGuesses: Int
-    var result: GameResult
     var targetWord: DatabaseWordModel
     var timeElapsed: Int
+}
+
+struct DailyGameModel : SingleWordGame, Daily {
+    var targetWord: DatabaseWordModel
+    var dailyId: Int
+    var date: Date
+    var numberOfInvalidGuesses: Int
+    var numberOfValidGuesses: Int
+    var timeElapsed: Int
+    var result: GameResult
 }

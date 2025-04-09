@@ -35,3 +35,8 @@ protocol WinnableGame {
 protocol VariableDifficulty {
     var difficulty: GameDifficulty { get set }
 }
+
+/// Defines a game mode as having a daily version
+protocol Daily : WinnableGame {
+    var dailyId: Int { get set }
+}

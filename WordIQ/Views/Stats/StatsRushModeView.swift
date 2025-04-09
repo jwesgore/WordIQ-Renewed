@@ -4,18 +4,9 @@ import SwiftUI
 struct StatsRushModeView: View {
     
     @State var showStats: Bool = true
-    
-    var databaseHelper: GameDatabaseHelper
-    let mode = GameMode.rushMode
+    @State var statsModel: StatsModel
     
     var body: some View {
-        let avgTimePerGame = TimeUtility.formatTimeShort(databaseHelper.getGameModeAvgTimePerGame(mode: mode))
-        let bestStreak = UserDefaultsHelper.shared.maxStreak_rush.description
-        let currentSteak = UserDefaultsHelper.shared.currentStreak_rush.description
-        let guessesMade = databaseHelper.getGameModeNumGuesses(mode: mode).description
-        let timeInMode = TimeUtility.formatTimeShort(databaseHelper.getGameModeTimePlayed(mode: mode))
-        let totalGamesPlayed = databaseHelper.getGameModeCount(mode: mode).description
-        let winPercentage = ValueConverter.doubleToPercent(databaseHelper.getGameModeWinPercentage(mode: mode))
         
         VStack (spacing: StatsViewHelper.vStackSpacing) {
             ExpandAndCollapseHeaderView(title: SystemNames.GameStats.rushModeStats, isExpanded: $showStats)
@@ -24,36 +15,42 @@ struct StatsRushModeView: View {
             
             if showStats {
                 GroupBox {
-                    InfoItemView(icon: SFAssets.numberSign,
-                                 label: SystemNames.GameStats.gamesPlayed,
-                                 value: totalGamesPlayed)
-                    Divider()
-                    InfoItemView(icon: SFAssets.numberSign,
-                                 label: SystemNames.GameStats.guessesMade,
-                                 value: guessesMade)
-                    Divider()
-                    InfoItemView(icon: SFAssets.stats,
-                                 label: SystemNames.GameStats.winPercentage,
-                                 value: winPercentage)
-                    Divider()
-                    InfoItemView(icon: SFAssets.timer,
-                                 label: SystemNames.GameStats.timePlayed,
-                                 value: timeInMode)
-                    Divider()
-                    InfoItemView(icon: SFAssets.timer,
-                                 label: SystemNames.GameStats.avgTime,
-                                 value: avgTimePerGame)
-                    Divider()
-                    InfoItemView(icon: SFAssets.star,
-                                 label: SystemNames.GameStats.currentStreak,
-                                 value: currentSteak)
-                    Divider()
-                    InfoItemView(icon: SFAssets.star,
-                                 label: SystemNames.GameStats.bestStreak,
-                                 value: bestStreak)
+                InfoItemView(icon: SFAssets.numberSign,
+                             label: SystemNames.GameStats.gamesPlayed,
+                             value: statsModel.totalGamesPlayed.description)
+                Divider()
+                InfoItemView(icon: SFAssets.numberSign,
+                             label: SystemNames.GameStats.guessesMade,
+                             value: statsModel.totalValidGuesses.description)
+                Divider()
+                InfoItemView(icon: SFAssets.stats,
+                             label: SystemNames.GameStats.winPercentage,
+                             value: ValueConverter.doubleToPercent(statsModel.winRate))
+                Divider()
+                InfoItemView(icon: SFAssets.timer,
+                             label: SystemNames.GameStats.timePlayed,
+                             value: TimeUtility.formatTimeShort(statsModel.totalTimePlayed))
+                Divider()
+                InfoItemView(icon: SFAssets.timer,
+                             label: SystemNames.GameStats.avgTime,
+                             value: TimeUtility.formatTimeShort(statsModel.averageTimePerGame))
+                Divider()
+                InfoItemView(icon: SFAssets.star,
+                             label: SystemNames.GameStats.currentStreak,
+                             value: statsModel.currentStreak.description)
+                Divider()
+                InfoItemView(icon: SFAssets.star,
+                             label: SystemNames.GameStats.bestStreak,
+                             value: statsModel.bestStreak.description)
                 }
                 .backgroundStyle(Color.appGroupBox)
             }
         }
+    }
+}
+
+extension StatsRushModeView {
+    init(databaseHelper: GameDatabaseHelper) {
+        statsModel = StatsModelFactory(databaseHelper: databaseHelper).getStatsModel(for: .rushMode)
     }
 }

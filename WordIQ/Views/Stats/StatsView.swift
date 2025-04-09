@@ -19,7 +19,7 @@ struct StatsView : View {
             if let databaseHelper = databaseHelper {
                 ScrollView {
                     VStack {
-                        StatsGeneralView(databaseHelper: databaseHelper)
+                        StatsGeneralView(databaseHelper)
                         StatsDailyModeView(databaseHelper: databaseHelper)
                         StatsStandardModeView(databaseHelper: databaseHelper)
                         StatsRushModeView(databaseHelper: databaseHelper)
@@ -48,7 +48,7 @@ struct StatsViewHelper {
     static let vStackSpacing = 0.0
 }
 
-#Preview {
-    StatsView(isPresented: .constant(true))
-        .environment(\.managedObjectContext, GameDatabasePersistenceController.preview.container.viewContext)
-}
+//#Preview {
+//    StatsView(isPresented: .constant(true))
+//        .environment(\.managedObjectContext, GameDatabasePersistenceController.preview.container.viewContext)
+//}

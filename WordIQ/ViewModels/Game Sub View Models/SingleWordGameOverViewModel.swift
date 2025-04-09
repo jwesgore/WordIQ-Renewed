@@ -81,20 +81,16 @@ class SingleWordGameOverViewModel : ObservableObject {
     
     /// Set the values on all stats items based on the game mode
     func setRowValues() {
+        let statsModel = StatsModelFactory(databaseHelper: databaseHelper).getStatsModel(for: gameOverData.gameMode)
+        
         // Set First and Second Row values
         firstRowStat.value = TimeUtility.formatTimeShort(gameOverData.timeElapsed)
         secondRowStat.value = gameOverData.numberOfValidGuesses.description
         
         switch gameOverData.gameMode {
-        case .dailyGame:
-            thirdRowStat.value = UserDefaultsHelper.shared.currentStreak_daily.description
-            fourthRowStat.value = ValueConverter.doubleToPercent(databaseHelper.getGameModeWinPercentage(mode: gameOverData.gameMode))
-        case .standardMode:
-            thirdRowStat.value = UserDefaultsHelper.shared.currentStreak_standard.description
-            fourthRowStat.value = ValueConverter.doubleToPercent(databaseHelper.getGameModeWinPercentage(mode: gameOverData.gameMode))
-        case .rushMode:
-            thirdRowStat.value = UserDefaultsHelper.shared.currentStreak_rush.description
-            fourthRowStat.value = ValueConverter.doubleToPercent(databaseHelper.getGameModeWinPercentage(mode: gameOverData.gameMode))
+        case .dailyGame, .standardMode, .rushMode:
+            thirdRowStat.value = statsModel.currentStreak.description
+            fourthRowStat.value = ValueConverter.doubleToPercent(statsModel.winRate)
         case .frenzyMode:
             let numberOfCorrectWords = gameOverData.targetWordsCorrect.count
             thirdRowStat.value = numberOfCorrectWords.description
@@ -105,7 +101,7 @@ class SingleWordGameOverViewModel : ObservableObject {
                 fourthRowStat.value = TimeUtility.formatTimeShort(gameOverData.timeElapsed)
             }
         case .zenMode:
-            thirdRowStat.value = databaseHelper.getGameModeCount(mode: gameOverData.gameMode).description
+            thirdRowStat.value = statsModel.totalGamesPlayed.description
         default:
             break
         }

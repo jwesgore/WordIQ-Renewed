@@ -4,16 +4,10 @@ import SwiftUI
 struct StatsZenModeView: View {
     
     @State var showStats: Bool = true
-    
-    var databaseHelper: GameDatabaseHelper
-    let mode = GameMode.zenMode
+    @State var statsModel: StatsModel
     
     var body: some View {
-        let avgTimePerGame = TimeUtility.formatTimeShort(databaseHelper.getGameModeAvgTimePerGame(mode: mode))
-        let guessesMade = databaseHelper.getGameModeNumGuesses(mode: mode).description
-        let timeInMode = TimeUtility.formatTimeShort(databaseHelper.getGameModeTimePlayed(mode: mode))
-        let totalGamesPlayed = databaseHelper.getGameModeCount(mode: mode).description
-        
+
         VStack (spacing: StatsViewHelper.vStackSpacing) {
             ExpandAndCollapseHeaderView(title: SystemNames.GameStats.zenModeStats, isExpanded: $showStats)
                 .padding(.vertical, StatsViewHelper.baseHeaderPadding)
@@ -23,22 +17,28 @@ struct StatsZenModeView: View {
                 GroupBox {
                     InfoItemView(icon: SFAssets.numberSign,
                                  label: SystemNames.GameStats.gamesPlayed,
-                                 value: totalGamesPlayed)
+                                 value: statsModel.totalGamesPlayed.description)
                     Divider()
                     InfoItemView(icon: SFAssets.numberSign,
                                  label: SystemNames.GameStats.guessesMade,
-                                 value: guessesMade)
+                                 value: statsModel.totalValidGuesses.description)
                     Divider()
                     InfoItemView(icon: SFAssets.timer,
                                  label: SystemNames.GameStats.timePlayed,
-                                 value: timeInMode)
+                                 value: TimeUtility.formatTimeShort(statsModel.totalTimePlayed))
                     Divider()
                     InfoItemView(icon: SFAssets.timer,
                                  label: SystemNames.GameStats.avgTime,
-                                 value: avgTimePerGame)
+                                 value: TimeUtility.formatTimeShort(statsModel.averageTimePerGame))
                 }
                 .backgroundStyle(Color.appGroupBox)
             }
         }
+    }
+}
+
+extension StatsZenModeView {
+    init(databaseHelper: GameDatabaseHelper) {
+        statsModel = StatsModelFactory(databaseHelper: databaseHelper).getStatsModel(for: .zenMode)
     }
 }

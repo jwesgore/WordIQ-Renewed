@@ -18,15 +18,12 @@ class FrenzyModeViewModel : SingleBoardGameViewModel, ClockViewModelObserver {
         super.correctWordSubmitted()
         
         // Update GameOverDataModel
-        if let activeWord = gameBoardViewModel.activeWord, let gameWord = activeWord.getWord() {
-            
-            gameOptionsModel.resetTargetWord()
-            gameOverDataModel.addNewWord(gameOptionsModel.targetWord)
-            
-            self.gameBoardViewModel.resetBoardWithAnimation(delay: 0.5, hardReset: true) {
-                self.keyboardViewModel.resetKeyboard()
-                self.isKeyboardUnlocked = true
-            }
+        gameOptionsModel.resetTargetWord()
+        gameOverDataModel.addNewWord(gameOptionsModel.targetWord)
+        
+        self.gameBoardViewModel.resetBoardWithAnimation(delay: 0.5, hardReset: true) {
+            self.keyboardViewModel.resetKeyboard()
+            self.isKeyboardUnlocked = true
         }
     }
     

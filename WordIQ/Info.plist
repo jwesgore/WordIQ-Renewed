@@ -8,9 +8,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.googleusercontent.apps.379799513781-h2jp2v753hsllndq7rt2ftb40f6ir4jj</string>
-			</array>
+			<array/>
 		</dict>
 	</array>
 	<key>ITSAppUsesNonExemptEncryption</key>

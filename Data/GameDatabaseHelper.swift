@@ -3,233 +3,280 @@ import CoreData
 
 /// Database Helper for retrieve saved games
 class GameDatabaseHelper {
+    
+    // MARK: - Properties
+    private let context: NSManagedObjectContext
+    private(set) var allGameResults: [CDGameResultsModel] = []
 
-    let context: NSManagedObjectContext
-    
-    // MARK: Properties
-    var allGameResults : [GameResultsModel] = []
-    
-    var gameCount : Int {
-        return allGameResults.count
+    var gameCount: Int {
+        allGameResults.count
     }
     
-    var totalGuessesAll : (Int, Int, Int) {
-        return allGameResults.reduce((0, 0, 0)) { partialResult, gameResult in
+    var totalGuessesAll: (total: Int, valid: Int, invalid: Int) {
+        allGameResults.reduce((0, 0, 0)) { partialResult, gameResult in
             (
-                // Total guesses
-                partialResult.0 + Int(gameResult.numValidGuesses) + Int(gameResult.numInvalidGuesses),
-                // Total valid guesses
-                partialResult.1 + Int(gameResult.numValidGuesses),
-                // Total invalid guesses
-                partialResult.2 + Int(gameResult.numInvalidGuesses)
+                partialResult.total + Int(gameResult.numberOfValidGuesses) + Int(gameResult.numberOfInvalidGuesses),
+                partialResult.valid + Int(gameResult.numberOfValidGuesses),
+                partialResult.invalid + Int(gameResult.numberOfInvalidGuesses)
             )
         }
     }
-    
-    var totalGuesses : Int {
-        return allGameResults.reduce(0) { $0 + Int($1.numValidGuesses) + Int($1.numInvalidGuesses) }
+
+    var totalTimePlayed: Int {
+        allGameResults.reduce(0) { $0 + Int($1.timeElapsed) }
     }
     
-    var totalGuessesValid : Int {
-        return allGameResults.reduce(0) { $0 + Int($1.numValidGuesses) }
+    var lastDailyPlayed: Int {
+        calculateMaxValue(for: CDDailyModeGameResult.self, keyPath: "dailyId", maxKey: "maxDailyId") ?? 0
     }
-    
-    var totalGuessesInvalid : Int {
-        return allGameResults.reduce(0) { $0 + Int($1.numInvalidGuesses) }
-    }
-    
-    var totalTimePlayed : Int {
-        return allGameResults.reduce(0) { $0 + Int($1.timeElapsed) }
-    }
-    
-    // MARK: Constructor
+
+    // MARK: - Constructor
     init(context: NSManagedObjectContext = GameDatabasePersistenceController.shared.container.viewContext) {
         self.context = context
-        self.allGameResults = refreshDataInternal()
+        refreshData()
     }
-    
-    // MARK: Public Database Functions
-    // Delete all data from database
-    func deleteAllData() {
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = GameResultsModel.fetchRequest()
-        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-        
-        do {
-            // Execute the batch delete request
-            try context.execute(batchDeleteRequest)
-            // Clear the local snapshot after deletion
-            allGameResults = []
-            print("All data deleted successfully.")
-        } catch {
-            print("Failed to delete all data: \(error)")
-        }
+
+    // MARK: - Refresh Functions
+    private func refreshData() {
+        allGameResults = fetchResults(for: CDGameResultsModel.self)
     }
-    
-    /// Refreshes allGameResults snapshot
-    func refreshData()  {
-        self.allGameResults = self.refreshDataInternal()
-    }
-    
-    /// Refreshes allGameResults snapshot
-    func refreshDataInternal() -> [GameResultsModel] {
-        let fetchRequest: NSFetchRequest<GameResultsModel> = GameResultsModel.fetchRequest()
+
+    private func fetchResults<T: NSManagedObject>(for modelType: T.Type) -> [T] {
+        let fetchRequest = T.fetchRequest() as! NSFetchRequest<T>
         do {
             return try context.fetch(fetchRequest)
         } catch {
-            print("Error fetching game results: \(error)")
+            print("Error fetching \(modelType): \(error)")
             return []
         }
     }
+
+    // MARK: - Database Utility Functions
+    func deleteAllData() {
+        guard let persistentStoreCoordinator = context.persistentStoreCoordinator else {
+            print("Persistent Store Coordinator not found.")
+            return
+        }
+        
+        for entity in persistentStoreCoordinator.managedObjectModel.entities {
+            guard let entityName = entity.name else { continue }
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+            let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+            
+            do {
+                try context.execute(batchDeleteRequest)
+                print("Cleared data for entity: \(entityName).")
+            } catch {
+                print("Failed to delete entity \(entityName): \(error)")
+            }
+        }
+        context.reset()
+    }
+
+    // MARK: - Calculation Functions
+    func getGameStatistics<T: CDGameResultsModel>(for modelType: T.Type) -> StatsModel {
+        var model = StatsModel()
+        
+        let results = fetchResults(for: modelType)
+        let totalGames = results.count
+        let totalTimePlayed = Int(results.reduce(0) { $0 + $1.timeElapsed })
+        let totalScore = Int(results.reduce(0) { $0 + $1.numberOfCorrectWords })
+        let totalInvalidGuesses = Int(results.reduce(0) { $0 + $1.numberOfInvalidGuesses })
+        let totalValidGuesses = Int(results.reduce(0) { $0 + $1.numberOfValidGuesses })
+        
+        model.totalGamesPlayed = totalGames
+        model.totalCorrectWords = totalScore
+        model.totalTimePlayed = totalTimePlayed
+        model.totalValidGuesses = totalValidGuesses
+        model.totalInvalidGuesses = totalInvalidGuesses
+        
+        if modelType is CDWinnableGame {
+            let totalWins = results.compactMap { gameResult in
+                guard let winnableGame = gameResult as? CDWinnableGame else { return false }
+                return winnableGame.result == GameResult.win.id
+            }.count
+            
+            model.totalWins = totalWins
+        }
     
+        return model
+    }
+    
+    func getGameModeWinPercentage<T: CDGameResultsModel & CDWinnableGame>(for modelType: T.Type) -> Double {
+        let results = fetchResults(for: modelType)
+        let totalGames = Double(results.count)
+        let totalWins = Double(results.filter { $0.result == GameResult.win.id }.count)
+        
+        return totalGames > 0 ? totalWins / totalGames : 0.0
+    }
+
+    func getGameModeDistribution() -> [GameMode: Int] {
+        [
+            .standardMode: fetchResults(for: CDStandardModeGameResult.self).count,
+            .rushMode: fetchResults(for: CDRushModeGameResult.self).count,
+            .frenzyMode: fetchResults(for: CDFrenzyModeGameResult.self).count,
+            .zenMode: fetchResults(for: CDZenModeGameResult.self).count,
+            .dailyGame: fetchResults(for: CDDailyModeGameResult.self).count
+        ]
+    }
+
+    // MARK: - Helper Functions
+    private func calculateMaxValue<T: NSManagedObject>(for modelType: T.Type, keyPath: String, maxKey: String) -> Int? {
+        let fetchRequest = T.fetchRequest() as! NSFetchRequest<T>
+        let keyPathExpression = NSExpression(forKeyPath: keyPath)
+        let maxExpression = NSExpression(forFunction: "max:", arguments: [keyPathExpression])
+        let expressionDescription = NSExpressionDescription()
+        expressionDescription.name = maxKey
+        expressionDescription.expression = maxExpression
+        expressionDescription.expressionResultType = .integer64AttributeType
+        fetchRequest.propertiesToFetch = [expressionDescription]
+        fetchRequest.resultType = .dictionaryResultType
+
+        do {
+            let result = try context.fetch(fetchRequest).first
+            if let maxDailyId = result?["maxDailyId"] as? Int64 {
+                return Int(maxDailyId)
+            } else {
+                return 0
+            }
+        } catch {
+            print("Error calculating max value for \(keyPath): \(error)")
+            return nil
+        }
+    }
+    
+    // MARK: - Save Functions
     // Update database
     func saveGame(_ gameOverData : GameOverDataModel) {
-//        let newGameResult = GameResultsModel(context: context)
-//        
-//        newGameResult.id = UUID()
-//        newGameResult.date = gameOverData.date
-//        
-//        newGameResult.gameDifficulty = Int64(gameOverData.gameDifficulty.id)
-//        newGameResult.gameMode = Int64(gameOverData.gameMode.id)
-//        newGameResult.gameResult = Int64(gameOverData.gameResult.id)
-//        
-//        newGameResult.numCorrectWords = Int64(gameOverData.numCorrectWords)
-//        newGameResult.numValidGuesses = Int64(gameOverData.numValidGuesses)
-//        newGameResult.numInvalidGuesses = Int64(gameOverData.numInvalidGuesses)
-//        
-//        newGameResult.targetWord = gameOverData.targetWord.word
-//        newGameResult.timeElapsed = Int64(gameOverData.timeElapsed)
-//        newGameResult.timeLimit = Int64(gameOverData.timeLimit ?? 0)
+        switch gameOverData.gameMode {
+        case .dailyGame:
+            _ = createDailyGameResult(gameOverData)
+        case .standardMode:
+            _ = createStandardGameResult(gameOverData)
+        case .rushMode:
+            _ = createRushGameResult(gameOverData)
+        case .frenzyMode:
+            _ = createFrenzyGameResult(gameOverData)
+        case .zenMode:
+            _ = createZenGameResult(gameOverData)
+        case .quadWordMode:
+            _ = createQuadStandardGameResult(gameOverData)
+        default:
+            fatalError("Invalid game over data model")
+        }
         
         saveContext()
     }
     
-    // MARK: Data Calculation Methods
-    /// Checks if daily entry already exists
-    func doesDailyEntryExist(word: GameWordModel) -> Bool {
-        let fetchRequest: NSFetchRequest<GameResultsModel> = GameResultsModel.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "gameMode == %d AND targetWord == %@", GameMode.dailyGame.id, word.word)
-        
-        do {
-            let results = try context.fetch(fetchRequest)
-            return !results.isEmpty
-        } catch {
-            print("Error fetching daily entry: \(error)")
-            return false
-        }
-    }
-    
-    /// Get the average amount of time spent playing a game
-    func getGameModeAvgTimePerGame(mode : GameMode) -> Int {
-        let timePlayed = getGameModeTimePlayed(mode: mode)
-        let gamesPlayed = getGameModeCount(mode: mode)
-        
-        guard gamesPlayed > 0 else { return 0 }
-        
-        return Int( timePlayed / gamesPlayed )
-    }
-    
-    /// Get the average amount of time spent on each word
-    func getGameModeAvgTimePerWord(mode: GameMode) -> Int {
-        let gameResults = getGamesByMode(mode)
-        let totalScore = gameResults.reduce(0) { $0 + $1.numCorrectWords }
-        let totalTimePlayed = gameResults.reduce(0) { $0 + $1.timeElapsed }
-        
-        guard totalScore > 0 else { return 0 }
-        
-        return Int(totalTimePlayed) / Int(totalScore)
-    }
-    
-    /// Get the average number of valid guesses per game
-    func getGameModeAvgNumGuessesPerGame(mode: GameMode) -> Int {
-        let gameResults = getGamesByMode(mode)
-        let totalGuesses = gameResults.reduce(0) { $0 + $1.numValidGuesses }
-        let totalGamesPlayed = gameResults.count
-        
-        guard totalGamesPlayed > 0 else { return 0 }
-        
-        return Int(totalGuesses) / Int(totalGamesPlayed)
-    }
-    
-    /// Get the score for a single game mode
-    func getGameModeAvgScore(mode: GameMode) -> Double {
-        let gameResults = getGamesByMode(mode)
-        
-        guard gameResults.count > 0 else { return 0 }
-        
-        let top = gameResults.reduce(0) { $0 + Int($1.numCorrectWords) }
-        let bottom = Double(gameResults.count)
-        
-        return Double(top) / bottom
-    }
-   
-    /// Get the total amount of games played in a single game mode
-    func getGameModeCount(mode : GameMode) -> Int {
-        return getGamesByMode(mode).count
-    }
-    
-    /// Get the distribution of games and games played
-    func getGameModeDistribution() -> [GameMode : Int] {
-        var data : [GameMode : Int] = [:]
-        
-        data[GameMode.standardMode] = getGameModeCount(mode: .standardMode)
-        data[GameMode.rushMode] = getGameModeCount(mode: .rushMode)
-        data[GameMode.frenzyMode] = getGameModeCount(mode: .frenzyMode)
-        data[GameMode.zenMode] = getGameModeCount(mode: .zenMode)
-        data[GameMode.dailyGame] = getGameModeCount(mode: .dailyGame)
-
-        return data
-    }
-    
-    /// Get the number of guesses made for a game mode
-    func getGameModeNumGuesses(mode : GameMode) -> Int {
-        return getGamesByMode(mode).reduce(0){ $0 + Int($1.numValidGuesses + $1.numInvalidGuesses)}
-    }
-    
-    /// Get the time played in a single game mode
-    func getGameModeTimePlayed(mode : GameMode) -> Int {
-        return getGamesByMode(mode).reduce(0){ $0 + Int($1.timeElapsed)}
-    }
-    
-    /// Get the win percentage of a single game mode
-    func getGameModeWinPercentage(mode : GameMode) -> Double {
-        let gameResults = getGamesByMode(mode)
-        let totalGames = Double(gameResults.count)
-        let totalWins = Double(gameResults.filter({ $0.gameResult == GameResult.win.id }).count)
-        
-        guard totalGames > 0 else { return 0.0 }
-        
-        return totalWins / totalGames
-    }
-    
-    /// Try and get game over model by id
-//    func getGameResultsById(id: UUID) -> GameOverDataModel? {
-//        let fetchRequest: NSFetchRequest<GameResultsModel> = GameResultsModel.fetchRequest()
-//        fetchRequest.predicate = NSPredicate(format: "id == %@", id as CVarArg)
-//        
-//        do {
-//            let results = try context.fetch(fetchRequest)
-//            if let gameResults = results.first {
-//                return GameOverDataModel(gameResults)
-//            }
-//        } catch {
-//            print("Error fetching game results by ID: \(error)")
-//        }
-//        return nil
-//    }
-    
-    // MARK: Private Functions
-    private func getGamesByMode(_ mode: GameMode) -> [GameResultsModel] {
-        return allGameResults.filter({ $0.gameMode == mode.id })
-    }
-    
+    /// Save the current context
     private func saveContext() {
         if context.hasChanges {
             do {
                 try context.save()
-                allGameResults = refreshDataInternal()
             } catch {
                 print("Error saving context: \(error)")
             }
         }
+    }
+    
+    /// Creates a valid CDDailyModeGameResult from the game over data
+    private func createDailyGameResult(_ gameOverData : GameOverDataModel) -> CDDailyModeGameResult {
+        let gameResult = CDDailyModeGameResult(context: context)
+        
+        gameResult.date = gameOverData.date
+        gameResult.dailyId = Int64(gameOverData.currentTargetWord?.daily ?? 0)
+        gameResult.gameMode = Int64(gameOverData.gameMode.id)
+        gameResult.id = UUID()
+        gameResult.numberOfCorrectWords = Int64(gameOverData.targetWordsCorrect.count)
+        gameResult.numberOfInvalidGuesses = Int64(gameOverData.numberOfInvalidGuesses)
+        gameResult.numberOfValidGuesses = Int64(gameOverData.numberOfValidGuesses)
+        gameResult.result = Int64(gameOverData.gameResult.id)
+        gameResult.timeElapsed = Int64(gameOverData.timeElapsed)
+        
+        return gameResult
+    }
+    
+    /// Creates a valid CDStandardModeGameResult from the game over data
+    private func createStandardGameResult(_ gameOverData : GameOverDataModel) -> CDStandardModeGameResult {
+        let gameResult = CDStandardModeGameResult(context: context)
+
+        gameResult.date = gameOverData.date
+        gameResult.difficulty = Int64(gameOverData.difficulty.id)
+        gameResult.gameMode = Int64(gameOverData.gameMode.id)
+        gameResult.id = UUID()
+        gameResult.numberOfCorrectWords = Int64(gameOverData.targetWordsCorrect.count)
+        gameResult.numberOfInvalidGuesses = Int64(gameOverData.numberOfInvalidGuesses)
+        gameResult.numberOfValidGuesses = Int64(gameOverData.numberOfValidGuesses)
+        gameResult.result = Int64(gameOverData.gameResult.id)
+        gameResult.timeElapsed = Int64(gameOverData.timeElapsed)
+        
+        return gameResult
+    }
+    
+    /// Creates a valid CDStandardModeGameResult from the game over data
+    private func createRushGameResult(_ gameOverData : GameOverDataModel) -> CDRushModeGameResult {
+        let gameResult = CDRushModeGameResult(context: context)
+
+        gameResult.date = gameOverData.date
+        gameResult.difficulty = Int64(gameOverData.difficulty.id)
+        gameResult.gameMode = Int64(gameOverData.gameMode.id)
+        gameResult.id = UUID()
+        gameResult.numberOfCorrectWords = Int64(gameOverData.targetWordsCorrect.count)
+        gameResult.numberOfInvalidGuesses = Int64(gameOverData.numberOfInvalidGuesses)
+        gameResult.numberOfValidGuesses = Int64(gameOverData.numberOfValidGuesses)
+        gameResult.result = Int64(gameOverData.gameResult.id)
+        gameResult.timeElapsed = Int64(gameOverData.timeElapsed)
+        gameResult.timeLimit = Int64(gameOverData.timeLimit)
+        
+        return gameResult
+    }
+    
+    /// Creates a valid CDStandardModeGameResult from the game over data
+    private func createFrenzyGameResult(_ gameOverData : GameOverDataModel) -> CDFrenzyModeGameResult {
+        let gameResult = CDFrenzyModeGameResult(context: context)
+
+        gameResult.date = gameOverData.date
+        gameResult.difficulty = Int64(gameOverData.difficulty.id)
+        gameResult.gameMode = Int64(gameOverData.gameMode.id)
+        gameResult.id = UUID()
+        gameResult.numberOfCorrectWords = Int64(gameOverData.targetWordsCorrect.count)
+        gameResult.numberOfInvalidGuesses = Int64(gameOverData.numberOfInvalidGuesses)
+        gameResult.numberOfValidGuesses = Int64(gameOverData.numberOfValidGuesses)
+        gameResult.timeElapsed = Int64(gameOverData.timeElapsed)
+        gameResult.timeLimit = Int64(gameOverData.timeLimit)
+        
+        return gameResult
+    }
+    
+    /// Creates a valid CDStandardModeGameResult from the game over data
+    private func createZenGameResult(_ gameOverData : GameOverDataModel) -> CDZenModeGameResult {
+        let gameResult = CDZenModeGameResult(context: context)
+
+        gameResult.date = gameOverData.date
+        gameResult.difficulty = Int64(gameOverData.difficulty.id)
+        gameResult.gameMode = Int64(gameOverData.gameMode.id)
+        gameResult.id = UUID()
+        gameResult.numberOfCorrectWords = Int64(gameOverData.targetWordsCorrect.count)
+        gameResult.numberOfInvalidGuesses = Int64(gameOverData.numberOfInvalidGuesses)
+        gameResult.numberOfValidGuesses = Int64(gameOverData.numberOfValidGuesses)
+        gameResult.timeElapsed = Int64(gameOverData.timeElapsed)
+        
+        return gameResult
+    }
+    
+    /// Creates a valid CDStandardModeGameResult from the game over data
+    private func createQuadStandardGameResult(_ gameOverData : GameOverDataModel) -> CDQuadStandardGameResult {
+        let gameResult = CDQuadStandardGameResult(context: context)
+
+        gameResult.date = gameOverData.date
+        gameResult.gameMode = Int64(gameOverData.gameMode.id)
+        gameResult.id = UUID()
+        gameResult.numberOfCorrectWords = Int64(gameOverData.targetWordsCorrect.count)
+        gameResult.numberOfInvalidGuesses = Int64(gameOverData.numberOfInvalidGuesses)
+        gameResult.numberOfValidGuesses = Int64(gameOverData.numberOfValidGuesses)
+        gameResult.result = Int64(gameOverData.gameResult.id)
+        gameResult.timeElapsed = Int64(gameOverData.timeElapsed)
+        
+        return gameResult
     }
 }
