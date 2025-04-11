@@ -30,6 +30,8 @@ class StatsModelFactory {
             model = databaseHelper.getGameStatistics(for: SDZenGameResult.self)
         case .quadWordMode:
             model = databaseHelper.getGameStatistics(for: SDQuadStandardGameResult.self)
+            model.bestStreak = UserDefaultsHelper.shared.maxStreak_quadStandard
+            model.currentStreak = UserDefaultsHelper.shared.currentStreak_quadStandard
         default:
             fatalError("No StatsModel for \(gameMode)")
         }

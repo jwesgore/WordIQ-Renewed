@@ -66,12 +66,9 @@ class GameDatabaseHelper {
         model.totalValidGuesses = totalValidGuesses
         model.totalInvalidGuesses = totalInvalidGuesses
         
-        if modelType is SDWinnable {
-            let totalWins = results.compactMap { gameResult in
-                guard let winnableGame = gameResult as? CDWinnableGame else { return false }
-                return winnableGame.result == GameResult.win.id
-            }.count
-            
+        if TGameResult.self is SDWinnable.Type {
+            let winnableResults = results.compactMap { $0 as? SDWinnable }
+            let totalWins = winnableResults.filter { $0.result == .win }.count
             model.totalWins = totalWins
         }
     

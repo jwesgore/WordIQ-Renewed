@@ -65,7 +65,8 @@ class FourWordGameViewModel : MultiBoardGame {
         
         // Lock the keyboard and determine if word is correct
         isKeyboardUnlocked = false
-
+        gameOverDataModel.numberOfValidGuesses += 1
+        
         for (id, targetWord) in targetWords where gameBoardStates[id] == .unsolved {
             if targetWord == wordSubmitted {
                 self.correctWordSubmitted(id, activeWord: wordSubmitted)
@@ -107,7 +108,7 @@ class FourWordGameViewModel : MultiBoardGame {
         
         gameBoardViewModel.gameBoards[id]?.isBoardActive = false
         
-        gameOverDataModel.addCorrectGuess(id: id)
+        gameOverDataModel.addCorrectGuess(id: id, incrementValidGuesses: false)
     }
     
     /// Handles what to do if an invalid word is submitted
@@ -129,7 +130,7 @@ class FourWordGameViewModel : MultiBoardGame {
         
         // Updates hints and game over model
         gameBoardViewModel.setTargetWordHints(id, comparisons: comparisons)
-        gameOverDataModel.addIncorrectGuess(id, comparisons: comparisons)
+        gameOverDataModel.addIncorrectGuess(id, comparisons: comparisons, incrementValidGuesses: false)
         
         gameBoardViewModel.goToNextLine(id, atEndOfBoard: isGameOver)
     }

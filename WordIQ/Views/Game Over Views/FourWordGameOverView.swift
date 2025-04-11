@@ -1,14 +1,16 @@
 import SwiftUI
+import SwiftData
 
 /// View that manages the end of a game
 struct FourWordGameOverView : View {
     
-    @StateObject var viewModel : FourWordGameOverViewModel
+    var databaseHelper: GameDatabaseHelper
     var gameOverWords: [GameOverWordViewModel]
     
-    @ObservedObject var gameViewModel: FourWordGameViewModel
-    
+    @StateObject var viewModel : FourWordGameOverViewModel
     @State var gameOverData : GameOverDataModel
+    
+    @ObservedObject var gameViewModel: FourWordGameViewModel
     
     var body : some View {
         VStack (spacing: 20) {
@@ -26,15 +28,13 @@ struct FourWordGameOverView : View {
             
             // MARK: Stats
             GroupBox {
-//                InfoItemView(viewModel.firstRowStat)
-//                Divider()
-//                InfoItemView(viewModel.secondRowStat)
-//                Divider()
-//                InfoItemView(viewModel.thirdRowStat)
-//                if gameOverData.gameMode != .zenMode {
-//                    Divider()
-//                    InfoItemView(viewModel.fourthRowStat)
-//                }
+                InfoItemView(viewModel.firstRowStat)
+                Divider()
+                InfoItemView(viewModel.secondRowStat)
+                Divider()
+                InfoItemView(viewModel.thirdRowStat)
+                Divider()
+                InfoItemView(viewModel.fourthRowStat)
             }
             .backgroundStyle(Color.appGroupBox)
             
@@ -57,6 +57,13 @@ struct FourWordGameOverView : View {
         }
         .padding()
         .onAppear {
+            viewModel.setRowDefaults()
+            viewModel.trySaveGameData(databaseHelper: databaseHelper)
+            
+            let statsModel = StatsModelFactory(databaseHelper: databaseHelper).getStatsModel(for: gameOverData.gameMode)
+            
+            viewModel.setRowValues(statsModel: statsModel)
+            
             for gameOverWord in gameOverWords {
                 if let backgrounds = gameOverData.targetWordsBackgrounds[gameOverWord.id] {
                     gameOverWord.setBackgrounds(backgrounds)
@@ -67,9 +74,10 @@ struct FourWordGameOverView : View {
 }
 
 extension FourWordGameOverView {
-    init (_ viewModel : FourWordGameViewModel) {
+    init (_ viewModel : FourWordGameViewModel, modelContext: ModelContext) {
         self.gameViewModel = viewModel
         self.gameOverData = viewModel.gameOverDataModel
+        self.databaseHelper = GameDatabaseHelper(context: modelContext)
         
         self._viewModel = StateObject(wrappedValue: FourWordGameOverViewModel(viewModel.gameOverDataModel, extraPlayAgainAction: viewModel.playAgain))
         
@@ -95,19 +103,3 @@ private struct FourWordGameOverWordsRow: View {
         }
     }
 }
-
-//struct FourWordsGameOverView_Preview: PreviewProvider {
-//    static var previews: some View {
-//        let gameModeOptions = FourWordGameModeOptionsModel()
-//        var gameoverModel = FourWordGameOverDataModel(gameModeOptions)
-//        gameoverModel.gameResult = .win
-//        let gameoverVM = FourWordGameOverViewModel()
-//        return VStack {
-//            // FourWordGameOverView(gameoverModel)
-//        }
-//        .padding()
-//        .previewDisplayName("Game Over Preview")
-//        .previewLayout(.sizeThatFits)
-//        .environment(\.managedObjectContext, GameDatabasePersistenceController.preview.container.viewContext)
-//    }
-//}

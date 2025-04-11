@@ -3,6 +3,7 @@ import SwiftUI
 /// View for games with four words
 struct FourWordGameView : View {
     
+    @Environment(\.modelContext) private var modelContext
     @ObservedObject var controller : MultiWordGameNavigationController
     @StateObject var viewModel : FourWordGameViewModel
 
@@ -29,7 +30,7 @@ struct FourWordGameView : View {
                     GamePauseView(viewModel)
                 }
             case .gameOver:
-                FourWordGameOverView(viewModel)
+                FourWordGameOverView(viewModel, modelContext: modelContext)
                     .transition(.opacity)
             default:
                 Color.appBackground

@@ -68,31 +68,31 @@ class GameOverDataModel : GameOverData {
     
     // MARK: - Functions
     /// Adds a correct word to the collection
-    func addCorrectGuess(_ word: DatabaseWordModel, id: UUID? = nil) {
+    func addCorrectGuess(_ word: DatabaseWordModel, id: UUID? = nil, incrementValidGuesses: Bool = true) {
         let id = id ?? word.id
         
         targetWords[id] = word
         targetWordsBackgrounds[id] = LetterComparison.getCollection(size: word.word.count, value: .correct)
         targetWordsCorrect.append(id)
         
-        numberOfValidGuesses += 1
+        numberOfValidGuesses += incrementValidGuesses ? 1 : 0
     }
     
     /// Adds a correct word to the collection via the id of the word
-    func addCorrectGuess(id: UUID) {
+    func addCorrectGuess(id: UUID, incrementValidGuesses: Bool = true) {
         if let word = targetWords[id] {
-            self.addCorrectGuess(word)
+            self.addCorrectGuess(word, incrementValidGuesses: incrementValidGuesses)
         }
     }
     
     /// adds the updated backgrounds for an incorrect word
-    func addIncorrectGuess(_ id: UUID, comparisons: [LetterComparison]) {
+    func addIncorrectGuess(_ id: UUID, comparisons: [LetterComparison], incrementValidGuesses: Bool = true) {
         if let backgrounds = targetWordsBackgrounds[id] {
             targetWordsBackgrounds[id] = LetterComparison.max(backgrounds, comparisons)
         } else {
             targetWordsBackgrounds[id] = comparisons
         }
-        numberOfValidGuesses += 1
+        numberOfValidGuesses += incrementValidGuesses ? 1 : 0
     }
     
     /// adds a new word to the target word list

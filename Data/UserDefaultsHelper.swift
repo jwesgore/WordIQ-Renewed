@@ -26,10 +26,12 @@ class UserDefaultsHelper {
     private let currentStreakDailyKey = "currentStreak_daily"
     private let currentStreakStandardKey = "currentStreak_standard"
     private let currentStreakRushKey = "currentStreak_rush"
+    private let currentStreakQuadStandardKey = "currentStreak_quadStandard"
     
     private let maxStreakDailyKey = "maxStreak_daily"
     private let maxStreakStandardKey = "maxStreak_standard"
     private let maxStreakRushKey = "maxStreak_rush"
+    private let maxStreakQuadStandardKey = "maxStreak_quadStandard"
     
     private let maxScoreFrenzyKey = "maxScore_frenzy"
     
@@ -55,10 +57,12 @@ class UserDefaultsHelper {
             currentStreakDailyKey: 0,
             currentStreakStandardKey: 0,
             currentStreakRushKey: 0,
+            currentStreakQuadStandardKey: 0,
             maxStreakDailyKey: 0,
             maxStreakStandardKey: 0,
             maxStreakRushKey: 0,
             maxScoreFrenzyKey: 0,
+            maxStreakQuadStandardKey: 0,
             lastDailyPlayedKey : 0,
             lastDayAppOpenedKey : 0
         ])
@@ -262,6 +266,17 @@ class UserDefaultsHelper {
         }
     }
     
+    /// Stores the value for the current quad standard mode streak
+    var currentStreak_quadStandard: Int {
+        get {
+            return UserDefaults.standard.integer(forKey: currentStreakQuadStandardKey)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: currentStreakQuadStandardKey)
+            if newValue > maxStreak_daily { maxStreak_quadStandard = newValue }
+        }
+    }
+    
     /// Final save state of daily mode
     var dailyGameOverModel : GameOverDataModel? {
         get {
@@ -336,6 +351,16 @@ class UserDefaultsHelper {
         }
     }
     
+    /// Stores the value for the largest quad standard mode streak
+    var maxStreak_quadStandard: Int {
+        get {
+            return UserDefaults.standard.integer(forKey: maxStreakQuadStandardKey)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: maxStreakQuadStandardKey)
+        }
+    }
+    
     /// Stores the value for the largest frenzy mode score
     var maxScore_frenzy: Int {
         get {
@@ -368,6 +393,8 @@ class UserDefaultsHelper {
             if gameOverResults.targetWordsCorrect.count > maxScore_frenzy {
                 maxScore_frenzy = gameOverResults.targetWordsCorrect.count
             }
+        case .quadWordMode:
+            currentStreak_quadStandard = gameOverResults.gameResult == .win ? currentStreak_quadStandard + 1 : 0
         default:
             break
         }

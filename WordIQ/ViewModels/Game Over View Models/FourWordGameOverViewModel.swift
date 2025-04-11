@@ -38,5 +38,38 @@ class FourWordGameOverViewModel : ObservableObject {
         self.gameOverData = gameOverData
         self.extraPlayAgainAction = extraPlayAgainAction
         self.extraGameOverAction = extraGameOverAction
+        
+        setRowDefaults()
+    }
+    
+    func setRowDefaults() {
+        // Set First Row Defaults
+        firstRowStat.icon = SFAssets.timer
+        firstRowStat.label = SystemNames.GameOver.timeElapsed
+        
+        // Set Second Row Defaults
+        secondRowStat.icon = SFAssets.numberSign
+        secondRowStat.label = SystemNames.GameOver.guesses
+        
+        // Set Third Row Defaults
+        thirdRowStat.icon = SFAssets.star
+        thirdRowStat.label = SystemNames.GameOver.currentStreak
+        
+        // Set Fourth Row Defaults
+        fourthRowStat.icon = SFAssets.stats
+        fourthRowStat.label = SystemNames.GameOver.winPercent
+    }
+    
+    func setRowValues(statsModel: StatsModel) {
+        // Set First and Second Row values
+        firstRowStat.value = TimeUtility.formatTimeShort(gameOverData.timeElapsed)
+        secondRowStat.value = gameOverData.numberOfValidGuesses.description
+        thirdRowStat.value = statsModel.currentStreak.description
+        fourthRowStat.value = ValueConverter.doubleToPercent(statsModel.winRate)
+    }
+    
+    func trySaveGameData(databaseHelper: GameDatabaseHelper) {
+        databaseHelper.saveGame(gameOverData)
+        UserDefaultsHelper.shared.update(gameOverData)
     }
 }
