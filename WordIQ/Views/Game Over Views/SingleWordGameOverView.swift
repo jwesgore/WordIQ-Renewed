@@ -1,14 +1,16 @@
 import SwiftUI
+import SwiftData
 
 /// View that manages the end of a game
 struct SingleWordGameOverView : View {
     
+    var databaseHelper: GameDatabaseHelper
+    
     @StateObject var viewModel : SingleWordGameOverViewModel
     @StateObject var gameOverWord: GameOverWordViewModel
+    @State var gameOverData : GameOverDataModel
     
     @ObservedObject var gameViewModel: SingleBoardGameViewModel
-    
-    @State var gameOverData : GameOverDataModel
     
     var body: some View {
         VStack (spacing: 20) {
@@ -56,8 +58,11 @@ struct SingleWordGameOverView : View {
         .padding()
         .onAppear {
             viewModel.setRowDefaults()
-            viewModel.saveData()
-            viewModel.setRowValues()
+            viewModel.trySaveGameData(databaseHelper: databaseHelper)
+            
+            let statsModel = StatsModelFactory(databaseHelper: databaseHelper).getStatsModel(for: gameOverData.gameMode)
+            
+            viewModel.setRowValues(statsModel: statsModel)
 
             gameOverWord.setBackgrounds(gameOverData.currentTargetWordBackgrounds ?? LetterComparison.getCollection(size: 5, value: .notSet))
         }
@@ -65,28 +70,13 @@ struct SingleWordGameOverView : View {
 }
 
 extension SingleWordGameOverView {
-    init(_ viewModel : SingleBoardGameViewModel) {
+    init(_ viewModel : SingleBoardGameViewModel, modelContext: ModelContext) {
         self.gameViewModel = viewModel
         self.gameOverData = viewModel.gameOverDataModel
+        self.databaseHelper = GameDatabaseHelper(context: modelContext)
         
         self._viewModel = StateObject(wrappedValue: SingleWordGameOverViewModel(viewModel.gameOverDataModel,
                                                                                 extraPlayAgainAction: viewModel.playAgain))
         self._gameOverWord = StateObject(wrappedValue: GameOverWordViewModel(viewModel.gameOverDataModel.currentTargetWord!))
     }
 }
-
-//struct GameOverView_Preview: PreviewProvider {
-//    static var previews: some View {
-//        let gameModeOptions = SingleWordGameModeOptionsModel(gameMode: .standardMode, gameDifficulty: .normal, timeLimit: 0)
-//        var gameoverModel = SingleWordGameOverDataModel(gameModeOptions)
-//        gameoverModel.gameResult = .win
-//        // let gameoverVM = SingleWordGameOverViewModel()
-//        return VStack {
-//            SingleWordGameOverView(gameoverModel)
-//        }
-//        .padding()
-//        .previewDisplayName("Game Over Preview")
-//        .previewLayout(.sizeThatFits)
-//        .environment(\.managedObjectContext, GameDatabasePersistenceController.preview.container.viewContext)
-//    }
-//}

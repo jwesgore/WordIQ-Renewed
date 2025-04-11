@@ -42,6 +42,6 @@ struct StatsGeneralView : View {
 extension StatsGeneralView {
     init (_ databaseHelper: GameDatabaseHelper) {
         self.databaseHelper = databaseHelper
-        self.statsModel = databaseHelper.getGameStatistics(for: CDGameResultsModel.self)
+        self.statsModel = databaseHelper.getGameStatistics(for: SDStandardGameResult.self)
     }
 }

@@ -13,23 +13,23 @@ class StatsModelFactory {
         
         switch gameMode {
         case .dailyGame:
-            model = databaseHelper.getGameStatistics(for: CDDailyModeGameResult.self)
+            model = databaseHelper.getGameStatistics(for: SDDailyGameResult.self)
             model.bestStreak = UserDefaultsHelper.shared.maxStreak_daily
             model.currentStreak = UserDefaultsHelper.shared.currentStreak_daily
         case .standardMode:
-            model = databaseHelper.getGameStatistics(for: CDStandardModeGameResult.self)
+            model = databaseHelper.getGameStatistics(for: SDStandardGameResult.self)
             model.bestStreak = UserDefaultsHelper.shared.maxStreak_standard
             model.currentStreak = UserDefaultsHelper.shared.currentStreak_standard
         case .rushMode:
-            model = databaseHelper.getGameStatistics(for: CDRushModeGameResult.self)
+            model = databaseHelper.getGameStatistics(for: SDRushGameResult.self)
             model.bestStreak = UserDefaultsHelper.shared.maxStreak_rush
             model.currentStreak = UserDefaultsHelper.shared.currentStreak_rush
         case .frenzyMode:
-            model = databaseHelper.getGameStatistics(for: CDFrenzyModeGameResult.self)
+            model = databaseHelper.getGameStatistics(for: SDFrenzyGameResult.self)
         case .zenMode:
-            model = databaseHelper.getGameStatistics(for: CDZenModeGameResult.self)
+            model = databaseHelper.getGameStatistics(for: SDZenGameResult.self)
         case .quadWordMode:
-            model = databaseHelper.getGameStatistics(for: CDQuadStandardGameResult.self)
+            model = databaseHelper.getGameStatistics(for: SDQuadStandardGameResult.self)
         default:
             fatalError("No StatsModel for \(gameMode)")
         }

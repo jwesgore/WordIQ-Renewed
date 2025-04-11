@@ -9,9 +9,7 @@ import SwiftUI
 
 @main
 struct WordIQApp: App {
-    
-    let persistenceController = GameDatabasePersistenceController.shared
-    
+
     init() {
         _ = WordDatabaseHelper.shared
         _ = UserDefaultsHelper.shared
@@ -26,7 +24,14 @@ struct WordIQApp: App {
     var body: some Scene {
         WindowGroup {
             AppStartingView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .modelContainer(for: [
+                        SDStandardGameResult.self,
+                        SDRushGameResult.self,
+                        SDFrenzyGameResult.self,
+                        SDDailyGameResult.self,
+                        SDZenGameResult.self,
+                        SDQuadStandardGameResult.self
+                    ])
         }
     }
 }

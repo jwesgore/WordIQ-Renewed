@@ -1,7 +1,9 @@
 import SwiftUI
+import SwiftData
 
 /// View of the playable game are
 struct SingleWordGameView : View {
+    @Environment(\.modelContext) private var modelContext: ModelContext
     
     @ObservedObject var controller : SingleWordGameNavigationController
     @StateObject var viewModel : SingleBoardGameViewModel
@@ -28,7 +30,7 @@ struct SingleWordGameView : View {
                     GamePauseView(viewModel)
                 }
             case .gameOver:
-                SingleWordGameOverView(viewModel)
+                SingleWordGameOverView(viewModel, modelContext: modelContext)
                     .transition(.opacity)
             default:
                 Color.appBackground

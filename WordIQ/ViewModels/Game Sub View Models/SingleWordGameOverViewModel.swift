@@ -1,11 +1,10 @@
 import SwiftUI
-import CoreData
+import SwiftData
 
 /// View Model for the game over screen
 class SingleWordGameOverViewModel : ObservableObject {
     
     // MARK: - Constants
-    let databaseHelper = GameDatabaseHelper()
     let functionButtonDimensions : (CGFloat, CGFloat) = (50, 400)
     
     private let extraPlayAgainAction : () -> Void
@@ -80,8 +79,7 @@ class SingleWordGameOverViewModel : ObservableObject {
     }
     
     /// Set the values on all stats items based on the game mode
-    func setRowValues() {
-        let statsModel = StatsModelFactory(databaseHelper: databaseHelper).getStatsModel(for: gameOverData.gameMode)
+    func setRowValues(statsModel: StatsModel) {
         
         // Set First and Second Row values
         firstRowStat.value = TimeUtility.formatTimeShort(gameOverData.timeElapsed)
@@ -107,9 +105,7 @@ class SingleWordGameOverViewModel : ObservableObject {
         }
     }
     
-    // MARK: - General Functions
-    /// Save game over data
-    func saveData() {
+    func trySaveGameData(databaseHelper: GameDatabaseHelper) {
         let isDailyMode = gameOverData.gameMode == .dailyGame
         
         guard !(isDailyMode && AppNavigationController.shared.isDailyAlreadyPlayed) else {

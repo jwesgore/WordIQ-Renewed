@@ -3,7 +3,7 @@ import SwiftUI
 /// View for the Game Settings
 struct GameSettingsView : View {
 
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
     @State private var databaseHelper: GameDatabaseHelper?
     
     @ObservedObject var gameSettingsVM: GameSettingsViewModel
@@ -56,7 +56,7 @@ struct GameSettingsView : View {
                 title: Text("Confirm Game Data Deletion"),
                 message: Text("Are you sure you want to erase all game data? This action cannot be undone."),
                 primaryButton: .destructive(Text("Erase")) {
-                    databaseHelper = GameDatabaseHelper(context: viewContext)
+                    databaseHelper = GameDatabaseHelper(context: modelContext)
                     databaseHelper?.deleteAllData()
                     
                     UserDefaultsHelper.shared.resetData()

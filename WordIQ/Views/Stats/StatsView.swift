@@ -1,10 +1,11 @@
 import SwiftUI
+import SwiftData
 import Charts
 
 /// View container for Stats
 struct StatsView : View {
     
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext: ModelContext
     @State private var databaseHelper: GameDatabaseHelper?
     
     @Binding var isPresented: Bool
@@ -32,7 +33,7 @@ struct StatsView : View {
                 Text("Loading data...")
                     .robotoSlabFont(.title2, .semiBold)
                     .onAppear {
-                        self.databaseHelper = GameDatabaseHelper(context: viewContext)
+                        self.databaseHelper = GameDatabaseHelper(context: modelContext)
                     }
             }
         }

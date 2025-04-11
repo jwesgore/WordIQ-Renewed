@@ -4,7 +4,6 @@ import SwiftUI
 class FourWordGameOverViewModel : ObservableObject {
     
     // MARK: Constants
-    let databaseHelper = GameDatabaseHelper()
     let functionButtonDimensions : (CGFloat, CGFloat) = (50, 400)
     
     private let extraPlayAgainAction : () -> Void

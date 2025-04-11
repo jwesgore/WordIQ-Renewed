@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 90;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -45,16 +45,21 @@
 		4B466D402D9E2CD400B28D13 /* GameOptionsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B466D3F2D9E2CCE00B28D13 /* GameOptionsProtocols.swift */; };
 		4B4929AE2D6BE90700CEBBF2 /* GamePauseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4929AD2D6BE8FC00CEBBF2 /* GamePauseViewModel.swift */; };
 		4B4929B22D6C3F1900CEBBF2 /* GameDatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4929B12D6C3F1100CEBBF2 /* GameDatabaseHelper.swift */; };
-		4B4929C92D6D8BF600CEBBF2 /* GameDatabasePersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4929C82D6D8BEA00CEBBF2 /* GameDatabasePersistenceController.swift */; };
 		4B4929CF2D6EB94200CEBBF2 /* ValueConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4929CE2D6EB92300CEBBF2 /* ValueConverter.swift */; };
 		4B4929D42D703D1100CEBBF2 /* HapticsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4929D32D703D0B00CEBBF2 /* HapticsHelper.swift */; };
+		4B5F9C9B2DA72D3F000A9F3F /* SDProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5F9C9A2DA72D13000A9F3F /* SDProtocols.swift */; };
+		4B5F9C9D2DA72EBA000A9F3F /* SDStandardGameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5F9C9C2DA72EAF000A9F3F /* SDStandardGameResult.swift */; };
+		4B5F9C9F2DA7780E000A9F3F /* SDRushGameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5F9C9E2DA77802000A9F3F /* SDRushGameResult.swift */; };
+		4B5F9CA12DA7793C000A9F3F /* SDFrenzyGameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5F9CA02DA77934000A9F3F /* SDFrenzyGameResult.swift */; };
+		4B5F9CA32DA779B6000A9F3F /* SDZenGameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5F9CA22DA779AD000A9F3F /* SDZenGameResult.swift */; };
+		4B5F9CA52DA77A4D000A9F3F /* SDQuadStandardResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5F9CA42DA77A45000A9F3F /* SDQuadStandardResult.swift */; };
+		4B5F9CA72DA78255000A9F3F /* SDDailyGameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5F9CA62DA78247000A9F3F /* SDDailyGameResult.swift */; };
 		4B6603A62CDEF90B00F4F140 /* GameModeOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6603A52CDEF90000F4F140 /* GameModeOptionsView.swift */; };
 		4B6603A92CE159A200F4F140 /* GameSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6603A82CE1599800F4F140 /* GameSettingsView.swift */; };
 		4B6603AB2CE165C600F4F140 /* GameSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6603AA2CE165C000F4F140 /* GameSettingsViewModel.swift */; };
 		4B6603AD2CE1CE2200F4F140 /* GameTimeLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6603AC2CE1CE1900F4F140 /* GameTimeLimit.swift */; };
 		4B6603AF2CEAE03800F4F140 /* GamePauseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6603AE2CEAE02400F4F140 /* GamePauseView.swift */; };
 		4B6603B12CEC3B5F00F4F140 /* TimeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6603B02CEC3B4A00F4F140 /* TimeUtility.swift */; };
-		4B6603B52CF69EBA00F4F140 /* WordIQCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4B6603B32CF69EBA00F4F140 /* WordIQCoreData.xcdatamodeld */; };
 		4B82B9D72CC072E2009A1502 /* WordIQApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82B9D62CC072E2009A1502 /* WordIQApp.swift */; };
 		4B82B9DD2CC072E4009A1502 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B82B9DC2CC072E4009A1502 /* Assets.xcassets */; };
 		4B82B9E02CC072E4009A1502 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B82B9DF2CC072E4009A1502 /* Preview Assets.xcassets */; };
@@ -83,12 +88,11 @@
 		4B884CD12D86840000C0A808 /* NotificationPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CD02D8683F500C0A808 /* NotificationPermissionView.swift */; };
 		4B884CD32D87526E00C0A808 /* HeaderWithDoneButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CD22D87525300C0A808 /* HeaderWithDoneButtonView.swift */; };
 		4B884CD52D87547400C0A808 /* ExpandAndCollapseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CD42D87546A00C0A808 /* ExpandAndCollapseHeaderView.swift */; };
-		4B884CDD2D87D12000C0A808 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CDC2D87D11600C0A808 /* AppDelegate.swift */; };
-		4B884CF12D87E1B600C0A808 /* SignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CF02D87E1AF00C0A808 /* SignInController.swift */; };
 		4B884CF62D8A4DDF00C0A808 /* AppHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CF52D8A4DD600C0A808 /* AppHeaderView.swift */; };
 		4B884CF82D8A568800C0A808 /* GameHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884CF72D8A568200C0A808 /* GameHeaderView.swift */; };
 		4B884D012D8A652E00C0A808 /* KeyboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884D002D8A652900C0A808 /* KeyboardViewModel.swift */; };
 		4B884D032D8A74AC00C0A808 /* GameBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B884D022D8A74A400C0A808 /* GameBoardViewModel.swift */; };
+		4B8D9D492DA60F47006CE333 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8D9D482DA60F47006CE333 /* CoreData.framework */; };
 		4B99E8BA2D8E009400F0F081 /* RobotoSlabHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B99E8B92D8E008C00F0F081 /* RobotoSlabHelper.swift */; };
 		4B99E8BC2D8E144D00F0F081 /* TopDownButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B99E8BB2D8E144400F0F081 /* TopDownButtonViewModel.swift */; };
 		4B99E8C22D8E20E000F0F081 /* RemoveButtonAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B99E8C12D8E20D800F0F081 /* RemoveButtonAnimation.swift */; };
@@ -198,16 +202,21 @@
 		4B466D3F2D9E2CCE00B28D13 /* GameOptionsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOptionsProtocols.swift; sourceTree = "<group>"; };
 		4B4929AD2D6BE8FC00CEBBF2 /* GamePauseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePauseViewModel.swift; sourceTree = "<group>"; };
 		4B4929B12D6C3F1100CEBBF2 /* GameDatabaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDatabaseHelper.swift; sourceTree = "<group>"; };
-		4B4929C82D6D8BEA00CEBBF2 /* GameDatabasePersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDatabasePersistenceController.swift; sourceTree = "<group>"; };
 		4B4929CE2D6EB92300CEBBF2 /* ValueConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueConverter.swift; sourceTree = "<group>"; };
 		4B4929D32D703D0B00CEBBF2 /* HapticsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsHelper.swift; sourceTree = "<group>"; };
+		4B5F9C9A2DA72D13000A9F3F /* SDProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDProtocols.swift; sourceTree = "<group>"; };
+		4B5F9C9C2DA72EAF000A9F3F /* SDStandardGameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDStandardGameResult.swift; sourceTree = "<group>"; };
+		4B5F9C9E2DA77802000A9F3F /* SDRushGameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDRushGameResult.swift; sourceTree = "<group>"; };
+		4B5F9CA02DA77934000A9F3F /* SDFrenzyGameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDFrenzyGameResult.swift; sourceTree = "<group>"; };
+		4B5F9CA22DA779AD000A9F3F /* SDZenGameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDZenGameResult.swift; sourceTree = "<group>"; };
+		4B5F9CA42DA77A45000A9F3F /* SDQuadStandardResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDQuadStandardResult.swift; sourceTree = "<group>"; };
+		4B5F9CA62DA78247000A9F3F /* SDDailyGameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDDailyGameResult.swift; sourceTree = "<group>"; };
 		4B6603A52CDEF90000F4F140 /* GameModeOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModeOptionsView.swift; sourceTree = "<group>"; };
 		4B6603A82CE1599800F4F140 /* GameSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsView.swift; sourceTree = "<group>"; };
 		4B6603AA2CE165C000F4F140 /* GameSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsViewModel.swift; sourceTree = "<group>"; };
 		4B6603AC2CE1CE1900F4F140 /* GameTimeLimit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTimeLimit.swift; sourceTree = "<group>"; };
 		4B6603AE2CEAE02400F4F140 /* GamePauseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePauseView.swift; sourceTree = "<group>"; };
 		4B6603B02CEC3B4A00F4F140 /* TimeUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeUtility.swift; sourceTree = "<group>"; };
-		4B6603B42CF69EBA00F4F140 /* WordIQCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WordIQCoreData.xcdatamodel; sourceTree = "<group>"; };
 		4B82B9D32CC072E2009A1502 /* WordIQ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordIQ.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B82B9D62CC072E2009A1502 /* WordIQApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordIQApp.swift; sourceTree = "<group>"; };
 		4B82B9DC2CC072E4009A1502 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -237,12 +246,11 @@
 		4B884CD02D8683F500C0A808 /* NotificationPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermissionView.swift; sourceTree = "<group>"; };
 		4B884CD22D87525300C0A808 /* HeaderWithDoneButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderWithDoneButtonView.swift; sourceTree = "<group>"; };
 		4B884CD42D87546A00C0A808 /* ExpandAndCollapseHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandAndCollapseHeaderView.swift; sourceTree = "<group>"; };
-		4B884CDC2D87D11600C0A808 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4B884CF02D87E1AF00C0A808 /* SignInController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInController.swift; sourceTree = "<group>"; };
 		4B884CF52D8A4DD600C0A808 /* AppHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHeaderView.swift; sourceTree = "<group>"; };
 		4B884CF72D8A568200C0A808 /* GameHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHeaderView.swift; sourceTree = "<group>"; };
 		4B884D002D8A652900C0A808 /* KeyboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewModel.swift; sourceTree = "<group>"; };
 		4B884D022D8A74A400C0A808 /* GameBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoardViewModel.swift; sourceTree = "<group>"; };
+		4B8D9D482DA60F47006CE333 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		4B99E8B92D8E008C00F0F081 /* RobotoSlabHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotoSlabHelper.swift; sourceTree = "<group>"; };
 		4B99E8BB2D8E144400F0F081 /* TopDownButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopDownButtonViewModel.swift; sourceTree = "<group>"; };
 		4B99E8C12D8E20D800F0F081 /* RemoveButtonAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveButtonAnimation.swift; sourceTree = "<group>"; };
@@ -321,10 +329,9 @@
 /* Begin PBXFrameworksBuildPhase section */
 		4B82B9D02CC072E2009A1502 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
+				4B8D9D492DA60F47006CE333 /* CoreData.framework in Frameworks */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
@@ -353,10 +360,10 @@
 		4B091B3C2CD587530092600B /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				4B85B2C92D8BACA2003127E0 /* WordDatabaseEnum.swift */,
 				4B4929B12D6C3F1100CEBBF2 /* GameDatabaseHelper.swift */,
 				4BD0CF852D7154B10077640A /* UserDefaultsHelper.swift */,
 				4B091B4B2CD5EAA00092600B /* WordDatabaseHelper.swift */,
+				4B85B2C92D8BACA2003127E0 /* WordDatabaseEnum.swift */,
 				4B4929BD2D6C4B5500CEBBF2 /* Data Models */,
 				4B884CD62D87CB9A00C0A808 /* Databases */,
 			);
@@ -442,6 +449,13 @@
 		4B4929BD2D6C4B5500CEBBF2 /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
+				4B5F9CA62DA78247000A9F3F /* SDDailyGameResult.swift */,
+				4B5F9CA02DA77934000A9F3F /* SDFrenzyGameResult.swift */,
+				4B5F9C9A2DA72D13000A9F3F /* SDProtocols.swift */,
+				4B5F9CA42DA77A45000A9F3F /* SDQuadStandardResult.swift */,
+				4B5F9C9E2DA77802000A9F3F /* SDRushGameResult.swift */,
+				4B5F9C9C2DA72EAF000A9F3F /* SDStandardGameResult.swift */,
+				4B5F9CA22DA779AD000A9F3F /* SDZenGameResult.swift */,
 			);
 			path = "Data Models";
 			sourceTree = "<group>";
@@ -459,7 +473,6 @@
 		4B6603A72CE156FE00F4F140 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				4B884CDC2D87D11600C0A808 /* AppDelegate.swift */,
 				4B82B9D62CC072E2009A1502 /* WordIQApp.swift */,
 				4B82B9DC2CC072E4009A1502 /* Assets.xcassets */,
 			);
@@ -596,11 +609,9 @@
 			isa = PBXGroup;
 			children = (
 				4B85B2D92D8D2BC5003127E0 /* AppNavigationController.swift */,
-				4B4929C82D6D8BEA00CEBBF2 /* GameDatabasePersistenceController.swift */,
 				4B85B2D12D8D0001003127E0 /* GameSelectionNavigationController.swift */,
 				4B99E8D82D91121C00F0F081 /* MultiWordNavigationController.swift */,
 				4B884CCB2D8676A800C0A808 /* NavigationControllerBase.swift */,
-				4B884CF02D87E1AF00C0A808 /* SignInController.swift */,
 				4B85B2D72D8D2A0B003127E0 /* SingleWordGameNavigationController.swift */,
 			);
 			path = Controllers;
@@ -624,7 +635,6 @@
 			isa = PBXGroup;
 			children = (
 				4B3541372DA3962800B89F6D /* WordIQCoreDataExtensions.swift */,
-				4B6603B32CF69EBA00F4F140 /* WordIQCoreData.xcdatamodeld */,
 				4B091B492CD5EA170092600B /* WordIQDatabase.db */,
 			);
 			path = Databases;
@@ -633,6 +643,7 @@
 		4B884CF22D87E65900C0A808 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4B8D9D482DA60F47006CE333 /* CoreData.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -895,8 +906,6 @@
 			);
 			buildRules = (
 			);
-			dependencies = (
-			);
 			name = WordIQ;
 			productName = WordIQ;
 			productReference = 4B82B9D32CC072E2009A1502 /* WordIQ.app */;
@@ -910,7 +919,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 1630;
 				TargetAttributes = {
 					4B82B9D22CC072E2009A1502 = {
 						CreatedOnToolsVersion = 15.4;
@@ -927,7 +936,7 @@
 			mainGroup = 4B82B9CA2CC072E2009A1502;
 			packageReferences = (
 			);
-			preferredProjectObjectVersion = 77;
+			preferredProjectObjectVersion = 90;
 			productRefGroup = 4B82B9D42CC072E2009A1502 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -940,7 +949,6 @@
 /* Begin PBXResourcesBuildPhase section */
 		4B82B9D12CC072E2009A1502 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				4BF5924D2CC088D700C555F6 /* LICENSE.txt in Resources */,
 				4B091B4A2CD5EA170092600B /* WordIQDatabase.db in Resources */,
@@ -958,14 +966,12 @@
 				4B82B9E02CC072E4009A1502 /* Preview Assets.xcassets in Resources */,
 				4B82B9DD2CC072E4009A1502 /* Assets.xcassets in Resources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4B82B9CF2CC072E2009A1502 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				4B99E8BC2D8E144D00F0F081 /* TopDownButtonViewModel.swift in Sources */,
 				4BF592142CC07D1900C555F6 /* GameDifficulty.swift in Sources */,
@@ -974,6 +980,7 @@
 				4B99E8DD2D91275200F0F081 /* MultiWordBoardState.swift in Sources */,
 				4BD0CFA02D72778F0077640A /* StatsZenModeView.swift in Sources */,
 				4BF592202CC0817400C555F6 /* SFAssets.swift in Sources */,
+				4B5F9C9F2DA7780E000A9F3F /* SDRushGameResult.swift in Sources */,
 				4B091B5E2CD85CC80092600B /* SingleWordGameOverViewModel.swift in Sources */,
 				4B466D402D9E2CD400B28D13 /* GameOptionsProtocols.swift in Sources */,
 				4B1CC1152D7FEFEF00A56316 /* GameSaveStateModel.swift in Sources */,
@@ -982,12 +989,14 @@
 				4B091B582CD6F77A0092600B /* ShakeEffect.swift in Sources */,
 				4B1CC1272D83B41C00A56316 /* GameBoardWordSaveStateModel.swift in Sources */,
 				4B466D332D9E06A600B28D13 /* SingleWordGameModels.swift in Sources */,
+				4B5F9C9D2DA72EBA000A9F3F /* SDStandardGameResult.swift in Sources */,
 				4BF592852CCD907800C555F6 /* GameSelectionTimeButtonView.swift in Sources */,
 				4B85B2D22D8D001C003127E0 /* GameSelectionNavigationController.swift in Sources */,
 				4BF5921E2CC0814900C555F6 /* KeyboardFunctions.swift in Sources */,
 				4B4929D42D703D1100CEBBF2 /* HapticsHelper.swift in Sources */,
 				4B1CC12F2D850C3C00A56316 /* GameSettingsToggleView.swift in Sources */,
 				4B85B2D82D8D2A1A003127E0 /* SingleWordGameNavigationController.swift in Sources */,
+				4B5F9CA72DA78255000A9F3F /* SDDailyGameResult.swift in Sources */,
 				4B6603B12CEC3B5F00F4F140 /* TimeUtility.swift in Sources */,
 				4B99E8BA2D8E009400F0F081 /* RobotoSlabHelper.swift in Sources */,
 				4B99E8C42D8F119300F0F081 /* Base Game Protocols.swift in Sources */,
@@ -1003,7 +1012,6 @@
 				4BF592182CC07F2400C555F6 /* SingleBoardGameViewModel.swift in Sources */,
 				4B99E8C82D90685C00F0F081 /* MultiGameBoardViewModel.swift in Sources */,
 				4B1CC1322D850D1200A56316 /* GameSettingsToggleWithDatePickerView.swift in Sources */,
-				4B884CF12D87E1B600C0A808 /* SignInController.swift in Sources */,
 				4B1CC1232D82990700A56316 /* ClockSaveStateModel.swift in Sources */,
 				4B1CC1252D83A61700A56316 /* GameBoardLetterSaveStateModel.swift in Sources */,
 				4B466D312D9E068700B28D13 /* GameModelProtocols.swift in Sources */,
@@ -1026,6 +1034,7 @@
 				4B1852852CCF01AE0054E5F4 /* GameWordView.swift in Sources */,
 				4B6603AD2CE1CE2200F4F140 /* GameTimeLimit.swift in Sources */,
 				4B091B4E2CD6812D0092600B /* ZenModeViewModel.swift in Sources */,
+				4B5F9CA52DA77A4D000A9F3F /* SDQuadStandardResult.swift in Sources */,
 				4B35411E2DA3792700B89F6D /* StatsModelFactory.swift in Sources */,
 				4BF5921C2CC07FF100C555F6 /* ValidCharacters.swift in Sources */,
 				4B8799132D9CD7FE00E4946E /* TwentyQuestionsViewModel.swift in Sources */,
@@ -1043,9 +1052,11 @@
 				4B35411C2DA367E700B89F6D /* StatsModel.swift in Sources */,
 				4B884CD52D87547400C0A808 /* ExpandAndCollapseHeaderView.swift in Sources */,
 				4BF5926B2CC30C3300C555F6 /* GameModeSelectionViewModel.swift in Sources */,
+				4B5F9CA32DA779B6000A9F3F /* SDZenGameResult.swift in Sources */,
 				4B99E8D32D91015A00F0F081 /* TopDownRadioButtonViewModel.swift in Sources */,
 				4B884D032D8A74AC00C0A808 /* GameBoardViewModel.swift in Sources */,
 				4B1CC12C2D84EAD800A56316 /* NotificationHelper.swift in Sources */,
+				4B5F9C9B2DA72D3F000A9F3F /* SDProtocols.swift in Sources */,
 				4B38D6382D9F6DFE00C699AE /* GameOverDataModelProtocols.swift in Sources */,
 				4B884CCE2D867F3F00C0A808 /* AppStartingView.swift in Sources */,
 				4BF592692CC30C1B00C555F6 /* GameModeSelectionView.swift in Sources */,
@@ -1056,9 +1067,9 @@
 				4B99E8D52D91016500F0F081 /* TopDownRadioButtonView.swift in Sources */,
 				4B85B2D02D8CFD0A003127E0 /* FourWordGameViewModel.swift in Sources */,
 				4BD0CFA22D7277980077640A /* StatsDailyModeView.swift in Sources */,
-				4B4929C92D6D8BF600CEBBF2 /* GameDatabasePersistenceController.swift in Sources */,
 				4BF592632CC1E72200C555F6 /* 3DButtonView.swift in Sources */,
 				4BF5928F2CCEDA3100C555F6 /* GameBoardLetterViewModel.swift in Sources */,
+				4B5F9CA12DA7793C000A9F3F /* SDFrenzyGameResult.swift in Sources */,
 				4B091B532CD684880092600B /* RushModeViewModel.swift in Sources */,
 				4B884CCC2D8676B300C0A808 /* NavigationControllerBase.swift in Sources */,
 				4BF592812CCD4A2A00C555F6 /* 3DRadioButtonGroupViewModel.swift in Sources */,
@@ -1080,7 +1091,6 @@
 				4BF592872CCEAB7700C555F6 /* KeyboardView.swift in Sources */,
 				4BF592232CC0848A00C555F6 /* SplashScreenView.swift in Sources */,
 				4B091B4C2CD5EAAA0092600B /* WordDatabaseHelper.swift in Sources */,
-				4B884CDD2D87D12000C0A808 /* AppDelegate.swift in Sources */,
 				4BF5925F2CC1E60E00C555F6 /* 3DButtonViewModel.swift in Sources */,
 				4B091B572CD68FF00092600B /* LetterComparison.swift in Sources */,
 				4B4929AE2D6BE90700CEBBF2 /* GamePauseViewModel.swift in Sources */,
@@ -1091,7 +1101,6 @@
 				4B1CC1192D82661B00A56316 /* DatabaseWordModel.swift in Sources */,
 				4BF592672CC2EDB100C555F6 /* ClockViewModel.swift in Sources */,
 				4BD0CF922D7195A00077640A /* StatsGeneralView.swift in Sources */,
-				4B6603B52CF69EBA00F4F140 /* WordIQCoreData.xcdatamodeld in Sources */,
 				4BF5927D2CCC1B1900C555F6 /* 3DRadioButtonViewModel.swift in Sources */,
 				4B99E8DB2D9114D200F0F081 /* FourWordGameOverView.swift in Sources */,
 				4BF592912CCEF83000C555F6 /* SingleWordGameView.swift in Sources */,
@@ -1104,12 +1113,11 @@
 				4B99E8D92D91122500F0F081 /* MultiWordNavigationController.swift in Sources */,
 				4B87990F2D98C58B00E4946E /* OrderedDictionary_Codable.swift in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		4B82B9E12CC072E4009A1502 /* Debug */ = {
+		4B82B9E12CC072E4009A1502 /* Debug configuration for PBXProject "WordIQ" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1144,6 +1152,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = WZ6NWM775D;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -1173,7 +1182,7 @@
 			};
 			name = Debug;
 		};
-		4B82B9E22CC072E4009A1502 /* Release */ = {
+		4B82B9E22CC072E4009A1502 /* Release configuration for PBXProject "WordIQ" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1208,6 +1217,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = WZ6NWM775D;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -1230,7 +1240,7 @@
 			};
 			name = Release;
 		};
-		4B82B9E42CC072E4009A1502 /* Debug */ = {
+		4B82B9E42CC072E4009A1502 /* Debug configuration for PBXNativeTarget "WordIQ" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1239,7 +1249,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"WordIQ/Preview Content\"";
-				DEVELOPMENT_TEAM = WZ6NWM775D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WordIQ/Info.plist;
@@ -1263,7 +1272,7 @@
 			};
 			name = Debug;
 		};
-		4B82B9E52CC072E4009A1502 /* Release */ = {
+		4B82B9E52CC072E4009A1502 /* Release configuration for PBXNativeTarget "WordIQ" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1272,7 +1281,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"WordIQ/Preview Content\"";
-				DEVELOPMENT_TEAM = WZ6NWM775D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WordIQ/Info.plist;
@@ -1302,35 +1310,20 @@
 		4B82B9CE2CC072E2009A1502 /* Build configuration list for PBXProject "WordIQ" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4B82B9E12CC072E4009A1502 /* Debug */,
-				4B82B9E22CC072E4009A1502 /* Release */,
+				4B82B9E12CC072E4009A1502 /* Debug configuration for PBXProject "WordIQ" */,
+				4B82B9E22CC072E4009A1502 /* Release configuration for PBXProject "WordIQ" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		4B82B9E32CC072E4009A1502 /* Build configuration list for PBXNativeTarget "WordIQ" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4B82B9E42CC072E4009A1502 /* Debug */,
-				4B82B9E52CC072E4009A1502 /* Release */,
+				4B82B9E42CC072E4009A1502 /* Debug configuration for PBXNativeTarget "WordIQ" */,
+				4B82B9E52CC072E4009A1502 /* Release configuration for PBXNativeTarget "WordIQ" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		4B6603B32CF69EBA00F4F140 /* WordIQCoreData.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				4B6603B42CF69EBA00F4F140 /* WordIQCoreData.xcdatamodel */,
-			);
-			currentVersion = 4B6603B42CF69EBA00F4F140 /* WordIQCoreData.xcdatamodel */;
-			path = WordIQCoreData.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 4B82B9CB2CC072E2009A1502 /* Project object */;
 }
