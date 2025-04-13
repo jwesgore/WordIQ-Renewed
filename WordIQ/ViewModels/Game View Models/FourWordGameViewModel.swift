@@ -1,34 +1,61 @@
 import SwiftUI
 
-/// View Model to support a quad mode game
+/// ViewModel to support a quad mode game.
+///
+/// This class implements the `MultiBoardGame` protocol to manage the logic and functionality
+/// for games with four boards. It handles game states, keyboard interactions, and navigation
+/// while also supporting gameplay with multiple target words.
 class FourWordGameViewModel : MultiBoardGame {
-    
+
     // MARK: - Properties
+    
+    /// Boolean to control the visibility of the pause menu.
     @Published var showPauseMenu = false
     
-    var clockViewModel : ClockViewModel
-    var gameBoardStates : [UUID: MultiWordBoardState] = [:]
+    /// ViewModel to manage the game clock.
+    var clockViewModel: ClockViewModel
+    
+    /// Dictionary to track the state of each game board by its UUID.
+    var gameBoardStates: [UUID: MultiWordBoardState] = [:]
+    
+    /// ViewModel for managing the collection of game boards.
     var gameBoardViewModel: MultiGameBoardViewModel
+    
+    /// Model containing the configuration options for the multi-board game.
     var gameOptionsModel: MultiBoardGameOptionsModel
+    
+    /// Model to track game-over data, including the player's performance and results.
     var gameOverDataModel: GameOverDataModel
+    
+    /// ViewModel for managing the pause menu.
     var gamePauseViewModel: GamePauseViewModel {
         let gamePauseVM = GamePauseViewModel()
         gamePauseVM.ResumeGameButton.action = self.resumeGame
         gamePauseVM.EndGameButton.action = self.exitGame
         return gamePauseVM
     }
+    
+    /// Boolean to determine whether the keyboard is unlocked for input.
     var isKeyboardUnlocked = true {
         didSet {
             keyboardViewModel.isKeyboardUnlocked = isKeyboardUnlocked
         }
     }
+    
+    /// ViewModel for handling keyboard interactions.
     lazy var keyboardViewModel: KeyboardViewModel = {
         KeyboardViewModel(keyboardAddLetter: self.keyboardAddLetter,
                           keyboardEnter: self.keyboardEnter,
                           keyboardDelete: self.keyboardDelete)
     }()
-    var targetWords : OrderedDictionaryCodable<UUID, DatabaseWordModel>
     
+    /// Dictionary of target words for the game, keyed by UUID.
+    var targetWords: OrderedDictionaryCodable<UUID, DatabaseWordModel>
+    
+    // MARK: - Initializer
+    
+    /// Initializes the `FourWordGameViewModel` with the given game options.
+    /// - Parameter gameOptions: The configuration options for the multi-board game.
     init(gameOptions: MultiBoardGameOptionsModel) {
         self.clockViewModel = ClockViewModel(timeLimit: gameOptions.timeLimit, isClockTimer: false)
         self.gameBoardStates = Dictionary(uniqueKeysWithValues: gameOptions.targetWords.allKeys.map { ($0, .unsolved) })
@@ -42,9 +69,11 @@ class FourWordGameViewModel : MultiBoardGame {
         }
     }
     
-    // MARK: - Keyboard functions
-    /// Function to communicate to the active game word to add a letter
-    func keyboardAddLetter(_ letter : ValidCharacters) {
+    // MARK: - Keyboard Functions
+    
+    /// Adds a letter to the active word on the currently active game board.
+    /// - Parameter letter: The letter to add.
+    func keyboardAddLetter(_ letter: ValidCharacters) {
         guard isKeyboardUnlocked else { return }
         
         gameBoardViewModel.addLetterToActiveWord(letter)
@@ -52,18 +81,17 @@ class FourWordGameViewModel : MultiBoardGame {
         if !clockViewModel.isClockActive { clockViewModel.startClock() }
     }
     
-    /// Function to communicate to subclass if the correct word or wrong word was submitted
+    /// Processes the submission of a word from the keyboard.
     func keyboardEnter() {
         guard self.isKeyboardUnlocked else { return }
         
         guard let wordSubmitted = gameBoardViewModel.activeWord.getWord(),
-                WordDatabaseHelper.shared.doesFiveLetterWordExist(wordSubmitted) else {
+              WordDatabaseHelper.shared.doesFiveLetterWordExist(wordSubmitted) else {
             gameOverDataModel.numberOfInvalidGuesses += 1
             invalidWordSubmitted()
             return
         }
         
-        // Lock the keyboard and determine if word is correct
         isKeyboardUnlocked = false
         gameOverDataModel.numberOfValidGuesses += 1
         
@@ -71,7 +99,6 @@ class FourWordGameViewModel : MultiBoardGame {
             if targetWord == wordSubmitted {
                 self.correctWordSubmitted(id, activeWord: wordSubmitted)
                 self.gameBoardStates[id] = .solved
-
             } else {
                 self.wrongWordSubmitted(id, activeWord: wordSubmitted) {
                     self.gameBoardStates[id] = .boardMaxedOut
@@ -91,15 +118,19 @@ class FourWordGameViewModel : MultiBoardGame {
         }
     }
     
-    /// Function to communicate to the active game word to delete a letter
+    /// Deletes a letter from the active word on the currently active game board.
     func keyboardDelete() {
         guard isKeyboardUnlocked else { return }
         
         gameBoardViewModel.removeLetterFromActiveWord()
     }
     
-    // MARK: - Enter Key pressed functions
-    /// Handles what to do if the correct word is submitted
+    // MARK: - Word Submission Handlers
+    
+    /// Handles logic for submitting the correct word on a specific board.
+    /// - Parameters:
+    ///   - id: The UUID of the game board where the word was submitted.
+    ///   - activeWord: The submitted word.
     func correctWordSubmitted(_ id: UUID, activeWord: GameWordModel) {
         let comparisons = LetterComparison.getCollection(size: activeWord.word.count, value: .correct)
 
@@ -111,39 +142,42 @@ class FourWordGameViewModel : MultiBoardGame {
         gameOverDataModel.addCorrectGuess(id: id, incrementValidGuesses: false)
     }
     
-    /// Handles what to do if an invalid word is submitted
+    /// Handles logic for submitting an invalid word.
     func invalidWordSubmitted() {
         gameBoardViewModel.shakeActiveRows()
     }
     
-    /// Handles what to do if the wrong word is submitted
+    /// Handles logic for submitting a wrong word on a specific board.
+    /// - Parameters:
+    ///   - id: The UUID of the game board where the word was submitted.
+    ///   - activeWord: The submitted word.
+    ///   - isGameOver: Closure to call when the board is maxed out.
     func wrongWordSubmitted(_ id: UUID, activeWord: GameWordModel, isGameOver: @escaping () -> Void) {
         guard let targetWord = targetWords[id] else {
             fatalError("Unable to get active word")
         }
         
-        // Builds comparisons and updates backgrounds on board and keyboard
         let comparisons = activeWord.comparison(targetWord)
-        
         gameBoardViewModel.setActiveWordBackground(id, comparisons: comparisons)
         keyboardViewModel.keyboardSetBackgrounds(activeWord.comparisonRankingMap(comparisons))
         
-        // Updates hints and game over model
         gameBoardViewModel.setTargetWordHints(id, comparisons: comparisons)
         gameOverDataModel.addIncorrectGuess(id, comparisons: comparisons, incrementValidGuesses: false)
         
         gameBoardViewModel.goToNextLine(id, atEndOfBoard: isGameOver)
     }
     
-    // MARK: - Navigation functions
-    /// Function to go back to game mode selection
+    // MARK: - Navigation Functions
+    
+    /// Exits the current game and navigates back to game mode selection.
     func exitGame() {
         clockViewModel.stopClock()
         AppNavigationController.shared.exitFromFourWordGame()
     }
     
-    /// Function to end the game
-    func gameOver(speed : Double = 1.5) {
+    /// Ends the current game and updates the game-over state.
+    /// - Parameter speed: The speed of the game-ending animation.
+    func gameOver(speed: Double = 1.5) {
         showPauseMenu = false
         
         clockViewModel.stopClock()
@@ -153,13 +187,13 @@ class FourWordGameViewModel : MultiBoardGame {
         AppNavigationController.shared.goToFourWordGameOver()
     }
     
-    /// Function to pause the game
+    /// Pauses the current game and displays the pause menu.
     func pauseGame() {
         showPauseMenu = true
         clockViewModel.stopClock()
     }
     
-    /// Function to play a new game again
+    /// Restarts the game by resetting all boards and related states.
     func playAgain() {
         keyboardViewModel.resetKeyboard()
         gameBoardViewModel.resetAllBoardsHard()
@@ -177,7 +211,7 @@ class FourWordGameViewModel : MultiBoardGame {
         isKeyboardUnlocked = true
     }
     
-    /// Function to resume the game when paused
+    /// Resumes the game after being paused.
     func resumeGame() {
         showPauseMenu = false
         clockViewModel.startClock()

@@ -16,7 +16,7 @@ class GameBoardViewModel : ObservableObject, Identifiable {
     var targetWordHints: [ValidCharacters?] = []
     var targetWordBackgrounds: [LetterComparison] = []
     
-    init(boardHeight: Int, boardWidth: Int, boardSpacing: CGFloat, id: UUID = UUID()) {
+    required init(boardHeight: Int, boardWidth: Int, boardSpacing: CGFloat, id: UUID = UUID()) {
         self.id = id
         
         self.boardHeight = boardHeight
@@ -135,18 +135,22 @@ class GameBoardViewModel : ObservableObject, Identifiable {
                                  hardReset: Bool = false,
                                  complete: @escaping () -> Void = {}) {
         
+        // Calculate animation delay
         let totalDelay = ((animationLength / 2.5 ) * Double(boardWidth)) + delay
         
+        // Call reset on all word view models on board
         for i in stride(from: boardHeight - 1, through: 0, by: -1) {
             DispatchQueue.main.asyncAfter(deadline: .now() + ((animationLength / 2.5 ) * Double(boardWidth - i)) + delay) {
                 self.wordViewModels[i].resetWithAnimation(animationLength: animationLength, speed: speed)
             }
         }
         
+        // Set position to top word and ensure board is active
         boardPosition = 0
         isBoardActive = true
         activeWord = wordViewModels.first
         
+        // If hard reset, clear hints and set backgrounds to not set for game over screen (used in frenzy mostly)
         if hardReset {
             for i in 0..<boardWidth {
                 targetWordHints[i] = nil
@@ -154,6 +158,7 @@ class GameBoardViewModel : ObservableObject, Identifiable {
             }
         }
         
+        // Load hints (or dont) and run closure
         DispatchQueue.main.asyncAfter(deadline: .now() + totalDelay + 0.2) {
             if loadHints {
                 self.activeWord?.loadHints(self.getTargetWordHints())

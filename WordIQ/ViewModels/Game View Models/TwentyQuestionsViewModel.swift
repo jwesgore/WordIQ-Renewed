@@ -1,0 +1,72 @@
+import SwiftUI
+
+/// ViewModel to manage the Twenty Questions game mode.
+///
+/// This ViewModel extends `SingleBoardGameViewModel` and customizes game logic
+/// for the Twenty Questions mode. It tracks correct and incorrect submissions,
+/// manages game-over conditions, and handles board and keyboard resets.
+class TwentyQuestionsViewModel : SingleBoardGameViewModel<TwentyQuestionsGameBoardViewModel> {
+    
+    // MARK: - Initializer
+    
+    /// Initializes the ViewModel with game options for Twenty Questions mode.
+    /// - Parameter gameOptions: The configuration options for the game, including
+    ///   target word and gameplay settings.
+    override init(gameOptions: SingleBoardGameOptionsModel) {
+        super.init(gameOptions: gameOptions)
+    }
+    
+    // MARK: - Word Submission Handlers
+    
+    /// Handles the logic when a correct word is submitted.
+    ///
+    /// This method calls the base logic to process the correct word submission,
+    /// activates the next word using `setNextWordCorrect`, and checks for win/loss
+    /// conditions. If the game continues, it resets the board and keyboard for the
+    /// next round.
+    override func correctWordSubmitted() {
+        super.correctWordSubmitted() // Call base class logic
+        
+        gameBoardViewModel.setNextWordCorrect() // Mark the next word as correct
+        
+        // Check if the game is won
+        guard gameOverDataModel.targetWordsCorrect.count < 5 else {
+            self.gameOverDataModel.gameResult = .win
+            self.gameOver()
+            return
+        }
+        
+        // Check if the game is lost
+        guard gameOverDataModel.numberOfValidGuesses < 20 else {
+            self.gameOverDataModel.gameResult = .lose
+            self.gameOver()
+            return
+        }
+        
+        // Game continues: Reset board and keyboard for the next word
+        self.gameBoardViewModel.resetBoardWithAnimation(delay: 0.5, hardReset: false) {
+            self.keyboardViewModel.resetKeyboard()
+        }
+    }
+    
+    /// Handles the logic when an incorrect word is submitted.
+    ///
+    /// This method calls the base logic to process the wrong word submission,
+    /// checks for loss conditions, and transitions to the next line. If the board
+    /// is full, it resets the board with hints.
+    override func wrongWordSubmitted() {
+        super.wrongWordSubmitted() // Call base class logic
+        
+        // Check if the game is lost
+        guard gameOverDataModel.numberOfValidGuesses < 20 else {
+            self.gameOverDataModel.gameResult = .lose
+            self.gameOver()
+            return
+        }
+        
+        // Advance to the next line, reset the board if maxed out
+        super.gameBoardViewModel.goToNextLine {
+            super.gameBoardViewModel.resetBoardWithAnimation(delay: 0.5, loadHints: true)
+        }
+    }
+}

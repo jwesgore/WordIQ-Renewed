@@ -1,18 +1,27 @@
+/// ViewModel responsible for managing the specific rules and logic of Zen Mode.
+///
+/// This class extends `SingleBoardGameViewModel` and provides a relaxed game experience
+/// without strict time constraints or win/lose conditions. It overrides word submission
+/// logic to handle gameplay in Zen Mode.
+class ZenModeViewModel : SingleBoardGameViewModel<GameBoardViewModel> {
 
-/// ViewModel to handle the specific rules of Zen Mode
-class ZenModeViewModel : SingleBoardGameViewModel {
-    
+    /// Handles logic for submitting a correct word in Zen Mode.
+    ///
+    /// Executes the base logic for correct word submission and ends the current game.
+    /// In Zen Mode, every correct word leads to a graceful conclusion of the game.
     override func correctWordSubmitted() {
-        // Call Base Logic
-        super.correctWordSubmitted()
+        super.correctWordSubmitted()  // Call base class logic
         super.gameOver()
     }
     
+    /// Handles logic for submitting a wrong word in Zen Mode.
+    ///
+    /// Executes the base logic for wrong word submission, advances to the next line
+    /// on the board, and resets the board with animations if the position reaches
+    /// the end of the board.
     override func wrongWordSubmitted() {
-        // Call Base Logic
-        super.wrongWordSubmitted()
+        super.wrongWordSubmitted()  // Call base class logic
         
-        // If the position has reached the end of the board, reset it
         super.gameBoardViewModel.goToNextLine {
             super.gameBoardViewModel.resetBoardWithAnimation(delay: 1.0, loadHints: true)
         }

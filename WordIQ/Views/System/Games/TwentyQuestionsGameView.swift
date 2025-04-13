@@ -2,11 +2,11 @@ import SwiftUI
 import SwiftData
 
 /// View of the playable game are
-struct SingleWordGameView : View {
+struct TwentyQuestionsGameView : View {
     @Environment(\.modelContext) private var modelContext: ModelContext
     
     @ObservedObject var controller : SingleWordGameNavigationController
-    @StateObject var viewModel : SingleBoardGameViewModel
+    @StateObject var viewModel : TwentyQuestionsViewModel
     
     var body : some View {
         ZStack {
@@ -18,7 +18,7 @@ struct SingleWordGameView : View {
                     
                     Spacer()
                     
-                    GameBoardView(viewModel.gameBoardViewModel)
+                    TwentyQuestionsGameBoardView(viewModel.gameBoardViewModel)
                     
                     Spacer()
                     
@@ -27,11 +27,10 @@ struct SingleWordGameView : View {
                 .padding([.horizontal, .bottom])
                 .transition(.opacity)
                 .fullScreenCover(isPresented: $viewModel.showPauseMenu) {
-                    GamePauseView(viewModel)
+                    // GamePauseView(viewModel)
                 }
             case .gameOver:
-                SingleWordGameOverView(viewModel, modelContext: modelContext)
-                    .transition(.opacity)
+                TwentyQuestionsGameOverView()
             default:
                 Color.appBackground
             }
@@ -40,9 +39,9 @@ struct SingleWordGameView : View {
     }
 }
 
-extension SingleWordGameView {
+extension TwentyQuestionsGameView {
     init (_ controller: SingleWordGameNavigationController = AppNavigationController.shared.singleWordGameNavigationController) {
         self.controller = controller
-        self._viewModel = StateObject(wrappedValue: controller.gameOptions.getSingleWordGameViewModel())
+        self._viewModel = StateObject(wrappedValue: controller.gameOptions.getTwentyQuestionsGameViewModel())
     }
 }

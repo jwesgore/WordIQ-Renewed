@@ -10,7 +10,7 @@ struct SingleWordGameOverView : View {
     @StateObject var gameOverWord: GameOverWordViewModel
     @State var gameOverData : GameOverDataModel
     
-    @ObservedObject var gameViewModel: SingleBoardGameViewModel
+    @ObservedObject var gameViewModel: SingleBoardGameViewModel<GameBoardViewModel>
     
     var body: some View {
         VStack (spacing: 20) {
@@ -70,7 +70,7 @@ struct SingleWordGameOverView : View {
 }
 
 extension SingleWordGameOverView {
-    init(_ viewModel : SingleBoardGameViewModel, modelContext: ModelContext) {
+    init (_ viewModel : SingleBoardGameViewModel<GameBoardViewModel>, modelContext: ModelContext) {
         self.gameViewModel = viewModel
         self.gameOverData = viewModel.gameOverDataModel
         self.databaseHelper = GameDatabaseHelper(context: modelContext)

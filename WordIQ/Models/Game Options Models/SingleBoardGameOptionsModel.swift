@@ -23,7 +23,7 @@ class SingleBoardGameOptionsModel : SingleWordGameOptions {
     }
     
     /// Gets the view model for the set game mode options
-    func getSingleWordGameViewModel() -> SingleBoardGameViewModel {
+    func getSingleWordGameViewModel() -> SingleBoardGameViewModel<GameBoardViewModel> {
         switch gameMode {
         case .standardMode: return StandardModeViewModel(gameOptions: self)
         case .rushMode: return RushModeViewModel(gameOptions: self)
@@ -32,6 +32,10 @@ class SingleBoardGameOptionsModel : SingleWordGameOptions {
         case .dailyGame: return DailyModeViewModel(gameOptions: self)
         default: fatalError("Invalid game mode selection")
         }
+    }
+    
+    func getTwentyQuestionsGameViewModel() -> TwentyQuestionsViewModel {
+        return TwentyQuestionsViewModel(gameOptions: self)
     }
     
     /// Gets a fresh game over data model base on current settings

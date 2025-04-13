@@ -1,34 +1,56 @@
 import SwiftUI
 
-/// ViewModel to manage the playable game screen with a single board
-class SingleBoardGameViewModel : SingleBoardGame {
+/// ViewModel to manage the playable game screen with a single game board.
+///
+/// This generic ViewModel provides the foundation for single-board gameplay, managing the game state,
+/// keyboard interactions, and board functionalities. It supports persistence through save states
+/// and navigation between game states.
+class SingleBoardGameViewModel<TGameBoard: GameBoardViewModel> : SingleBoardGame {
 
     // MARK: - Properties
+    
+    /// Boolean to indicate whether the pause menu is displayed.
     @Published var showPauseMenu = false
     
+    /// ViewModel to manage the game clock.
     var clockViewModel : ClockViewModel
-    var gameBoardViewModel: GameBoardViewModel
+    
+    /// ViewModel for the game board.
+    var gameBoardViewModel: TGameBoard
+    
+    /// Model containing the game options and configuration.
     var gameOptionsModel: SingleBoardGameOptionsModel
+    
+    /// Model to store game-over data.
     var gameOverDataModel: GameOverDataModel
+    
+    /// ViewModel for the pause menu.
     lazy var gamePauseViewModel = GamePauseViewModel()
+    
+    /// Boolean to determine whether the keyboard is unlocked for input.
     var isKeyboardUnlocked = true {
         didSet {
             keyboardViewModel.isKeyboardUnlocked = isKeyboardUnlocked
         }
     }
+    
+    /// ViewModel for managing the keyboard interactions.
     lazy var keyboardViewModel: KeyboardViewModel = {
         KeyboardViewModel(keyboardAddLetter: self.keyboardAddLetter,
                           keyboardEnter: self.keyboardEnter,
                           keyboardDelete: self.keyboardDelete)
     }()
+    
+    /// The target word for the current game.
     var targetWord : DatabaseWordModel { return gameOptionsModel.targetWord }
     
     // MARK: - Initializers
-    /// Base initializer
+    
+    /// Base initializer to start a new game.
+    /// - Parameter gameOptions: The configuration options for the game.
     init(gameOptions: SingleBoardGameOptionsModel) {
-        // Init Variables
         self.clockViewModel = ClockViewModel(timeLimit: gameOptions.timeLimit, isClockTimer: gameOptions.timeLimit > 0)
-        self.gameBoardViewModel = GameBoardViewModel(boardHeight: 6, boardWidth: 5, boardSpacing: 5.0)
+        self.gameBoardViewModel = TGameBoard(boardHeight: 6, boardWidth: 5, boardSpacing: 5.0)
         self.gameOptionsModel = gameOptions
         self.gameOverDataModel = gameOptions.getSingleWordGameOverDataModelTemplate()
         
@@ -38,11 +60,11 @@ class SingleBoardGameViewModel : SingleBoardGame {
         print(self.targetWord)
     }
     
-    /// Save state initializer
+    /// Save state initializer to restore a previous game state.
+    /// - Parameter gameSaveState: The saved state of the game.
     init(gameSaveState: GameSaveStateModel) {
-        // Init Variables
         clockViewModel = ClockViewModel(gameSaveState.clockState)
-        gameBoardViewModel = GameBoardViewModel(boardHeight: 6, boardWidth: 5, boardSpacing: 5.0)
+        gameBoardViewModel = TGameBoard(boardHeight: 6, boardWidth: 5, boardSpacing: 5.0)
         gameOptionsModel = gameSaveState.gameOptionsModel
         gameOverDataModel = gameSaveState.gameOverModel
         
@@ -51,122 +73,119 @@ class SingleBoardGameViewModel : SingleBoardGame {
         
         print(self.targetWord)
         
-        // Populate Collections
+        // Restore keyboard and board from save state
         keyboardViewModel.loadSaveState(gameSaveState: gameSaveState)
         gameBoardViewModel.loadSaveState(gameSaveState: gameSaveState)
     }
     
-    // MARK: - Keyboard functions
-    /// Function to communicate to the active game word to add a letter
+    // MARK: - Keyboard Functions
+    
+    /// Adds a letter to the active word on the game board.
+    /// - Parameter letter: The letter to add.
     func keyboardAddLetter(_ letter : ValidCharacters) {
-        // Check that keyboard is active
         guard isKeyboardUnlocked else { return }
         
-        // Add letter to game board
         gameBoardViewModel.addLetterToActiveWord(letter)
         
-        // If clock is not active, start it up
-        if !clockViewModel.isClockActive { clockViewModel.startClock() }
+        if !clockViewModel.isClockActive {
+            clockViewModel.startClock()
+        }
     }
     
-    /// Function to communicate to subclass if the correct word or wrong word was submitted
+    /// Processes word submission from the keyboard.
     func keyboardEnter() {
-        // Check that keyboard is active
         guard self.isKeyboardUnlocked else { return }
         
-        // Check that the word submitted is a valid word
         guard let wordSubmitted = gameBoardViewModel.activeWord?.getWord(),
-                WordDatabaseHelper.shared.doesFiveLetterWordExist(wordSubmitted) else {
+              WordDatabaseHelper.shared.doesFiveLetterWordExist(wordSubmitted) else {
             gameOverDataModel.numberOfInvalidGuesses += 1
             invalidWordSubmitted()
             return
         }
         
-        // Lock the keyboard and determine if word is correct
         isKeyboardUnlocked = false
         targetWord == wordSubmitted ? correctWordSubmitted() : wrongWordSubmitted()
         isKeyboardUnlocked = true
     }
     
-    /// Function to communicate to the active game word to delete a letter
+    /// Deletes a letter from the active word on the game board.
     func keyboardDelete() {
         guard isKeyboardUnlocked else { return }
         
         gameBoardViewModel.removeLetterFromActiveWord()
     }
-
-    // MARK: - Board functions
-    /// Function to reset the board to its default state
+    
+    // MARK: - Board Functions
+    
+    /// Resets the board to its default state.
     func resetBoardHard() {
         self.isKeyboardUnlocked = false
         self.gameBoardViewModel.resetBoardHard()
         self.isKeyboardUnlocked = true
     }
     
-    /// Function to reset the board to its default state with an animation
-    func resetBoardSoftWithAnimation(loadHints:Bool = false,
+    /// Resets the board with animations.
+    func resetBoardSoftWithAnimation(loadHints: Bool = false,
                                      animationLength: Double = 0.25,
                                      speed: Double = 4.0,
                                      delay: Double = 0.0,
                                      complete: @escaping () -> Void = {}) {
-            // disable the keyboard
-            self.isKeyboardUnlocked = false
-            self.gameBoardViewModel.resetBoardWithAnimation(animationLength: animationLength,
-                                                            speed: speed,
-                                                            delay: delay,
-                                                            loadHints: loadHints) {
-                complete()
-                self.isKeyboardUnlocked = true
-            }
+        self.isKeyboardUnlocked = false
+        self.gameBoardViewModel.resetBoardWithAnimation(animationLength: animationLength,
+                                                        speed: speed,
+                                                        delay: delay,
+                                                        loadHints: loadHints) {
+            complete()
+            self.isKeyboardUnlocked = true
         }
+    }
     
-    // MARK: - Enter Key pressed functions
-    /// Handles what to do if the correct word is submitted
+    // MARK: - Enter Key Functions
+    
+    /// Handles the logic when a correct word is submitted.
     func correctWordSubmitted() {
         guard let activeWord = gameBoardViewModel.activeWord,
               let gameWord = activeWord.getWord() else {
             fatalError("Unable to get active word")
         }
         
-        // Set the backgrounds
         let comparisons = [LetterComparison](repeating: .correct, count: 5)
         gameBoardViewModel.setActiveWordBackground(comparisons)
         keyboardViewModel.keyboardSetBackgrounds(gameWord.comparisonRankingMap(comparisons))
-
+        
         gameOverDataModel.addCorrectGuess(targetWord)
     }
     
-    /// Handles what to do if an invalid word is submitted
+    /// Handles the logic when an invalid word is submitted.
     func invalidWordSubmitted() {
         gameBoardViewModel.activeWord?.shake()
     }
     
-    /// Handles what to do if the wrong word is submitted
+    /// Handles the logic when a wrong word is submitted.
     func wrongWordSubmitted() {
         guard let activeWord = gameBoardViewModel.activeWord,
-            let gameWord = activeWord.getWord() else {
+              let gameWord = activeWord.getWord() else {
             fatalError("Unable to get active word")
         }
 
-        // Builds comparisons and updates backgrounds on board and keyboard
         let comparisons = gameWord.comparison(targetWord)
-    
         gameBoardViewModel.setActiveWordBackground(comparisons)
         keyboardViewModel.keyboardSetBackgrounds(gameWord.comparisonRankingMap(comparisons))
         
-        // Updates hints and game over model
         gameBoardViewModel.setTargetWordHints(comparisons)
         gameOverDataModel.addIncorrectGuess(targetWord.id, comparisons: comparisons)
     }
     
-    // MARK: - Navigation functions
-    /// Function to go back to game mode selection
+    // MARK: - Navigation Functions
+    
+    /// Exits the game and navigates to game mode selection.
     func exitGame() {
         clockViewModel.stopClock()
         AppNavigationController.shared.exitFromSingleWordGame()
     }
     
-    /// Function to end the game
+    /// Ends the current game.
+    /// - Parameter speed: The animation speed for ending the game.
     func gameOver(speed : Double = 1.5) {
         isKeyboardUnlocked = false
         showPauseMenu = false
@@ -177,15 +196,14 @@ class SingleBoardGameViewModel : SingleBoardGame {
         AppNavigationController.shared.goToSingleWordGameOver()
     }
     
-    /// Function to pause the game
+    /// Pauses the game.
     func pauseGame() {
         showPauseMenu = true
         clockViewModel.stopClock()
     }
     
-    /// Function to play a new game again
+    /// Restarts the game by resetting all components.
     func playAgain() {
-        // Reset all components
         keyboardViewModel.resetKeyboard()
         gameBoardViewModel.resetBoardHard()
         clockViewModel.resetClock()
@@ -197,17 +215,17 @@ class SingleBoardGameViewModel : SingleBoardGame {
         print(self.targetWord)
     }
     
-    /// Function to resume the game when paused
+    /// Resumes the game when paused.
     func resumeGame() {
         showPauseMenu = false
         clockViewModel.startClock()
     }
 
-    // MARK: Data Functions
-    /// Create Save State Model
+    // MARK: - Data Functions
+    
+    /// Creates a save state model based on the current game state.
+    /// - Returns: A `GameSaveStateModel` instance representing the save state.
     func getGameSaveState() -> GameSaveStateModel {
-
-        // Get Keyboard save state
         var keyboardSaveState: [ValidCharacters : LetterComparison] = [:]
         
         for (key, value) in self.keyboardViewModel.keyboardLetterButtons {

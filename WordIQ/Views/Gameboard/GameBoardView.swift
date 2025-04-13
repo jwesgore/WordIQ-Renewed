@@ -6,8 +6,9 @@ struct GameBoardView : View {
     @ObservedObject var viewModel: GameBoardViewModel
     
     var body: some View {
+    
+        // MARK: - Board
         let aspectRatio = aspectRatio(viewModel: viewModel)
-        
         GeometryReader { geometry in
             let edgeLength = edgeLength(geometry: geometry, viewModel: viewModel)
             
@@ -18,6 +19,7 @@ struct GameBoardView : View {
             }
         }
         .aspectRatio(aspectRatio, contentMode: .fit)
+    
     }
     
     private func aspectRatio(viewModel: GameBoardViewModel) -> Double {
@@ -37,8 +39,6 @@ struct GameBoardView : View {
         return min(height / boardHeight, width / boardWidth )
     }
 }
-
-
 
 extension GameBoardView {
     init(_ viewModel: GameBoardViewModel) {

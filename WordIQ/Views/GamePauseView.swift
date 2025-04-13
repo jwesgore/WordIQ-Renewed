@@ -42,7 +42,7 @@ struct GamePauseView : View {
 }
 
 extension GamePauseView {
-    init (_ viewModel: SingleBoardGameViewModel) {
+    init (_ viewModel: SingleBoardGameViewModel<GameBoardViewModel>) {
         self.clock = viewModel.clockViewModel
         self.options = viewModel.gameOptionsModel
         self.viewModel = GamePauseViewModel()

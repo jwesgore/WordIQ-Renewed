@@ -1,28 +1,18 @@
 import SwiftUI
 
 /// All possible game modes
-enum GameMode: String, Codable, Identifiable, Equatable {
-    
-    case standardMode
-    case rushMode
-    case frenzyMode
-    case zenMode
-    case dailyGame
-    case quickplay
-    case quadWordMode
-    
-    /// Implementation of Identifiable
-    var id: Int {
-        switch self {
-        case .standardMode: return 0
-        case .rushMode: return 1
-        case .frenzyMode: return 2
-        case .zenMode: return 3
-        case .dailyGame: return 4
-        case .quickplay: return 5
-        case .quadWordMode: return 6
-        }
-    }
+enum GameMode: Int, Codable, Identifiable, Equatable {
+
+    case standardMode = 0
+    case rushMode = 1
+    case frenzyMode = 2
+    case zenMode = 3
+    case dailyGame = 4
+    case quickplay = 5
+    case quadWordMode = 6
+    case twentyQuestions = 7
+
+    var id: Int { self.rawValue }
     
     /// Get GameMode from id
     static func fromId(_ id: Int) -> GameMode? {
@@ -34,6 +24,7 @@ enum GameMode: String, Codable, Identifiable, Equatable {
         case 4: return .dailyGame
         case 5: return .quickplay
         case 6: return .quadWordMode
+        case 7: return .twentyQuestions
         default: return nil
         }
     }
@@ -65,6 +56,7 @@ extension GameMode {
         case .dailyGame: return "Daily"
         case .quickplay: return "Quickplay"
         case .quadWordMode: return "Quad"
+        case .twentyQuestions: return "Twenty Guesses"
         }
     }
     
@@ -87,6 +79,7 @@ extension GameMode {
         case .zenMode: return "Take it easy"
         case .dailyGame: return "New Daily Available!"
         case .quadWordMode: return "Four words at once"
+        case .twentyQuestions: return "Twenty guesses, five words"
         default: return ""
         }
     }

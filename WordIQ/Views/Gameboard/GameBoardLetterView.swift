@@ -25,7 +25,7 @@ struct GameBoardLetterView : View {
 }
 
 extension GameBoardLetterView {
-    init(_ viewModel: GameBoardLetterViewModel, edgeSize: CGFloat = 10.0, fontSizeMultiplier: Double = 0.5) {
+    init(_ viewModel: GameBoardLetterViewModel, edgeSize: CGFloat = 50.0, fontSizeMultiplier: Double = 0.5) {
         self.viewModel = viewModel
         self.edgeSize = edgeSize
         self.fontSizeMultiplier = fontSizeMultiplier
