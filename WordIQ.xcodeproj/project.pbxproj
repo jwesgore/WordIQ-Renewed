@@ -64,6 +64,7 @@
 		4B82ABB42DA8D62200C80364 /* TwentyQuestionsGameBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABB32DA8D61900C80364 /* TwentyQuestionsGameBoardView.swift */; };
 		4B82ABB62DA8D84000C80364 /* TwentyQuestionsGameBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABB52DA8D83700C80364 /* TwentyQuestionsGameBoardViewModel.swift */; };
 		4B82ABB82DAB160100C80364 /* TwentyQuestionsGameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABB72DAB15F800C80364 /* TwentyQuestionsGameOverView.swift */; };
+		4B82ABBA2DAB606800C80364 /* KeyboardProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABB92DAB605C00C80364 /* KeyboardProtocols.swift */; };
 		4B82B9D72CC072E2009A1502 /* WordIQApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82B9D62CC072E2009A1502 /* WordIQApp.swift */; };
 		4B82B9DD2CC072E4009A1502 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B82B9DC2CC072E4009A1502 /* Assets.xcassets */; };
 		4B82B9E02CC072E4009A1502 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B82B9DF2CC072E4009A1502 /* Preview Assets.xcassets */; };
@@ -225,6 +226,7 @@
 		4B82ABB32DA8D61900C80364 /* TwentyQuestionsGameBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwentyQuestionsGameBoardView.swift; sourceTree = "<group>"; };
 		4B82ABB52DA8D83700C80364 /* TwentyQuestionsGameBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwentyQuestionsGameBoardViewModel.swift; sourceTree = "<group>"; };
 		4B82ABB72DAB15F800C80364 /* TwentyQuestionsGameOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwentyQuestionsGameOverView.swift; sourceTree = "<group>"; };
+		4B82ABB92DAB605C00C80364 /* KeyboardProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardProtocols.swift; sourceTree = "<group>"; };
 		4B82B9D32CC072E2009A1502 /* WordIQ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordIQ.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B82B9D62CC072E2009A1502 /* WordIQApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordIQApp.swift; sourceTree = "<group>"; };
 		4B82B9DC2CC072E4009A1502 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -807,6 +809,7 @@
 		4BF592162CC07EE300C555F6 /* Keyboard */ = {
 			isa = PBXGroup;
 			children = (
+				4B82ABB92DAB605C00C80364 /* KeyboardProtocols.swift */,
 				4B884D002D8A652900C0A808 /* KeyboardViewModel.swift */,
 				4B091B322CD3397D0092600B /* KeyboardFunctionViewModel.swift */,
 				4BF5928A2CCED43B00C555F6 /* KeyboardLetterViewModel.swift */,
@@ -1129,6 +1132,7 @@
 				4B99E8DB2D9114D200F0F081 /* FourWordGameOverView.swift in Sources */,
 				4BF592912CCEF83000C555F6 /* SingleWordGameView.swift in Sources */,
 				4BD0CF892D7175C90077640A /* StatsView.swift in Sources */,
+				4B82ABBA2DAB606800C80364 /* KeyboardProtocols.swift in Sources */,
 				4B85B2CA2D8BACAD003127E0 /* WordDatabaseEnum.swift in Sources */,
 				4B1852872CCF05610054E5F4 /* KeyboardLetterView.swift in Sources */,
 				4B99E8DF2D91F95E00F0F081 /* GameModeOptionsViewModel.swift in Sources */,
