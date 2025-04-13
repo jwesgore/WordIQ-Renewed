@@ -21,6 +21,7 @@ class GameModeSelectionViewModel : ObservableObject {
     var zenGameModeButton : TopDownButtonViewModel
     
     var fourWordGameModeButton : TopDownButtonViewModel
+    var twentyQuestionsGameModeButton : TopDownButtonViewModel
 
     init() {
         // Initialize all buttons without action
@@ -31,6 +32,7 @@ class GameModeSelectionViewModel : ObservableObject {
         frenzyGameModeButton = TopDownButtonViewModel(height: gameModeButtonDimension.0, width: gameModeButtonDimension.1)
         zenGameModeButton = TopDownButtonViewModel(height: gameModeButtonDimension.0, width: gameModeButtonDimension.1)
         fourWordGameModeButton = TopDownButtonViewModel(height: gameModeButtonDimension.0, width: gameModeButtonDimension.1)
+        twentyQuestionsGameModeButton = TopDownButtonViewModel(height: gameModeButtonDimension.0, width: gameModeButtonDimension.1)
         
         // Add actions to buttons
         dailyGameButton.action = {
@@ -54,5 +56,9 @@ class GameModeSelectionViewModel : ObservableObject {
         fourWordGameModeButton.action = {
             self.gameSelectionController.goToFourWordGame()
         }
+        twentyQuestionsGameModeButton.action = {
+            self.gameSelectionController.goToTwentyQuestionsGame()
+        }
+        
     }
 }

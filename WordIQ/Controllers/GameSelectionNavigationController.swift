@@ -54,6 +54,11 @@ class GameSelectionNavigationController : NavigationControllerBase {
         AppNavigationController.shared.goToSingleWordGame()
     }
     
+    /// Transitions to a twenty questions game
+    func goToTwentyQuestionsGame() {
+        AppNavigationController.shared.goToTwentyQuestionsGame()
+    }
+    
     /// Transition to a view with animation fading to a blank view
     override func goToViewWithAnimation(_ view: SystemView,
                                         delay: Double = 0.0,

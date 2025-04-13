@@ -2,7 +2,7 @@
 struct GameSaveStateModel : Codable {
     let clockState : ClockSaveStateModel
     let gameBoard: GameBoardSaveStateModel
-    let gameOptionsModel : SingleBoardGameOptionsModel
+    let gameOptionsModel : SingleWordGameOptionsModel
     let gameOverModel : GameOverDataModel
     let keyboardLetters : [ValidCharacters : LetterComparison]
 }

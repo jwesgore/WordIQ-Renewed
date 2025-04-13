@@ -1,28 +1,50 @@
 import SwiftUI
 import SwiftData
 
-/// View Model for the game over screen
-class SingleWordGameOverViewModel : ObservableObject {
+/// ViewModel for the game over screen in a single-word game.
+///
+/// This model manages game-over statistics, configures the display for various game modes,
+/// and provides view models for buttons that allow the player to exit or restart the game.
+class SingleWordGameOverViewModel: ObservableObject {
     
     // MARK: - Constants
-    let functionButtonDimensions : (CGFloat, CGFloat) = (50, 400)
     
-    private let extraPlayAgainAction : () -> Void
-    private let extraGameOverAction : () -> Void
+    /// Dimensions for function buttons (height, width).
+    let functionButtonDimensions: (CGFloat, CGFloat) = (50, 400)
     
-    // MARK: - Stats Info Models
+    // MARK: - Private Properties
+    
+    /// Closure executed when the "Play Again" button is pressed.
+    private let extraPlayAgainAction: () -> Void
+    
+    /// Closure executed when the "Game Over" (exit) button is pressed.
+    private let extraGameOverAction: () -> Void
+    
+    // MARK: - Published Stats Info Models
+    
+    /// Information model for the first row (e.g. time elapsed).
     @Published var firstRowStat = InfoItemModel()
+    
+    /// Information model for the second row (e.g. number of valid guesses).
     @Published var secondRowStat = InfoItemModel()
+    
+    /// Information model for the third row (e.g. current streak, games played, or score).
     @Published var thirdRowStat = InfoItemModel()
+    
+    /// Information model for the fourth row (e.g. win percentage or time per word).
     @Published var fourthRowStat = InfoItemModel()
     
     // MARK: - Button View Models
+    
+    /// Back button to exit the game over screen.
     lazy var backButton: TopDownButtonViewModel = {
         TopDownButtonViewModel(height: functionButtonDimensions.0, width: functionButtonDimensions.1) {
             self.extraGameOverAction()
             AppNavigationController.shared.exitFromSingleWordGame()
         }
     }()
+    
+    /// Play again button to restart the game.
     lazy var playAgainButton: TopDownButtonViewModel = {
         TopDownButtonViewModel(height: functionButtonDimensions.0, width: functionButtonDimensions.1) {
             self.extraPlayAgainAction()
@@ -30,9 +52,19 @@ class SingleWordGameOverViewModel : ObservableObject {
         }
     }()
     
+    // MARK: - Public Properties
+    
+    /// The game over data model containing game statistics.
     var gameOverData: GameOverDataModel
     
-    /// Initializer
+    // MARK: - Initialization
+    
+    /// Initializes a new instance of SingleWordGameOverViewModel.
+    ///
+    /// - Parameters:
+    ///   - gameOverData: A GameOverDataModel instance containing statistics for the game over screen.
+    ///   - extraPlayAgainAction: An optional closure to perform additional actions when playing again.
+    ///   - extraGameOverAction: An optional closure to perform additional actions when exiting the game.
     init(_ gameOverData: GameOverDataModel,
          extraPlayAgainAction: @escaping () -> Void = {},
          extraGameOverAction: @escaping () -> Void = {}) {
@@ -44,44 +76,42 @@ class SingleWordGameOverViewModel : ObservableObject {
     }
     
     // MARK: - Row Data Functions
-    /// Initialize the icon and label defaults for each row based on the game mode
+    
+    /// Configures the default icons and labels for each row based on the game mode.
     func setRowDefaults() {
-        // Set First Row Defaults
+        // First Row: Time Elapsed
         firstRowStat.icon = SFAssets.timer
         firstRowStat.label = SystemNames.GameOver.timeElapsed
         
-        // Set Second Row Defaults
+        // Second Row: Number of Guesses
         secondRowStat.icon = SFAssets.numberSign
         secondRowStat.label = SystemNames.GameOver.guesses
         
+        // Configure based on game mode
         switch gameOverData.gameMode {
         case .frenzyMode:
-            // Set Third Row Defaults
             thirdRowStat.icon = SFAssets.star
             thirdRowStat.label = SystemNames.GameOver.score
             
-            // Set Fourth Row Defaults
             fourthRowStat.icon = SFAssets.timer
             fourthRowStat.label = SystemNames.GameOver.timePerWord
         case .zenMode:
-            // Set Third Row Defaults
             thirdRowStat.icon = SFAssets.timer
             thirdRowStat.label = SystemNames.GameOver.gamesPlayed
         default:
-            // Set Third Row Defaults
             thirdRowStat.icon = SFAssets.star
             thirdRowStat.label = SystemNames.GameOver.currentStreak
             
-            // Set Fourth Row Defaults
             fourthRowStat.icon = SFAssets.stats
             fourthRowStat.label = SystemNames.GameOver.winPercent
         }
     }
     
-    /// Set the values on all stats items based on the game mode
+    /// Updates the stat rows with current values based on the provided StatsModel.
+    ///
+    /// - Parameter statsModel: A model containing up-to-date game statistics.
     func setRowValues(statsModel: StatsModel) {
-        
-        // Set First and Second Row values
+        // First and Second Row values
         firstRowStat.value = TimeUtility.formatTimeShort(gameOverData.timeElapsed)
         secondRowStat.value = gameOverData.numberOfValidGuesses.description
         
@@ -92,12 +122,11 @@ class SingleWordGameOverViewModel : ObservableObject {
         case .frenzyMode:
             let numberOfCorrectWords = gameOverData.targetWordsCorrect.count
             thirdRowStat.value = numberOfCorrectWords.description
-            if numberOfCorrectWords > 0 {
-                fourthRowStat.value = TimeUtility.formatTimeShort(gameOverData.timeElapsed / numberOfCorrectWords)
-            }
-            else {
-                fourthRowStat.value = TimeUtility.formatTimeShort(gameOverData.timeElapsed)
-            }
+            
+            // Avoid division by zero when calculating time per word
+            fourthRowStat.value = numberOfCorrectWords > 0
+                ? TimeUtility.formatTimeShort(gameOverData.timeElapsed / numberOfCorrectWords)
+                : TimeUtility.formatTimeShort(gameOverData.timeElapsed)
         case .zenMode:
             thirdRowStat.value = statsModel.totalGamesPlayed.description
         default:
@@ -105,6 +134,13 @@ class SingleWordGameOverViewModel : ObservableObject {
         }
     }
     
+    // MARK: - Data Persistence
+    
+    /// Attempts to save the game over data.
+    ///
+    /// If in daily mode and the game has already been played, the save is skipped.
+    ///
+    /// - Parameter databaseHelper: A helper object managing game database operations.
     func trySaveGameData(databaseHelper: GameDatabaseHelper) {
         let isDailyMode = gameOverData.gameMode == .dailyGame
         

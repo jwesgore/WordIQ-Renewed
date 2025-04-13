@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Model used to package up game mode options
-class SingleBoardGameOptionsModel : SingleWordGameOptions {
+class SingleWordGameOptionsModel : SingleWordGameOptions {
     
     var gameMode: GameMode
     var gameDifficulty: GameDifficulty
@@ -33,14 +33,15 @@ class SingleBoardGameOptionsModel : SingleWordGameOptions {
         default: fatalError("Invalid game mode selection")
         }
     }
-    
-    func getTwentyQuestionsGameViewModel() -> TwentyQuestionsViewModel {
-        return TwentyQuestionsViewModel(gameOptions: self)
-    }
-    
+        
     /// Gets a fresh game over data model base on current settings
     func getSingleWordGameOverDataModelTemplate() -> GameOverDataModel {
         return GameOverDataModel(self)
+    }
+    
+    /// Gets the view model for a twenty words game
+    func getTwentyQuestionsGameViewModel() -> TwentyQuestionsViewModel {
+        return TwentyQuestionsViewModel(gameOptions: self)
     }
     
     /// Resets the target word so the model can be persisted

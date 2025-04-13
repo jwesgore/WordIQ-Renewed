@@ -21,7 +21,7 @@ class GameModeOptionsViewModel : ObservableObject {
     let navigationButtonDimension: (CGFloat, CGFloat) = (50, 400)
     let timeSelectionButtonDimension: (CGFloat, CGFloat) = (50, 400)
     
-    var singleWordGameModeOptions : SingleBoardGameOptionsModel {
+    var singleWordGameModeOptions : SingleWordGameOptionsModel {
         return AppNavigationController.shared.singleWordGameOptionsModel
     }
     

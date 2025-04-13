@@ -19,7 +19,7 @@ class SingleBoardGameViewModel<TGameBoard: GameBoardViewModel> : SingleBoardGame
     var gameBoardViewModel: TGameBoard
     
     /// Model containing the game options and configuration.
-    var gameOptionsModel: SingleBoardGameOptionsModel
+    var gameOptionsModel: SingleWordGameOptionsModel
     
     /// Model to store game-over data.
     var gameOverDataModel: GameOverDataModel
@@ -48,7 +48,7 @@ class SingleBoardGameViewModel<TGameBoard: GameBoardViewModel> : SingleBoardGame
     
     /// Base initializer to start a new game.
     /// - Parameter gameOptions: The configuration options for the game.
-    init(gameOptions: SingleBoardGameOptionsModel) {
+    init(gameOptions: SingleWordGameOptionsModel) {
         self.clockViewModel = ClockViewModel(timeLimit: gameOptions.timeLimit, isClockTimer: gameOptions.timeLimit > 0)
         self.gameBoardViewModel = TGameBoard(boardHeight: 6, boardWidth: 5, boardSpacing: 5.0)
         self.gameOptionsModel = gameOptions

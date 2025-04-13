@@ -12,7 +12,7 @@ class TwentyQuestionsViewModel : SingleBoardGameViewModel<TwentyQuestionsGameBoa
     /// Initializes the ViewModel with game options for Twenty Questions mode.
     /// - Parameter gameOptions: The configuration options for the game, including
     ///   target word and gameplay settings.
-    override init(gameOptions: SingleBoardGameOptionsModel) {
+    override init(gameOptions: SingleWordGameOptionsModel) {
         super.init(gameOptions: gameOptions)
     }
     
@@ -27,7 +27,10 @@ class TwentyQuestionsViewModel : SingleBoardGameViewModel<TwentyQuestionsGameBoa
     override func correctWordSubmitted() {
         super.correctWordSubmitted() // Call base class logic
         
+        gameBoardViewModel.numberOfQuestionsLeft -= 1
         gameBoardViewModel.setNextWordCorrect() // Mark the next word as correct
+        gameOptionsModel.resetTargetWord() // Add a new target word
+        gameOverDataModel.addNewWord(gameOptionsModel.targetWord) 
         
         // Check if the game is won
         guard gameOverDataModel.targetWordsCorrect.count < 5 else {
@@ -44,7 +47,7 @@ class TwentyQuestionsViewModel : SingleBoardGameViewModel<TwentyQuestionsGameBoa
         }
         
         // Game continues: Reset board and keyboard for the next word
-        self.gameBoardViewModel.resetBoardWithAnimation(delay: 0.5, hardReset: false) {
+        self.gameBoardViewModel.resetBoardWithAnimation(delay: 0.5, hardReset: true) {
             self.keyboardViewModel.resetKeyboard()
         }
     }
@@ -56,6 +59,8 @@ class TwentyQuestionsViewModel : SingleBoardGameViewModel<TwentyQuestionsGameBoa
     /// is full, it resets the board with hints.
     override func wrongWordSubmitted() {
         super.wrongWordSubmitted() // Call base class logic
+        
+        gameBoardViewModel.numberOfQuestionsLeft -= 1
         
         // Check if the game is lost
         guard gameOverDataModel.numberOfValidGuesses < 20 else {

@@ -9,7 +9,7 @@ class DailyModeViewModel : StandardModeViewModel {
     /// If the daily challenge has already been played, it loads the saved game state from `UserDefaultsHelper`.
     /// Otherwise, it either restores a valid save state or starts a new game.
     /// - Parameter gameOptions: The configuration options for the daily game, including target word and gameplay settings.
-    override init(gameOptions: SingleBoardGameOptionsModel) {
+    override init(gameOptions: SingleWordGameOptionsModel) {
         // Check if the daily game has already been played
         guard !AppNavigationController.shared.isDailyAlreadyPlayed else {
             super.init(gameOptions: gameOptions)

@@ -47,7 +47,7 @@ class GameOverDataModel : GameOverData {
     }
     
     /// SingleBoardGameOptionsModel initializer
-    convenience init(_ gameOptions: SingleBoardGameOptionsModel) {
+    convenience init(_ gameOptions: SingleWordGameOptionsModel) {
         self.init(difficulty: gameOptions.gameDifficulty, gameMode: gameOptions.gameMode, timeLimit: gameOptions.timeLimit)
         
         let id = gameOptions.targetWord.id
@@ -57,7 +57,7 @@ class GameOverDataModel : GameOverData {
     }
     
     /// MultiBoardGameOptionsModel initializer
-    convenience init(_ gameOptions: MultiBoardGameOptionsModel) {
+    convenience init(_ gameOptions: MultiWordGameOptionsModel) {
         self.init(difficulty: gameOptions.gameDifficulty, gameMode: gameOptions.gameMode, timeLimit: gameOptions.timeLimit)
         
         for (id, targetWord) in gameOptions.targetWords {

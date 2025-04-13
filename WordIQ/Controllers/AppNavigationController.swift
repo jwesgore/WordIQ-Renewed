@@ -12,20 +12,22 @@ final class AppNavigationController : NavigationControllerBase {
     // MARK: - Controllers
     let singleWordGameNavigationController : SingleWordGameNavigationController
     let multiWordGameNavigationController : MultiWordGameNavigationController
+    let twentyQuestionsNavigationController : TwentyQuestionsNavigationController
     let gameSelectionNavigationController : GameSelectionNavigationController
     
     // MARK: - Models
-    let singleWordGameOptionsModel : SingleBoardGameOptionsModel
-    let multiBoardGameOptionsModel : MultiBoardGameOptionsModel
+    let singleWordGameOptionsModel : SingleWordGameOptionsModel
+    let multiBoardGameOptionsModel : MultiWordGameOptionsModel
     
     // MARK: - Initializer
     private init() {
         singleWordGameNavigationController = SingleWordGameNavigationController()
         multiWordGameNavigationController = MultiWordGameNavigationController()
+        twentyQuestionsNavigationController = TwentyQuestionsNavigationController()
         gameSelectionNavigationController = GameSelectionNavigationController()
         
-        singleWordGameOptionsModel = SingleBoardGameOptionsModel()
-        multiBoardGameOptionsModel = MultiBoardGameOptionsModel()
+        singleWordGameOptionsModel = SingleWordGameOptionsModel()
+        multiBoardGameOptionsModel = MultiWordGameOptionsModel()
     }
     
     // MARK: - Single Word Game Functions
@@ -91,6 +93,29 @@ final class AppNavigationController : NavigationControllerBase {
     /// Used to play four word game mode again
     func playAgainFourWordGame() {
         multiWordGameNavigationController.goToGameView() {
+            
+        }
+    }
+    
+    // MARK: - Twenty Questions Game Functions
+    /// Starts a twenty questions game
+    func goToTwentyQuestionsGame() {
+        singleWordGameOptionsModel.gameMode = .twentyQuestions
+        singleWordGameOptionsModel.timeLimit = 0
+        singleWordGameOptionsModel.gameDifficulty = .normal
+        
+        singleWordGameOptionsModel.resetTargetWord()
+        twentyQuestionsNavigationController.startGame { [weak self] in
+            self?.goToViewWithAnimation(.twentyQuestionsGame, delay: 0.25, pauseLength: 0.25)
+        }
+    }
+    
+    func goToTwentyQuestionsGameOver() {
+        twentyQuestionsNavigationController.goToGameOverView()
+    }
+    
+    func playAgainTwentyQuestionsGame() {
+        twentyQuestionsNavigationController.goToGameView() {
             
         }
     }

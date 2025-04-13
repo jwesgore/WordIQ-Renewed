@@ -24,6 +24,7 @@ struct GameModeSelectionView: View {
                         GameModeButton(viewModel.frenzyGameModeButton, gameMode: .frenzyMode)
                         GameModeButton(viewModel.zenGameModeButton, gameMode: .zenMode)
                         GameModeButton(viewModel.fourWordGameModeButton, gameMode: .quadWordMode)
+                        GameModeButton(viewModel.twentyQuestionsGameModeButton, gameMode: .twentyQuestions)
                         
                         Spacer()
                     }

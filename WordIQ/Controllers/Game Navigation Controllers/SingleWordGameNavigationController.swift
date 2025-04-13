@@ -1,14 +1,14 @@
 import SwiftUI
 
-/// Navigation Controller for single game view
-class MultiWordGameNavigationController : NavigationControllerBase {
+/// Navigation Controller for single word game view
+class SingleWordGameNavigationController : NavigationControllerBase, GameNavigationControllerProtocol {
     
-    var gameOptions: MultiBoardGameOptionsModel {
-        return AppNavigationController.shared.multiBoardGameOptionsModel
+    var gameOptions: SingleWordGameOptionsModel {
+        return AppNavigationController.shared.singleWordGameOptionsModel
     }
     
     init() {
-        super.init(.fourWordGame)
+        super.init(.singleWordGame)
     }
     
     /// Entry point for AppNavigationController to start game
@@ -19,22 +19,26 @@ class MultiWordGameNavigationController : NavigationControllerBase {
     }
     
     /// Entry point for AppNavigationController to go to the game over view
-    func goToGameOverView(immediate: Bool = false) {
+    func goToGameOverView(immediate: Bool = false, complete: @escaping () -> Void = {}) {
         if immediate {
-            goToView(.gameOver)
+            goToView(.gameOver) {
+                complete()
+            }
         } else {
-            goToViewWithAnimation(.gameOver)
+            goToViewWithAnimation(.gameOver) {
+                complete()
+            }
         }
     }
     
     /// Entry point for AppNavigationController to go to the game view
     func goToGameView(immediate: Bool = false, complete: @escaping () -> Void = {}) {
         if immediate {
-            goToView(.fourWordGame) {
+            goToView(.singleWordGame) {
                 complete()
             }
         } else {
-            goToViewWithAnimation(.fourWordGame, delay: 0.5) {
+            goToViewWithAnimation(.singleWordGame, delay: 0.5) {
                 complete()
             }
         }

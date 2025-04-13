@@ -22,7 +22,7 @@ class FourWordGameViewModel : MultiBoardGame {
     var gameBoardViewModel: MultiGameBoardViewModel
     
     /// Model containing the configuration options for the multi-board game.
-    var gameOptionsModel: MultiBoardGameOptionsModel
+    var gameOptionsModel: MultiWordGameOptionsModel
     
     /// Model to track game-over data, including the player's performance and results.
     var gameOverDataModel: GameOverDataModel
@@ -56,7 +56,7 @@ class FourWordGameViewModel : MultiBoardGame {
     
     /// Initializes the `FourWordGameViewModel` with the given game options.
     /// - Parameter gameOptions: The configuration options for the multi-board game.
-    init(gameOptions: MultiBoardGameOptionsModel) {
+    init(gameOptions: MultiWordGameOptionsModel) {
         self.clockViewModel = ClockViewModel(timeLimit: gameOptions.timeLimit, isClockTimer: false)
         self.gameBoardStates = Dictionary(uniqueKeysWithValues: gameOptions.targetWords.allKeys.map { ($0, .unsolved) })
         self.gameBoardViewModel = MultiGameBoardViewModel(gameOptions)

@@ -7,7 +7,7 @@ class RushModeViewModel : SingleBoardGameViewModel<GameBoardViewModel>, ClockVie
 
     /// Initializes the RushModeViewModel with the given game options and sets up clock observation.
     /// - Parameter gameOptions: The configuration options for the game, including target word and gameplay settings.
-    override init(gameOptions: SingleBoardGameOptionsModel) {
+    override init(gameOptions: SingleWordGameOptionsModel) {
         super.init(gameOptions: gameOptions)
         self.clockViewModel.addObserver(self)
     }

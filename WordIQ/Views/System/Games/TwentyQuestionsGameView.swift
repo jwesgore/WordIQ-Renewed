@@ -30,7 +30,8 @@ struct TwentyQuestionsGameView : View {
                     // GamePauseView(viewModel)
                 }
             case .gameOver:
-                TwentyQuestionsGameOverView()
+                TwentyQuestionsGameOverView(viewModel, modelContext: modelContext)
+                    .transition(.opacity)
             default:
                 Color.appBackground
             }
@@ -44,4 +45,8 @@ extension TwentyQuestionsGameView {
         self.controller = controller
         self._viewModel = StateObject(wrappedValue: controller.gameOptions.getTwentyQuestionsGameViewModel())
     }
+}
+
+#Preview {
+    TwentyQuestionsGameView()
 }

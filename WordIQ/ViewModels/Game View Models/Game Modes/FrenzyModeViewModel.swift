@@ -7,7 +7,7 @@ class FrenzyModeViewModel : SingleBoardGameViewModel<GameBoardViewModel>, ClockV
 
     /// Initializes the FrenzyModeViewModel with game options and sets up necessary observers.
     /// - Parameter gameOptions: The configuration options for the game, including target word and gameplay settings.
-    override init(gameOptions: SingleBoardGameOptionsModel) {
+    override init(gameOptions: SingleWordGameOptionsModel) {
         super.init(gameOptions: gameOptions)
         super.clockViewModel.addObserver(self)
     }

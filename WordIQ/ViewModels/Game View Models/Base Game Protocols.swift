@@ -30,7 +30,7 @@ protocol SingleBoardGame : GameBaseProtocol {
     var targetWord: DatabaseWordModel { get }
     
     /// Model containing configuration options for the single-board game.
-    var gameOptionsModel: SingleBoardGameOptionsModel { get set }
+    var gameOptionsModel: SingleWordGameOptionsModel { get set }
 }
 
 /// Protocol defining the structure and requirements for a multi-board game.
@@ -42,5 +42,5 @@ protocol MultiBoardGame : GameBaseProtocol {
     var targetWords: OrderedDictionaryCodable<UUID, DatabaseWordModel> { get set }
     
     /// Model containing configuration options for the multi-board game.
-    var gameOptionsModel: MultiBoardGameOptionsModel { get set }
+    var gameOptionsModel: MultiWordGameOptionsModel { get set }
 }

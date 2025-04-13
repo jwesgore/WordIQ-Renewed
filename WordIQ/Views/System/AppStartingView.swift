@@ -22,6 +22,9 @@ struct AppStartingView: View {
             case .fourWordGame:
                 FourWordGameView()
                     .transition(.opacity)
+            case .twentyQuestionsGame:
+                TwentyQuestionsGameView()
+                    .transition(.opacity)
             default:
                 Color.appBackground
             }

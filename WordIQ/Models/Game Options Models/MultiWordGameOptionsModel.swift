@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Model used to package up game mode options
-class MultiBoardGameOptionsModel : MultiWordGameOptions {
+class MultiWordGameOptionsModel : MultiWordGameOptions {
     
     var gameMode: GameMode
     var gameDifficulty: GameDifficulty
@@ -22,7 +22,7 @@ class MultiBoardGameOptionsModel : MultiWordGameOptions {
     }
     
     convenience init(gameMode: GameMode = .quadWordMode) {
-        let targetWordCount = gameMode == .quadWordMode ? 4 : 5
+        let targetWordCount = 4
 
         let targetWords = WordDatabaseHelper.shared.fetchMultipleRandomFiveLetterWord(withDifficulty: .normal, count: targetWordCount)
         self.init(gameMode: gameMode, gameDifficulty: .normal, timeLimit: 0, targetWords: targetWords)
@@ -30,6 +30,7 @@ class MultiBoardGameOptionsModel : MultiWordGameOptions {
     
     /// Gets the view model for the set game mode options
     func getFourWordGameViewModel() -> FourWordGameViewModel {
+        gameMode = .quadWordMode
         return FourWordGameViewModel(gameOptions: self)
     }
     
@@ -40,7 +41,7 @@ class MultiBoardGameOptionsModel : MultiWordGameOptions {
     
     /// Resets the target word so the model can be persisted
     func resetTargetWords(withResetKeys: Bool = false) {
-        let targetWordCount = gameMode == .quadWordMode ? 4 : 5
+        let targetWordCount = 4
         let newWords = WordDatabaseHelper.shared.fetchMultipleRandomFiveLetterWord(withDifficulty: gameDifficulty, count: targetWordCount)
         
         if withResetKeys {
@@ -60,5 +61,4 @@ class MultiBoardGameOptionsModel : MultiWordGameOptions {
         timeLimit = 0
         resetTargetWords()
     }
-    
 }
