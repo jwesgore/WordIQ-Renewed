@@ -80,29 +80,29 @@ class SingleWordGameOverViewModel: ObservableObject {
     /// Configures the default icons and labels for each row based on the game mode.
     func setRowDefaults() {
         // First Row: Time Elapsed
-        firstRowStat.icon = SFAssets.timer
+        firstRowStat.icon = SFAssets.timer.rawValue
         firstRowStat.label = SystemNames.GameOver.timeElapsed
         
         // Second Row: Number of Guesses
-        secondRowStat.icon = SFAssets.numberSign
+        secondRowStat.icon = SFAssets.numberSign.rawValue
         secondRowStat.label = SystemNames.GameOver.guesses
         
         // Configure based on game mode
         switch gameOverData.gameMode {
         case .frenzyMode:
-            thirdRowStat.icon = SFAssets.star
+            thirdRowStat.icon = SFAssets.star.rawValue
             thirdRowStat.label = SystemNames.GameOver.score
             
-            fourthRowStat.icon = SFAssets.timer
+            fourthRowStat.icon = SFAssets.timer.rawValue
             fourthRowStat.label = SystemNames.GameOver.timePerWord
         case .zenMode:
-            thirdRowStat.icon = SFAssets.timer
+            thirdRowStat.icon = SFAssets.timer.rawValue
             thirdRowStat.label = SystemNames.GameOver.gamesPlayed
         default:
-            thirdRowStat.icon = SFAssets.star
+            thirdRowStat.icon = SFAssets.star.rawValue
             thirdRowStat.label = SystemNames.GameOver.currentStreak
             
-            fourthRowStat.icon = SFAssets.stats
+            fourthRowStat.icon = SFAssets.stats.rawValue
             fourthRowStat.label = SystemNames.GameOver.winPercent
         }
     }

@@ -1,24 +1,24 @@
 /// Enums defining many of the SF symbols used in this app
-enum SFAssets {
+enum SFAssets : String {
     
-    static let friends = "person.fill"
-    static let gameController = "gamecontroller"
-    static let home = "house.fill"
-    static let numberSign = "number"
-    static let pause = "pause"
-    static let percent = "percent"
-    static let playCircle = "play.circle"
-    static let settings = "gearshape"
-    static let star = "star"
-    static let stats = "chart.line.uptrend.xyaxis"
-    static let timer = "timer"
+    case friends = "person.fill"
+    case gameController = "gamecontroller"
+    case home = "house.fill"
+    case numberSign = "number"
+    case pause = "pause"
+    case percent = "percent"
+    case playCircle = "play.circle"
+    case settings = "gearshape"
+    case star = "star"
+    case stats = "chart.line.uptrend.xyaxis"
+    case timer = "timer"
     
     // MARK: Arrows
-    static let backArrow = "chevron.backward"
-    static let downArrow = "chevron.down"
-    static let upArrow = "chevron.up"
+    case backArrow = "chevron.backward"
+    case downArrow = "chevron.down"
+    case upArrow = "chevron.up"
     
     // MARK: Function keys
-    static let delete = "arrow.backward"
-    static let enter = "arrow.turn.down.right"
+    case delete = "arrow.backward"
+    case enter = "arrow.turn.down.right"
 }

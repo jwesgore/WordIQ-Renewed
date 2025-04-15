@@ -13,7 +13,7 @@ struct GameHeaderView : View {
             Button {
                 exitGame()
             } label: {
-                Image(systemName: SFAssets.backArrow)
+                Image(systemName: SFAssets.backArrow.rawValue)
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: RobotoSlabOptions.Size.title2.rawValue, maxHeight: RobotoSlabOptions.Size.title2.rawValue)
@@ -33,7 +33,7 @@ struct GameHeaderView : View {
             Button {
                 pauseGame()
             } label: {
-                Image(systemName: SFAssets.pause)
+                Image(systemName: SFAssets.pause.rawValue)
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: RobotoSlabOptions.Size.title2.rawValue, maxHeight: RobotoSlabOptions.Size.title2.rawValue)

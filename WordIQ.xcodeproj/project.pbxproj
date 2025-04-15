@@ -68,6 +68,7 @@
 		4B82ABBD2DAC6D0900C80364 /* TwentyQuestionsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABBC2DAC6CFE00C80364 /* TwentyQuestionsNavigationController.swift */; };
 		4B82ABBF2DAC6DA700C80364 /* GameNavigationControllerProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABBE2DAC6D9E00C80364 /* GameNavigationControllerProtocols.swift */; };
 		4B82ABC32DAC889300C80364 /* TwentyQuestionsGameOverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABC22DAC888600C80364 /* TwentyQuestionsGameOverViewModel.swift */; };
+		4B82ABC52DAF03A400C80364 /* GameMenuNavigationButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABC42DAF039700C80364 /* GameMenuNavigationButtonView.swift */; };
 		4B82B9D72CC072E2009A1502 /* WordIQApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82B9D62CC072E2009A1502 /* WordIQApp.swift */; };
 		4B82B9DD2CC072E4009A1502 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B82B9DC2CC072E4009A1502 /* Assets.xcassets */; };
 		4B82B9E02CC072E4009A1502 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B82B9DF2CC072E4009A1502 /* Preview Assets.xcassets */; };
@@ -233,6 +234,7 @@
 		4B82ABBC2DAC6CFE00C80364 /* TwentyQuestionsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwentyQuestionsNavigationController.swift; sourceTree = "<group>"; };
 		4B82ABBE2DAC6D9E00C80364 /* GameNavigationControllerProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameNavigationControllerProtocols.swift; sourceTree = "<group>"; };
 		4B82ABC22DAC888600C80364 /* TwentyQuestionsGameOverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwentyQuestionsGameOverViewModel.swift; sourceTree = "<group>"; };
+		4B82ABC42DAF039700C80364 /* GameMenuNavigationButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMenuNavigationButtonView.swift; sourceTree = "<group>"; };
 		4B82B9D32CC072E2009A1502 /* WordIQ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordIQ.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B82B9D62CC072E2009A1502 /* WordIQApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordIQApp.swift; sourceTree = "<group>"; };
 		4B82B9DC2CC072E4009A1502 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -911,6 +913,7 @@
 		4BF592602CC1E70700C555F6 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				4B82ABC42DAF039700C80364 /* GameMenuNavigationButtonView.swift */,
 				4BF592842CCD906900C555F6 /* GameSelectionTimeButtonView.swift */,
 				4BF592822CCD8DE200C555F6 /* GameSelectionDifficultyButtonView.swift */,
 				4BF5926C2CC3311200C555F6 /* GameModeButton.swift */,
@@ -1148,6 +1151,7 @@
 				4B82ABB22DA8C39F00C80364 /* TwentyQuestionsGameView.swift in Sources */,
 				4BD0CF922D7195A00077640A /* StatsGeneralView.swift in Sources */,
 				4BF5927D2CCC1B1900C555F6 /* 3DRadioButtonViewModel.swift in Sources */,
+				4B82ABC52DAF03A400C80364 /* GameMenuNavigationButtonView.swift in Sources */,
 				4B99E8DB2D9114D200F0F081 /* FourWordGameOverView.swift in Sources */,
 				4BF592912CCEF83000C555F6 /* SingleWordGameView.swift in Sources */,
 				4BD0CF892D7175C90077640A /* StatsView.swift in Sources */,

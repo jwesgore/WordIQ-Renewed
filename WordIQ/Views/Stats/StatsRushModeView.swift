@@ -15,31 +15,31 @@ struct StatsRushModeView: View {
             
             if showStats {
                 GroupBox {
-                InfoItemView(icon: SFAssets.numberSign,
+                InfoItemView(icon: SFAssets.numberSign.rawValue,
                              label: SystemNames.GameStats.gamesPlayed,
                              value: statsModel.totalGamesPlayed.description)
                 Divider()
-                InfoItemView(icon: SFAssets.numberSign,
+                InfoItemView(icon: SFAssets.numberSign.rawValue,
                              label: SystemNames.GameStats.guessesMade,
                              value: statsModel.totalValidGuesses.description)
                 Divider()
-                InfoItemView(icon: SFAssets.stats,
+                InfoItemView(icon: SFAssets.stats.rawValue,
                              label: SystemNames.GameStats.winPercentage,
                              value: ValueConverter.doubleToPercent(statsModel.winRate))
                 Divider()
-                InfoItemView(icon: SFAssets.timer,
+                InfoItemView(icon: SFAssets.timer.rawValue,
                              label: SystemNames.GameStats.timePlayed,
                              value: TimeUtility.formatTimeShort(statsModel.totalTimePlayed))
                 Divider()
-                InfoItemView(icon: SFAssets.timer,
+                InfoItemView(icon: SFAssets.timer.rawValue,
                              label: SystemNames.GameStats.avgTime,
                              value: TimeUtility.formatTimeShort(statsModel.averageTimePerGame))
                 Divider()
-                InfoItemView(icon: SFAssets.star,
+                InfoItemView(icon: SFAssets.star.rawValue,
                              label: SystemNames.GameStats.currentStreak,
                              value: statsModel.currentStreak.description)
                 Divider()
-                InfoItemView(icon: SFAssets.star,
+                InfoItemView(icon: SFAssets.star.rawValue,
                              label: SystemNames.GameStats.bestStreak,
                              value: statsModel.bestStreak.description)
                 }

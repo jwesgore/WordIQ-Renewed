@@ -12,7 +12,7 @@ struct ExpandAndCollapseHeaderView: View {
             HStack {
                 Text(title)
                     .robotoSlabFont(.title2, .semiBold)
-                Image(systemName: isExpanded ? SFAssets.downArrow : SFAssets.upArrow)
+                Image(systemName: isExpanded ? SFAssets.downArrow.rawValue : SFAssets.upArrow.rawValue)
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: RobotoSlabOptions.Size.title2.rawValue, maxHeight: RobotoSlabOptions.Size.title2.rawValue)

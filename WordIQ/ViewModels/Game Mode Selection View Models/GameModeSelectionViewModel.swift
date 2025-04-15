@@ -11,7 +11,7 @@ class GameModeSelectionViewModel : ObservableObject {
     }
     
     let halfButtonDimensions: (CGFloat, CGFloat) = (70, 200)
-    let gameModeButtonDimension: (CGFloat, CGFloat) = (70, 400)
+    let gameModeButtonDimension: (CGFloat, CGFloat) = (140, 200)
         
     var dailyGameButton : TopDownButtonViewModel
     var frenzyGameModeButton : TopDownButtonViewModel
@@ -23,7 +23,18 @@ class GameModeSelectionViewModel : ObservableObject {
     var fourWordGameModeButton : TopDownButtonViewModel
     var twentyQuestionsGameModeButton : TopDownButtonViewModel
 
+    var navigationRadioManager: TopDownRadioButtonGroupViewModel
+    var mainMenuRadioButton: TopDownRadioButtonViewModel
+    var statsRadioButton: TopDownRadioButtonViewModel
+    var settingsRadioButton: TopDownRadioButtonViewModel
+    
     init() {
+        
+        navigationRadioManager = TopDownRadioButtonGroupViewModel()
+        mainMenuRadioButton = TopDownRadioButtonViewModel(height: 40, width: 40, groupManager: navigationRadioManager, isPressed: true)
+        statsRadioButton = TopDownRadioButtonViewModel(height: 40, width: 40, groupManager: navigationRadioManager)
+        settingsRadioButton = TopDownRadioButtonViewModel(height: 40, width: 40, groupManager: navigationRadioManager)
+        
         // Initialize all buttons without action
         dailyGameButton = TopDownButtonViewModel(height: halfButtonDimensions.0, width: halfButtonDimensions.1)
         quickplayGameButton = TopDownButtonViewModel(height: halfButtonDimensions.0, width: halfButtonDimensions.1)
@@ -59,6 +70,8 @@ class GameModeSelectionViewModel : ObservableObject {
         twentyQuestionsGameModeButton.action = {
             self.gameSelectionController.goToTwentyQuestionsGame()
         }
+        
+        navigationRadioManager.add(mainMenuRadioButton, statsRadioButton, settingsRadioButton)
         
     }
 }

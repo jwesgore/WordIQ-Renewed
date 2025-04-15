@@ -15,19 +15,19 @@ struct StatsZenModeView: View {
             
             if showStats {
                 GroupBox {
-                    InfoItemView(icon: SFAssets.numberSign,
+                    InfoItemView(icon: SFAssets.numberSign.rawValue,
                                  label: SystemNames.GameStats.gamesPlayed,
                                  value: statsModel.totalGamesPlayed.description)
                     Divider()
-                    InfoItemView(icon: SFAssets.numberSign,
+                    InfoItemView(icon: SFAssets.numberSign.rawValue,
                                  label: SystemNames.GameStats.guessesMade,
                                  value: statsModel.totalValidGuesses.description)
                     Divider()
-                    InfoItemView(icon: SFAssets.timer,
+                    InfoItemView(icon: SFAssets.timer.rawValue,
                                  label: SystemNames.GameStats.timePlayed,
                                  value: TimeUtility.formatTimeShort(statsModel.totalTimePlayed))
                     Divider()
-                    InfoItemView(icon: SFAssets.timer,
+                    InfoItemView(icon: SFAssets.timer.rawValue,
                                  label: SystemNames.GameStats.avgTime,
                                  value: TimeUtility.formatTimeShort(statsModel.averageTimePerGame))
                 }

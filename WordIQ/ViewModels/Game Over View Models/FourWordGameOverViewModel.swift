@@ -79,19 +79,19 @@ class FourWordGameOverViewModel: ObservableObject {
     /// Configures default values (icons and labels) for all stat info rows.
     func setRowDefaults() {
         // First Row Defaults (Time Elapsed)
-        firstRowStat.icon = SFAssets.timer
+        firstRowStat.icon = SFAssets.timer.rawValue
         firstRowStat.label = SystemNames.GameOver.timeElapsed
         
         // Second Row Defaults (Guesses)
-        secondRowStat.icon = SFAssets.numberSign
+        secondRowStat.icon = SFAssets.numberSign.rawValue
         secondRowStat.label = SystemNames.GameOver.guesses
         
         // Third Row Defaults (Current Streak)
-        thirdRowStat.icon = SFAssets.star
+        thirdRowStat.icon = SFAssets.star.rawValue
         thirdRowStat.label = SystemNames.GameOver.currentStreak
         
         // Fourth Row Defaults (Win Percentage)
-        fourthRowStat.icon = SFAssets.stats
+        fourthRowStat.icon = SFAssets.stats.rawValue
         fourthRowStat.label = SystemNames.GameOver.winPercent
     }
     

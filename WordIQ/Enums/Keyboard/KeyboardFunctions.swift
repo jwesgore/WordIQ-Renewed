@@ -5,8 +5,8 @@ enum KeyboardFunctions: String, CaseIterable {
     /// Return the string representing the associated icon
     var symbol: String {
         switch self {
-        case .enter: return SFAssets.enter
-        case .backspace: return SFAssets.delete
+        case .enter: return SFAssets.enter.rawValue
+        case .backspace: return SFAssets.delete.rawValue
         }
     }
     

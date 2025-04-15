@@ -2,6 +2,7 @@ import SwiftUI
 
 struct AppHeaderView : View {
     
+    @ObservedObject var viewModel: GameModeSelectionViewModel
     @Binding var displayStats: Bool
     @Binding var displaySettings: Bool
     
@@ -10,24 +11,11 @@ struct AppHeaderView : View {
             Text(SystemNames.Title.title)
                 .robotoSlabFont(.title2, .bold)
             Spacer()
-            Button {
-                displayStats = true
-            } label: {
-                Image(systemName: SFAssets.stats)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(maxWidth: RobotoSlabOptions.Size.title2.rawValue)
-            }
-            .padding(.horizontal, 5)
             
-            Button {
-                displaySettings = true
-            } label: {
-                Image(systemName: SFAssets.settings)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(maxWidth: RobotoSlabOptions.Size.title2.rawValue)
-            }
+            GameMenuNavigationButtonView(viewModel.mainMenuRadioButton, image: .home)
+            GameMenuNavigationButtonView(viewModel.statsRadioButton, image: .stats)
+            GameMenuNavigationButtonView(viewModel.settingsRadioButton, image: .settings)
+            
         }
     }
 }
