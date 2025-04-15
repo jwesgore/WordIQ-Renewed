@@ -13,7 +13,36 @@ struct TwentyQuestionsGameOverView : View {
     @ObservedObject var gameViewModel: TwentyQuestionsViewModel
     
     var body: some View {
-        
+        VStack {
+            Spacer()
+            
+            // Display game result message.
+            if gameOverData.gameResult == .lose {
+                Text("Game Over")
+            } else {
+                Text("Congratulations! You Won!")
+                    .robotoSlabFont(.title, .bold)
+            }
+            
+            
+            
+            // MARK: - Buttons
+            HStack {
+                TopDownButtonView(viewModel.backButton) {
+                    Text(SystemNames.Navigation.mainMenu)
+                        .robotoSlabFont(.title3, .regular)
+                }
+                
+                TopDownButtonView(viewModel.playAgainButton) {
+                    Text(SystemNames.Navigation.playAgain)
+                        .robotoSlabFont(.title3, .regular)
+                }
+            }
+        }
+        .padding()
+        .onAppear {
+            
+        }
     }
 }
 

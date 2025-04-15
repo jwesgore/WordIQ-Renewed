@@ -67,6 +67,7 @@
 		4B82ABBA2DAB606800C80364 /* KeyboardProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABB92DAB605C00C80364 /* KeyboardProtocols.swift */; };
 		4B82ABBD2DAC6D0900C80364 /* TwentyQuestionsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABBC2DAC6CFE00C80364 /* TwentyQuestionsNavigationController.swift */; };
 		4B82ABBF2DAC6DA700C80364 /* GameNavigationControllerProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABBE2DAC6D9E00C80364 /* GameNavigationControllerProtocols.swift */; };
+		4B82ABC32DAC889300C80364 /* TwentyQuestionsGameOverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABC22DAC888600C80364 /* TwentyQuestionsGameOverViewModel.swift */; };
 		4B82B9D72CC072E2009A1502 /* WordIQApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82B9D62CC072E2009A1502 /* WordIQApp.swift */; };
 		4B82B9DD2CC072E4009A1502 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B82B9DC2CC072E4009A1502 /* Assets.xcassets */; };
 		4B82B9E02CC072E4009A1502 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B82B9DF2CC072E4009A1502 /* Preview Assets.xcassets */; };
@@ -231,6 +232,7 @@
 		4B82ABB92DAB605C00C80364 /* KeyboardProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardProtocols.swift; sourceTree = "<group>"; };
 		4B82ABBC2DAC6CFE00C80364 /* TwentyQuestionsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwentyQuestionsNavigationController.swift; sourceTree = "<group>"; };
 		4B82ABBE2DAC6D9E00C80364 /* GameNavigationControllerProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameNavigationControllerProtocols.swift; sourceTree = "<group>"; };
+		4B82ABC22DAC888600C80364 /* TwentyQuestionsGameOverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwentyQuestionsGameOverViewModel.swift; sourceTree = "<group>"; };
 		4B82B9D32CC072E2009A1502 /* WordIQ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordIQ.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B82B9D62CC072E2009A1502 /* WordIQApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordIQApp.swift; sourceTree = "<group>"; };
 		4B82B9DC2CC072E4009A1502 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -574,10 +576,11 @@
 		4B8799002D936B6B00E4946E /* Game Over View Models */ = {
 			isa = PBXGroup;
 			children = (
-				4B87990B2D987E9800E4946E /* GameWordBaseViewModel.swift */,
-				4B8799092D96448B00E4946E /* GameOverWordViewModel.swift */,
 				4B99E8CE2D90B15100F0F081 /* FourWordGameOverViewModel.swift */,
+				4B8799092D96448B00E4946E /* GameOverWordViewModel.swift */,
+				4B87990B2D987E9800E4946E /* GameWordBaseViewModel.swift */,
 				4B091B5D2CD85CC40092600B /* SingleWordGameOverViewModel.swift */,
+				4B82ABC22DAC888600C80364 /* TwentyQuestionsGameOverViewModel.swift */,
 			);
 			path = "Game Over View Models";
 			sourceTree = "<group>";
@@ -1035,6 +1038,7 @@
 				4B1CC12F2D850C3C00A56316 /* GameSettingsToggleView.swift in Sources */,
 				4B85B2D82D8D2A1A003127E0 /* SingleWordGameNavigationController.swift in Sources */,
 				4B5F9CA72DA78255000A9F3F /* SDDailyGameResult.swift in Sources */,
+				4B82ABC32DAC889300C80364 /* TwentyQuestionsGameOverViewModel.swift in Sources */,
 				4B6603B12CEC3B5F00F4F140 /* TimeUtility.swift in Sources */,
 				4B99E8BA2D8E009400F0F081 /* RobotoSlabHelper.swift in Sources */,
 				4B99E8C42D8F119300F0F081 /* Base Game Protocols.swift in Sources */,
@@ -1291,7 +1295,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"WordIQ/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1323,7 +1327,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"WordIQ/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

@@ -49,4 +49,5 @@ class TwentyQuestionsGameBoardViewModel : GameBoardViewModel {
             self.correctAnswerIndex += 1
         }
     }
+    
 }
