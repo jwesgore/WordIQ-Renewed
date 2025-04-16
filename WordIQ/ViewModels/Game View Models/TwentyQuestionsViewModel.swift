@@ -52,7 +52,7 @@ class TwentyQuestionsViewModel : SingleBoardGameViewModel<TwentyQuestionsGameBoa
             fatalError("Unable to get active word")
         }
         
-        let saveState = activeWord.getSaveState()
+        _ = activeWord.getSaveState()
         let comparisons = gameWord.comparison(targetWord)
         
         // Reset board and keyboard for the next word
