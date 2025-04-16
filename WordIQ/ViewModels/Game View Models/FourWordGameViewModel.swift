@@ -9,8 +9,16 @@ class FourWordGameViewModel : MultiBoardGame {
 
     // MARK: - Properties
     
-    /// Boolean to control the visibility of the pause menu.
-    @Published var showPauseMenu = false
+    var gameNavigationController : GameNavigationController {
+        return AppNavigationController.shared.multiWordGameNavigationController
+    }
+    
+    /// Boolean to indicate whether the header buttons are active
+    var isHeaderButtonsUnlocked = true {
+        didSet {
+            gameHeaderViewModel.isHeaderButtonsUnlocked = isHeaderButtonsUnlocked
+        }
+    }
     
     /// ViewModel to manage the game clock.
     var clockViewModel: ClockViewModel
@@ -27,13 +35,9 @@ class FourWordGameViewModel : MultiBoardGame {
     /// Model to track game-over data, including the player's performance and results.
     var gameOverDataModel: GameOverDataModel
     
-    /// ViewModel for managing the pause menu.
-    var gamePauseViewModel: GamePauseViewModel {
-        let gamePauseVM = GamePauseViewModel()
-        gamePauseVM.ResumeGameButton.action = self.resumeGame
-        gamePauseVM.EndGameButton.action = self.exitGame
-        return gamePauseVM
-    }
+    lazy var gameHeaderViewModel: GameHeaderViewModel = {
+        GameHeaderViewModel(clock: self.clockViewModel, controller: self.gameNavigationController)
+    }()
     
     /// Boolean to determine whether the keyboard is unlocked for input.
     var isKeyboardUnlocked = true {
@@ -57,12 +61,12 @@ class FourWordGameViewModel : MultiBoardGame {
     /// Initializes the `FourWordGameViewModel` with the given game options.
     /// - Parameter gameOptions: The configuration options for the multi-board game.
     init(gameOptions: MultiWordGameOptionsModel) {
-        self.clockViewModel = ClockViewModel(timeLimit: gameOptions.timeLimit, isClockTimer: false)
-        self.gameBoardStates = Dictionary(uniqueKeysWithValues: gameOptions.targetWords.allKeys.map { ($0, .unsolved) })
-        self.gameBoardViewModel = MultiGameBoardViewModel(gameOptions)
-        self.gameOptionsModel = gameOptions
-        self.gameOverDataModel = gameOptions.getMultiBoardGameOverDataModelTemplate()
-        self.targetWords = gameOptions.targetWords.copy()
+        clockViewModel = ClockViewModel(timeLimit: gameOptions.timeLimit, isClockTimer: false)
+        gameBoardStates = Dictionary(uniqueKeysWithValues: gameOptions.targetWords.allKeys.map { ($0, .unsolved) })
+        gameBoardViewModel = MultiGameBoardViewModel(gameOptions)
+        gameOptionsModel = gameOptions
+        gameOverDataModel = gameOptions.getMultiBoardGameOverDataModelTemplate()
+        targetWords = gameOptions.targetWords.copy()
         
         for targetWord in targetWords.allValues {
             print(targetWord.word)
@@ -168,29 +172,16 @@ class FourWordGameViewModel : MultiBoardGame {
     }
     
     // MARK: - Navigation Functions
-    
-    /// Exits the current game and navigates back to game mode selection.
-    func exitGame() {
-        clockViewModel.stopClock()
-        AppNavigationController.shared.exitFromFourWordGame()
-    }
-    
     /// Ends the current game and updates the game-over state.
     /// - Parameter speed: The speed of the game-ending animation.
     func gameOver(speed: Double = 1.5) {
-        showPauseMenu = false
+        isHeaderButtonsUnlocked = false
         
         clockViewModel.stopClock()
         gameOverDataModel.timeElapsed = clockViewModel.timeElapsed
         gameOverDataModel.targetWordsBackgrounds = gameBoardViewModel.getTargetWordsBackgrounds().toCodable()
         
         AppNavigationController.shared.goToFourWordGameOver()
-    }
-    
-    /// Pauses the current game and displays the pause menu.
-    func pauseGame() {
-        showPauseMenu = true
-        clockViewModel.stopClock()
     }
     
     /// Restarts the game by resetting all boards and related states.
@@ -209,11 +200,6 @@ class FourWordGameViewModel : MultiBoardGame {
         }
         
         isKeyboardUnlocked = true
-    }
-    
-    /// Resumes the game after being paused.
-    func resumeGame() {
-        showPauseMenu = false
-        clockViewModel.startClock()
+        isHeaderButtonsUnlocked = true
     }
 }

@@ -3,65 +3,36 @@ import SwiftUI
 struct GameHeaderView : View {
     
     let title : String
-    
-    var exitGame : () -> Void
-    var pauseGame : () -> Void
-    var clockViewModel: ClockViewModel
-    
+    var viewModel: GameHeaderViewModel
+
     var body: some View {
         HStack (spacing: 0) {
-            Button {
-                exitGame()
-            } label: {
-                Image(systemName: SFAssets.backArrow.rawValue)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(maxWidth: RobotoSlabOptions.Size.title2.rawValue, maxHeight: RobotoSlabOptions.Size.title2.rawValue)
-            }
-            
+            GameBoardFunctionButtonView(viewModel.exitGameButton, image: .backArrow)
+
             Spacer()
             VStack {
                 Text(title)
                     .robotoSlabFont(.title3, .bold)
                        
-                ClockView(clockVM: clockViewModel)
+                ClockView(clockVM: viewModel.clockViewModel)
                     .robotoSlabFont(.title2, .regular)
                             
             }
             Spacer()
             
-            Button {
-                pauseGame()
-            } label: {
-                Image(systemName: SFAssets.pause.rawValue)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(maxWidth: RobotoSlabOptions.Size.title2.rawValue, maxHeight: RobotoSlabOptions.Size.title2.rawValue)
-            }
-            
+            GameBoardFunctionButtonView(viewModel.pauseGameButton , image: .pause)
         }
     }
 }
 
 extension GameHeaderView {
-    init (_ title : String, exitGame: @escaping () -> Void, pauseGame: @escaping () -> Void, clockViewModel: ClockViewModel) {
-        self.title = title
-        self.exitGame = exitGame
-        self.pauseGame = pauseGame
-        self.clockViewModel = clockViewModel
-    }
-    
     init (_ viewModel: any SingleBoardGame) {
         self.title = viewModel.gameOptionsModel.gameMode.asStringShort
-        self.exitGame = viewModel.exitGame
-        self.pauseGame = viewModel.pauseGame
-        self.clockViewModel = viewModel.clockViewModel
+        self.viewModel = viewModel.gameHeaderViewModel
     }
     
     init (_ viewModel: any MultiBoardGame) {
         self.title = viewModel.gameOptionsModel.gameMode.asStringShort
-        self.exitGame = viewModel.exitGame
-        self.pauseGame = viewModel.pauseGame
-        self.clockViewModel = viewModel.clockViewModel
+        self.viewModel = viewModel.gameHeaderViewModel
     }
 }

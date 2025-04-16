@@ -5,7 +5,7 @@ import SwiftData
 struct SingleWordGameView : View {
     @Environment(\.modelContext) private var modelContext: ModelContext
     
-    @ObservedObject var controller : GameNavigationController<SingleWordGameOptionsModel>
+    @ObservedObject var controller : GameNavigationController
     @StateObject var viewModel : SingleBoardGameViewModel<GameBoardViewModel>
     
     var body : some View {
@@ -26,12 +26,11 @@ struct SingleWordGameView : View {
                 }
                 .padding([.horizontal, .bottom])
                 .transition(.opacity)
-                .fullScreenCover(isPresented: $viewModel.showPauseMenu) {
-                    GamePauseView(viewModel)
-                }
             case .gameOver:
                 SingleWordGameOverView(viewModel, modelContext: modelContext)
                     .transition(.opacity)
+            case .pause:
+                GamePauseView(viewModel)
             default:
                 Color.appBackground
             }
@@ -41,8 +40,8 @@ struct SingleWordGameView : View {
 }
 
 extension SingleWordGameView {
-    init (_ controller: GameNavigationController<SingleWordGameOptionsModel> = AppNavigationController.shared.singleWordGameNavigationController) {
-        self.controller = controller
-        self._viewModel = StateObject(wrappedValue: controller.gameOptions.getSingleWordGameViewModel())
+    init () {
+        self.controller = AppNavigationController.shared.singleWordGameNavigationController
+        self._viewModel = StateObject(wrappedValue: AppNavigationController.shared.singleWordGameOptionsModel.getSingleWordGameViewModel())
     }
 }

@@ -3,9 +3,8 @@ import SwiftUI
 /// View for game pause menu
 struct GamePauseView : View {
     
-    var clock : ClockViewModel
-    var options : GameOptionsBase
-    var viewModel : GamePauseViewModel
+    var options: GameOptionsBase
+    @ObservedObject var viewModel: GameHeaderViewModel
     
     var body: some View {
         VStack (spacing: 20) {
@@ -16,7 +15,7 @@ struct GamePauseView : View {
             HStack {
                 Spacer()
                 
-                GamePauseInfoView(title: "Time", value: TimeUtility.formatTimeShort(clock.timeElapsed))
+                GamePauseInfoView(title: "Time", value: TimeUtility.formatTimeShort(viewModel.clockViewModel.timeElapsed))
                 
                 Spacer()
                 
@@ -30,7 +29,7 @@ struct GamePauseView : View {
             }
             
             // MARK: Buttons
-            ThreeDButtonView(viewModel.ResumeGameButton) {
+            TopDownButtonView(viewModel.resumeGameButton) {
                 Text(SystemNames.GamePause.resumeGame)
                     .robotoSlabFont(.title3, .regular)
             }
@@ -43,19 +42,13 @@ struct GamePauseView : View {
 
 extension GamePauseView {
     init (_ viewModel: SingleBoardGameViewModel<GameBoardViewModel>) {
-        self.clock = viewModel.clockViewModel
         self.options = viewModel.gameOptionsModel
-        self.viewModel = GamePauseViewModel()
-        self.viewModel.ResumeGameButton.action = viewModel.resumeGame
-        self.viewModel.EndGameButton.action = viewModel.exitGame
+        self.viewModel = viewModel.gameHeaderViewModel
     }
     
     init (_ viewModel: FourWordGameViewModel) {
-        self.clock = viewModel.clockViewModel
         self.options = viewModel.gameOptionsModel
-        self.viewModel = GamePauseViewModel()
-        self.viewModel.ResumeGameButton.action = viewModel.resumeGame
-        self.viewModel.EndGameButton.action = viewModel.exitGame
+        self.viewModel = viewModel.gameHeaderViewModel
     }
 }
 

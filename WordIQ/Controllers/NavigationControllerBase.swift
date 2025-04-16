@@ -47,4 +47,25 @@ class NavigationControllerBase<TEnum>: ObservableObject
             }
         }
     }
+    
+    // MARK: - Helper Method
+    
+    /// Handles navigation to a specified view, either immediately or with an animated transition.
+    ///
+    /// - Parameters:
+    ///   - view: The destination view of type `GameSelectionViewEnum`.
+    ///   - immediate: A Boolean value indicating whether the transition occurs without animation.
+    ///                Defaults to `false`.
+    ///   - complete: A closure executed after the transition is complete.
+    func goToViewInternal(_ view: TEnum, immediate: Bool = false, complete: @escaping () -> Void = {}) {
+        if immediate {
+            goToView(view) {
+                complete()
+            }
+        } else {
+            goToViewWithAnimation(view) {
+                complete()
+            }
+        }
+    }
 }

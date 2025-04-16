@@ -4,22 +4,11 @@ import SwiftUI
 ///
 /// This class manages navigation between game views (e.g., game, game over) and provides methods for transitioning
 /// with or without animation. It is a generic class that supports custom game option models.
-class GameNavigationController<TGameOptionsModel>:
-    NavigationControllerBase<GameViewEnum>, GameNavigationControllerProtocol
-    where TGameOptionsModel: GameOptionsBase {
-    
-    // MARK: - Properties
-    
-    /// The game options model that defines the configuration for the game.
-    var gameOptions: TGameOptionsModel
+class GameNavigationController:
+    NavigationControllerBase<GameViewEnum>, GameNavigationControllerProtocol {
     
     // MARK: - Initializer
-    
-    /// Initializes the navigation controller with a given game options model.
-    ///
-    /// - Parameter gameOptionsModel: The options model used to configure the game.
-    init(_ gameOptionsModel: TGameOptionsModel) {
-        self.gameOptions = gameOptionsModel
+    init() {
         super.init(.game) // Set the initial view state to `.game`.
     }
     
@@ -44,11 +33,7 @@ class GameNavigationController<TGameOptionsModel>:
     ///   - immediate: If `true`, the view transition happens immediately without animation. Defaults to `false`.
     ///   - complete: A closure executed after the transition is complete. Defaults to an empty closure.
     func goToGameOverView(immediate: Bool = false, complete: @escaping () -> Void = {}) {
-        if immediate {
-            goToView(.gameOver)
-        } else {
-            goToViewWithAnimation(.gameOver)
-        }
+        goToViewInternal(.gameOver, immediate: immediate, complete: complete)
     }
     
     /// Navigates to the game view.
@@ -59,15 +44,11 @@ class GameNavigationController<TGameOptionsModel>:
     ///   - immediate: If `true`, the view transition happens immediately without animation. Defaults to `false`.
     ///   - complete: A closure executed after the transition is complete. Defaults to an empty closure.
     func goToGameView(immediate: Bool = false, complete: @escaping () -> Void = {}) {
-        if immediate {
-            goToView(.game) {
-                complete()
-            }
-        } else {
-            goToViewWithAnimation(.game, delay: 0.5) {
-                complete()
-            }
-        }
+        goToViewInternal(.game, immediate: immediate, complete: complete)
+    }
+    
+    func goToPause(immediate: Bool = false, complete: @escaping () -> Void = {}) {
+        goToViewInternal(.pause, immediate: immediate, complete: complete)
     }
     
     /// Transitions to a specified view with animation.

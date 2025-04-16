@@ -18,6 +18,7 @@ enum GameViewEnum : NavigationEnum {
     case empty
     case game
     case gameOver
+    case pause
     
     static func empty() -> GameViewEnum {
         .empty

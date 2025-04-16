@@ -10,9 +10,9 @@ final class AppNavigationController : NavigationControllerBase<SystemViewEnum> {
     }
     
     // MARK: - Controllers
-    let singleWordGameNavigationController : GameNavigationController<SingleWordGameOptionsModel>
-    let multiWordGameNavigationController : GameNavigationController<MultiWordGameOptionsModel>
-    let twentyQuestionsNavigationController : GameNavigationController<SingleWordGameOptionsModel>
+    let singleWordGameNavigationController : GameNavigationController
+    let multiWordGameNavigationController : GameNavigationController
+    let twentyQuestionsNavigationController : GameNavigationController
     let gameSelectionNavigationController : GameSelectionNavigationController
     
     // MARK: - Models
@@ -24,9 +24,9 @@ final class AppNavigationController : NavigationControllerBase<SystemViewEnum> {
         let singleWordOptionsModel = SingleWordGameOptionsModel()
         let multiWordOptionsModel = MultiWordGameOptionsModel()
         
-        singleWordGameNavigationController = GameNavigationController(singleWordOptionsModel)
-        multiWordGameNavigationController = GameNavigationController(multiWordOptionsModel)
-        twentyQuestionsNavigationController = GameNavigationController(singleWordOptionsModel)
+        singleWordGameNavigationController = GameNavigationController()
+        multiWordGameNavigationController = GameNavigationController()
+        twentyQuestionsNavigationController = GameNavigationController()
         gameSelectionNavigationController = GameSelectionNavigationController()
         
         singleWordGameOptionsModel = singleWordOptionsModel
@@ -69,10 +69,14 @@ final class AppNavigationController : NavigationControllerBase<SystemViewEnum> {
         }
     }
     
+    func pauseSingleWordGame() {
+        singleWordGameNavigationController.goToPause() {
+        }
+    }
+    
     /// Used to play single word game mode again
     func playAgainSingleWordGame() {
         singleWordGameNavigationController.goToGameView() {
-            
         }
     }
     

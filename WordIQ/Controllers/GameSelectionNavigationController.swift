@@ -134,25 +134,4 @@ class GameSelectionNavigationController: NavigationControllerBase<GameSelectionV
     ) {
         super.goToViewWithAnimation(view, delay: delay, animationLength: animationLength, pauseLength: pauseLength, onCompletion: onCompletion)
     }
-    
-    // MARK: - Helper Method
-    
-    /// Handles navigation to a specified view, either immediately or with an animated transition.
-    ///
-    /// - Parameters:
-    ///   - view: The destination view of type `GameSelectionViewEnum`.
-    ///   - immediate: A Boolean value indicating whether the transition occurs without animation.
-    ///                Defaults to `false`.
-    ///   - complete: A closure executed after the transition is complete.
-    private func goToViewInternal(_ view: GameSelectionViewEnum, immediate: Bool = false, complete: @escaping () -> Void = {}) {
-        if immediate {
-            goToView(view) {
-                complete()
-            }
-        } else {
-            goToViewWithAnimation(view) {
-                complete()
-            }
-        }
-    }
 }

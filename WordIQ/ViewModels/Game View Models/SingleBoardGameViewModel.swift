@@ -9,8 +9,20 @@ class SingleBoardGameViewModel<TGameBoard: GameBoardViewModel> : SingleBoardGame
 
     // MARK: - Properties
     
-    /// Boolean to indicate whether the pause menu is displayed.
-    @Published var showPauseMenu = false
+    var gameNavigationController : GameNavigationController {
+        if TGameBoard.self == TwentyQuestionsGameBoardViewModel.self {
+            return AppNavigationController.shared.twentyQuestionsNavigationController
+        } else {
+            return AppNavigationController.shared.singleWordGameNavigationController
+        }
+    }
+    
+    /// Boolean to indicate whether the header buttons are active.
+    var isHeaderButtonsUnlocked = true {
+        didSet {
+            gameHeaderViewModel.isHeaderButtonsUnlocked = isHeaderButtonsUnlocked
+        }
+    }
     
     /// ViewModel to manage the game clock.
     var clockViewModel : ClockViewModel
@@ -24,8 +36,10 @@ class SingleBoardGameViewModel<TGameBoard: GameBoardViewModel> : SingleBoardGame
     /// Model to store game-over data.
     var gameOverDataModel: GameOverDataModel
     
-    /// ViewModel for the pause menu.
-    lazy var gamePauseViewModel = GamePauseViewModel()
+    /// ViewModel for the game header
+    lazy var gameHeaderViewModel: GameHeaderViewModel = {
+        GameHeaderViewModel(clock: self.clockViewModel, controller: self.gameNavigationController)
+    }()
     
     /// Boolean to determine whether the keyboard is unlocked for input.
     var isKeyboardUnlocked = true {
@@ -49,13 +63,10 @@ class SingleBoardGameViewModel<TGameBoard: GameBoardViewModel> : SingleBoardGame
     /// Base initializer to start a new game.
     /// - Parameter gameOptions: The configuration options for the game.
     init(gameOptions: SingleWordGameOptionsModel) {
-        self.clockViewModel = ClockViewModel(timeLimit: gameOptions.timeLimit, isClockTimer: gameOptions.timeLimit > 0)
-        self.gameBoardViewModel = TGameBoard(boardHeight: 6, boardWidth: 5, boardSpacing: 5.0)
-        self.gameOptionsModel = gameOptions
-        self.gameOverDataModel = gameOptions.getSingleWordGameOverDataModelTemplate()
-        
-        gamePauseViewModel.ResumeGameButton.action = self.resumeGame
-        gamePauseViewModel.EndGameButton.action = self.exitGame
+        clockViewModel = ClockViewModel(timeLimit: gameOptions.timeLimit, isClockTimer: gameOptions.timeLimit > 0)
+        gameBoardViewModel = TGameBoard(boardHeight: 6, boardWidth: 5, boardSpacing: 5.0)
+        gameOptionsModel = gameOptions
+        gameOverDataModel = gameOptions.getSingleWordGameOverDataModelTemplate()
         
         print(self.targetWord)
     }
@@ -67,9 +78,6 @@ class SingleBoardGameViewModel<TGameBoard: GameBoardViewModel> : SingleBoardGame
         gameBoardViewModel = TGameBoard(boardHeight: 6, boardWidth: 5, boardSpacing: 5.0)
         gameOptionsModel = gameSaveState.gameOptionsModel
         gameOverDataModel = gameSaveState.gameOverModel
-        
-        gamePauseViewModel.ResumeGameButton.action = self.resumeGame
-        gamePauseViewModel.EndGameButton.action = self.exitGame
         
         print(self.targetWord)
         
@@ -177,29 +185,16 @@ class SingleBoardGameViewModel<TGameBoard: GameBoardViewModel> : SingleBoardGame
     }
     
     // MARK: - Navigation Functions
-    
-    /// Exits the game and navigates to game mode selection.
-    func exitGame() {
-        clockViewModel.stopClock()
-        AppNavigationController.shared.exitFromSingleWordGame()
-    }
-    
     /// Ends the current game.
     /// - Parameter speed: The animation speed for ending the game.
     func gameOver(speed : Double = 1.5) {
         isKeyboardUnlocked = false
-        showPauseMenu = false
+        isHeaderButtonsUnlocked = false
         
         clockViewModel.stopClock()
         gameOverDataModel.timeElapsed = clockViewModel.timeElapsed
         
         AppNavigationController.shared.goToSingleWordGameOver()
-    }
-    
-    /// Pauses the game.
-    func pauseGame() {
-        showPauseMenu = true
-        clockViewModel.stopClock()
     }
     
     /// Restarts the game by resetting all components.
@@ -211,14 +206,9 @@ class SingleBoardGameViewModel<TGameBoard: GameBoardViewModel> : SingleBoardGame
         gameOptionsModel.resetTargetWord()
         gameOverDataModel = gameOptionsModel.getSingleWordGameOverDataModelTemplate()
         isKeyboardUnlocked = true
+        isHeaderButtonsUnlocked = true
         
         print(self.targetWord)
-    }
-    
-    /// Resumes the game when paused.
-    func resumeGame() {
-        showPauseMenu = false
-        clockViewModel.startClock()
     }
 
     // MARK: - Data Functions

@@ -5,7 +5,7 @@ import SwiftData
 struct TwentyQuestionsGameView : View {
     @Environment(\.modelContext) private var modelContext: ModelContext
     
-    @ObservedObject var controller : GameNavigationController<SingleWordGameOptionsModel>
+    @ObservedObject var controller : GameNavigationController
     @StateObject var viewModel : TwentyQuestionsViewModel
     
     var body : some View {
@@ -26,9 +26,6 @@ struct TwentyQuestionsGameView : View {
                 }
                 .padding([.horizontal, .bottom])
                 .transition(.opacity)
-                .fullScreenCover(isPresented: $viewModel.showPauseMenu) {
-                    // GamePauseView(viewModel)
-                }
             case .gameOver:
                 TwentyQuestionsGameOverView(viewModel, modelContext: modelContext)
                     .transition(.opacity)
@@ -41,9 +38,9 @@ struct TwentyQuestionsGameView : View {
 }
 
 extension TwentyQuestionsGameView {
-    init (_ controller: GameNavigationController<SingleWordGameOptionsModel> = AppNavigationController.shared.twentyQuestionsNavigationController) {
-        self.controller = controller
-        self._viewModel = StateObject(wrappedValue: controller.gameOptions.getTwentyQuestionsGameViewModel())
+    init () {
+        self.controller = AppNavigationController.shared.twentyQuestionsNavigationController
+        self._viewModel = StateObject(wrappedValue: AppNavigationController.shared.singleWordGameOptionsModel.getTwentyQuestionsGameViewModel())
     }
 }
 

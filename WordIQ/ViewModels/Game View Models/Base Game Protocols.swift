@@ -11,14 +11,7 @@ protocol GameBaseProtocol : ObservableObject {
     /// Boolean to indicate whether the keyboard is unlocked for input.
     var isKeyboardUnlocked: Bool { get set }
     
-    /// Boolean to control the visibility of the pause menu.
-    var showPauseMenu: Bool { get set }
-    
-    /// Exits the current game and navigates back to mode selection.
-    func exitGame()
-    
-    /// Pauses the current game and displays the pause menu.
-    func pauseGame()
+    var gameHeaderViewModel: GameHeaderViewModel { get set }
 }
 
 /// Protocol defining the structure and requirements for a single-board game.

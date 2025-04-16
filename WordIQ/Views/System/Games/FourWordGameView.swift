@@ -4,7 +4,7 @@ import SwiftUI
 struct FourWordGameView : View {
     
     @Environment(\.modelContext) private var modelContext
-    @ObservedObject var controller : GameNavigationController<MultiWordGameOptionsModel>
+    @ObservedObject var controller : GameNavigationController
     @StateObject var viewModel : FourWordGameViewModel
 
     var body: some View {
@@ -26,12 +26,11 @@ struct FourWordGameView : View {
                 }
                 .padding([.horizontal, .bottom])
                 .transition(.opacity)
-                .fullScreenCover(isPresented: $viewModel.showPauseMenu) {
-                    GamePauseView(viewModel)
-                }
             case .gameOver:
                 FourWordGameOverView(viewModel, modelContext: modelContext)
                     .transition(.opacity)
+            case .pause:
+                GamePauseView(viewModel)
             default:
                 Color.appBackground
             }
@@ -41,8 +40,8 @@ struct FourWordGameView : View {
 }
 
 extension FourWordGameView {
-    init (_ controller: GameNavigationController<MultiWordGameOptionsModel> = AppNavigationController.shared.multiWordGameNavigationController) {
-        self.controller = controller
-        self._viewModel = StateObject(wrappedValue: controller.gameOptions.getFourWordGameViewModel())
+    init () {
+        self.controller = AppNavigationController.shared.multiWordGameNavigationController
+        self._viewModel = StateObject(wrappedValue: AppNavigationController.shared.multiBoardGameOptionsModel.getFourWordGameViewModel())
     }
 }
