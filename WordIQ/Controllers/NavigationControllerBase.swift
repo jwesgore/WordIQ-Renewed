@@ -57,13 +57,13 @@ class NavigationControllerBase<TEnum>: ObservableObject
     ///   - immediate: A Boolean value indicating whether the transition occurs without animation.
     ///                Defaults to `false`.
     ///   - complete: A closure executed after the transition is complete.
-    func goToViewInternal(_ view: TEnum, immediate: Bool = false, complete: @escaping () -> Void = {}) {
+    func goToViewInternal(_ view: TEnum, immediate: Bool = false, delay: Double = 0.0, complete: @escaping () -> Void = {}) {
         if immediate {
             goToView(view) {
                 complete()
             }
         } else {
-            goToViewWithAnimation(view) {
+            goToViewWithAnimation(view, delay: delay) {
                 complete()
             }
         }

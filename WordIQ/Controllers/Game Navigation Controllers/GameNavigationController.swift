@@ -33,7 +33,7 @@ class GameNavigationController:
     ///   - immediate: If `true`, the view transition happens immediately without animation. Defaults to `false`.
     ///   - complete: A closure executed after the transition is complete. Defaults to an empty closure.
     func goToGameOverView(immediate: Bool = false, complete: @escaping () -> Void = {}) {
-        goToViewInternal(.gameOver, immediate: immediate, complete: complete)
+        goToViewInternal(.gameOver, immediate: immediate, delay: 1.5, complete: complete)
     }
     
     /// Navigates to the game view.
