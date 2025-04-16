@@ -48,7 +48,7 @@ class TopDownButtonViewModel : ObservableObject {
                   backgroundColor: .Buttons.buttonBackground,
                   borderColor: .Buttons.buttonBorder,
                   borderThickness: 1.0,
-                  cornerRadius: 25.0,
+                  cornerRadius: 20.0,
                   pressedOpacity: 0.5,
                   pressedScale: 0.9,
                   action: action)

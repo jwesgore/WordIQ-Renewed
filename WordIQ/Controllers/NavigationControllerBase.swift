@@ -1,18 +1,19 @@
 import SwiftUI
 
 /// Base class for all other navigation controllers
-class NavigationControllerBase: ObservableObject {
+class NavigationControllerBase<TEnum>: ObservableObject
+    where TEnum : NavigationEnum {
         
-    @Published private(set) var activeView : SystemView
-    @Published private(set) var previousView : SystemView
+    @Published private(set) var activeView : TEnum
+    @Published private(set) var previousView : TEnum
     
-    init(_ startView: SystemView = .splashScreen) {
+    init(_ startView: TEnum) {
         self.activeView = startView
         self.previousView = startView
     }
     
     /// Transition to a view immediately
-    func goToView(_ view: SystemView, complete: @escaping () -> Void = {}) {
+    func goToView(_ view: TEnum, complete: @escaping () -> Void = {}) {
         self.previousView = self.activeView
         self.activeView = view
         
@@ -20,7 +21,7 @@ class NavigationControllerBase: ObservableObject {
     }
     
     /// Transition to a view with animation fading to a blank view
-    func goToViewWithAnimation(_ view: SystemView,
+    func goToViewWithAnimation(_ view: TEnum,
                                delay: Double = 0.0,
                                animationLength: Double = 0.5,
                                pauseLength: Double = 0.0,
@@ -33,7 +34,7 @@ class NavigationControllerBase: ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
             // Fade to an empty view
             withAnimation(.linear(duration: animationLength)) {
-                self.activeView = .empty
+                self.activeView = TEnum.empty()
             }
             
             // Fade back into the target view

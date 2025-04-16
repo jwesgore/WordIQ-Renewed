@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Controller for navigation within the game selection sub view
-class GameSelectionNavigationController : NavigationControllerBase {
+class GameSelectionNavigationController : NavigationControllerBase<GameSelectionViewEnum> {
 
     // MARK: - View Models
     let gameModeSelectionViewModel : GameModeSelectionViewModel
@@ -12,7 +12,7 @@ class GameSelectionNavigationController : NavigationControllerBase {
         gameModeSelectionViewModel = GameModeSelectionViewModel()
         gameModeOptionsViewModel = GameModeOptionsViewModel()
         
-        super.init(.gameModeSelection)
+        super.init(.modeSelection)
     }
     
     // MARK: - Navigation Functions
@@ -30,22 +30,26 @@ class GameSelectionNavigationController : NavigationControllerBase {
     /// Transition to game mode options view
     func goToGameModeOptions(_ gameMode: GameMode) {
         gameModeOptionsViewModel.setSingleWordGameMode(gameMode)
-        goToViewWithAnimation(.gameModeSelectionOptions)
+        goToViewWithAnimation(.modeOptions)
     }
     
     /// Transition to game mode selection view
     func goToGameModeSelection(immediate: Bool = false, complete: @escaping () -> Void = {}) {
         if immediate {
-            goToView(.gameModeSelection) {
+            goToView(.modeSelection) {
                 AppNavigationController.shared.singleWordGameOptionsModel.resetToDefaults()
                 complete()
             }
         } else {
-            goToViewWithAnimation(.gameModeSelection) {
+            goToViewWithAnimation(.modeSelection) {
                 AppNavigationController.shared.singleWordGameOptionsModel.resetToDefaults()
                 complete()
             }
         }
+    }
+    
+    func goToHome() {
+        
     }
     
     /// Transition to a game view using the saved quick play defaults
@@ -54,13 +58,21 @@ class GameSelectionNavigationController : NavigationControllerBase {
         AppNavigationController.shared.goToSingleWordGame()
     }
     
+    func goToSettings() {
+        
+    }
+    
+    func goToStats() {
+        
+    }
+    
     /// Transitions to a twenty questions game
     func goToTwentyQuestionsGame() {
         AppNavigationController.shared.goToTwentyQuestionsGame()
     }
     
     /// Transition to a view with animation fading to a blank view
-    override func goToViewWithAnimation(_ view: SystemView,
+    override func goToViewWithAnimation(_ view: GameSelectionViewEnum,
                                         delay: Double = 0.0,
                                         animationLength: Double = 0.2,
                                         pauseLength: Double = 0.0,

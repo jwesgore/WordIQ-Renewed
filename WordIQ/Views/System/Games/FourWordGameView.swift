@@ -4,14 +4,14 @@ import SwiftUI
 struct FourWordGameView : View {
     
     @Environment(\.modelContext) private var modelContext
-    @ObservedObject var controller : MultiWordGameNavigationController
+    @ObservedObject var controller : GameNavigationController<MultiWordGameOptionsModel>
     @StateObject var viewModel : FourWordGameViewModel
 
     var body: some View {
 
         ZStack {
             switch controller.activeView {
-            case .fourWordGame:
+            case .game:
                 VStack (spacing: 0) {
                     
                     GameHeaderView(viewModel)
@@ -41,7 +41,7 @@ struct FourWordGameView : View {
 }
 
 extension FourWordGameView {
-    init (_ controller: MultiWordGameNavigationController = AppNavigationController.shared.multiWordGameNavigationController) {
+    init (_ controller: GameNavigationController<MultiWordGameOptionsModel> = AppNavigationController.shared.multiWordGameNavigationController) {
         self.controller = controller
         self._viewModel = StateObject(wrappedValue: controller.gameOptions.getFourWordGameViewModel())
     }

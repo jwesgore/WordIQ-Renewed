@@ -29,13 +29,13 @@ class GameModeSelectionViewModel : ObservableObject {
     var settingsRadioButton: TopDownRadioButtonViewModel
     
     init() {
-        
+        // Initialize navigation buttons without action
         navigationRadioManager = TopDownRadioButtonGroupViewModel()
         mainMenuRadioButton = TopDownRadioButtonViewModel(height: 40, width: 40, groupManager: navigationRadioManager, isPressed: true)
         statsRadioButton = TopDownRadioButtonViewModel(height: 40, width: 40, groupManager: navigationRadioManager)
         settingsRadioButton = TopDownRadioButtonViewModel(height: 40, width: 40, groupManager: navigationRadioManager)
         
-        // Initialize all buttons without action
+        // Initialize game buttons without action
         dailyGameButton = TopDownButtonViewModel(height: halfButtonDimensions.0, width: halfButtonDimensions.1)
         quickplayGameButton = TopDownButtonViewModel(height: halfButtonDimensions.0, width: halfButtonDimensions.1)
         standardGameModeButton = TopDownButtonViewModel(height: gameModeButtonDimension.0, width: gameModeButtonDimension.1)
@@ -45,7 +45,18 @@ class GameModeSelectionViewModel : ObservableObject {
         fourWordGameModeButton = TopDownButtonViewModel(height: gameModeButtonDimension.0, width: gameModeButtonDimension.1)
         twentyQuestionsGameModeButton = TopDownButtonViewModel(height: gameModeButtonDimension.0, width: gameModeButtonDimension.1)
         
-        // Add actions to buttons
+        // Add actions to navigation buttons
+        mainMenuRadioButton.action = {
+            self.gameSelectionController.goToHome()
+        }
+        statsRadioButton.action = {
+            self.gameSelectionController.goToStats()
+        }
+        settingsRadioButton.action = {
+            self.gameSelectionController.goToStats()
+        }
+        
+        // Add actions to game buttons
         dailyGameButton.action = {
             self.gameSelectionController.goToDailyMode()
         }
@@ -71,7 +82,7 @@ class GameModeSelectionViewModel : ObservableObject {
             self.gameSelectionController.goToTwentyQuestionsGame()
         }
         
+        // Add buttons to manager
         navigationRadioManager.add(mainMenuRadioButton, statsRadioButton, settingsRadioButton)
-        
     }
 }

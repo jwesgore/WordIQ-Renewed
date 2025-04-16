@@ -15,7 +15,7 @@ struct GameModeSelectionView: View {
             
             ZStack {
                 switch controller.activeView {
-                case .gameModeSelection:
+                case .modeSelection:
                     VStack (spacing: spacing) {
                         
                         HStack (spacing: spacing) {
@@ -39,7 +39,7 @@ struct GameModeSelectionView: View {
                     }
                     .transition(.blurReplace)
                     
-                case .gameModeSelectionOptions:
+                case .modeOptions:
                     GameModeOptionsView(controller.gameModeOptionsViewModel)
                         .transition(.blurReplace)
                     

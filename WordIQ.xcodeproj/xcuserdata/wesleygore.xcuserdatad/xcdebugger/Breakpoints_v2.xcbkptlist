@@ -254,8 +254,8 @@
             filePath = "WordIQ/Controllers/NavigationControllerBase.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "16"
-            endingLineNumber = "16"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
             landmarkName = "goToView(_:complete:)"
             landmarkType = "7">
          </BreakpointContent>

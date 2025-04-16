@@ -1,9 +1,8 @@
 import SwiftUI
 
-
 struct GameMenuNavigationButtonView: View {
     
-    var image: SFAssets = .stats
+    var image: SFAssets
     var viewModel: TopDownRadioButtonViewModel
     
     init (_ viewModel: TopDownRadioButtonViewModel, image: SFAssets) {

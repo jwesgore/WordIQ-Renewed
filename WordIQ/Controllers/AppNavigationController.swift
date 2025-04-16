@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Navigation controller for top level view AppStartingView
-final class AppNavigationController : NavigationControllerBase {
+final class AppNavigationController : NavigationControllerBase<SystemViewEnum> {
     
     static var shared = AppNavigationController()
     
@@ -10,9 +10,9 @@ final class AppNavigationController : NavigationControllerBase {
     }
     
     // MARK: - Controllers
-    let singleWordGameNavigationController : SingleWordGameNavigationController
-    let multiWordGameNavigationController : MultiWordGameNavigationController
-    let twentyQuestionsNavigationController : TwentyQuestionsNavigationController
+    let singleWordGameNavigationController : GameNavigationController<SingleWordGameOptionsModel>
+    let multiWordGameNavigationController : GameNavigationController<MultiWordGameOptionsModel>
+    let twentyQuestionsNavigationController : GameNavigationController<SingleWordGameOptionsModel>
     let gameSelectionNavigationController : GameSelectionNavigationController
     
     // MARK: - Models
@@ -21,13 +21,18 @@ final class AppNavigationController : NavigationControllerBase {
     
     // MARK: - Initializer
     private init() {
-        singleWordGameNavigationController = SingleWordGameNavigationController()
-        multiWordGameNavigationController = MultiWordGameNavigationController()
-        twentyQuestionsNavigationController = TwentyQuestionsNavigationController()
+        let singleWordOptionsModel = SingleWordGameOptionsModel()
+        let multiWordOptionsModel = MultiWordGameOptionsModel()
+        
+        singleWordGameNavigationController = GameNavigationController(singleWordOptionsModel)
+        multiWordGameNavigationController = GameNavigationController(multiWordOptionsModel)
+        twentyQuestionsNavigationController = GameNavigationController(singleWordOptionsModel)
         gameSelectionNavigationController = GameSelectionNavigationController()
         
-        singleWordGameOptionsModel = SingleWordGameOptionsModel()
-        multiBoardGameOptionsModel = MultiWordGameOptionsModel()
+        singleWordGameOptionsModel = singleWordOptionsModel
+        multiBoardGameOptionsModel = multiWordOptionsModel
+        
+        super.init(.splashScreen)
     }
     
     // MARK: - Single Word Game Functions

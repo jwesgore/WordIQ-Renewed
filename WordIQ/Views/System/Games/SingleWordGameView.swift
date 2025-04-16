@@ -5,13 +5,13 @@ import SwiftData
 struct SingleWordGameView : View {
     @Environment(\.modelContext) private var modelContext: ModelContext
     
-    @ObservedObject var controller : SingleWordGameNavigationController
+    @ObservedObject var controller : GameNavigationController<SingleWordGameOptionsModel>
     @StateObject var viewModel : SingleBoardGameViewModel<GameBoardViewModel>
     
     var body : some View {
         ZStack {
             switch controller.activeView {
-            case .singleWordGame:
+            case .game:
                 VStack (spacing: 0) {
                     
                     GameHeaderView(viewModel)
@@ -41,7 +41,7 @@ struct SingleWordGameView : View {
 }
 
 extension SingleWordGameView {
-    init (_ controller: SingleWordGameNavigationController = AppNavigationController.shared.singleWordGameNavigationController) {
+    init (_ controller: GameNavigationController<SingleWordGameOptionsModel> = AppNavigationController.shared.singleWordGameNavigationController) {
         self.controller = controller
         self._viewModel = StateObject(wrappedValue: controller.gameOptions.getSingleWordGameViewModel())
     }
