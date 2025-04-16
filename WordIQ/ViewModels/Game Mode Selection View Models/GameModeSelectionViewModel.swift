@@ -2,10 +2,6 @@ import SwiftUI
 
 /// ViewModel to manage the GameModeSelectionView
 class GameModeSelectionViewModel : ObservableObject {
-    
-    @Published var displaySettings: Bool = false
-    @Published var displayStats: Bool = false
-    
     var gameSelectionController : GameSelectionNavigationController {
         return AppNavigationController.shared.gameSelectionNavigationController
     }

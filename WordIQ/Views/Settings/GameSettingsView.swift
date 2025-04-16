@@ -10,39 +10,33 @@ struct GameSettingsView : View {
     @State var clearDataAlertIsPresented: Bool = false
     
     var body: some View {
-        VStack {
-            // MARK: Top Row Header and Done Button
-//            HeaderWithDoneButtonView(title: SystemNames.GameSettings.settings, isPresented: $isPresented)
-//                .padding(.horizontal)
-//                .padding(.vertical, 5)
         
-            ScrollView {
-                VStack {
-                    // MARK: Gameplay Settings block
-                    GameSettingsGameplayView(viewModel: gameSettingsVM)
-                        .padding(.bottom, 5)
-                    
-                    // MARK: Notification Settings block
-                    GameSettingsNotificationsView(viewModel: gameSettingsVM)
-                        .padding(.bottom, 5)
-                    
-                    // MARK: Quickplay Settings block
-                    GameSettingsQuickplayView(viewModel: gameSettingsVM)
-                        .padding(.bottom, 5)
-                    
-                    // MARK: Clear Data Button
-                    Button {
-                        clearDataAlertIsPresented = true
-                    } label: {
-                        Text("Erase All Data")
-                            .foregroundStyle(.red)
-                            .robotoSlabFont(.title3, .regular)
-                    }
-                    .padding(.vertical, 20)
-                    
+        ScrollView {
+            VStack {
+                // MARK: Gameplay Settings block
+                GameSettingsGameplayView(viewModel: gameSettingsVM)
+                    .padding(.bottom, 5)
+                
+                // MARK: Notification Settings block
+                GameSettingsNotificationsView(viewModel: gameSettingsVM)
+                    .padding(.bottom, 5)
+                
+                // MARK: Quickplay Settings block
+                GameSettingsQuickplayView(viewModel: gameSettingsVM)
+                    .padding(.bottom, 5)
+                
+                // MARK: Clear Data Button
+                Button {
+                    clearDataAlertIsPresented = true
+                } label: {
+                    Text("Erase All Data")
+                        .foregroundStyle(.red)
+                        .robotoSlabFont(.title3, .regular)
                 }
-                .padding(.bottom)
+                .padding(.vertical, 20)
+                
             }
+            .padding(.bottom)
         }
         .robotoSlabFont(.headline, .semiBold)
         .ignoresSafeArea(edges: .bottom)

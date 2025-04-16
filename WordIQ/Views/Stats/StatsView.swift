@@ -8,17 +8,11 @@ struct StatsView : View {
     @Environment(\.modelContext) private var modelContext: ModelContext
     @State private var databaseHelper: GameDatabaseHelper?
     
-    @Binding var isPresented: Bool
-    
     var body: some View {
         VStack (spacing: 0) {
-
-            HeaderWithDoneButtonView(title: SystemNames.GameStats.title, isPresented: $isPresented)
-                .padding(.horizontal)
-                .padding(.vertical, 5)
-            
-            if let databaseHelper = databaseHelper {
-                ScrollView {
+            ScrollView {
+                if let databaseHelper = databaseHelper {
+                    
                     VStack {
                         StatsGeneralView(databaseHelper)
                         StatsDailyModeView(databaseHelper: databaseHelper)
@@ -27,14 +21,14 @@ struct StatsView : View {
                         StatsFrenzyModeView(databaseHelper: databaseHelper)
                         StatsZenModeView(databaseHelper: databaseHelper)
                     }
-                    .padding(.horizontal)
+                    
+                } else {
+                    Text("Loading data...")
+                        .robotoSlabFont(.title2, .semiBold)
+                        .onAppear {
+                            self.databaseHelper = GameDatabaseHelper(context: modelContext)
+                        }
                 }
-            } else {
-                Text("Loading data...")
-                    .robotoSlabFont(.title2, .semiBold)
-                    .onAppear {
-                        self.databaseHelper = GameDatabaseHelper(context: modelContext)
-                    }
             }
         }
         .background(Color.appBackground)

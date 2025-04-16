@@ -3,8 +3,6 @@ import SwiftUI
 struct AppHeaderView : View {
     
     @ObservedObject var viewModel: GameModeSelectionViewModel
-    @Binding var displayStats: Bool
-    @Binding var displaySettings: Bool
     
     var body : some View {
         HStack {

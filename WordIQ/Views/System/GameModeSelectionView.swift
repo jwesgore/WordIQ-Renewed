@@ -10,7 +10,7 @@ struct GameModeSelectionView: View {
     
     var body: some View {
         VStack {
-            AppHeaderView(viewModel: viewModel, displayStats: $viewModel.displayStats, displaySettings: $viewModel.displaySettings)
+            AppHeaderView(viewModel: viewModel)
                 .padding(.bottom, 5)
             
             ZStack {
@@ -37,13 +37,13 @@ struct GameModeSelectionView: View {
                         
                         Spacer()
                     }
-                    .transition(.blurReplace)
-                    
                 case .modeOptions:
                     GameModeOptionsView(controller.gameModeOptionsViewModel)
-                        .transition(.blurReplace)
+                        .padding(.bottom, 30)
                 case .settings:
                     GameSettingsView()
+                case .stats:
+                    StatsView()
                 default:
                     Color.appBackground
                 }
@@ -52,9 +52,6 @@ struct GameModeSelectionView: View {
         .padding()
         .ignoresSafeArea(edges: .bottom)
         .background(Color.appBackground.ignoresSafeArea())
-        .fullScreenCover(isPresented: $viewModel.displayStats) {
-            StatsView(isPresented: $viewModel.displayStats)
-        }
     }
 }
 
