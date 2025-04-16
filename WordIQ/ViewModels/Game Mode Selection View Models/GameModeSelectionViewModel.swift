@@ -47,13 +47,13 @@ class GameModeSelectionViewModel : ObservableObject {
         
         // Add actions to navigation buttons
         mainMenuRadioButton.action = {
-            self.gameSelectionController.goToHome()
+            self.gameSelectionController.goToGameModeSelection()
         }
         statsRadioButton.action = {
             self.gameSelectionController.goToStats()
         }
         settingsRadioButton.action = {
-            self.gameSelectionController.goToStats()
+            self.gameSelectionController.goToSettings()
         }
         
         // Add actions to game buttons

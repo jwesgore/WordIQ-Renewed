@@ -7,15 +7,14 @@ struct GameSettingsView : View {
     @State private var databaseHelper: GameDatabaseHelper?
     
     @ObservedObject var gameSettingsVM: GameSettingsViewModel
-    @Binding var isPresented: Bool
     @State var clearDataAlertIsPresented: Bool = false
     
     var body: some View {
         VStack {
             // MARK: Top Row Header and Done Button
-            HeaderWithDoneButtonView(title: SystemNames.GameSettings.settings, isPresented: $isPresented)
-                .padding(.horizontal)
-                .padding(.vertical, 5)
+//            HeaderWithDoneButtonView(title: SystemNames.GameSettings.settings, isPresented: $isPresented)
+//                .padding(.horizontal)
+//                .padding(.vertical, 5)
         
             ScrollView {
                 VStack {
@@ -42,7 +41,7 @@ struct GameSettingsView : View {
                     .padding(.vertical, 20)
                     
                 }
-                .padding([.horizontal, .bottom])
+                .padding(.bottom)
             }
         }
         .robotoSlabFont(.headline, .semiBold)
@@ -68,12 +67,11 @@ struct GameSettingsView : View {
 }
 
 extension GameSettingsView {
-    init(isPresented: Binding<Bool>) {
+    init() {
         self.gameSettingsVM = GameSettingsViewModel()
-        self._isPresented = isPresented
     }
 }
 
 #Preview {
-    GameSettingsView(isPresented: .constant(true))
+    GameSettingsView()
 }

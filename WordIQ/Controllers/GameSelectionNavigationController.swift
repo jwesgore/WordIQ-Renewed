@@ -48,21 +48,26 @@ class GameSelectionNavigationController : NavigationControllerBase<GameSelection
         }
     }
     
-    func goToHome() {
-        
-    }
-    
     /// Transition to a game view using the saved quick play defaults
     func goToQuickPlay() {
         gameModeOptionsViewModel.setSingleWordGameMode(.quickplay)
         AppNavigationController.shared.goToSingleWordGame()
     }
     
-    func goToSettings() {
-        
+    /// Transition to the settings view
+    func goToSettings(immediate: Bool = false, complete: @escaping () -> Void = {}) {
+        if immediate {
+            goToView(.settings) {
+                complete()
+            }
+        } else {
+            goToViewWithAnimation(.settings) {
+                complete()
+            }
+        }
     }
     
-    func goToStats() {
+    func goToStats(immediate: Bool = false, complete: @escaping () -> Void = {}) {
         
     }
     
