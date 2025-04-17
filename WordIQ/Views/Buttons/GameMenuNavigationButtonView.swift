@@ -9,7 +9,7 @@ struct GameMenuNavigationButtonView: View {
         self.viewModel = viewModel
         self.image = image
         
-        self.viewModel.cornerRadius = 10.0
+        self.viewModel.cornerRadius = 8.0
     }
     
     var body: some View {

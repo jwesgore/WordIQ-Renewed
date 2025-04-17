@@ -17,6 +17,7 @@ class TopDownRadioButtonViewModel : TopDownButtonViewModel {
          width: CGFloat,
          actionDelay: Double,
          groupManager : RadioButtonViewModelObserver,
+         hasShadow: Bool,
          isPressed: Bool,
          selectedBackgroundColor: Color,
          action: @escaping () -> Void) {
@@ -35,6 +36,7 @@ class TopDownRadioButtonViewModel : TopDownButtonViewModel {
                    borderColor: .Buttons.buttonBorder,
                    borderThickness: 1.0,
                    cornerRadius: 25.0,
+                   hasShadow: hasShadow,
                    pressedOpacity: 0.5,
                    pressedScale: 0.9,
                    action: action)
@@ -43,12 +45,14 @@ class TopDownRadioButtonViewModel : TopDownButtonViewModel {
     convenience init(height: CGFloat,
                      width: CGFloat,
                      groupManager : RadioButtonViewModelObserver,
+                     hasShadow: Bool = true,
                      isPressed: Bool = false,
                      action: @escaping () -> Void = {}) {
         self.init(height: height,
                   width: width,
                   actionDelay: 0.0,
                   groupManager: groupManager,
+                  hasShadow: hasShadow,
                   isPressed: isPressed,
                   selectedBackgroundColor: Color.Buttons.buttonSelected,
                   action: action)

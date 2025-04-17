@@ -30,6 +30,7 @@ class GameModeOptionsViewModel : ObservableObject {
     }
     
     init() {
+        
         difficultySelectionManager = TopDownRadioButtonGroupViewModel()
         easyDifficultyButton = TopDownRadioButtonViewModel(height: difficultyButtonDimension.0, width: difficultyButtonDimension.1, groupManager: difficultySelectionManager)
         normalDifficultyButton = TopDownRadioButtonViewModel(height: difficultyButtonDimension.0, width: difficultyButtonDimension.1, groupManager: difficultySelectionManager, isPressed: true)

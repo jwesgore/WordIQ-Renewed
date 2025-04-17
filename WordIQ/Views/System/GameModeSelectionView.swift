@@ -6,13 +6,14 @@ struct GameModeSelectionView: View {
     @ObservedObject var controller: GameSelectionNavigationController
     @ObservedObject var viewModel: GameModeSelectionViewModel
     
-    private let spacing : CGFloat = 10
+    private let spacing : CGFloat = 8
     
     var body: some View {
         VStack {
             AppHeaderView(viewModel: viewModel)
-                .padding(.bottom, 5)
-            
+                .padding(.horizontal)
+                .padding(.bottom, 4)
+
             ZStack {
                 switch controller.activeView {
                 case .modeSelection:
@@ -37,11 +38,13 @@ struct GameModeSelectionView: View {
                         
                         Spacer()
                     }
+                    .padding()
                 case .modeOptions:
                     GameModeOptionsView(controller.gameModeOptionsViewModel)
-                        .padding(.bottom, 30)
+                        .padding(.bottom, 32)
                 case .settings:
                     GameSettingsView()
+                        .padding()
                 case .stats:
                     StatsView()
                 default:
@@ -49,7 +52,6 @@ struct GameModeSelectionView: View {
                 }
             }
         }
-        .padding()
         .ignoresSafeArea(edges: .bottom)
         .background(Color.appBackground.ignoresSafeArea())
     }

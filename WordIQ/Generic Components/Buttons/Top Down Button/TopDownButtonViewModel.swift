@@ -12,6 +12,7 @@ class TopDownButtonViewModel : ObservableObject {
     var borderColor : Color
     var borderThickness : CGFloat
     var cornerRadius : CGFloat
+    var hasShadow: Bool
     var pressedOpacity : Double
     var pressedScale : Double
     var action: () -> Void
@@ -24,6 +25,7 @@ class TopDownButtonViewModel : ObservableObject {
           borderColor : Color,
           borderThickness : CGFloat,
           cornerRadius : CGFloat,
+          hasShadow: Bool,
           pressedOpacity : Double,
           pressedScale : Double,
           action: @escaping () -> Void) {
@@ -35,6 +37,7 @@ class TopDownButtonViewModel : ObservableObject {
         self.borderColor = borderColor
         self.borderThickness = borderThickness
         self.cornerRadius = cornerRadius
+        self.hasShadow = hasShadow
         self.pressedOpacity = pressedOpacity
         self.pressedScale = pressedScale
         self.action = action
@@ -49,6 +52,7 @@ class TopDownButtonViewModel : ObservableObject {
                   borderColor: .Buttons.buttonBorder,
                   borderThickness: 1.0,
                   cornerRadius: 20.0,
+                  hasShadow: true,
                   pressedOpacity: 0.5,
                   pressedScale: 0.9,
                   action: action)

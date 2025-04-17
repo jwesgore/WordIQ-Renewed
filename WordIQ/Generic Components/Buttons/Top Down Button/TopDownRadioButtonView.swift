@@ -22,7 +22,14 @@ struct TopDownRadioButtonView<Content: View> : View {
                         .fill(viewModel.activeBackgroundColor)
                         .stroke(viewModel.borderColor, lineWidth: viewModel.borderThickness)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .shadow(color: viewModel.isPressed ? Color.clear : Color.black.opacity(0.3), radius: 3, x: 5, y: 5)
+                        .shadow(
+                            color: viewModel.hasShadow
+                                ? (viewModel.isPressed ? Color.clear : Color.black.opacity(0.3))
+                                : Color.clear,
+                            radius: viewModel.hasShadow ? 3 : 0,
+                            x: viewModel.hasShadow ? 5 : 0,
+                            y: viewModel.hasShadow ? 5 : 0
+                        )
                 )
         }
         .removeDefaultButtonStyle()

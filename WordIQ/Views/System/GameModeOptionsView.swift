@@ -24,7 +24,7 @@ struct GameModeOptionsView : View {
             
             Spacer()
             
-            VStack {
+            HStack {
                 GameSelectionDifficultyButtonView(viewModel.easyDifficultyButton, difficulty: .easy)
                 GameSelectionDifficultyButtonView(viewModel.normalDifficultyButton, difficulty: .normal)
                 GameSelectionDifficultyButtonView(viewModel.hardDifficultyButton, difficulty: .hard)
