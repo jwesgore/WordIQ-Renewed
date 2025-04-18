@@ -12,9 +12,8 @@ struct StatsView : View {
     var body: some View {
         VStack (spacing: 0) {
             
-            StatsView_Filter(viewModel: viewModel)
+            StatsView_Component_Filter(viewModel: viewModel)
 
-            
             ScrollView {
                 if let databaseHelper = databaseHelper {
                     switch viewModel.activeFilter {

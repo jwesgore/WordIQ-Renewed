@@ -62,13 +62,18 @@ class ValueConverter {
     // MARK: - Formatting Functions
     
     /**
-     Converts a `Double` value to a percentage string with two decimal places.
-     
+         Converts a `Double` value to a percentage string with two decimal places.
+         
      - Parameter value: The `Double` value to be converted (e.g., `0.874` will be converted to `"87.40%"`).
+     - Parameter includeSign: A Boolean value indicating whether the percentage sign (`%`) should be included.
      - Returns: A formatted percentage string.
      */
-    static func doubleToPercent(_ value: Double) -> String {
-        String(format: "%.2f%%", value * 100)
+    static func doubleToPercent(_ value: Double, includeSign: Bool = true) -> String {
+        if includeSign {
+            return String(format: "%.2f%%", value * 100)
+        } else {
+            return String(format: "%.2f", value * 100)
+        }
     }
     
     /**

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct StatsView_Filter : View {
+struct StatsView_Component_Filter : View {
     
     @ObservedObject var viewModel: StatsViewModel
     
@@ -30,15 +30,4 @@ struct StatsView_Filter_Button : View {
                 .padding(.vertical, 4)
         }
     }
-}
-
-enum StatsView_Filter_Enum: String, CaseIterable {
-    case all = "All"
-    case daily = "Daily"
-    case standard = "Standard"
-    case rush = "Rush"
-    case frenzy = "Frenzy"
-    case zen = "Zen"
-    case quadStandard = "Quad"
-    case twentyQuestions = "20 Guesses"
 }

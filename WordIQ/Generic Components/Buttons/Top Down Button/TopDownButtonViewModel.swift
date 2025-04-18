@@ -43,7 +43,7 @@ class TopDownButtonViewModel : ObservableObject {
         self.action = action
     }
     
-    convenience init(height : CGFloat, width : CGFloat, action: @escaping () -> Void) {
+    convenience init(height : CGFloat, width : CGFloat, hasShadow: Bool = true, action: @escaping () -> Void) {
         self.init(height: height,
                   width: width,
                   actionDelay: 0.5,
@@ -52,14 +52,14 @@ class TopDownButtonViewModel : ObservableObject {
                   borderColor: .Buttons.buttonBorder,
                   borderThickness: 1.0,
                   cornerRadius: 20.0,
-                  hasShadow: true,
+                  hasShadow: hasShadow,
                   pressedOpacity: 0.5,
                   pressedScale: 0.9,
                   action: action)
     }
     
-    convenience init(height : CGFloat, width : CGFloat) {
-        self.init(height: height, width: width, action: {})
+    convenience init(height : CGFloat, width : CGFloat, hasShadow: Bool = true) {
+        self.init(height: height, width: width, hasShadow: hasShadow, action: {})
     }
     
     /// Perform button action

@@ -69,8 +69,13 @@
 		4B82ABC32DAC889300C80364 /* TwentyQuestionsGameOverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABC22DAC888600C80364 /* TwentyQuestionsGameOverViewModel.swift */; };
 		4B82ABC52DAF03A400C80364 /* GameMenuNavigationButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABC42DAF039700C80364 /* GameMenuNavigationButtonView.swift */; };
 		4B82ABC82DAF458E00C80364 /* GameBoardFunctionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABC72DAF458100C80364 /* GameBoardFunctionButtonView.swift */; };
-		4B82ABCA2DB1A88800C80364 /* StatsView_Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABC92DB1A87800C80364 /* StatsView_Filter.swift */; };
+		4B82ABCA2DB1A88800C80364 /* StatsView_Component_Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABC92DB1A87800C80364 /* StatsView_Component_Filter.swift */; };
 		4B82ABCD2DB1AD0D00C80364 /* StatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABCC2DB1AD0200C80364 /* StatsViewModel.swift */; };
+		4B82ABCF2DB1BAC100C80364 /* StatsView_Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABCE2DB1BAB600C80364 /* StatsView_Enum.swift */; };
+		4B82ABD32DB1D9A300C80364 /* StatsView_Component_BarDistributionChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABD22DB1D98F00C80364 /* StatsView_Component_BarDistributionChart.swift */; };
+		4B82ABD52DB1DE9800C80364 /* StatsView_Component_GuessDistribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABD42DB1DE8900C80364 /* StatsView_Component_GuessDistribution.swift */; };
+		4B82ABD72DB1E54600C80364 /* StatsView_Component_WinDistribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABD62DB1E53700C80364 /* StatsView_Component_WinDistribution.swift */; };
+		4B82ABD92DB1EA1700C80364 /* StatsView_Component_Label_Ratio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABD82DB1EA0500C80364 /* StatsView_Component_Label_Ratio.swift */; };
 		4B82B9D72CC072E2009A1502 /* WordIQApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82B9D62CC072E2009A1502 /* WordIQApp.swift */; };
 		4B82B9DD2CC072E4009A1502 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B82B9DC2CC072E4009A1502 /* Assets.xcassets */; };
 		4B82B9E02CC072E4009A1502 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B82B9DF2CC072E4009A1502 /* Preview Assets.xcassets */; };
@@ -123,7 +128,7 @@
 		4BD0CF892D7175C90077640A /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD0CF882D7175BB0077640A /* StatsView.swift */; };
 		4BD0CF922D7195A00077640A /* StatsGeneralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD0CF912D7195940077640A /* StatsGeneralView.swift */; };
 		4BD0CF962D719DAA0077640A /* StatsGameModeDistributionDonutChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD0CF952D719DAA0077640A /* StatsGameModeDistributionDonutChartView.swift */; };
-		4BD0CF982D719DDB0077640A /* StatsTotalTimePlayedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD0CF972D719DDB0077640A /* StatsTotalTimePlayedView.swift */; };
+		4BD0CF982D719DDB0077640A /* StatsView_Component_Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD0CF972D719DDB0077640A /* StatsView_Component_Label.swift */; };
 		4BD0CF9A2D72776D0077640A /* StatsStandardModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD0CF992D7277630077640A /* StatsStandardModeView.swift */; };
 		4BD0CF9C2D72777A0077640A /* StatsRushModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD0CF9B2D7277720077640A /* StatsRushModeView.swift */; };
 		4BD0CF9E2D7277870077640A /* StatsFrenzyModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD0CF9D2D72777E0077640A /* StatsFrenzyModeView.swift */; };
@@ -236,8 +241,13 @@
 		4B82ABC22DAC888600C80364 /* TwentyQuestionsGameOverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwentyQuestionsGameOverViewModel.swift; sourceTree = "<group>"; };
 		4B82ABC42DAF039700C80364 /* GameMenuNavigationButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMenuNavigationButtonView.swift; sourceTree = "<group>"; };
 		4B82ABC72DAF458100C80364 /* GameBoardFunctionButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoardFunctionButtonView.swift; sourceTree = "<group>"; };
-		4B82ABC92DB1A87800C80364 /* StatsView_Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView_Filter.swift; sourceTree = "<group>"; };
+		4B82ABC92DB1A87800C80364 /* StatsView_Component_Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView_Component_Filter.swift; sourceTree = "<group>"; };
 		4B82ABCC2DB1AD0200C80364 /* StatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewModel.swift; sourceTree = "<group>"; };
+		4B82ABCE2DB1BAB600C80364 /* StatsView_Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView_Enum.swift; sourceTree = "<group>"; };
+		4B82ABD22DB1D98F00C80364 /* StatsView_Component_BarDistributionChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView_Component_BarDistributionChart.swift; sourceTree = "<group>"; };
+		4B82ABD42DB1DE8900C80364 /* StatsView_Component_GuessDistribution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView_Component_GuessDistribution.swift; sourceTree = "<group>"; };
+		4B82ABD62DB1E53700C80364 /* StatsView_Component_WinDistribution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView_Component_WinDistribution.swift; sourceTree = "<group>"; };
+		4B82ABD82DB1EA0500C80364 /* StatsView_Component_Label_Ratio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView_Component_Label_Ratio.swift; sourceTree = "<group>"; };
 		4B82B9D32CC072E2009A1502 /* WordIQ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordIQ.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B82B9D62CC072E2009A1502 /* WordIQApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordIQApp.swift; sourceTree = "<group>"; };
 		4B82B9DC2CC072E4009A1502 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -291,7 +301,7 @@
 		4BD0CF882D7175BB0077640A /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		4BD0CF912D7195940077640A /* StatsGeneralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsGeneralView.swift; sourceTree = "<group>"; };
 		4BD0CF952D719DAA0077640A /* StatsGameModeDistributionDonutChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsGameModeDistributionDonutChartView.swift; sourceTree = "<group>"; };
-		4BD0CF972D719DDB0077640A /* StatsTotalTimePlayedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsTotalTimePlayedView.swift; sourceTree = "<group>"; };
+		4BD0CF972D719DDB0077640A /* StatsView_Component_Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView_Component_Label.swift; sourceTree = "<group>"; };
 		4BD0CF992D7277630077640A /* StatsStandardModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsStandardModeView.swift; sourceTree = "<group>"; };
 		4BD0CF9B2D7277720077640A /* StatsRushModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsRushModeView.swift; sourceTree = "<group>"; };
 		4BD0CF9D2D72777E0077640A /* StatsFrenzyModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsFrenzyModeView.swift; sourceTree = "<group>"; };
@@ -536,6 +546,27 @@
 			path = "Stats View Models";
 			sourceTree = "<group>";
 		};
+		4B82ABD02DB1BADC00C80364 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4B82ABCE2DB1BAB600C80364 /* StatsView_Enum.swift */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		4B82ABD12DB1BB0800C80364 /* Stats Filter Views */ = {
+			isa = PBXGroup;
+			children = (
+				4BD0CF912D7195940077640A /* StatsGeneralView.swift */,
+				4BD0CFA12D7277910077640A /* StatsDailyModeView.swift */,
+				4BD0CF992D7277630077640A /* StatsStandardModeView.swift */,
+				4BD0CF9B2D7277720077640A /* StatsRushModeView.swift */,
+				4BD0CF9D2D72777E0077640A /* StatsFrenzyModeView.swift */,
+				4BD0CF9F2D72778A0077640A /* StatsZenModeView.swift */,
+			);
+			path = "Stats Filter Views";
+			sourceTree = "<group>";
+		};
 		4B82B9CA2CC072E2009A1502 = {
 			isa = PBXGroup;
 			children = (
@@ -769,15 +800,10 @@
 		4BD0CF8A2D7183D90077640A /* Stats */ = {
 			isa = PBXGroup;
 			children = (
-				4B82ABC92DB1A87800C80364 /* StatsView_Filter.swift */,
-				4BD0CFA42D72780B0077640A /* Sub Components */,
 				4BD0CF882D7175BB0077640A /* StatsView.swift */,
-				4BD0CF912D7195940077640A /* StatsGeneralView.swift */,
-				4BD0CFA12D7277910077640A /* StatsDailyModeView.swift */,
-				4BD0CF992D7277630077640A /* StatsStandardModeView.swift */,
-				4BD0CF9B2D7277720077640A /* StatsRushModeView.swift */,
-				4BD0CF9D2D72777E0077640A /* StatsFrenzyModeView.swift */,
-				4BD0CF9F2D72778A0077640A /* StatsZenModeView.swift */,
+				4B82ABD02DB1BADC00C80364 /* Resources */,
+				4B82ABD12DB1BB0800C80364 /* Stats Filter Views */,
+				4BD0CFA42D72780B0077640A /* Sub Components */,
 			);
 			path = Stats;
 			sourceTree = "<group>";
@@ -785,9 +811,14 @@
 		4BD0CFA42D72780B0077640A /* Sub Components */ = {
 			isa = PBXGroup;
 			children = (
-				4BD9D6C42D73B0B100EB9800 /* StatsTotalGuessesView.swift */,
 				4BD0CF952D719DAA0077640A /* StatsGameModeDistributionDonutChartView.swift */,
-				4BD0CF972D719DDB0077640A /* StatsTotalTimePlayedView.swift */,
+				4BD9D6C42D73B0B100EB9800 /* StatsTotalGuessesView.swift */,
+				4B82ABD22DB1D98F00C80364 /* StatsView_Component_BarDistributionChart.swift */,
+				4B82ABC92DB1A87800C80364 /* StatsView_Component_Filter.swift */,
+				4B82ABD42DB1DE8900C80364 /* StatsView_Component_GuessDistribution.swift */,
+				4BD0CF972D719DDB0077640A /* StatsView_Component_Label.swift */,
+				4B82ABD82DB1EA0500C80364 /* StatsView_Component_Label_Ratio.swift */,
+				4B82ABD62DB1E53700C80364 /* StatsView_Component_WinDistribution.swift */,
 			);
 			path = "Sub Components";
 			sourceTree = "<group>";
@@ -1038,6 +1069,7 @@
 				4B99E8BC2D8E144D00F0F081 /* TopDownButtonViewModel.swift in Sources */,
 				4BF592142CC07D1900C555F6 /* GameDifficulty.swift in Sources */,
 				4BF592102CC07C1D00C555F6 /* GameMode.swift in Sources */,
+				4B82ABCF2DB1BAC100C80364 /* StatsView_Enum.swift in Sources */,
 				4B884CD12D86840000C0A808 /* NotificationPermissionView.swift in Sources */,
 				4B99E8DD2D91275200F0F081 /* MultiWordBoardState.swift in Sources */,
 				4BD0CFA02D72778F0077640A /* StatsZenModeView.swift in Sources */,
@@ -1056,6 +1088,7 @@
 				4B5F9C9D2DA72EBA000A9F3F /* SDStandardGameResult.swift in Sources */,
 				4BF592852CCD907800C555F6 /* GameSelectionTimeButtonView.swift in Sources */,
 				4B85B2D22D8D001C003127E0 /* GameSelectionNavigationController.swift in Sources */,
+				4B82ABD72DB1E54600C80364 /* StatsView_Component_WinDistribution.swift in Sources */,
 				4BF5921E2CC0814900C555F6 /* KeyboardFunctions.swift in Sources */,
 				4B4929D42D703D1100CEBBF2 /* HapticsHelper.swift in Sources */,
 				4B1CC12F2D850C3C00A56316 /* GameSettingsToggleView.swift in Sources */,
@@ -1148,14 +1181,16 @@
 				4B99E8CB2D907ECE00F0F081 /* GameBoardSaveStateModel.swift in Sources */,
 				4B6603A92CE159A200F4F140 /* GameSettingsView.swift in Sources */,
 				4B99E8CF2D90B15C00F0F081 /* FourWordGameOverViewModel.swift in Sources */,
-				4BD0CF982D719DDB0077640A /* StatsTotalTimePlayedView.swift in Sources */,
+				4BD0CF982D719DDB0077640A /* StatsView_Component_Label.swift in Sources */,
 				4B99E8C62D8F145800F0F081 /* MultiWordGameOptionsModel.swift in Sources */,
 				4BF5928D2CCED9BA00C555F6 /* GameBoardWordViewModel.swift in Sources */,
 				4B091B332CD339840092600B /* KeyboardFunctionViewModel.swift in Sources */,
 				4B091B512CD684800092600B /* StandardModeViewModel.swift in Sources */,
 				4B35411A2DA362EB00B89F6D /* GameStatsProtocols.swift in Sources */,
+				4B82ABD52DB1DE9800C80364 /* StatsView_Component_GuessDistribution.swift in Sources */,
 				4B85B2DA2D8D2BD7003127E0 /* AppNavigationController.swift in Sources */,
 				4BF592872CCEAB7700C555F6 /* KeyboardView.swift in Sources */,
+				4B82ABD32DB1D9A300C80364 /* StatsView_Component_BarDistributionChart.swift in Sources */,
 				4BF592232CC0848A00C555F6 /* SplashScreenView.swift in Sources */,
 				4B091B4C2CD5EAAA0092600B /* WordDatabaseHelper.swift in Sources */,
 				4BF5925F2CC1E60E00C555F6 /* 3DButtonViewModel.swift in Sources */,
@@ -1170,13 +1205,14 @@
 				4B82ABB22DA8C39F00C80364 /* TwentyQuestionsGameView.swift in Sources */,
 				4BD0CF922D7195A00077640A /* StatsGeneralView.swift in Sources */,
 				4BF5927D2CCC1B1900C555F6 /* 3DRadioButtonViewModel.swift in Sources */,
+				4B82ABD92DB1EA1700C80364 /* StatsView_Component_Label_Ratio.swift in Sources */,
 				4B82ABC52DAF03A400C80364 /* GameMenuNavigationButtonView.swift in Sources */,
 				4B99E8DB2D9114D200F0F081 /* FourWordGameOverView.swift in Sources */,
 				4BF592912CCEF83000C555F6 /* SingleWordGameView.swift in Sources */,
 				4BD0CF892D7175C90077640A /* StatsView.swift in Sources */,
 				4B82ABCD2DB1AD0D00C80364 /* StatsViewModel.swift in Sources */,
 				4B82ABBA2DAB606800C80364 /* KeyboardProtocols.swift in Sources */,
-				4B82ABCA2DB1A88800C80364 /* StatsView_Filter.swift in Sources */,
+				4B82ABCA2DB1A88800C80364 /* StatsView_Component_Filter.swift in Sources */,
 				4B85B2CA2D8BACAD003127E0 /* WordDatabaseEnum.swift in Sources */,
 				4B1852872CCF05610054E5F4 /* KeyboardLetterView.swift in Sources */,
 				4B99E8DF2D91F95E00F0F081 /* GameModeOptionsViewModel.swift in Sources */,

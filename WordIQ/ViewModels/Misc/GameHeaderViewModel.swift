@@ -46,8 +46,8 @@ class GameHeaderViewModel: ObservableObject {
         self.controller = controller
         
         // Initialize the header buttons with the specified dimensions.
-        exitGameButton = TopDownButtonViewModel(height: headerButtonDimensions.0, width: headerButtonDimensions.1)
-        pauseGameButton = TopDownButtonViewModel(height: headerButtonDimensions.0, width: headerButtonDimensions.1)
+        exitGameButton = TopDownButtonViewModel(height: headerButtonDimensions.0, width: headerButtonDimensions.1, hasShadow: false)
+        pauseGameButton = TopDownButtonViewModel(height: headerButtonDimensions.0, width: headerButtonDimensions.1, hasShadow: false)
         resumeGameButton = TopDownButtonViewModel(height: resumeButtonDimensions.0, width: resumeButtonDimensions.1)
         
         // Configure the button actions.

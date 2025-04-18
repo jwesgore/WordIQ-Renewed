@@ -30,7 +30,14 @@ struct TopDownButtonView<Content: View>: View {
                         .fill(viewModel.backgroundColor)
                         .stroke(viewModel.borderColor, lineWidth: viewModel.borderThickness)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .shadow(color: self.isPressed ? Color.clear : Color.black.opacity(0.3), radius: 3, x: 5, y: 5)
+                        .shadow(
+                            color: viewModel.hasShadow
+                                ? (self.isPressed ? Color.clear : Color.black.opacity(0.3))
+                                : Color.clear,
+                            radius: viewModel.hasShadow ? 3 : 0,
+                            x: viewModel.hasShadow ? 5 : 0,
+                            y: viewModel.hasShadow ? 5 : 0
+                        )
                 )
         }
         .removeDefaultButtonStyle()
