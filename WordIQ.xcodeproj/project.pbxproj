@@ -61,6 +61,7 @@
 		4B6603AF2CEAE03800F4F140 /* GamePauseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6603AE2CEAE02400F4F140 /* GamePauseView.swift */; };
 		4B6603B12CEC3B5F00F4F140 /* TimeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6603B02CEC3B4A00F4F140 /* TimeUtility.swift */; };
 		4B6FAA552DB1F93100D84A58 /* StatsView_FilteredView_Quad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6FAA542DB1F92500D84A58 /* StatsView_FilteredView_Quad.swift */; };
+		4B6FAA572DB2E12E00D84A58 /* DefaultDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6FAA562DB2E12900D84A58 /* DefaultDictionary.swift */; };
 		4B82ABB22DA8C39F00C80364 /* TwentyQuestionsGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABB12DA8C39500C80364 /* TwentyQuestionsGameView.swift */; };
 		4B82ABB42DA8D62200C80364 /* TwentyQuestionsGameBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABB32DA8D61900C80364 /* TwentyQuestionsGameBoardView.swift */; };
 		4B82ABB62DA8D84000C80364 /* TwentyQuestionsGameBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABB52DA8D83700C80364 /* TwentyQuestionsGameBoardViewModel.swift */; };
@@ -74,7 +75,7 @@
 		4B82ABCD2DB1AD0D00C80364 /* StatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABCC2DB1AD0200C80364 /* StatsViewModel.swift */; };
 		4B82ABCF2DB1BAC100C80364 /* StatsView_Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABCE2DB1BAB600C80364 /* StatsView_Enum.swift */; };
 		4B82ABD32DB1D9A300C80364 /* StatsView_Component_BarDistributionChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABD22DB1D98F00C80364 /* StatsView_Component_BarDistributionChart.swift */; };
-		4B82ABD52DB1DE9800C80364 /* StatsView_Component_GuessDistribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABD42DB1DE8900C80364 /* StatsView_Component_GuessDistribution.swift */; };
+		4B82ABD52DB1DE9800C80364 /* StatsView_Component_GuessRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABD42DB1DE8900C80364 /* StatsView_Component_GuessRatio.swift */; };
 		4B82ABD72DB1E54600C80364 /* StatsView_Component_WinDistribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABD62DB1E53700C80364 /* StatsView_Component_WinDistribution.swift */; };
 		4B82ABD92DB1EA1700C80364 /* StatsView_Component_Label_Ratio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABD82DB1EA0500C80364 /* StatsView_Component_Label_Ratio.swift */; };
 		4B82B9D72CC072E2009A1502 /* WordIQApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82B9D62CC072E2009A1502 /* WordIQApp.swift */; };
@@ -136,7 +137,7 @@
 		4BD0CFA02D72778F0077640A /* StatsView_FilteredView_Zen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD0CF9F2D72778A0077640A /* StatsView_FilteredView_Zen.swift */; };
 		4BD0CFA22D7277980077640A /* StatsView_FilteredView_Daily.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD0CFA12D7277910077640A /* StatsView_FilteredView_Daily.swift */; };
 		4BD9D6C12D727C4400EB9800 /* ItemInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD9D6C02D727C2D00EB9800 /* ItemInfoView.swift */; };
-		4BD9D6C52D73B0BC00EB9800 /* StatsTotalGuessesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD9D6C42D73B0B100EB9800 /* StatsTotalGuessesView.swift */; };
+		4BD9D6C52D73B0BC00EB9800 /* StatsView_Component_GuessDistribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD9D6C42D73B0B100EB9800 /* StatsView_Component_GuessDistribution.swift */; };
 		4BF592102CC07C1D00C555F6 /* GameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF5920F2CC07C1500C555F6 /* GameMode.swift */; };
 		4BF592122CC07C2A00C555F6 /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF592112CC07C2200C555F6 /* GameResult.swift */; };
 		4BF592142CC07D1900C555F6 /* GameDifficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF592132CC07D1300C555F6 /* GameDifficulty.swift */; };
@@ -234,6 +235,7 @@
 		4B6603AE2CEAE02400F4F140 /* GamePauseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePauseView.swift; sourceTree = "<group>"; };
 		4B6603B02CEC3B4A00F4F140 /* TimeUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeUtility.swift; sourceTree = "<group>"; };
 		4B6FAA542DB1F92500D84A58 /* StatsView_FilteredView_Quad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView_FilteredView_Quad.swift; sourceTree = "<group>"; };
+		4B6FAA562DB2E12900D84A58 /* DefaultDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultDictionary.swift; sourceTree = "<group>"; };
 		4B82ABB12DA8C39500C80364 /* TwentyQuestionsGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwentyQuestionsGameView.swift; sourceTree = "<group>"; };
 		4B82ABB32DA8D61900C80364 /* TwentyQuestionsGameBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwentyQuestionsGameBoardView.swift; sourceTree = "<group>"; };
 		4B82ABB52DA8D83700C80364 /* TwentyQuestionsGameBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwentyQuestionsGameBoardViewModel.swift; sourceTree = "<group>"; };
@@ -247,7 +249,7 @@
 		4B82ABCC2DB1AD0200C80364 /* StatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewModel.swift; sourceTree = "<group>"; };
 		4B82ABCE2DB1BAB600C80364 /* StatsView_Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView_Enum.swift; sourceTree = "<group>"; };
 		4B82ABD22DB1D98F00C80364 /* StatsView_Component_BarDistributionChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView_Component_BarDistributionChart.swift; sourceTree = "<group>"; };
-		4B82ABD42DB1DE8900C80364 /* StatsView_Component_GuessDistribution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView_Component_GuessDistribution.swift; sourceTree = "<group>"; };
+		4B82ABD42DB1DE8900C80364 /* StatsView_Component_GuessRatio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView_Component_GuessRatio.swift; sourceTree = "<group>"; };
 		4B82ABD62DB1E53700C80364 /* StatsView_Component_WinDistribution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView_Component_WinDistribution.swift; sourceTree = "<group>"; };
 		4B82ABD82DB1EA0500C80364 /* StatsView_Component_Label_Ratio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView_Component_Label_Ratio.swift; sourceTree = "<group>"; };
 		4B82B9D32CC072E2009A1502 /* WordIQ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordIQ.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -310,7 +312,7 @@
 		4BD0CF9F2D72778A0077640A /* StatsView_FilteredView_Zen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView_FilteredView_Zen.swift; sourceTree = "<group>"; };
 		4BD0CFA12D7277910077640A /* StatsView_FilteredView_Daily.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView_FilteredView_Daily.swift; sourceTree = "<group>"; };
 		4BD9D6C02D727C2D00EB9800 /* ItemInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemInfoView.swift; sourceTree = "<group>"; };
-		4BD9D6C42D73B0B100EB9800 /* StatsTotalGuessesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsTotalGuessesView.swift; sourceTree = "<group>"; };
+		4BD9D6C42D73B0B100EB9800 /* StatsView_Component_GuessDistribution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView_Component_GuessDistribution.swift; sourceTree = "<group>"; };
 		4BF5920F2CC07C1500C555F6 /* GameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMode.swift; sourceTree = "<group>"; };
 		4BF592112CC07C2200C555F6 /* GameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResult.swift; sourceTree = "<group>"; };
 		4BF592132CC07D1300C555F6 /* GameDifficulty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDifficulty.swift; sourceTree = "<group>"; };
@@ -676,6 +678,7 @@
 		4B87990D2D98C57800E4946E /* Data Structures */ = {
 			isa = PBXGroup;
 			children = (
+				4B6FAA562DB2E12900D84A58 /* DefaultDictionary.swift */,
 				4B8799102D98CBAC00E4946E /* OrderedDictionary.swift */,
 				4B87990E2D98C58200E4946E /* OrderedDictionary_Codable.swift */,
 			);
@@ -815,10 +818,10 @@
 			isa = PBXGroup;
 			children = (
 				4BD0CF952D719DAA0077640A /* StatsGameModeDistributionDonutChartView.swift */,
-				4BD9D6C42D73B0B100EB9800 /* StatsTotalGuessesView.swift */,
+				4BD9D6C42D73B0B100EB9800 /* StatsView_Component_GuessDistribution.swift */,
 				4B82ABD22DB1D98F00C80364 /* StatsView_Component_BarDistributionChart.swift */,
 				4B82ABC92DB1A87800C80364 /* StatsView_Component_Filter.swift */,
-				4B82ABD42DB1DE8900C80364 /* StatsView_Component_GuessDistribution.swift */,
+				4B82ABD42DB1DE8900C80364 /* StatsView_Component_GuessRatio.swift */,
 				4BD0CF972D719DDB0077640A /* StatsView_Component_Label.swift */,
 				4B82ABD82DB1EA0500C80364 /* StatsView_Component_Label_Ratio.swift */,
 				4B82ABD62DB1E53700C80364 /* StatsView_Component_WinDistribution.swift */,
@@ -1154,6 +1157,7 @@
 				4B1CC1132D7FDC2A00A56316 /* DailyModeViewModel.swift in Sources */,
 				4B87990C2D987EA200E4946E /* GameWordBaseViewModel.swift in Sources */,
 				4B35411C2DA367E700B89F6D /* StatsModel.swift in Sources */,
+				4B6FAA572DB2E12E00D84A58 /* DefaultDictionary.swift in Sources */,
 				4B884CD52D87547400C0A808 /* ExpandAndCollapseHeaderView.swift in Sources */,
 				4BF5926B2CC30C3300C555F6 /* GameModeSelectionViewModel.swift in Sources */,
 				4B5F9CA32DA779B6000A9F3F /* SDZenGameResult.swift in Sources */,
@@ -1166,7 +1170,7 @@
 				4BF592692CC30C1B00C555F6 /* GameModeSelectionView.swift in Sources */,
 				4BF592122CC07C2A00C555F6 /* GameResult.swift in Sources */,
 				4BF592652CC2EDA800C555F6 /* ClockView.swift in Sources */,
-				4BD9D6C52D73B0BC00EB9800 /* StatsTotalGuessesView.swift in Sources */,
+				4BD9D6C52D73B0BC00EB9800 /* StatsView_Component_GuessDistribution.swift in Sources */,
 				4B4929CF2D6EB94200CEBBF2 /* ValueConverter.swift in Sources */,
 				4B99E8D52D91016500F0F081 /* TopDownRadioButtonView.swift in Sources */,
 				4B85B2D02D8CFD0A003127E0 /* FourWordGameViewModel.swift in Sources */,
@@ -1191,7 +1195,7 @@
 				4B091B332CD339840092600B /* KeyboardFunctionViewModel.swift in Sources */,
 				4B091B512CD684800092600B /* StandardModeViewModel.swift in Sources */,
 				4B35411A2DA362EB00B89F6D /* GameStatsProtocols.swift in Sources */,
-				4B82ABD52DB1DE9800C80364 /* StatsView_Component_GuessDistribution.swift in Sources */,
+				4B82ABD52DB1DE9800C80364 /* StatsView_Component_GuessRatio.swift in Sources */,
 				4B85B2DA2D8D2BD7003127E0 /* AppNavigationController.swift in Sources */,
 				4BF592872CCEAB7700C555F6 /* KeyboardView.swift in Sources */,
 				4B82ABD32DB1D9A300C80364 /* StatsView_Component_BarDistributionChart.swift in Sources */,

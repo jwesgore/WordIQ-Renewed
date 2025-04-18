@@ -18,6 +18,8 @@ struct StatsView_FilteredView_Frenzy: View {
                 value: TimeUtility.formatTimeShort(statsModel.averageTimePerGame)
             )
             
+            StatsView_Component_GuessRatio(statsModel)
+            
             StatsView_Component_GuessDistribution(statsModel)
         }
         

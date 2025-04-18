@@ -3,6 +3,7 @@ struct StatsModel: GameStatsModel, WinnableStat {
     // MARK: - Set Properties
     var bestStreak: Int = 0
     var currentStreak: Int = 0
+    var guessDistribution = DefaultDictionary<Int, Int>(defaultValue: 0)
     
     var totalCorrectWords: Int = 0
     var totalGamesPlayed: Int = 0

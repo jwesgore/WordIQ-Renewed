@@ -66,6 +66,9 @@ class GameDatabaseHelper {
         model.totalValidGuesses = totalValidGuesses
         model.totalInvalidGuesses = totalInvalidGuesses
         
+        results.forEach { model.guessDistribution[$0.numberOfValidGuesses] += 1 }
+        
+        // If model is a winnable type
         if TGameResult.self is SDWinnable.Type {
             let winnableResults = results.compactMap { $0 as? SDWinnable }
             let totalWins = winnableResults.filter { $0.result == .win }.count
@@ -92,6 +95,8 @@ class GameDatabaseHelper {
         model.totalTimePlayed = totalTimePlayed
         model.totalValidGuesses = totalValidGuesses
         model.totalInvalidGuesses = totalInvalidGuesses
+        
+        results.forEach { model.guessDistribution[$0.numberOfValidGuesses] += 1 }
         
         // Calculate wins, if applicable
         let winnableResults = results.compactMap { $0 as? SDWinnable }
