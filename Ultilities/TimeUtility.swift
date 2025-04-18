@@ -57,7 +57,7 @@ class TimeUtility {
         if days > 0 { timeString += "\(days)\(lowercased ? "d" : "D") " }
         if hours > 0 { timeString += "\(hours)\(lowercased ? "h" : "H") " }
         if minutes > 0 { timeString += "\(minutes)\(lowercased ? "m" : "M") " }
-        if !(concat && (days + hours + minutes) > 0) {
+        if !(concat && days > 0 && hours > 0 && minutes > 0) {
             timeString += "\(remainingSeconds)\(lowercased ? "s" : "S")"
         }
         return timeString

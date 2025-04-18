@@ -5,24 +5,15 @@ struct GameModeOptionsView : View {
     @ObservedObject var viewModel: GameModeOptionsViewModel
     
     var body: some View {
-        let optionsHeader = viewModel.showTimeLimitOptions ?
-            "\(viewModel.singleWordGameModeOptions.gameMode.asStringShort): \(viewModel.singleWordGameModeOptions.gameDifficulty.asString), \(TimeUtility.formatTimeShort(viewModel.singleWordGameModeOptions.timeLimit))" :
-            "\(viewModel.singleWordGameModeOptions.gameMode.asStringShort): \(viewModel.singleWordGameModeOptions.gameDifficulty.asString)"
-            
-        VStack {
-            VStack {
-                Spacer().frame(height: 20)
-                
-                Text(optionsHeader)
-                    .robotoSlabFont(.title2, .semiBold)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-                Text(viewModel.singleWordGameModeOptions.gameMode.description)
-                    .robotoSlabFont(.subheading, .regular)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+        
+        VStack (spacing: 8.0) {
+
+            HStack {
+                Spacer()
+                Text("Difficulty")
+                    .opacity(0.5)
             }
-            
-            Spacer()
+            .robotoSlabFont(.title1, .regular)
             
             HStack {
                 GameSelectionDifficultyButtonView(viewModel.easyDifficultyButton, difficulty: .easy)
@@ -31,6 +22,14 @@ struct GameModeOptionsView : View {
             }
             
             if viewModel.showTimeLimitOptions {
+                
+                HStack {
+                    Spacer()
+                    Text("Time Limit")
+                        .opacity(0.5)
+                }
+                .robotoSlabFont(.title1, .regular)
+                
                 HStack {
                     GameSelectionTimeButtonView(viewModel.timeSelection1Button, timeLimit: viewModel.timeLimitOptions.0)
                     GameSelectionTimeButtonView(viewModel.timeSelection2Button, timeLimit: viewModel.timeLimitOptions.1)

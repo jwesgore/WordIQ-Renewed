@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// View Container for Standard Mode Stats
-struct StatsStandardModeView: View {
+struct StatsView_FilteredView_Standard: View {
     
     @State var statsModel: StatsModel
     
@@ -16,17 +16,6 @@ struct StatsStandardModeView: View {
             StatsView_Component_Label(
                 label: "Time Per Game",
                 value: TimeUtility.formatTimeShort(statsModel.averageTimePerGame)
-            )
-            
-            // MARK: Game Counts
-            StatsView_Component_Label(
-                label: "Games",
-                value: statsModel.totalGamesPlayed.description
-            )
-
-            StatsView_Component_Label(
-                label: "Guesses Per Game",
-                value: statsModel.averageGuessesPerGame.description
             )
             
             // MARK: Streak Stats
@@ -46,7 +35,7 @@ struct StatsStandardModeView: View {
     }
 }
 
-extension StatsStandardModeView {
+extension StatsView_FilteredView_Standard {
     init(databaseHelper: GameDatabaseHelper) {
         statsModel = StatsModelFactory(databaseHelper: databaseHelper).getStatsModel(for: .standardMode)
     }

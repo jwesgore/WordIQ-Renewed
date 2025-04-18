@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// View Container for Daily Mode Stats
-struct StatsDailyModeView: View {
+struct StatsView_FilteredView_Daily: View {
     
     // MARK: - State Properties
     /// The model providing the stats data for this view.
@@ -21,30 +21,6 @@ struct StatsDailyModeView: View {
                 value: TimeUtility.formatTimeShort(statsModel.averageTimePerGame)
             )
             
-            // MARK: Game Counts
-            StatsView_Component_Label(
-                label: "Games",
-                value: statsModel.totalGamesPlayed.description
-            )
-            StatsView_Component_Label(
-                label: "Guesses",
-                value: statsModel.totalValidGuesses.description
-            )
-            StatsView_Component_Label(
-                label: "Guesses Per Game",
-                value: statsModel.averageGuessesPerGame.description
-            )
-            
-            // MARK: Performance Stats
-            StatsView_Component_Label(
-                label: "Wins",
-                value: statsModel.totalWins.description
-            )
-            StatsView_Component_Label(
-                label: "Win %",
-                value: ValueConverter.doubleToPercent(statsModel.winRate, includeSign: false)
-            )
-            
             // MARK: Streak Stats
             StatsView_Component_Label(
                 label: "Current Streak",
@@ -56,13 +32,15 @@ struct StatsDailyModeView: View {
             )
             
             StatsView_Component_GuessDistribution(statsModel)
+            
+            StatsView_Component_WinDistribution(statsModel)
         }
     }
 }
 
 // MARK: - Initializer
 
-extension StatsDailyModeView {
+extension StatsView_FilteredView_Daily {
     /// Initializes the `StatsDailyModeView` with a database helper.
     /// - Parameter databaseHelper: The helper used to fetch and manage game stats.
     init(databaseHelper: GameDatabaseHelper) {

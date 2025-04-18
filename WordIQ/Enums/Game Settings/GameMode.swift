@@ -56,7 +56,7 @@ extension GameMode {
         case .dailyGame: return "Daily"
         case .quickplay: return "Quickplay"
         case .quadWordMode: return "Quad"
-        case .twentyQuestions: return "Twenty Guesses"
+        case .twentyQuestions: return "20 Guesses"
         }
     }
     
@@ -79,7 +79,7 @@ extension GameMode {
         case .zenMode: return "Take it easy"
         case .dailyGame: return "New Daily Available!"
         case .quadWordMode: return "Four words at once"
-        case .twentyQuestions: return "Twenty guesses, five words"
+        case .twentyQuestions: return "20 guesses, 5 words"
         default: return ""
         }
     }

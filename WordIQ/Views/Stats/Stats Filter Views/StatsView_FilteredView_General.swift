@@ -2,21 +2,20 @@ import SwiftUI
 import Charts
 
 /// View container for general statistics
-struct StatsGeneralView : View {
+struct StatsView_FilteredView_General : View {
 
     var databaseHelper: GameDatabaseHelper
     var statsModel: StatsModel
     
     var body: some View {
         let distribution = databaseHelper.getGameModeDistribution()
-        let (totalGuesses, totalValidGuesses, totalInvalidGuesses) = databaseHelper.totalGuessesAll
 
-        VStack {
+        VStack (spacing: 8.0) {
             
-            StatsView_Component_Label(label: "Time Played", value: TimeUtility.formatTimeAbbreviated(statsModel.totalTimePlayed))
+            StatsView_Component_Label(label: "Time Played", value: TimeUtility.formatTimeAbbreviated(statsModel.totalTimePlayed, lowercased: true, concat: true))
             StatsView_Component_Label(label: "Games Played", value: statsModel.totalGamesPlayed.description)
-            StatsView_Component_Label(label: "Guesses Made", value: statsModel.totalValidGuesses.description)
             
+            StatsView_Component_GuessDistribution(statsModel)
             
             // Mode Distribution
 //            if statsModel.totalGamesPlayed > 0 {
@@ -34,9 +33,9 @@ struct StatsGeneralView : View {
 }
 
 
-extension StatsGeneralView {
+extension StatsView_FilteredView_General {
     init (_ databaseHelper: GameDatabaseHelper) {
         self.databaseHelper = databaseHelper
-        self.statsModel = databaseHelper.getGameStatistics(for: SDStandardGameResult.self)
+        self.statsModel = StatsModelFactory(databaseHelper: databaseHelper).getStatsModel()
     }
 }

@@ -18,19 +18,19 @@ struct StatsView : View {
                 if let databaseHelper = databaseHelper {
                     switch viewModel.activeFilter {
                     case .all:
-                        StatsGeneralView(databaseHelper)
+                        StatsView_FilteredView_General(databaseHelper)
                     case .daily:
-                        StatsDailyModeView(databaseHelper: databaseHelper)
+                        StatsView_FilteredView_Daily(databaseHelper: databaseHelper)
                     case .standard:
-                        StatsStandardModeView(databaseHelper: databaseHelper)
+                        StatsView_FilteredView_Standard(databaseHelper: databaseHelper)
                     case .rush:
-                        StatsRushModeView(databaseHelper: databaseHelper)
+                        StatsView_FilteredView_Rush(databaseHelper: databaseHelper)
                     case .frenzy:
-                        StatsFrenzyModeView(databaseHelper: databaseHelper)
+                        StatsView_FilteredView_Frenzy(databaseHelper: databaseHelper)
                     case .zen:
-                        StatsZenModeView(databaseHelper: databaseHelper)
+                        StatsView_FilteredView_Zen(databaseHelper: databaseHelper)
                     case .quadStandard:
-                        Text("Temp")
+                        StatsView_FilteredView_Quad(databaseHelper: databaseHelper)
                     case .twentyQuestions:
                         Text("Temp")
                     }

@@ -41,6 +41,7 @@ struct GameModeSelectionView: View {
                     .padding()
                 case .modeOptions:
                     GameModeOptionsView(controller.gameModeOptionsViewModel)
+                        .padding()
                         .padding(.bottom, 32)
                 case .settings:
                     GameSettingsView()

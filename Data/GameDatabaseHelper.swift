@@ -75,6 +75,32 @@ class GameDatabaseHelper {
         return model
     }
     
+    func getGameStatistics() -> StatsModel {
+        var model = StatsModel()
+        
+        let results = fetchAllResults()
+
+        let totalGames = results.count
+        let totalTimePlayed = results.reduce(0) { $0 + $1.timeElapsed }
+        let totalCorrectWords = results.reduce(0) { $0 + $1.numberOfCorrectWords }
+        let totalInvalidGuesses = results.reduce(0) { $0 + $1.numberOfInvalidGuesses }
+        let totalValidGuesses = results.reduce(0) { $0 + $1.numberOfValidGuesses }
+        
+        // Populate the stats model
+        model.totalGamesPlayed = totalGames
+        model.totalCorrectWords = totalCorrectWords
+        model.totalTimePlayed = totalTimePlayed
+        model.totalValidGuesses = totalValidGuesses
+        model.totalInvalidGuesses = totalInvalidGuesses
+        
+        // Calculate wins, if applicable
+        let winnableResults = results.compactMap { $0 as? SDWinnable }
+        let totalWins = winnableResults.filter { $0.result == .win }.count
+        model.totalWins = totalWins
+        
+        return model
+    }
+
     func getGameModeWinPercentage<TGameResult: SDGameResult & SDWinnable & PersistentModel>(for modelType: TGameResult.Type) -> Double {
         let results = fetchResults(for: modelType)
         let totalGames = Double(results.count)

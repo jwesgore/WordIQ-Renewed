@@ -7,6 +7,10 @@ class StatsModelFactory {
         self.databaseHelper = databaseHelper
     }
     
+    func getStatsModel() -> StatsModel {
+        return databaseHelper.getGameStatistics()
+    }
+    
     /// Gets the stats model for the given game mode
     func getStatsModel(for gameMode: GameMode) -> StatsModel {
         var model: StatsModel
