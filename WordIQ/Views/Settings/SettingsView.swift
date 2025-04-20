@@ -11,7 +11,7 @@ struct SettingsView : View {
     
     var body: some View {
         
-        ScrollView {
+        ScrollView (showsIndicators: false) {
             VStack (spacing: 16.0) {
                 // MARK: Gameplay Settings block
                 SettingsView_Toggle(SystemNames.GameSettings.colorBlindMode, isActive: $viewModel.colorBlind)
@@ -41,7 +41,7 @@ struct SettingsView : View {
      
                 // MARK: Quickplay Settings block
                 SettingsView_Quickplay(viewModel: viewModel)
-                    .padding(.bottom, 5)
+                    .padding(.bottom, 4)
                 
                 // MARK: Clear Data Button
                 Button {
@@ -51,7 +51,7 @@ struct SettingsView : View {
                         .foregroundStyle(.red)
                         .robotoSlabFont(.title2, .regular)
                 }
-                .padding(.vertical, 20)
+                .padding(.bottom, 32)
                 
             }
             .padding(.bottom)
