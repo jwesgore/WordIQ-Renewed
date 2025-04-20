@@ -4,6 +4,7 @@ protocol GameStatsModel {
     var averageTimePerWord: Int { get }
     var averageTimePerGuess: Int { get }
     
+    var startWordFrequency: DefaultDictionary<String, Int> { get set }
     var totalGuessesMade: Int { get set }
     var totalValidGuesses: Int { get set }
     var totalInvalidGuesses: Int { get set }

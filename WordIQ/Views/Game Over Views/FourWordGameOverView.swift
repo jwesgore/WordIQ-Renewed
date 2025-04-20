@@ -43,12 +43,12 @@ struct FourWordGameOverView : View {
             // MARK: Buttons
             HStack {
                 
-                TopDownButtonView(viewModel.backButton) {
+                TopDownButton(viewModel.backButton) {
                     Text(SystemNames.Navigation.mainMenu)
                         .robotoSlabFont(.title3, .regular)
                 }
                 
-                TopDownButtonView(viewModel.playAgainButton) {
+                TopDownButton(viewModel.playAgainButton) {
                     Text(SystemNames.Navigation.playAgain)
                         .robotoSlabFont(.title3, .regular)
                 }

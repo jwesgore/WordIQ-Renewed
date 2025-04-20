@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct TopDownRadioButtonView<Content: View> : View {
+struct TopDownButton_Radio<Content: View> : View {
     
     @ObservedObject var viewModel : TopDownRadioButtonViewModel
     @State var opacity: Double = 1.0
@@ -54,9 +54,9 @@ struct TopDownRadioButton_Previews: PreviewProvider {
         manager.add(button1, button2, button3)
         
         return VStack(spacing: 20) {
-            TopDownRadioButtonView(button1) { Text("Button 1") }
-            TopDownRadioButtonView(button2) { Text("Button 2") }
-            TopDownRadioButtonView(button3) { Text("Button 3") }
+            TopDownButton_Radio(button1) { Text("Button 1") }
+            TopDownButton_Radio(button2) { Text("Button 2") }
+            TopDownButton_Radio(button3) { Text("Button 3") }
         }
         .padding()
         .previewDisplayName("3D Radio Button Preview")

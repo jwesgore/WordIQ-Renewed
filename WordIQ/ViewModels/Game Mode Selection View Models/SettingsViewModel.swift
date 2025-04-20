@@ -2,7 +2,7 @@ import Foundation
 import Combine
 
 /// View Model to facilitate setting game settings
-class GameSettingsViewModel: ObservableObject {
+class SettingsViewModel: ObservableObject {
     
     let notificationHelper = NotificationHelper()
     

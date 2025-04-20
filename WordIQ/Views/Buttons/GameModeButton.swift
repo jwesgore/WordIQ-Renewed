@@ -10,7 +10,7 @@ struct GameModeButton: View {
     
     var body: some View {
         
-        TopDownButtonView(viewModel) {
+        TopDownButton(viewModel) {
             VStack {
                 Text(title)
                     .robotoSlabFont(.title2, .bold)

@@ -29,7 +29,7 @@ struct GamePauseView : View {
             }
             
             // MARK: Buttons
-            TopDownButtonView(viewModel.resumeGameButton) {
+            TopDownButton(viewModel.resumeGameButton) {
                 Text(SystemNames.GamePause.resumeGame)
                     .robotoSlabFont(.title3, .regular)
             }

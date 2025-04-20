@@ -11,6 +11,7 @@ class SDZenGameResult: SDGameResult, SDDifficultyChangable {
     var numberOfCorrectWords: Int = 1
     var numberOfInvalidGuesses: Int
     var numberOfValidGuesses: Int
+    var startWord: String?
     var timeElapsed: Int
 
     init(date: Date = .now,
@@ -18,12 +19,14 @@ class SDZenGameResult: SDGameResult, SDDifficultyChangable {
          gameMode: GameMode = .standardMode,
          numberOfInvalidGuesses: Int,
          numberOfValidGuesses: Int,
+         startWord: String? = nil,
          timeElapsed: Int) {
         self.date = date
         self.difficulty = difficulty
         self.gameMode = gameMode
         self.numberOfInvalidGuesses = numberOfInvalidGuesses
         self.numberOfValidGuesses = numberOfValidGuesses
+        self.startWord = startWord
         self.timeElapsed = timeElapsed
     }
     
@@ -31,6 +34,7 @@ class SDZenGameResult: SDGameResult, SDDifficultyChangable {
         self.init(difficulty: gameModel.difficulty,
                   numberOfInvalidGuesses: gameModel.numberOfInvalidGuesses,
                   numberOfValidGuesses: gameModel.numberOfValidGuesses,
+                  startWord: gameModel.startWord,
                   timeElapsed: gameModel.timeElapsed)
     }
     
@@ -38,6 +42,7 @@ class SDZenGameResult: SDGameResult, SDDifficultyChangable {
         self.init(difficulty: gameOverData.difficulty,
                   numberOfInvalidGuesses: gameOverData.numberOfInvalidGuesses,
                   numberOfValidGuesses: gameOverData.numberOfValidGuesses,
+                  startWord: gameOverData.startWord,
                   timeElapsed: gameOverData.timeElapsed)
     }
 }

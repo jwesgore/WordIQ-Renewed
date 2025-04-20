@@ -11,6 +11,7 @@ class SDQuadStandardGameResult: SDGameResult, SDWinnable {
     var numberOfInvalidGuesses: Int
     var numberOfValidGuesses: Int
     var result: GameResult
+    var startWord: String?
     var timeElapsed: Int
 
     init(date: Date = .now,
@@ -19,6 +20,7 @@ class SDQuadStandardGameResult: SDGameResult, SDWinnable {
          numberOfInvalidGuesses: Int,
          numberOfValidGuesses: Int,
          result: GameResult,
+         startWord: String? = nil,
          timeElapsed: Int) {
         self.date = date
         self.gameMode = gameMode
@@ -26,6 +28,7 @@ class SDQuadStandardGameResult: SDGameResult, SDWinnable {
         self.numberOfInvalidGuesses = numberOfInvalidGuesses
         self.numberOfValidGuesses = numberOfValidGuesses
         self.result = result
+        self.startWord = startWord
         self.timeElapsed = timeElapsed
     }
     
@@ -34,6 +37,7 @@ class SDQuadStandardGameResult: SDGameResult, SDWinnable {
                   numberOfInvalidGuesses: gameModel.numberOfInvalidGuesses,
                   numberOfValidGuesses: gameModel.numberOfValidGuesses,
                   result: gameModel.result,
+                  startWord: gameModel.startWord,
                   timeElapsed: gameModel.timeElapsed)
     }
     
@@ -42,6 +46,7 @@ class SDQuadStandardGameResult: SDGameResult, SDWinnable {
                   numberOfInvalidGuesses: gameOverData.numberOfInvalidGuesses,
                   numberOfValidGuesses: gameOverData.numberOfValidGuesses,
                   result: gameOverData.gameResult,
+                  startWord: gameOverData.startWord,
                   timeElapsed: gameOverData.timeElapsed)
     }
 }

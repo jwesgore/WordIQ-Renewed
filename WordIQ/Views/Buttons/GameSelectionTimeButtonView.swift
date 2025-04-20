@@ -12,7 +12,7 @@ struct GameSelectionTimeButtonView : View {
     }
     
     var body : some View {
-        TopDownRadioButtonView(viewModel) {
+        TopDownButton_Radio(viewModel) {
             Text(TimeUtility.formatTimeShort(timeLimit))
                 .robotoSlabFont(.title2, .regular)
         }

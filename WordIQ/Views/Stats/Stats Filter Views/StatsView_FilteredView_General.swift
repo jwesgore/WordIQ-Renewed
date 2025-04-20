@@ -17,19 +17,7 @@ struct StatsView_FilteredView_General : View {
             
             StatsView_Component_GuessRatio(statsModel)
             
-            StatsView_Component_GuessDistribution(statsModel, maxRows: 7, includePlus: true)
-            
-            // Mode Distribution
-//            if statsModel.totalGamesPlayed > 0 {
-//                if let favoriteMode = distribution.max(by: { $0.value < $1.value })?.key {
-//                    StatsGameModeDistribution(distribution: distribution, favoriteMode: favoriteMode, totalGamesPlayed: statsModel.totalGamesPlayed)
-//                }
-//            }
-//            
-//            // Guesses
-//            if (totalGuesses != 0) {
-//                StatsTotalGuessesView(totalGuesses: totalGuesses, totalValidGuesses: totalValidGuesses, totalInvalidGuesses: totalInvalidGuesses)
-//            }
+            StatsView_Component_GuessDistribution(statsModel, endingIndex: 7, includePlus: true)
         }
     }
 }

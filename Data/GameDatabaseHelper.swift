@@ -54,12 +54,17 @@ class GameDatabaseHelper {
         var model = StatsModel()
         
         let results = fetchResults(for: modelType)
+        
+        var startWordFrequency = DefaultDictionary<String, Int>(defaultValue: 0)
+        results.compactMap {$0.startWord}.forEach { startWordFrequency[$0] += 1 }
+            
         let totalGames = results.count
         let totalTimePlayed = results.reduce(0) { $0 + $1.timeElapsed }
         let totalScore = results.reduce(0) { $0 + $1.numberOfCorrectWords }
         let totalInvalidGuesses = results.reduce(0) { $0 + $1.numberOfInvalidGuesses }
         let totalValidGuesses = results.reduce(0) { $0 + $1.numberOfValidGuesses }
         
+        model.startWordFrequency = startWordFrequency
         model.totalGamesPlayed = totalGames
         model.totalCorrectWords = totalScore
         model.totalTimePlayed = totalTimePlayed

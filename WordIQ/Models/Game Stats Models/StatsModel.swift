@@ -4,7 +4,7 @@ struct StatsModel: GameStatsModel, WinnableStat {
     var bestStreak: Int = 0
     var currentStreak: Int = 0
     var guessDistribution = DefaultDictionary<Int, Int>(defaultValue: 0)
-    
+    var startWordFrequency = DefaultDictionary<String, Int>(defaultValue: 0)
     var totalCorrectWords: Int = 0
     var totalGamesPlayed: Int = 0
     var totalGuessesMade: Int = 0

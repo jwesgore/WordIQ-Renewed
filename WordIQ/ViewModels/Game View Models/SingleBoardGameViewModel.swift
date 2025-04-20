@@ -137,6 +137,7 @@ class SingleBoardGameViewModel<TGameBoard: GameBoardViewModel>: SingleBoardGame 
     func keyboardEnter() {
         guard isKeyboardUnlocked else { return }
         
+        // Verify if word is valid
         guard let wordSubmitted = gameBoardViewModel.activeWord?.getWord(),
               WordDatabaseHelper.shared.doesFiveLetterWordExist(wordSubmitted) else {
             gameOverDataModel.numberOfInvalidGuesses += 1
@@ -145,6 +146,7 @@ class SingleBoardGameViewModel<TGameBoard: GameBoardViewModel>: SingleBoardGame 
         }
         
         isKeyboardUnlocked = false
+        gameOverDataModel.startWord = gameOverDataModel.startWord ?? wordSubmitted.word
         targetWord == wordSubmitted ? correctWordSubmitted() : wrongWordSubmitted()
         isKeyboardUnlocked = true
     }

@@ -20,7 +20,7 @@ struct StatsView_FilteredView_Zen: View {
 
             StatsView_Component_GuessRatio(statsModel)
             
-            StatsView_Component_GuessDistribution(statsModel, includePlus: true)
+            StatsView_Component_GuessDistribution(statsModel, endingIndex: 7, includePlus: true)
         }
     }
 }

@@ -12,7 +12,7 @@ struct GameSelectionDifficultyButtonView : View {
     }
     
     var body : some View {
-        TopDownRadioButtonView(viewModel) {
+        TopDownButton_Radio(viewModel) {
             Text(difficulty.asString)
                 .robotoSlabFont(.title2, .regular)
         }

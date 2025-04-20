@@ -14,7 +14,7 @@ struct StatsView : View {
             
             StatsView_Component_Filter(viewModel: viewModel)
 
-            ScrollView {
+            ScrollView (showsIndicators: false) {
                 if let databaseHelper = databaseHelper {
                     switch viewModel.activeFilter {
                     case .all:

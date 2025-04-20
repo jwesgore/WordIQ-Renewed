@@ -4,7 +4,7 @@ import SwiftData
 /// Swift Data model of a standard game result
 @Model
 class SDDailyGameResult: SDGameResult, SDDaily, SDWinnable {
-    
+
     var dailyId: Int
     var date: Date
     var difficulty: GameDifficulty
@@ -13,6 +13,7 @@ class SDDailyGameResult: SDGameResult, SDDaily, SDWinnable {
     var numberOfInvalidGuesses: Int
     var numberOfValidGuesses: Int
     var result: GameResult
+    var startWord: String?
     var timeElapsed: Int
     
     init(dailyId: Int,
@@ -22,6 +23,7 @@ class SDDailyGameResult: SDGameResult, SDDaily, SDWinnable {
          numberOfInvalidGuesses: Int,
          numberOfValidGuesses: Int,
          result: GameResult,
+         startWord: String? = nil,
          timeElapsed: Int) {
         self.dailyId = dailyId
         self.date = date
@@ -31,6 +33,7 @@ class SDDailyGameResult: SDGameResult, SDDaily, SDWinnable {
         self.numberOfInvalidGuesses = numberOfInvalidGuesses
         self.numberOfValidGuesses = numberOfValidGuesses
         self.result = result
+        self.startWord = startWord
         self.timeElapsed = timeElapsed
     }
     
@@ -40,6 +43,7 @@ class SDDailyGameResult: SDGameResult, SDDaily, SDWinnable {
                   numberOfInvalidGuesses: gameModel.numberOfInvalidGuesses,
                   numberOfValidGuesses: gameModel.numberOfValidGuesses,
                   result: gameModel.result,
+                  startWord: gameModel.startWord,
                   timeElapsed: gameModel.timeElapsed)
     }
     
@@ -49,6 +53,7 @@ class SDDailyGameResult: SDGameResult, SDDaily, SDWinnable {
                   numberOfInvalidGuesses: gameOverData.numberOfInvalidGuesses,
                   numberOfValidGuesses: gameOverData.numberOfValidGuesses,
                   result: gameOverData.gameResult,
+                  startWord: gameOverData.startWord,
                   timeElapsed: gameOverData.timeElapsed)
     }
 }

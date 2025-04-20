@@ -38,6 +38,6 @@ struct StatsView_Component_Label: View {
             Text(label)
                 .opacity(0.5)
         }
-        .robotoSlabFont(.title1, .regular) // Applies a custom font styling.
+        .robotoSlabFont(.title2, .regular) // Applies a custom font styling.
     }
 }

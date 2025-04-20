@@ -12,6 +12,7 @@ class SDStandardGameResult: SDGameResult, SDDifficultyChangable, SDWinnable {
     var numberOfInvalidGuesses: Int
     var numberOfValidGuesses: Int
     var result: GameResult
+    var startWord: String?
     var timeElapsed: Int
     
     init(date: Date = .now,
@@ -20,6 +21,7 @@ class SDStandardGameResult: SDGameResult, SDDifficultyChangable, SDWinnable {
          numberOfInvalidGuesses: Int,
          numberOfValidGuesses: Int,
          result: GameResult,
+         startWord: String? = nil,
          timeElapsed: Int) {
         self.date = date
         self.difficulty = difficulty
@@ -28,6 +30,7 @@ class SDStandardGameResult: SDGameResult, SDDifficultyChangable, SDWinnable {
         self.numberOfInvalidGuesses = numberOfInvalidGuesses
         self.numberOfValidGuesses = numberOfValidGuesses
         self.result = result
+        self.startWord = startWord
         self.timeElapsed = timeElapsed
     }
     
@@ -36,6 +39,7 @@ class SDStandardGameResult: SDGameResult, SDDifficultyChangable, SDWinnable {
                   numberOfInvalidGuesses: gameModel.numberOfInvalidGuesses,
                   numberOfValidGuesses: gameModel.numberOfValidGuesses,
                   result: gameModel.result,
+                  startWord: gameModel.startWord,
                   timeElapsed: gameModel.timeElapsed)
     }
     
@@ -44,6 +48,7 @@ class SDStandardGameResult: SDGameResult, SDDifficultyChangable, SDWinnable {
                   numberOfInvalidGuesses: gameOverData.numberOfInvalidGuesses,
                   numberOfValidGuesses: gameOverData.numberOfValidGuesses,
                   result: gameOverData.gameResult,
+                  startWord: gameOverData.startWord,
                   timeElapsed: gameOverData.timeElapsed)
     }
 }

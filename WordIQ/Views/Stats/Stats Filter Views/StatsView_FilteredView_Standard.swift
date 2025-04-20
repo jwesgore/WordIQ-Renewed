@@ -28,7 +28,7 @@ struct StatsView_FilteredView_Standard: View {
                 value: statsModel.bestStreak.description
             )
             
-            StatsView_Component_WinDistribution(statsModel)
+            StatsView_Component_WinRatio(statsModel)
             
             StatsView_Component_GuessRatio(statsModel)
         

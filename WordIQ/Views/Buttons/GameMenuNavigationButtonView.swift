@@ -13,7 +13,7 @@ struct GameMenuNavigationButtonView: View {
     }
     
     var body: some View {
-        TopDownRadioButtonView (viewModel) {
+        TopDownButton_Radio (viewModel) {
             Image(systemName: image.rawValue)
                 .resizable()
                 .scaledToFit()

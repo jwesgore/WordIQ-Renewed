@@ -23,7 +23,7 @@ struct StatsView_Filter_Button : View {
     var filter: StatsView_Filter_Enum
     
     var body: some View {
-        TopDownRadioButtonView(viewModel) {
+        TopDownButton_Radio(viewModel) {
             Text(filter.rawValue)
                 .robotoSlabFont(.headline, .regular)
                 .padding(.horizontal, 8)

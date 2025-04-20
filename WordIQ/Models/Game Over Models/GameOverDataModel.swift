@@ -8,6 +8,7 @@ class GameOverDataModel : GameOverData {
     var gameResult: GameResult
     var numberOfInvalidGuesses: Int
     var numberOfValidGuesses: Int
+    var startWord: String?
     var targetWords: OrderedDictionaryCodable<UUID, DatabaseWordModel>
     var targetWordsBackgrounds: OrderedDictionaryCodable<UUID, [LetterComparison]>
     var targetWordsCorrect: [UUID]
@@ -26,6 +27,7 @@ class GameOverDataModel : GameOverData {
          gameResult: GameResult = .na,
          numberOfInvalidGuesses: Int = 0,
          numberOfValidGuesses: Int = 0,
+         startWord: String? = nil,
          targetWords: OrderedDictionaryCodable<UUID, DatabaseWordModel> = OrderedDictionaryCodable<UUID, DatabaseWordModel>(),
          targetWordsBackgrounds: OrderedDictionaryCodable<UUID, [LetterComparison]> = OrderedDictionaryCodable<UUID, [LetterComparison]>(),
          targetWordsCorrect: [UUID] = [],

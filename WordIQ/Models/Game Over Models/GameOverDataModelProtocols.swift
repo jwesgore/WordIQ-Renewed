@@ -10,6 +10,8 @@ protocol GameOverData : Codable {
     var numberOfInvalidGuesses: Int { get set }
     var numberOfValidGuesses: Int { get set }
     
+    var startWord: String? { get set }
+    
     var targetWords: OrderedDictionaryCodable<UUID, DatabaseWordModel> { get set }
     var targetWordsBackgrounds: OrderedDictionaryCodable<UUID, [LetterComparison]> { get set }
     var targetWordsCorrect: [UUID] { get set }

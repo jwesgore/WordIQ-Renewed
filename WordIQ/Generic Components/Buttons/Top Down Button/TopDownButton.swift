@@ -5,7 +5,7 @@ import SwiftUI
 /// - Change opacity
 /// - Change scale
 /// - Perform delayed action
-struct TopDownButtonView<Content: View>: View {
+struct TopDownButton<Content: View>: View {
 
     @State var isPressed = false
     @State var opacity: Double = 1.0
@@ -58,7 +58,7 @@ struct TopDownButtonView<Content: View>: View {
 }
 
 #Preview {
-    TopDownButtonView(TopDownButtonViewModel(height: 50, width: 300)) {
+    TopDownButton(TopDownButtonViewModel(height: 50, width: 300)) {
         Text("Test Text")
             .robotoSlabFont(.title, .regular)
     }

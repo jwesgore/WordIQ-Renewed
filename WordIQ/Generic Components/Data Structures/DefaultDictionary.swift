@@ -77,3 +77,12 @@ extension DefaultDictionary where Key: Comparable, Value: Numeric {
             .reduce(0) { $0 + $1.value }
     }
 }
+
+extension DefaultDictionary where Value: Numeric {
+    /// Returns the sum of all values
+    ///
+    /// - Returns: The sum of all values
+    func sumValues() -> Value {
+        return values.reduce(0) { $0 + $1.value }
+    }
+}

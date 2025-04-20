@@ -11,6 +11,7 @@ class SDFrenzyGameResult: SDGameResult, SDDifficultyChangable, SDTimable {
     var numberOfCorrectWords: Int
     var numberOfInvalidGuesses: Int
     var numberOfValidGuesses: Int
+    var startWord: String?
     var timeElapsed: Int
     var timeLimit: Int
 
@@ -20,6 +21,7 @@ class SDFrenzyGameResult: SDGameResult, SDDifficultyChangable, SDTimable {
          numberOfCorrectWords: Int,
          numberOfInvalidGuesses: Int,
          numberOfValidGuesses: Int,
+         startWord: String? = nil,
          timeElapsed: Int,
          timeLimit: Int) {
         self.date = date
@@ -28,6 +30,7 @@ class SDFrenzyGameResult: SDGameResult, SDDifficultyChangable, SDTimable {
         self.numberOfCorrectWords = numberOfCorrectWords
         self.numberOfInvalidGuesses = numberOfInvalidGuesses
         self.numberOfValidGuesses = numberOfValidGuesses
+        self.startWord = startWord
         self.timeElapsed = timeElapsed
         self.timeLimit = timeLimit
     }
@@ -37,6 +40,7 @@ class SDFrenzyGameResult: SDGameResult, SDDifficultyChangable, SDTimable {
                   numberOfCorrectWords: gameModel.correctWords.count,
                   numberOfInvalidGuesses: gameModel.numberOfInvalidGuesses,
                   numberOfValidGuesses: gameModel.numberOfValidGuesses,
+                  startWord: gameModel.startWord,
                   timeElapsed: gameModel.timeElapsed,
                   timeLimit: gameModel.timeLimit)
     }
@@ -46,6 +50,7 @@ class SDFrenzyGameResult: SDGameResult, SDDifficultyChangable, SDTimable {
                   numberOfCorrectWords: gameOverData.targetWordsCorrect.count,
                   numberOfInvalidGuesses: gameOverData.numberOfInvalidGuesses,
                   numberOfValidGuesses: gameOverData.numberOfValidGuesses,
+                  startWord: gameOverData.startWord,
                   timeElapsed: gameOverData.timeElapsed,
                   timeLimit: gameOverData.timeLimit)
     }

@@ -57,13 +57,13 @@ struct SingleWordGameOverView: View {
             
             // Buttons for navigating back or playing again.
             HStack {
-                TopDownButtonView(viewModel.backButton) {
+                TopDownButton(viewModel.backButton) {
                     Text(SystemNames.Navigation.mainMenu)
                         .robotoSlabFont(.title3, .regular)
                 }
                 // Only show the Play Again button for non-daily game modes.
                 if gameOverData.gameMode != .dailyGame {
-                    TopDownButtonView(viewModel.playAgainButton) {
+                    TopDownButton(viewModel.playAgainButton) {
                         Text(SystemNames.Navigation.playAgain)
                             .robotoSlabFont(.title3, .regular)
                     }

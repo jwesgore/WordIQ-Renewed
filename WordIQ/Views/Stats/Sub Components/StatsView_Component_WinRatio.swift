@@ -15,7 +15,7 @@ import SwiftUI
 /// - Parameters:
 ///   - totalWins: The total number of wins.
 ///   - totalLoses: The total number of losses.
-struct StatsView_Component_WinDistribution: View {
+struct StatsView_Component_WinRatio: View {
     
     // MARK: - Properties
     
@@ -63,7 +63,7 @@ struct StatsView_Component_WinDistribution: View {
 
 // MARK: - Initializer
 
-extension StatsView_Component_WinDistribution {
+extension StatsView_Component_WinRatio {
     /// Initializes the `StatsView_Component_WinDistribution` using a `StatsModel` object.
     /// - Parameter statsModel: A model containing the total wins and losses.
     init(_ statsModel: StatsModel) {

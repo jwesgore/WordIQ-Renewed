@@ -55,6 +55,6 @@ struct StatsView_Component_Label_Ratio: View {
             Text(label2)
                 .opacity(0.5)
         }
-        .robotoSlabFont(.title1, .regular) // Custom font applied to the entire view.
+        .robotoSlabFont(.title2, .regular) // Custom font applied to the entire view.
     }
 }

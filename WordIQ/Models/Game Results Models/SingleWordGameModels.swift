@@ -7,6 +7,7 @@ struct StandardGameModel : SingleWordGame, WinnableGame, VariableDifficulty {
     var numberOfInvalidGuesses: Int
     var numberOfValidGuesses: Int
     var result: GameResult
+    var startWord: String?
     var targetWord: DatabaseWordModel
     var timeElapsed: Int
 }
@@ -18,6 +19,7 @@ struct RushGameModel : SingleWordGame, TimedGame, WinnableGame, VariableDifficul
     var numberOfInvalidGuesses: Int
     var numberOfValidGuesses: Int
     var result: GameResult
+    var startWord: String?
     var targetWord: DatabaseWordModel
     var timeElapsed: Int
     var timeLimit: Int
@@ -29,6 +31,7 @@ struct ZenGameModel : SingleWordGame, VariableDifficulty {
     var difficulty: GameDifficulty
     var numberOfInvalidGuesses: Int
     var numberOfValidGuesses: Int
+    var startWord: String?
     var targetWord: DatabaseWordModel
     var timeElapsed: Int
 }
@@ -39,6 +42,7 @@ struct DailyGameModel : SingleWordGame, Daily {
     var date: Date
     var numberOfInvalidGuesses: Int
     var numberOfValidGuesses: Int
+    var startWord: String?
     var timeElapsed: Int
     var result: GameResult
 }

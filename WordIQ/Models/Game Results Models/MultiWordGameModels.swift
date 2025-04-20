@@ -7,6 +7,7 @@ struct FrenzyGameModel : MultiWordGame, TimedGame, VariableDifficulty {
     var difficulty: GameDifficulty
     var numberOfInvalidGuesses: Int
     var numberOfValidGuesses: Int
+    var startWord: String?
     var targetWords: [DatabaseWordModel]
     var timeElapsed: Int
     var timeLimit: Int
@@ -19,6 +20,7 @@ struct QuadStandardGameModel : MultiWordGame, WinnableGame {
     var numberOfInvalidGuesses: Int
     var numberOfValidGuesses: Int
     var result: GameResult
+    var startWord: String?
     var targetWords: [DatabaseWordModel]
     var timeElapsed: Int
 }
@@ -30,6 +32,7 @@ struct TwentyQuestionsGameModel : MultiWordGame, WinnableGame {
     var numberOfInvalidGuesses: Int
     var numberOfValidGuesses: Int
     var result: GameResult
+    var startWord: String?
     var targetWords: [DatabaseWordModel]
     var timeElapsed: Int
 }

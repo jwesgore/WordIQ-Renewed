@@ -6,6 +6,7 @@ protocol WordGame {
     var date: Date { get set }
     var numberOfInvalidGuesses: Int { get set }
     var numberOfValidGuesses: Int { get set }
+    var startWord: String? { get set }
     var timeElapsed: Int { get set }
 }
 

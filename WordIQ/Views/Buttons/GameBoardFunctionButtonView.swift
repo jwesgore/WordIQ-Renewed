@@ -13,7 +13,7 @@ struct GameBoardFunctionButtonView : View {
     }
     
     var body: some View {
-        TopDownButtonView (viewModel) {
+        TopDownButton (viewModel) {
             Image(systemName: image.rawValue)
                 .resizable()
                 .scaledToFit()
