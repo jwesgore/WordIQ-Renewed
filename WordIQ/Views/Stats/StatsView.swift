@@ -6,7 +6,7 @@ import Charts
 struct StatsView : View {
     
     @Environment(\.modelContext) private var modelContext: ModelContext
-    @State private var databaseHelper: GameDatabaseHelper?
+    @State private var databaseHelper: GameDatabaseClient?
     @StateObject private var viewModel: StatsViewModel = StatsViewModel()
     
     var body: some View {
@@ -38,7 +38,7 @@ struct StatsView : View {
                     Text("Loading data...")
                         .robotoSlabFont(.title2, .semiBold)
                         .onAppear {
-                            self.databaseHelper = GameDatabaseHelper(context: modelContext)
+                            self.databaseHelper = GameDatabaseClient(context: modelContext)
                         }
                 }
             }

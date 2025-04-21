@@ -90,7 +90,7 @@ class FourWordGameViewModel : MultiBoardGame {
         guard self.isKeyboardUnlocked else { return }
         
         guard let wordSubmitted = gameBoardViewModel.activeWord.getWord(),
-              WordDatabaseHelper.shared.doesFiveLetterWordExist(wordSubmitted) else {
+              WordDatabaseClient.shared.doesFiveLetterWordExist(wordSubmitted) else {
             gameOverDataModel.numberOfInvalidGuesses += 1
             invalidWordSubmitted()
             return

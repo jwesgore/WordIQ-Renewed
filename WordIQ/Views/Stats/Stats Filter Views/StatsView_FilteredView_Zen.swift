@@ -26,7 +26,7 @@ struct StatsView_FilteredView_Zen: View {
 }
 
 extension StatsView_FilteredView_Zen {
-    init(databaseHelper: GameDatabaseHelper) {
+    init(databaseHelper: GameDatabaseClient) {
         statsModel = StatsModelFactory(databaseHelper: databaseHelper).getStatsModel(for: .zenMode)
     }
 }

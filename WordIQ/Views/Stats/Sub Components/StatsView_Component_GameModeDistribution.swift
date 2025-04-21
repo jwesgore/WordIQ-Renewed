@@ -5,7 +5,7 @@ struct StatsView_Component_GameModeDistribution : View {
     var modeDistribution: DefaultDictionary<GameMode, Int>
     
     private var barSize: Int {
-        modeDistribution.sumValues()
+        modeDistribution.getSumValues()
     }
     
     var body: some View {

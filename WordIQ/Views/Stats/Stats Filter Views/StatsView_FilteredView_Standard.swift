@@ -38,7 +38,7 @@ struct StatsView_FilteredView_Standard: View {
 }
 
 extension StatsView_FilteredView_Standard {
-    init(databaseHelper: GameDatabaseHelper) {
+    init(databaseHelper: GameDatabaseClient) {
         statsModel = StatsModelFactory(databaseHelper: databaseHelper).getStatsModel(for: .standardMode)
     }
 }

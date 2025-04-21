@@ -10,7 +10,7 @@ struct SingleWordGameOverView: View {
     // MARK: - Properties
     
     /// A helper for managing game database operations.
-    var databaseHelper: GameDatabaseHelper
+    var databaseHelper: GameDatabaseClient
     
     /// The view model managing game-over statistics and button actions.
     @StateObject var viewModel: SingleWordGameOverViewModel
@@ -100,7 +100,7 @@ extension SingleWordGameOverView {
     init(_ viewModel: SingleBoardGameViewModel<GameBoardViewModel>, modelContext: ModelContext) {
         self.gameViewModel = viewModel
         self.gameOverData = viewModel.gameOverDataModel
-        self.databaseHelper = GameDatabaseHelper(context: modelContext)
+        self.databaseHelper = GameDatabaseClient(context: modelContext)
         
         // Initialize the game over view model with additional play-again action.
         self._viewModel = StateObject(wrappedValue: SingleWordGameOverViewModel(

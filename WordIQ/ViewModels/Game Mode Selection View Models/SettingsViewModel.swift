@@ -9,22 +9,22 @@ class SettingsViewModel: ObservableObject {
     // MARK: Gameplay Settings
     @Published var colorBlind: Bool {
         didSet {
-            UserDefaultsHelper.shared.setting_colorBlindMode = colorBlind
+            UserDefaultsClient.shared.setting_colorBlindMode = colorBlind
         }
     }
     @Published var showHints: Bool {
         didSet {
-            UserDefaultsHelper.shared.setting_showHints = showHints
+            UserDefaultsClient.shared.setting_showHints = showHints
         }
     }
     @Published var soundEffects: Bool {
         didSet {
-            UserDefaultsHelper.shared.setting_soundEffects = soundEffects
+            UserDefaultsClient.shared.setting_soundEffects = soundEffects
         }
     }
     @Published var hapticFeedback: Bool {
         didSet {
-            UserDefaultsHelper.shared.setting_hapticFeedback = hapticFeedback
+            UserDefaultsClient.shared.setting_hapticFeedback = hapticFeedback
         }
     }
     
@@ -37,19 +37,19 @@ class SettingsViewModel: ObservableObject {
             } else {
                 notificationHelper.dailyNotificationsDisable()
             }
-            UserDefaultsHelper.shared.setting_notificationsOn = notificationsOn
+            UserDefaultsClient.shared.setting_notificationsOn = notificationsOn
         }
     }
     @Published var notificationsDaily1: Bool {
         didSet {
-            UserDefaultsHelper.shared.setting_notificationsDaily1 = notificationsDaily1
+            UserDefaultsClient.shared.setting_notificationsDaily1 = notificationsDaily1
             checkEnableDailyNotifications1()
         }
     }
     @Published var notificationsDaily1Time: Date {
         didSet {
             let components = ValueConverter.dateToDateComponents(notificationsDaily1Time, components: [.hour, .minute])
-            UserDefaultsHelper.shared.setting_notificationsDaily1Time = components
+            UserDefaultsClient.shared.setting_notificationsDaily1Time = components
             
             notificationHelper.removeNotificationRequest(NotificationIdentifiers.dailyNotification1.id)
             notificationHelper.dailyNotificationsEnable1()
@@ -57,14 +57,14 @@ class SettingsViewModel: ObservableObject {
     }
     @Published var notificationsDaily2: Bool {
         didSet {
-            UserDefaultsHelper.shared.setting_notificationsDaily2 = notificationsDaily2
+            UserDefaultsClient.shared.setting_notificationsDaily2 = notificationsDaily2
             checkEnableDailyNotifications2()
         }
     }
     @Published var notificationsDaily2Time: Date {
         didSet {
             let components = ValueConverter.dateToDateComponents(notificationsDaily2Time, components: [.hour, .minute])
-            UserDefaultsHelper.shared.setting_notificationsDaily2Time = components
+            UserDefaultsClient.shared.setting_notificationsDaily2Time = components
             
             notificationHelper.removeNotificationRequest(NotificationIdentifiers.dailyNotification2.id)
             notificationHelper.dailyNotificationsEnable2()
@@ -74,17 +74,17 @@ class SettingsViewModel: ObservableObject {
     // MARK: Quickplay Settings
     @Published var quickplayMode: GameMode {
         didSet {
-            UserDefaultsHelper.shared.quickplaySetting_mode = quickplayMode
+            UserDefaultsClient.shared.quickplaySetting_mode = quickplayMode
         }
     }
     @Published var quickplayDifficulty: GameDifficulty {
         didSet {
-            UserDefaultsHelper.shared.quickplaySetting_difficulty = quickplayDifficulty
+            UserDefaultsClient.shared.quickplaySetting_difficulty = quickplayDifficulty
         }
     }
     @Published var quickplayTimeLimit: Int {
         didSet {
-            UserDefaultsHelper.shared.quickplaySetting_timeLimit = quickplayTimeLimit
+            UserDefaultsClient.shared.quickplaySetting_timeLimit = quickplayTimeLimit
         }
     }
     
@@ -96,31 +96,31 @@ class SettingsViewModel: ObservableObject {
     }
     
     init() {
-        self.colorBlind = UserDefaultsHelper.shared.setting_colorBlindMode
-        self.showHints = UserDefaultsHelper.shared.setting_showHints
-        self.soundEffects = UserDefaultsHelper.shared.setting_soundEffects
-        self.hapticFeedback = UserDefaultsHelper.shared.setting_hapticFeedback
-        self.notificationsOn = UserDefaultsHelper.shared.setting_notificationsOn
+        self.colorBlind = UserDefaultsClient.shared.setting_colorBlindMode
+        self.showHints = UserDefaultsClient.shared.setting_showHints
+        self.soundEffects = UserDefaultsClient.shared.setting_soundEffects
+        self.hapticFeedback = UserDefaultsClient.shared.setting_hapticFeedback
+        self.notificationsOn = UserDefaultsClient.shared.setting_notificationsOn
         
-        self.notificationsDaily1 = UserDefaultsHelper.shared.setting_notificationsDaily1
-        let dateComponents1 = UserDefaultsHelper.shared.setting_notificationsDaily1Time
+        self.notificationsDaily1 = UserDefaultsClient.shared.setting_notificationsDaily1
+        let dateComponents1 = UserDefaultsClient.shared.setting_notificationsDaily1Time
         if let dateTime1 = ValueConverter.dateComponentsToDate(dateComponents1) {
             self.notificationsDaily1Time = dateTime1
         } else {
             self.notificationsDaily1Time = Date()
         }
         
-        self.notificationsDaily2 = UserDefaultsHelper.shared.setting_notificationsDaily2
-        let dateComponents2 = UserDefaultsHelper.shared.setting_notificationsDaily2Time
+        self.notificationsDaily2 = UserDefaultsClient.shared.setting_notificationsDaily2
+        let dateComponents2 = UserDefaultsClient.shared.setting_notificationsDaily2Time
         if let dateTime2 = ValueConverter.dateComponentsToDate(dateComponents2) {
             self.notificationsDaily2Time = dateTime2
         } else {
             self.notificationsDaily2Time = Date()
         }
         
-        self.quickplayMode = UserDefaultsHelper.shared.quickplaySetting_mode
-        self.quickplayDifficulty = UserDefaultsHelper.shared.quickplaySetting_difficulty
-        self.quickplayTimeLimit = UserDefaultsHelper.shared.quickplaySetting_timeLimit
+        self.quickplayMode = UserDefaultsClient.shared.quickplaySetting_mode
+        self.quickplayDifficulty = UserDefaultsClient.shared.quickplaySetting_difficulty
+        self.quickplayTimeLimit = UserDefaultsClient.shared.quickplaySetting_timeLimit
     }
     
     private func checkEnableDailyNotifications1() {

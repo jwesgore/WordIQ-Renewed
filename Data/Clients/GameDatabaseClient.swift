@@ -2,7 +2,7 @@ import SwiftUI
 import SwiftData
 
 /// Database Helper for retrieve saved games
-class GameDatabaseHelper {
+class GameDatabaseClient {
     
     // MARK: - Properties
     private var context: ModelContext

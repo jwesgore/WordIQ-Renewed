@@ -139,7 +139,7 @@ class SingleBoardGameViewModel<TGameBoard: GameBoardViewModel>: SingleBoardGame 
         
         // Verify if word is valid
         guard let wordSubmitted = gameBoardViewModel.activeWord?.getWord(),
-              WordDatabaseHelper.shared.doesFiveLetterWordExist(wordSubmitted) else {
+              WordDatabaseClient.shared.doesFiveLetterWordExist(wordSubmitted) else {
             gameOverDataModel.numberOfInvalidGuesses += 1
             invalidWordSubmitted()
             return

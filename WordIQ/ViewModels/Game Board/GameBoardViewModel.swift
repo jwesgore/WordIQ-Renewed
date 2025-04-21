@@ -246,7 +246,7 @@ class GameBoardViewModel: ObservableObject, Identifiable {
     /// Retrieves the current target word hints.
     /// - Returns: An array of optional valid characters for each letter position.
     func getTargetWordHints() -> [ValidCharacters?] {
-        guard isBoardActive && (UserDefaultsHelper.shared.setting_showHints || boardPosition % boardHeight == 0) else {
+        guard isBoardActive && (UserDefaultsClient.shared.setting_showHints || boardPosition % boardHeight == 0) else {
             return [ValidCharacters?](repeating: nil, count: boardWidth)
         }
         return targetWordHints

@@ -38,7 +38,7 @@ struct StatsView_FilteredView_Rush: View {
 }
 
 extension StatsView_FilteredView_Rush {
-    init(databaseHelper: GameDatabaseHelper) {
+    init(databaseHelper: GameDatabaseClient) {
         statsModel = StatsModelFactory(databaseHelper: databaseHelper).getStatsModel(for: .rushMode)
     }
 }

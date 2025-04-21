@@ -23,7 +23,7 @@ extension LetterComparison {
         case .wrong: .LetterComparison.wrong
         case .contains: .LetterComparison.contains
         case .correct:
-            UserDefaultsHelper.shared.setting_colorBlindMode ?
+            UserDefaultsClient.shared.setting_colorBlindMode ?
                 .LetterComparison.correctColorBlind : .LetterComparison.correct
         }
     }

@@ -64,6 +64,13 @@ extension DefaultDictionary where Value: Comparable {
         }
         return maxPair
     }
+    
+    /// Returns all key-value pairs sorted by value in descending order.
+    ///
+    /// - Returns: An array of tuples (key, value), sorted by value in descending order.
+    func keyValuePairsDescending() -> [(Key, Value)] {
+        return values.sorted(by: { $0.value > $1.value })
+    }
 }
 
 extension DefaultDictionary where Key: Comparable, Value: Numeric {
@@ -71,7 +78,7 @@ extension DefaultDictionary where Key: Comparable, Value: Numeric {
     ///
     /// - Parameter threshold: The key to compare against.
     /// - Returns: The sum of all values where the associated key is greater than the given `threshold`.
-    func sumValues(forKeysGreaterThan threshold: Key) -> Value {
+    func getSumValues(forKeysGreaterThan threshold: Key) -> Value {
         return values
             .filter { $0.key > threshold }
             .reduce(0) { $0 + $1.value }
@@ -82,7 +89,7 @@ extension DefaultDictionary where Value: Numeric {
     /// Returns the sum of all values
     ///
     /// - Returns: The sum of all values
-    func sumValues() -> Value {
+    func getSumValues() -> Value {
         return values.reduce(0) { $0 + $1.value }
     }
 }

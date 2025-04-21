@@ -11,13 +11,13 @@ import SwiftUI
 struct WordIQApp: App {
 
     init() {
-        _ = WordDatabaseHelper.shared
-        _ = UserDefaultsHelper.shared
+        _ = WordDatabaseClient.shared
+        _ = UserDefaultsClient.shared
         _ = HapticsHelper.shared
         
         // Clear current streak if last daily played is over a day ago
-        if let daysSinceEpoch = ValueConverter.daysSince(WordDatabaseHelper.shared.dailyEpoch), daysSinceEpoch > UserDefaultsHelper.shared.lastDailyPlayed + 1 {
-            UserDefaultsHelper.shared.currentStreak_daily = 0
+        if let daysSinceEpoch = ValueConverter.daysSince(WordDatabaseClient.shared.dailyEpoch), daysSinceEpoch > UserDefaultsClient.shared.lastDailyPlayed + 1 {
+            UserDefaultsClient.shared.currentStreak_daily = 0
         }
     }
 

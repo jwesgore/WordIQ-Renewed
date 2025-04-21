@@ -1,9 +1,9 @@
 import Foundation
 
 /// Helper for accessing User Defaults data
-class UserDefaultsHelper {
+class UserDefaultsClient {
     
-    static let shared = UserDefaultsHelper()
+    static let shared = UserDefaultsClient()
     
     // MARK: - Settings Keys
     private let colorBlindModeKey = "setting_colorBlindMode"

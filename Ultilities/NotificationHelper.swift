@@ -32,7 +32,7 @@ class NotificationHelper {
                                             badge: 0,
                                             sound: .default)
         
-        scheduleNotificationDateMatching(dailyModel1, dateComponent: UserDefaultsHelper.shared.setting_notificationsDaily1Time)
+        scheduleNotificationDateMatching(dailyModel1, dateComponent: UserDefaultsClient.shared.setting_notificationsDaily1Time)
     }
     
     /// Enabled second daily notification
@@ -43,7 +43,7 @@ class NotificationHelper {
                                             badge: 0,
                                             sound: .default)
         
-        scheduleNotificationDateMatching(dailyModel2, dateComponent: UserDefaultsHelper.shared.setting_notificationsDaily2Time)
+        scheduleNotificationDateMatching(dailyModel2, dateComponent: UserDefaultsClient.shared.setting_notificationsDaily2Time)
     }
     
     /// Removes notification matching the given identifier

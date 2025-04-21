@@ -4,7 +4,7 @@ import Charts
 /// View container for general statistics
 struct StatsView_FilteredView_General : View {
 
-    var databaseHelper: GameDatabaseHelper
+    var databaseHelper: GameDatabaseClient
     var statsModel: StatsModel
     
     var body: some View {
@@ -24,7 +24,7 @@ struct StatsView_FilteredView_General : View {
 
 
 extension StatsView_FilteredView_General {
-    init (_ databaseHelper: GameDatabaseHelper) {
+    init (_ databaseHelper: GameDatabaseClient) {
         self.databaseHelper = databaseHelper
         self.statsModel = StatsModelFactory(databaseHelper: databaseHelper).getStatsModel()
     }

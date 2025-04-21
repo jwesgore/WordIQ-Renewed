@@ -1,9 +1,9 @@
 /// Factory for retrieving a stats model
 class StatsModelFactory {
     
-    private let databaseHelper: GameDatabaseHelper
+    private let databaseHelper: GameDatabaseClient
     
-    init (databaseHelper: GameDatabaseHelper) {
+    init (databaseHelper: GameDatabaseClient) {
         self.databaseHelper = databaseHelper
     }
     
@@ -18,24 +18,24 @@ class StatsModelFactory {
         switch gameMode {
         case .dailyGame:
             model = databaseHelper.getGameStatistics(for: SDDailyGameResult.self)
-            model.bestStreak = UserDefaultsHelper.shared.maxStreak_daily
-            model.currentStreak = UserDefaultsHelper.shared.currentStreak_daily
+            model.bestStreak = UserDefaultsClient.shared.maxStreak_daily
+            model.currentStreak = UserDefaultsClient.shared.currentStreak_daily
         case .standardMode:
             model = databaseHelper.getGameStatistics(for: SDStandardGameResult.self)
-            model.bestStreak = UserDefaultsHelper.shared.maxStreak_standard
-            model.currentStreak = UserDefaultsHelper.shared.currentStreak_standard
+            model.bestStreak = UserDefaultsClient.shared.maxStreak_standard
+            model.currentStreak = UserDefaultsClient.shared.currentStreak_standard
         case .rushMode:
             model = databaseHelper.getGameStatistics(for: SDRushGameResult.self)
-            model.bestStreak = UserDefaultsHelper.shared.maxStreak_rush
-            model.currentStreak = UserDefaultsHelper.shared.currentStreak_rush
+            model.bestStreak = UserDefaultsClient.shared.maxStreak_rush
+            model.currentStreak = UserDefaultsClient.shared.currentStreak_rush
         case .frenzyMode:
             model = databaseHelper.getGameStatistics(for: SDFrenzyGameResult.self)
         case .zenMode:
             model = databaseHelper.getGameStatistics(for: SDZenGameResult.self)
         case .quadWordMode:
             model = databaseHelper.getGameStatistics(for: SDQuadStandardGameResult.self)
-            model.bestStreak = UserDefaultsHelper.shared.maxStreak_quadStandard
-            model.currentStreak = UserDefaultsHelper.shared.currentStreak_quadStandard
+            model.bestStreak = UserDefaultsClient.shared.maxStreak_quadStandard
+            model.currentStreak = UserDefaultsClient.shared.currentStreak_quadStandard
         default:
             fatalError("No StatsModel for \(gameMode)")
         }

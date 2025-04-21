@@ -108,8 +108,8 @@ class FourWordGameOverViewModel: ObservableObject {
     /// Attempts to save the game over data to the database and user defaults.
     ///
     /// - Parameter databaseHelper: A helper object used to interface with the game database.
-    func trySaveGameData(databaseHelper: GameDatabaseHelper) {
+    func trySaveGameData(databaseHelper: GameDatabaseClient) {
         databaseHelper.saveGame(gameOverData)
-        UserDefaultsHelper.shared.update(gameOverData)
+        UserDefaultsClient.shared.update(gameOverData)
     }
 }

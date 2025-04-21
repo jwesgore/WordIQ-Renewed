@@ -4,7 +4,7 @@ import SwiftData
 /// View that manages the end of a game
 struct FourWordGameOverView : View {
     
-    var databaseHelper: GameDatabaseHelper
+    var databaseHelper: GameDatabaseClient
     var gameOverWords: [GameOverWordViewModel]
     
     @StateObject var viewModel : FourWordGameOverViewModel
@@ -77,7 +77,7 @@ extension FourWordGameOverView {
     init (_ viewModel : FourWordGameViewModel, modelContext: ModelContext) {
         self.gameViewModel = viewModel
         self.gameOverData = viewModel.gameOverDataModel
-        self.databaseHelper = GameDatabaseHelper(context: modelContext)
+        self.databaseHelper = GameDatabaseClient(context: modelContext)
         
         self._viewModel = StateObject(wrappedValue: FourWordGameOverViewModel(viewModel.gameOverDataModel, extraPlayAgainAction: viewModel.playAgain))
         

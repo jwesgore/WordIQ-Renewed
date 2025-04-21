@@ -14,13 +14,13 @@ class HapticsHelper {
     }
 
     func impact(_ feedbackStyle: UIImpactFeedbackGenerator.FeedbackStyle) {
-        if (UserDefaultsHelper.shared.setting_hapticFeedback) {
+        if (UserDefaultsClient.shared.setting_hapticFeedback) {
             impactFeedbackGenerator.impactOccurred(intensity: feedbackStyle.intensity)
         }
     }
     
     func notify(_ feedbackType: UINotificationFeedbackGenerator.FeedbackType) {
-        if (UserDefaultsHelper.shared.setting_hapticFeedback) {
+        if (UserDefaultsClient.shared.setting_hapticFeedback) {
             notificationFeedbackGenerator.notificationOccurred(feedbackType)
         }
     }

@@ -47,7 +47,7 @@ struct StatsView_Component_GuessDistribution: View {
     /// Normalized value for scaling bar sizes, based on the maximum value in the chart.
     var normalizeValue: Int {
         includePlus ?
-        max(guessDistribution.sumValues(forKeysGreaterThan: endingIndex), 5) :
+        max(guessDistribution.getSumValues(forKeysGreaterThan: endingIndex), 5) :
         max(guessDistribution.getMax()?.value ?? 0, 5)
     }
     
@@ -107,14 +107,14 @@ struct StatsView_Component_GuessDistribution_Row: View {
     /// The label displayed on the row.
     private var label: Int {
         includePlus ?
-        guessDistribution.sumValues(forKeysGreaterThan: index - 1) :
+        guessDistribution.getSumValues(forKeysGreaterThan: index - 1) :
         guessDistribution[index]
     }
     
     /// The size of the bar for this row, normalized to `normalizeValue`.
     private var barSize: Double {
         includePlus ?
-        max(Double(guessDistribution.sumValues(forKeysGreaterThan: index - 1)) / Double(normalizeValue), 0.05) :
+        max(Double(guessDistribution.getSumValues(forKeysGreaterThan: index - 1)) / Double(normalizeValue), 0.05) :
         max(Double(guessDistribution[index]) / Double(normalizeValue), 0.05)
     }
     

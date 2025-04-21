@@ -4,7 +4,7 @@ import SwiftData
 /// Game Over view for the twenty questions game mode
 struct TwentyQuestionsGameOverView : View {
     
-    var databaseHelper: GameDatabaseHelper
+    var databaseHelper: GameDatabaseClient
     
     @StateObject var viewModel : SingleWordGameOverViewModel
     @StateObject var gameOverWord: GameOverWordViewModel
@@ -50,7 +50,7 @@ extension TwentyQuestionsGameOverView {
     init (_ viewModel : TwentyQuestionsViewModel, modelContext: ModelContext) {
         self.gameViewModel = viewModel
         self.gameOverData = viewModel.gameOverDataModel
-        self.databaseHelper = GameDatabaseHelper(context: modelContext)
+        self.databaseHelper = GameDatabaseClient(context: modelContext)
         
         self._viewModel = StateObject(wrappedValue: SingleWordGameOverViewModel(viewModel.gameOverDataModel,
                                                                                 extraPlayAgainAction: viewModel.playAgain))

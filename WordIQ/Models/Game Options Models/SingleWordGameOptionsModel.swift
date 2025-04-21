@@ -46,7 +46,7 @@ class SingleWordGameOptionsModel: SingleWordGameOptions {
     ///   - gameDifficulty: The game difficulty to use. Defaults to `.normal`.
     ///   - timeLimit: The time limit for the game. Defaults to 0 (no time limit).
     convenience init(gameMode: GameMode = .standardMode, gameDifficulty: GameDifficulty = .normal, timeLimit: Int = 0) {
-        let targetWord = WordDatabaseHelper.shared.fetchRandomFiveLetterWord(withDifficulty: gameDifficulty)
+        let targetWord = WordDatabaseClient.shared.fetchRandomFiveLetterWord(withDifficulty: gameDifficulty)
         self.init(gameMode: gameMode, gameDifficulty: gameDifficulty, timeLimit: timeLimit, targetWord: targetWord)
     }
     
@@ -94,7 +94,7 @@ class SingleWordGameOptionsModel: SingleWordGameOptions {
     func resetTargetWord() {
         let currentWord = targetWord
         while currentWord == targetWord {
-            targetWord = WordDatabaseHelper.shared.fetchRandomFiveLetterWord(withDifficulty: gameDifficulty)
+            targetWord = WordDatabaseClient.shared.fetchRandomFiveLetterWord(withDifficulty: gameDifficulty)
         }
     }
     

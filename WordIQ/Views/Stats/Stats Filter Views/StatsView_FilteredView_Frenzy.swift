@@ -27,7 +27,7 @@ struct StatsView_FilteredView_Frenzy: View {
 }
 
 extension StatsView_FilteredView_Frenzy {
-    init(databaseHelper: GameDatabaseHelper) {
+    init(databaseHelper: GameDatabaseClient) {
         statsModel = StatsModelFactory(databaseHelper: databaseHelper).getStatsModel(for: .frenzyMode)
     }
 }

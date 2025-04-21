@@ -36,7 +36,7 @@ struct StatsView_FilteredView_Quad : View {
 }
 
 extension StatsView_FilteredView_Quad {
-    init(databaseHelper: GameDatabaseHelper) {
+    init(databaseHelper: GameDatabaseClient) {
         statsModel = StatsModelFactory(databaseHelper: databaseHelper).getStatsModel(for: .quadWordMode)
     }
 }

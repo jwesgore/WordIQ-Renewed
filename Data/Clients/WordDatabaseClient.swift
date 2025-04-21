@@ -2,9 +2,9 @@ import SQLite3
 import Foundation
 
 /// Wrapper to help interface with database file
-class WordDatabaseHelper {
+class WordDatabaseClient {
     
-    static let shared = WordDatabaseHelper()
+    static let shared = WordDatabaseClient()
     
     let dailyEpoch: Date
     

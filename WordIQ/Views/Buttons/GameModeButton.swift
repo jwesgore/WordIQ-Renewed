@@ -31,11 +31,11 @@ extension GameModeButton {
         case .dailyGame:
             self.caption = gameMode.caption
             
-            if let daysSinceEpoch = ValueConverter.daysSince(WordDatabaseHelper.shared.dailyEpoch) {
-                let lastDailyPlayed = UserDefaultsHelper.shared.lastDailyPlayed
+            if let daysSinceEpoch = ValueConverter.daysSince(WordDatabaseClient.shared.dailyEpoch) {
+                let lastDailyPlayed = UserDefaultsClient.shared.lastDailyPlayed
                 
                 if lastDailyPlayed == daysSinceEpoch {
-                    let lastDailyPlayedResults = UserDefaultsHelper.shared.dailyGameOverModel
+                    let lastDailyPlayedResults = UserDefaultsClient.shared.dailyGameOverModel
                     
                     if let lastDailyPlayedResults {
                         if lastDailyPlayedResults.gameResult == .lose {
@@ -49,10 +49,10 @@ extension GameModeButton {
                 }
             }
         case .quickplay:
-            self.caption = "\(UserDefaultsHelper.shared.quickplaySetting_mode.asStringShort), \(UserDefaultsHelper.shared.quickplaySetting_difficulty.asString)"
+            self.caption = "\(UserDefaultsClient.shared.quickplaySetting_mode.asStringShort), \(UserDefaultsClient.shared.quickplaySetting_difficulty.asString)"
             
-            if UserDefaultsHelper.shared.quickplaySetting_mode == .rushMode || UserDefaultsHelper.shared.quickplaySetting_mode == .frenzyMode {
-                self.caption += ", \(TimeUtility.formatTimeShort(UserDefaultsHelper.shared.quickplaySetting_timeLimit))"
+            if UserDefaultsClient.shared.quickplaySetting_mode == .rushMode || UserDefaultsClient.shared.quickplaySetting_mode == .frenzyMode {
+                self.caption += ", \(TimeUtility.formatTimeShort(UserDefaultsClient.shared.quickplaySetting_timeLimit))"
             }
         default:
             self.caption = gameMode.caption

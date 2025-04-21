@@ -13,12 +13,12 @@ class DailyModeViewModel : StandardModeViewModel {
         // Check if the daily game has already been played
         guard !AppNavigationController.shared.isDailyAlreadyPlayed else {
             super.init(gameOptions: gameOptions)
-            super.gameOverDataModel = UserDefaultsHelper.shared.dailyGameOverModel!
+            super.gameOverDataModel = UserDefaultsClient.shared.dailyGameOverModel!
             return
         }
         
         // Check for a valid save state or start a new game
-        if let saveState = UserDefaultsHelper.shared.dailySaveStateModel,
+        if let saveState = UserDefaultsClient.shared.dailySaveStateModel,
            saveState.gameOptionsModel.targetWord.daily == gameOptions.targetWord.daily {
             super.init(gameSaveState: saveState)
         } else {
@@ -32,7 +32,7 @@ class DailyModeViewModel : StandardModeViewModel {
     /// - Parameter speed: The animation speed for ending the game.
     override func gameOver(speed: Double = 1.5) {
         super.gameOver(speed: speed)
-        UserDefaultsHelper.shared.dailySaveStateModel = nil
+        UserDefaultsClient.shared.dailySaveStateModel = nil
     }
     
     /// Overrides `wrongWordSubmitted` to save the game state after a word submission.
@@ -41,6 +41,6 @@ class DailyModeViewModel : StandardModeViewModel {
     override func wrongWordSubmitted() {
         super.wrongWordSubmitted()
         let saveState = super.getGameSaveState()
-        UserDefaultsHelper.shared.dailySaveStateModel = saveState
+        UserDefaultsClient.shared.dailySaveStateModel = saveState
     }
 }

@@ -24,7 +24,7 @@ class MultiWordGameOptionsModel : MultiWordGameOptions {
     convenience init(gameMode: GameMode = .quadWordMode) {
         let targetWordCount = 4
 
-        let targetWords = WordDatabaseHelper.shared.fetchMultipleRandomFiveLetterWord(withDifficulty: .normal, count: targetWordCount)
+        let targetWords = WordDatabaseClient.shared.fetchMultipleRandomFiveLetterWord(withDifficulty: .normal, count: targetWordCount)
         self.init(gameMode: gameMode, gameDifficulty: .normal, timeLimit: 0, targetWords: targetWords)
     }
     
@@ -42,7 +42,7 @@ class MultiWordGameOptionsModel : MultiWordGameOptions {
     /// Resets the target word so the model can be persisted
     func resetTargetWords(withResetKeys: Bool = false) {
         let targetWordCount = 4
-        let newWords = WordDatabaseHelper.shared.fetchMultipleRandomFiveLetterWord(withDifficulty: gameDifficulty, count: targetWordCount)
+        let newWords = WordDatabaseClient.shared.fetchMultipleRandomFiveLetterWord(withDifficulty: gameDifficulty, count: targetWordCount)
         
         if withResetKeys {
             targetWords.clear()

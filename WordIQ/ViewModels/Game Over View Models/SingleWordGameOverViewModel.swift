@@ -141,7 +141,7 @@ class SingleWordGameOverViewModel: ObservableObject {
     /// If in daily mode and the game has already been played, the save is skipped.
     ///
     /// - Parameter databaseHelper: A helper object managing game database operations.
-    func trySaveGameData(databaseHelper: GameDatabaseHelper) {
+    func trySaveGameData(databaseHelper: GameDatabaseClient) {
         let isDailyMode = gameOverData.gameMode == .dailyGame
         
         guard !(isDailyMode && AppNavigationController.shared.isDailyAlreadyPlayed) else {
@@ -150,6 +150,6 @@ class SingleWordGameOverViewModel: ObservableObject {
         }
         
         databaseHelper.saveGame(gameOverData)
-        UserDefaultsHelper.shared.update(gameOverData)
+        UserDefaultsClient.shared.update(gameOverData)
     }
 }

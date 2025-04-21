@@ -45,7 +45,7 @@ struct StatsView_FilteredView_Daily: View {
 extension StatsView_FilteredView_Daily {
     /// Initializes the `StatsDailyModeView` with a database helper.
     /// - Parameter databaseHelper: The helper used to fetch and manage game stats.
-    init(databaseHelper: GameDatabaseHelper) {
+    init(databaseHelper: GameDatabaseClient) {
         statsModel = StatsModelFactory(databaseHelper: databaseHelper).getStatsModel(for: .dailyGame)
     }
 }

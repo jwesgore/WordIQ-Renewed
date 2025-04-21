@@ -6,7 +6,7 @@ final class AppNavigationController : NavigationControllerBase<SystemViewEnum> {
     static var shared = AppNavigationController()
     
     var isDailyAlreadyPlayed : Bool {
-        UserDefaultsHelper.shared.lastDailyPlayed >= WordDatabaseHelper.shared.fetchDailyFiveLetterWord().daily
+        UserDefaultsClient.shared.lastDailyPlayed >= WordDatabaseClient.shared.fetchDailyFiveLetterWord().daily
     }
     
     // MARK: - Controllers

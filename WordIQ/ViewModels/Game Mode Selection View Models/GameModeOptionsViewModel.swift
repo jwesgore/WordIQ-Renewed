@@ -101,14 +101,14 @@ class GameModeOptionsViewModel : ObservableObject {
         singleWordGameModeOptions.gameMode = .dailyGame
         singleWordGameModeOptions.timeLimit = 0
         singleWordGameModeOptions.gameDifficulty = .daily
-        singleWordGameModeOptions.targetWord = WordDatabaseHelper.shared.fetchDailyFiveLetterWord()
+        singleWordGameModeOptions.targetWord = WordDatabaseClient.shared.fetchDailyFiveLetterWord()
     }
     
     /// Sets the game mode options to quick play saved settings
     private func setSingleWordGameModeQuickPlay() {
-        singleWordGameModeOptions.gameMode = UserDefaultsHelper.shared.quickplaySetting_mode
-        singleWordGameModeOptions.timeLimit = UserDefaultsHelper.shared.quickplaySetting_timeLimit
-        singleWordGameModeOptions.gameDifficulty = UserDefaultsHelper.shared.quickplaySetting_difficulty
+        singleWordGameModeOptions.gameMode = UserDefaultsClient.shared.quickplaySetting_mode
+        singleWordGameModeOptions.timeLimit = UserDefaultsClient.shared.quickplaySetting_timeLimit
+        singleWordGameModeOptions.gameDifficulty = UserDefaultsClient.shared.quickplaySetting_difficulty
     }
     
     /// Sets the game mode options to standard mode defaults
