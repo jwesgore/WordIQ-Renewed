@@ -27,9 +27,12 @@ class GameModeSelectionViewModel : ObservableObject {
     init() {
         // Initialize navigation buttons without action
         navigationRadioManager = TopDownRadioButtonGroupViewModel()
-        mainMenuRadioButton = TopDownRadioButtonViewModel(height: 40, width: 40, groupManager: navigationRadioManager, isPressed: true)
-        statsRadioButton = TopDownRadioButtonViewModel(height: 40, width: 40, groupManager: navigationRadioManager)
-        settingsRadioButton = TopDownRadioButtonViewModel(height: 40, width: 40, groupManager: navigationRadioManager)
+        mainMenuRadioButton = TopDownRadioButtonViewModel(height: 40, width: 40, groupManager: navigationRadioManager,
+                                                          hasShadow: false, isPressed: true)
+        statsRadioButton = TopDownRadioButtonViewModel(height: 40, width: 40, groupManager: navigationRadioManager,
+                                                       hasShadow: false)
+        settingsRadioButton = TopDownRadioButtonViewModel(height: 40, width: 40, groupManager: navigationRadioManager,
+                                                          hasShadow: false)
         
         // Initialize game buttons without action
         dailyGameButton = TopDownButtonViewModel(height: halfButtonDimensions.0, width: halfButtonDimensions.1)

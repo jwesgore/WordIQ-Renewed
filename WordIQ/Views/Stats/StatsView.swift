@@ -16,24 +16,7 @@ struct StatsView : View {
 
             ScrollView (showsIndicators: false) {
                 if let databaseHelper = databaseHelper {
-                    switch viewModel.activeFilter {
-                    case .all:
-                        StatsView_FilteredView_General(databaseHelper)
-                    case .daily:
-                        StatsView_FilteredView_Daily(databaseHelper: databaseHelper)
-                    case .standard:
-                        StatsView_FilteredView_Standard(databaseHelper: databaseHelper)
-                    case .rush:
-                        StatsView_FilteredView_Rush(databaseHelper: databaseHelper)
-                    case .frenzy:
-                        StatsView_FilteredView_Frenzy(databaseHelper: databaseHelper)
-                    case .zen:
-                        StatsView_FilteredView_Zen(databaseHelper: databaseHelper)
-                    case .quadStandard:
-                        StatsView_FilteredView_Quad(databaseHelper: databaseHelper)
-                    case .twentyQuestions:
-                        Text("Temp")
-                    }
+                    StatsView_FilteredView(databaseHelper, filter: $viewModel.activeFilter)
                 } else {
                     Text("Loading data...")
                         .robotoSlabFont(.title2, .semiBold)

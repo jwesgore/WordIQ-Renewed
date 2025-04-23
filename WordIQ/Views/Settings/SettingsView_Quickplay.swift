@@ -7,7 +7,7 @@ struct SettingsView_Quickplay : View {
     @State var showSettings = true
     
     var body: some View {
-        VStack (spacing: 8.0) {
+        VStack (spacing: 16.0) {
             Text("Quickplay")
                 .robotoSlabFont(.title2, .semiBold)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -15,6 +15,7 @@ struct SettingsView_Quickplay : View {
             GroupBox {
                 Text(SystemNames.GameSettings.gameMode)
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .robotoSlabFont(.headline, .regular)
                 
                 Picker("Game Mode", selection: $viewModel.quickplayMode) {
                     Text(GameMode.standardMode.asStringShort).tag(GameMode.standardMode)
@@ -27,6 +28,8 @@ struct SettingsView_Quickplay : View {
                 
                 Text(SystemNames.GameSettings.gameDifficulty)
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .robotoSlabFont(.headline, .regular)
+                
                 Picker("Difficulty", selection: $viewModel.quickplayDifficulty) {
                     Text(GameDifficulty.easy.asString).tag(GameDifficulty.easy)
                     Text(GameDifficulty.normal.asString).tag(GameDifficulty.normal)
@@ -40,6 +43,8 @@ struct SettingsView_Quickplay : View {
                     VStack (spacing: 5) {
                         Text(SystemNames.GameSettings.gameTimeLimit)
                             .frame(maxWidth: .infinity, alignment: .leading)
+                            .robotoSlabFont(.headline, .regular)
+                        
                         Picker("Time", selection: $viewModel.quickplayTimeLimit) {
                             Text(TimeUtility.formatTimeShort(viewModel.quickplayTimeLimitOptions.0)).tag(viewModel.quickplayTimeLimitOptions.0)
                             Text(TimeUtility.formatTimeShort(viewModel.quickplayTimeLimitOptions.1)).tag(viewModel.quickplayTimeLimitOptions.1)

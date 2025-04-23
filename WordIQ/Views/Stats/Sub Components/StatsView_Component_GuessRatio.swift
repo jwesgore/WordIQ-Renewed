@@ -36,22 +36,27 @@ struct StatsView_Component_GuessRatio: View {
     }
     
     // MARK: - Body
-    
     var body: some View {
         VStack(spacing: 8) {
-            // Displays the total number of guesses.
-            StatsView_Component_Label(
-                label: "Guesses",
-                value: totalGuesses.description
-            )
-            
-            // Displays the ratio of valid to invalid guesses.
-            StatsView_Component_Label_Ratio(
-                label1: "Valid",
-                value1: totalValidGuesses.description,
-                label2: "Invalid",
-                value2: totalInvalidGuesses.description
-            )
+            HStack {
+                Spacer()
+                    .frame(width: 32)
+                
+                // Displays the total number of guesses.
+                StatsView_Component_Label(
+                    label: "Guesses",
+                    value: totalGuesses.description,
+                    withSpacer: false
+                )
+                
+                // Displays the ratio of valid to invalid guesses.
+                StatsView_Component_Label_Ratio(
+                    label1: "Valid",
+                    value1: totalValidGuesses.description,
+                    label2: "Invalid",
+                    value2: totalInvalidGuesses.description
+                )
+            }
             
             // Displays a bar distribution chart for valid guesses.
             StatsView_Component_BarDistributionChart(validGuessesPercentage)
@@ -60,7 +65,6 @@ struct StatsView_Component_GuessRatio: View {
 }
 
 // MARK: - Initializer
-
 extension StatsView_Component_GuessRatio {
     /// Initializes the `StatsView_Component_GuessDistribution` using a `StatsModel` object.
     /// - Parameter statsModel: A model containing the total valid and invalid guesses.

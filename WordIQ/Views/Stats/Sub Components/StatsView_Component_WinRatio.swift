@@ -41,20 +41,27 @@ struct StatsView_Component_WinRatio: View {
     
     var body: some View {
         VStack(spacing: 8) {
-            // Displays the total number of games played.
-            StatsView_Component_Label(
-                label: "Games Played",
-                value: totalGames.description
-            )
-            
-            // Displays the ratio of wins to losses.
-            StatsView_Component_Label_Ratio(
-                label1: "Wins",
-                value1: totalWins.description,
-                label2: "Loses",
-                value2: totalLoses.description
-            )
-            
+            HStack {
+                Spacer()
+                    .frame(width: 32)
+                
+                // Displays the total number of games played.
+                StatsView_Component_Label(
+                    label: "Games",
+                    value: totalGames.description,
+                    withSpacer: false
+                )
+                
+                Spacer()
+                
+                // Displays the ratio of wins to losses.
+                StatsView_Component_Label_Ratio(
+                    label1: "Wins",
+                    value1: totalWins.description,
+                    label2: "Loses",
+                    value2: totalLoses.description
+                )
+            }
             // Displays a bar distribution chart for win percentage.
             StatsView_Component_BarDistributionChart(winPercentage)
         }
