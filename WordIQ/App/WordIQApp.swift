@@ -30,7 +30,8 @@ struct WordIQApp: App {
                         SDFrenzyGameResult.self,
                         SDDailyGameResult.self,
                         SDZenGameResult.self,
-                        SDQuadStandardGameResult.self
+                        SDQuadStandardGameResult.self,
+                        SDTwentyQuestionsResult.self
                     ])
         }
     }

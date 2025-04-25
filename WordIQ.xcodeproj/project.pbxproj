@@ -65,6 +65,7 @@
 		4B6FAA5B2DB592DE00D84A58 /* TopDownButton_Toggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6FAA5A2DB592C800D84A58 /* TopDownButton_Toggle.swift */; };
 		4B6FAA5D2DB5944000D84A58 /* TopDownButton_Toggle_ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6FAA5C2DB5943600D84A58 /* TopDownButton_Toggle_ViewModel.swift */; };
 		4B6FAA602DB726A900D84A58 /* StatsView_Component_DonutChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6FAA5F2DB7268D00D84A58 /* StatsView_Component_DonutChart.swift */; };
+		4B6FAA622DB88B9C00D84A58 /* SDTwentyQuestionsResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6FAA612DB88B8F00D84A58 /* SDTwentyQuestionsResult.swift */; };
 		4B82ABB22DA8C39F00C80364 /* TwentyQuestionsGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABB12DA8C39500C80364 /* TwentyQuestionsGameView.swift */; };
 		4B82ABB42DA8D62200C80364 /* TwentyQuestionsGameBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABB32DA8D61900C80364 /* TwentyQuestionsGameBoardView.swift */; };
 		4B82ABB62DA8D84000C80364 /* TwentyQuestionsGameBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B82ABB52DA8D83700C80364 /* TwentyQuestionsGameBoardViewModel.swift */; };
@@ -234,6 +235,7 @@
 		4B6FAA5A2DB592C800D84A58 /* TopDownButton_Toggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopDownButton_Toggle.swift; sourceTree = "<group>"; };
 		4B6FAA5C2DB5943600D84A58 /* TopDownButton_Toggle_ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopDownButton_Toggle_ViewModel.swift; sourceTree = "<group>"; };
 		4B6FAA5F2DB7268D00D84A58 /* StatsView_Component_DonutChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView_Component_DonutChart.swift; sourceTree = "<group>"; };
+		4B6FAA612DB88B8F00D84A58 /* SDTwentyQuestionsResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDTwentyQuestionsResult.swift; sourceTree = "<group>"; };
 		4B82ABB12DA8C39500C80364 /* TwentyQuestionsGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwentyQuestionsGameView.swift; sourceTree = "<group>"; };
 		4B82ABB32DA8D61900C80364 /* TwentyQuestionsGameBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwentyQuestionsGameBoardView.swift; sourceTree = "<group>"; };
 		4B82ABB52DA8D83700C80364 /* TwentyQuestionsGameBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwentyQuestionsGameBoardViewModel.swift; sourceTree = "<group>"; };
@@ -477,6 +479,7 @@
 				4B5F9CA42DA77A45000A9F3F /* SDQuadStandardResult.swift */,
 				4B5F9C9E2DA77802000A9F3F /* SDRushGameResult.swift */,
 				4B5F9C9C2DA72EAF000A9F3F /* SDStandardGameResult.swift */,
+				4B6FAA612DB88B8F00D84A58 /* SDTwentyQuestionsResult.swift */,
 				4B5F9CA22DA779AD000A9F3F /* SDZenGameResult.swift */,
 			);
 			path = "Data Models";
@@ -1216,6 +1219,7 @@
 				4BF592832CCD8DFC00C555F6 /* GameSelectionDifficultyButtonView.swift in Sources */,
 				4B091B5C2CD85C080092600B /* SingleWordGameOverView.swift in Sources */,
 				4B99E8D92D91122500F0F081 /* GameNavigationController.swift in Sources */,
+				4B6FAA622DB88B9C00D84A58 /* SDTwentyQuestionsResult.swift in Sources */,
 				4B6FAA602DB726A900D84A58 /* StatsView_Component_DonutChart.swift in Sources */,
 				4B87990F2D98C58B00E4946E /* OrderedDictionary_Codable.swift in Sources */,
 			);

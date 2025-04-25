@@ -46,24 +46,9 @@ class TwentyQuestionsViewModel : SingleBoardGameViewModel<TwentyQuestionsGameBoa
             return
         }
         
-        // Game continues: Get game word and comparison
-        guard let activeWord = gameBoardViewModel.activeWord,
-        let gameWord = activeWord.getWord() else {
-            fatalError("Unable to get active word")
-        }
-        
-        _ = activeWord.getSaveState()
-        let comparisons = gameWord.comparison(targetWord)
-        
         // Reset board and keyboard for the next word
         self.gameBoardViewModel.resetBoardWithAnimation(delay: 0.5, hardReset: true) {
             self.keyboardViewModel.resetKeyboard()
-            
-            // Add last word as first guess for new word
-            self.gameBoardViewModel.setActiveWordBackground(comparisons)
-            self.keyboardViewModel.keyboardSetBackgrounds(gameWord.comparisonRankingMap(comparisons))
-            
-            self.gameBoardViewModel.setTargetWordHints(comparisons)
         }
     }
     

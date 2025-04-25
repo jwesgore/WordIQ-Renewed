@@ -24,8 +24,6 @@ struct TwentyQuestionsGameOverView : View {
                     .robotoSlabFont(.title, .bold)
             }
             
-            
-            
             // MARK: - Buttons
             HStack {
                 TopDownButton(viewModel.backButton) {
@@ -41,7 +39,19 @@ struct TwentyQuestionsGameOverView : View {
         }
         .padding()
         .onAppear {
-            
+            // Configure default row labels/icons.
+            viewModel.setRowDefaults()
+            // Attempt to persist game over data.
+            viewModel.trySaveGameData(databaseHelper: databaseHelper)
+            // Retrieve and set up game statistic values for display.
+            let statsModel = StatsModelFactory(databaseHelper: databaseHelper)
+                .getStatsModel(for: gameOverData.gameMode)
+            viewModel.setRowValues(statsModel: statsModel)
+            // Update the target word display's background.
+            gameOverWord.setBackgrounds(
+                gameOverData.currentTargetWordBackgrounds ??
+                LetterComparison.getCollection(size: 5, value: .notSet)
+            )
         }
     }
 }

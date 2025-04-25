@@ -80,7 +80,7 @@ class GameBoardWordViewModel : GameWordBaseViewModel {
     }
     
     /// Resets the word using an animation
-    func resetWithAnimation(animationLength: Double, speed: Double = 1.0) {
+    func resetWithAnimation(animationLength: Double, speed: Double = 1.5) {
         self.position = 0
         for i in stride(from: boardWidth - 1, through: 0, by: -1) {
             DispatchQueue.main.asyncAfter(deadline: .now() + ((animationLength / speed) * Double(i))) {
